@@ -36,3 +36,17 @@ Przycisk generowania PDF korzysta z funkcji drukowania przeglądarki. W oknie dr
 ## Aktualizacja
 
 Ponieważ aplikacja jest statyczna, aktualizacja polega na podmianie `index.html` w repozytorium.
+
+## Eksport PPTX
+Panel ma przycisk **Generuj PPTX**. Prezentacja jest tworzona lokalnie w przeglądarce dla aktualnie wybranego powiatu. Biblioteka `assets/pptxgen.bundle.js` jest dołączona do paczki, więc eksport działa również offline.
+
+
+## Eksport PowerPoint
+Przycisk **Generuj PPTX** tworzy automatycznie 5-slajdową prezentację dla aktualnie wybranego powiatu:
+1. Okładka z kluczowymi liczbami.
+2. Obraz rynku 2027 - KPI, mapa i struktura ocen.
+3. Benchmark na tle województwa.
+4. Najważniejsze trendy 2024–2027.
+5. Zawody deficytowe i automatyczne wnioski.
+
+Generator korzysta z lokalnej biblioteki w folderze `assets`, więc nie wymaga CDN.
