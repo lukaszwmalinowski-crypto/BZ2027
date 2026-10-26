@@ -720,6 +720,43 @@ select:not(.compareNative){appearance:none!important;-webkit-appearance:none!imp
 .occupationTools.occupationActive select:focus{outline:none!important;box-shadow:0 0 0 3px rgba(201,77,85,.14)!important}
 </style>
 
+
+<style id="v325CompareDropdownFix">
+/* v3.25 - czytelna porownywarka: lista nie zaslania tabeli */
+.compareCard{overflow:visible!important;position:relative;z-index:2}
+.compareControlsV2{position:relative;z-index:5;transition:margin-bottom .18s ease}
+.compareControlsV2:has(.comparePicker.open){margin-bottom:238px}
+.comparePicker{z-index:6}
+.comparePicker.open{z-index:50}
+.comparePickerMenu{
+  z-index:100!important;
+  max-height:220px!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  border:1px solid #cddae6!important;
+  box-shadow:0 18px 42px rgba(22,52,80,.18)!important;
+}
+.compareOutput{position:relative;z-index:1;margin-top:16px!important}
+.compareTable{table-layout:fixed!important;overflow:hidden!important}
+.compareTable th:first-child,.compareTable td:first-child{
+  width:165px;
+  min-width:165px;
+  font-weight:800;
+  color:#52677c;
+  background:#fbfcfe;
+}
+.compareTable thead th:first-child{background:#f4f7fa}
+@media(max-width:1050px){
+  .compareControlsV2:has(.comparePicker.open){margin-bottom:238px}
+  .compareTable th:first-child,.compareTable td:first-child{width:140px;min-width:140px}
+}
+@media(max-width:650px){
+  .compareControlsV2:has(.comparePicker.open){margin-bottom:228px}
+  .comparePickerMenu{max-height:210px!important}
+  .compareTable{table-layout:auto!important}
+  .compareTable th:first-child,.compareTable td:first-child{width:auto;min-width:130px}
+}
+</style>
 </head>
 <body>
 <header class="header">

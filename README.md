@@ -144,3 +144,19 @@ Historia została przebudowana: zamiast wspólnego wykresu jest domyślnie zwini
 
 ## v3.23
 - usunięto techniczny opis/instrukcję spod mapy.
+
+
+## v3.25
+- poprawiono rozwijane listy w porownywarce: nie zaslaniaja tabeli,
+- lista ma ograniczona wysokosc i przewijanie,
+- pierwsza kolumna tabeli z nazwami wskaznikow ma stala szerokosc.
+
+## Pełna paczka GitHub Pages
+
+Ta paczka zawiera komplet plików wymaganych przez aplikację:
+- `index.html`
+- `assets/pptxgen.bundle.js` - lokalna biblioteka do generowania PPTX
+- `data/*.json` - dane aplikacji i archiwum
+- `.nojekyll` - konfiguracja GitHub Pages
+
+Do publikacji wgraj całą zawartość tego katalogu do głównego katalogu repozytorium.
