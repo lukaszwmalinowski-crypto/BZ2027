@@ -1,0 +1,22 @@
+{
+  "year": 2022,
+  "source": "Barometr zawodów 2022. Raport podsumowujący badanie w województwie śląskim",
+  "notes": {
+    "assessed_groups_range": [
+      133,
+      165
+    ],
+    "balance_share_range_pct": [
+      47.0,
+      89.3
+    ],
+    "counties_without_surplus": 15,
+    "nurses_midwives_deficit_counties": 33,
+    "largest_surplus_counts": {
+      "zawierciański": 8,
+      "Siemianowice Śląskie": 7,
+      "Piekary Śląskie": 5,
+      "myszkowski": 5
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "overall": {
+    "counties": 36,
+    "occupations": 168,
+    "deficit_marks": 617,
+    "surplus_marks": 27,
+    "balance_marks": 5180
+  },
+  "voiv_unemployment": 4.8,
+  "year": 2027,
+  "history_years": [
+    2024,
+    2025,
+    2026,
+    2027
+  ]
+}

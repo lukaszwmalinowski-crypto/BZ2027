@@ -146,6 +146,17 @@ select:focus{outline:none;border-color:#7fa9cc;box-shadow:0 0 0 4px rgba(47,111,
 .yearCard .yearValue{font-size:23px;font-weight:850;margin:4px 0 2px;color:var(--navy)}
 .yearCard .yearPct{font-size:12px;color:#4e6074}.yearCard .yearAvg{font-size:11px;color:var(--muted);margin-top:7px;padding-top:7px;border-top:1px solid #edf1f5}
 .methodNote{font-size:11px;color:#748399;margin-top:12px;line-height:1.45}
+
+/* v3.7 - historia 2020-2027 */
+.historyContext{margin-top:12px;border:1px solid #dce6ef;border-radius:14px;padding:14px 16px;background:#f8fbfe}.historyContext h3{margin:0 0 8px;color:#173d66;font-size:15px}.historyContextGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.historyContextItem{background:#fff;border:1px solid #e2e9f0;border-radius:11px;padding:10px}.historyContextItem b{display:block;font-size:18px;color:#173d66}.historyContextItem span{font-size:10.5px;line-height:1.35;color:#708098}.historySource{margin-top:8px;font-size:10px;color:#7a899a}@media(max-width:750px){.historyContextGrid{grid-template-columns:1fr 1fr}}
+.historyCard{margin-top:18px;background:#fff;border:1px solid #dce6ef;border-radius:20px;overflow:hidden;box-shadow:0 12px 30px rgba(35,63,89,.06)}
+.historyHead{display:flex;justify-content:space-between;gap:18px;align-items:flex-end;padding:20px 22px 14px;border-bottom:1px solid #e7edf3;background:linear-gradient(180deg,#fff,#fbfdff)}
+.historyHead h2{margin:3px 0 4px;font-size:24px;color:#173d66}.historyHead p{margin:0;color:#708098;font-size:13px;max-width:760px}.historyEyebrow{font-size:10px;font-weight:900;letter-spacing:.12em;color:#7a8da3}
+.historyTabs{display:flex;gap:7px;flex-wrap:wrap}.historyTab{border:1px solid #d4dee8;background:#fff;color:#4d6278;border-radius:999px;padding:9px 12px;font:inherit;font-size:12px;font-weight:800;cursor:pointer}.historyTab.active{background:#173d66;color:#fff;border-color:#173d66}
+.historyBody{padding:18px 22px 20px}.historyGrid{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:18px;align-items:stretch}.historyChart{width:100%;height:330px;display:block;background:linear-gradient(180deg,#fff,#fbfdff);border:1px solid #e1e9f0;border-radius:16px}.historySide{border:1px solid #e1e9f0;border-radius:16px;padding:16px;background:#fbfdff}.historySide .big{font-size:34px;line-height:1;font-weight:900;color:#173d66;margin:8px 0}.historySide .delta{font-size:17px;font-weight:900;margin-bottom:10px}.historySide p{font-size:12px;line-height:1.5;color:#667a90;margin:0 0 12px}.historyYears{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-top:12px}.historyYear{border:1px solid #e1e9f0;border-radius:12px;padding:10px;text-align:center;background:#fff}.historyYear b{display:block;color:#173d66;font-size:16px}.historyYear span{font-size:10px;color:#76879a}.historyMethod{margin-top:12px;padding:10px 12px;border-radius:11px;background:#f5f8fb;color:#6d7f92;font-size:10.5px;line-height:1.45}
+@media(max-width:950px){.historyGrid{grid-template-columns:1fr}.historyHead{align-items:flex-start;flex-direction:column}.historyChart{height:auto;aspect-ratio:760/330}}
+@media(max-width:850px){.historyYears{grid-template-columns:repeat(4,1fr)}}@media(max-width:600px){.historyYears{grid-template-columns:repeat(2,1fr)}.historyBody{padding:14px}.historyHead{padding:16px}.historyTab{flex:1 1 45%;text-align:center}}
+
 @media(max-width:1050px){.trendBody{grid-template-columns:1fr}.trendHead{flex-direction:column}.trendControls{justify-content:flex-start}.trendChart{height:280px}}
 @media(max-width:650px){.yearGrid{grid-template-columns:1fr 1fr}.trendBody{padding:14px}.trendHead{padding:16px}.trendChart{height:250px}}
 
@@ -529,6 +540,74 @@ select:focus{outline:none;border-color:#7fa9cc;box-shadow:0 0 0 4px rgba(47,111,
 
 
 select::-ms-expand{display:none}
+
+/* v3.1 - czytelniejszy wybor powiatow w porownywarce */
+.compareControlsV2{grid-template-columns:repeat(3,minmax(0,1fr)) auto;align-items:end;gap:10px}
+.compareField{display:flex;flex-direction:column;gap:6px;min-width:0}
+.compareField>span{font-size:11px;font-weight:850;color:#556a80;text-transform:uppercase;letter-spacing:.04em}
+.compareField em{font-style:normal;font-weight:650;color:#8a99aa;text-transform:none;letter-spacing:0}
+.compareNative{display:none!important}
+.comparePicker{position:relative;width:100%}
+.comparePickerBtn{width:100%;height:46px;border:1px solid #cbd8e5;border-radius:11px;background:#fff;color:#17324d;padding:0 44px 0 14px;font:inherit;font-size:14px;font-weight:750;text-align:left;cursor:pointer;position:relative;transition:border-color .16s ease,box-shadow .16s ease,background .16s ease}
+.comparePickerBtn:hover{border-color:#9eb4c8;background:#fbfdff}
+.comparePicker.open .comparePickerBtn,.comparePickerBtn:focus-visible{outline:none;border-color:#557da3;box-shadow:0 0 0 4px rgba(31,91,139,.12)}
+.comparePickerText{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.compareChevron{position:absolute;right:15px;top:50%;width:9px;height:9px;border-right:2px solid #52677c;border-bottom:2px solid #52677c;transform:translateY(-65%) rotate(45deg);transition:transform .16s ease}
+.comparePicker.open .compareChevron{transform:translateY(-20%) rotate(225deg)}
+.comparePickerMenu{display:none;position:absolute;z-index:80;left:0;right:0;top:calc(100% + 6px);max-height:280px;overflow:auto;background:#fff;border:1px solid #d3dee8;border-radius:12px;box-shadow:0 16px 36px rgba(20,44,68,.16);padding:6px}
+.comparePicker.open .comparePickerMenu{display:block}
+.comparePickerOption{display:block;width:100%;border:0;background:transparent;color:#17324d;text-align:left;padding:10px 11px;border-radius:8px;font:inherit;font-size:13px;font-weight:650;cursor:pointer}
+.comparePickerOption:hover,.comparePickerOption:focus-visible{outline:none;background:#eef4f9}
+.comparePickerOption.active{background:#e7f0f8;color:#153b61;font-weight:850}
+.comparePickerOption.empty{color:#7b8b9b;font-weight:650}
+@media(max-width:1050px){.compareControlsV2{grid-template-columns:1fr 1fr}.compareControlsV2 .compareField:nth-child(3){grid-column:1/2}.compareControlsV2 #compareClearBtn{grid-column:2/3}}
+@media(max-width:650px){.compareControlsV2{grid-template-columns:1fr}.compareControlsV2 .compareField:nth-child(3),.compareControlsV2 #compareClearBtn{grid-column:auto}}
+
+
+/* v3.8 - 10 lat Barometru jako moduł rozwijany, bez wykresu między niejednorodnymi edycjami */
+.historyArchive{margin-top:18px;border:1px solid #dce6ef;border-radius:20px;background:#fff;box-shadow:0 12px 30px rgba(35,63,89,.06);overflow:hidden}
+.historyArchive>summary{list-style:none;cursor:pointer;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px;background:linear-gradient(180deg,#fff,#fbfdff)}
+.historyArchive>summary::-webkit-details-marker{display:none}.historyArchive>summary::after{content:'⌄';font-size:24px;color:#567087;transition:transform .2s ease}.historyArchive[open]>summary::after{transform:rotate(180deg)}
+.historyArchiveTitle{display:flex;flex-direction:column;gap:4px}.historyArchiveTitle .eyeb{font-size:10px;font-weight:900;letter-spacing:.12em;color:#7a8da3}.historyArchiveTitle h2{margin:0;font-size:24px;color:#173d66}.historyArchiveTitle p{margin:0;color:#708098;font-size:13px;max-width:920px;line-height:1.45}
+.historyArchiveBody{padding:0 22px 22px;border-top:1px solid #e7edf3}.historyArchiveIntro{margin:16px 0;padding:12px 14px;border-radius:12px;background:#f5f8fb;color:#63778c;font-size:11.5px;line-height:1.55}
+.historyDecadeGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.historyYearCard{border:1px solid #e1e9f0;border-radius:15px;padding:14px 15px;background:#fff}.historyYearTop{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.historyYearTop h3{margin:0;color:#173d66;font-size:20px}.historyYearTop .total{font-size:10.5px;font-weight:800;color:#6b7f92;background:#f2f6f9;padding:6px 8px;border-radius:999px}
+.historyStats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.historyStat{border-radius:10px;padding:9px 10px;background:#f8fafc}.historyStat b{display:block;font-size:18px;line-height:1.05}.historyStat span{font-size:9.5px;color:#708098}.historyStat.def b{color:#b64141}.historyStat.bal b{color:#2f7c67}.historyStat.sur b{color:#426d98}.historyYearNote{margin:10px 0 0;font-size:11px;line-height:1.45;color:#687c90}.historySourceBox{margin-top:14px;padding:11px 13px;border-radius:11px;border:1px dashed #d6e0e9;color:#708098;font-size:10.5px;line-height:1.45}
+@media(max-width:800px){.historyDecadeGrid{grid-template-columns:1fr}.historyArchive>summary{padding:16px}.historyArchiveBody{padding:0 14px 16px}.historyStats{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:480px){.historyStats{grid-template-columns:1fr}.historyArchiveTitle h2{font-size:20px}}
+
+
+/* v3.9 - rozwijane zawody w archiwum */
+.historyYearCard{padding:0;overflow:hidden}
+.historyYearMain{padding:14px 15px}
+.historyYearToggle{width:100%;border:0;border-top:1px solid #e7edf3;background:#f8fbfe;color:#36536d;padding:11px 14px;font:inherit;font-size:11.5px;font-weight:850;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.historyYearToggle::after{content:'⌄';font-size:17px;transition:transform .18s ease}.historyYearCard.open .historyYearToggle::after{transform:rotate(180deg)}
+.historyJobsPanel{display:none;border-top:1px solid #e7edf3;padding:13px 14px 15px;background:#fff}.historyYearCard.open .historyJobsPanel{display:block}
+.historyJobsTabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}.historyJobsTab{border:1px solid #d7e1ea;background:#fff;color:#536b80;border-radius:999px;padding:7px 10px;font:inherit;font-size:10.5px;font-weight:850;cursor:pointer}.historyJobsTab.active{background:#173d66;color:#fff;border-color:#173d66}
+.historyJobsList{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 10px;max-height:260px;overflow:auto;padding-right:4px}.historyJob{font-size:10.5px;line-height:1.35;color:#425b72;padding:7px 8px;border-radius:9px;background:#f7fafc;border:1px solid #edf2f6}
+.historyJobsEmpty{font-size:11px;color:#718198;line-height:1.5;padding:8px 0}.historyJobsSource{margin-top:10px;display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;font-size:10px;color:#7a8998}.historyJobsSource a{color:#173d66;font-weight:850;text-decoration:none}.historyJobsSource a:hover{text-decoration:underline}
+@media(max-width:650px){.historyJobsList{grid-template-columns:1fr;max-height:320px}}
+
+
+/* v3.16 - aktywny profil zawodu + wyróżnione archiwum */
+.occupationProfileCard.occupationProfileActive{
+  border:2px solid #cf4b52!important;
+  background:linear-gradient(180deg,#fffafa,#fff)!important;
+  box-shadow:0 10px 28px rgba(207,75,82,.10)!important;
+}
+.occupationProfileCard.occupationProfileActive .moduleEyebrow,
+.occupationProfileCard.occupationProfileActive .moduleHead h2{color:#b93f46!important}
+.historyArchive{
+  border:2px solid #d6a24a!important;
+  box-shadow:0 12px 30px rgba(177,126,38,.10)!important;
+}
+.historyArchive>summary{
+  background:linear-gradient(180deg,#fffdf7,#fffaf0)!important;
+}
+.historyArchiveTitle .eyeb{color:#a56f16!important}
+.historyArchiveTitle h2{color:#8f6218!important}
+.historyArchive>summary .uiChevron,
+.historyArchive>summary::after{color:#a56f16!important}
+
 </style>
 
 <style>
@@ -589,7 +668,58 @@ select::-ms-expand{display:none}
   .job .statusBadge,.job .branchBadge{font-size:10px}
 }
 
+
+/* v3 - moduły analityczne */
+.analyticsHub{display:grid;grid-template-columns:1fr 1.15fr;gap:16px;margin:16px 0}
+.insightCard,.compareCard,.occupationProfileCard{padding:22px}
+.moduleHead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px}.moduleHead h2{margin:3px 0 4px;font-size:20px}.moduleHead p{margin:0;color:var(--muted);font-size:12px;line-height:1.45}.moduleEyebrow{font-size:10px;font-weight:850;letter-spacing:.11em;color:#77879a}.modulePill{background:#eef4f8;color:var(--navy);border:1px solid #d7e3ed;border-radius:99px;padding:7px 11px;font-size:11px;font-weight:800;white-space:nowrap}
+.signalGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.analyticSignal{padding:13px 14px;border:1px solid #e1e8ef;border-left:4px solid #7894ad;border-radius:12px;background:#fbfcfe;min-height:88px}.analyticSignal.good{border-left-color:var(--green)}.analyticSignal.bad{border-left-color:var(--red)}.analyticSignal.info{border-left-color:var(--blue)}.analyticSignal.neutral{border-left-color:#8b98a7}.analyticSignal b{display:block;font-size:13px;line-height:1.3;margin-bottom:5px}.analyticSignal span{font-size:11px;line-height:1.4;color:#66758a}
+.compareControls{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px}.compareControls select{min-width:0;height:44px;padding:0 34px 0 11px;border:1px solid #ccd8e4;border-radius:10px;background:#fff;color:var(--ink);font-weight:700}.moduleBtn{height:44px;border:0;border-radius:10px;padding:0 16px;background:var(--navy);color:#fff;font-weight:800;cursor:pointer}.moduleBtn.secondary{background:#eef3f8;color:#42566d;border:1px solid #d8e2eb}.compareOutput{margin-top:14px}.compareTable{width:100%;border-collapse:separate;border-spacing:0;font-size:11px;overflow:hidden;border:1px solid #e1e8ef;border-radius:12px}.compareTable th,.compareTable td{padding:9px 10px;text-align:right;border-bottom:1px solid #edf1f5}.compareTable th:first-child,.compareTable td:first-child{text-align:left}.compareTable thead th{background:#f4f7fa;color:#536579;font-weight:850}.compareTable tbody tr:last-child td{border-bottom:0}.compareBest{font-weight:850;color:var(--green)}
+.occupationProfileCard{margin:16px 0}.occProfileEmpty{padding:28px;border:1px dashed #ccd8e4;border-radius:12px;text-align:center;color:#738399;background:#fafbfd}.occProfileGrid{display:grid;grid-template-columns:.9fr 1.1fr;gap:16px}.occKpis{display:grid;grid-template-columns:1fr 1fr;gap:9px}.occKpi{padding:13px;border:1px solid #e1e8ef;border-radius:12px;background:#fafcfe}.occKpi .n{font-size:24px;font-weight:850;color:var(--navy)}.occKpi .l{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#75859a;font-weight:800}.occCountyGroups{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.occStatusGroup{border:1px solid #e1e8ef;border-radius:12px;padding:12px}.occStatusGroup h4{margin:0 0 8px;font-size:12px}.occTags{display:flex;flex-wrap:wrap;gap:5px}.occTag{border:0;border-radius:99px;padding:5px 8px;font-size:10px;font-weight:750;cursor:pointer;background:#eef3f8;color:#42566d}.occTag:hover{filter:brightness(.97)}
+body.presentationMode .techFooter,body.presentationMode .lower,body.presentationMode #comments,body.presentationMode .jobStatusTabs,body.presentationMode .occupationProfileCard{display:none!important}body.presentationMode .shell{max-width:1800px}body.presentationMode .main{grid-template-columns:1.4fr .6fr}body.presentationMode .mapwrap{min-height:65vh}body.presentationMode .analyticsHub{grid-template-columns:1fr}body.presentationMode .compareCard{display:none}body.presentationMode .headerActions #pdfBtn,body.presentationMode .headerActions #pptBtn,body.presentationMode .headerActions #xlsxBtn{display:none}
+@media(max-width:1050px){.analyticsHub,.occProfileGrid{grid-template-columns:1fr}.compareControls{grid-template-columns:1fr 1fr}.compareControls .moduleBtn{grid-column:1/-1}.signalGrid{grid-template-columns:1fr 1fr}}
+@media(max-width:650px){.analyticsHub{gap:10px}.insightCard,.compareCard,.occupationProfileCard{padding:14px}.moduleHead{flex-direction:column}.signalGrid,.occKpis,.occCountyGroups,.compareControls{grid-template-columns:1fr}.compareControls .moduleBtn{grid-column:auto}.compareTable{font-size:10px;display:block;overflow-x:auto;white-space:nowrap}}
+
 </style>
+
+<style id="historyArchiveCompactV310">
+.historyDecadeGrid{display:flex!important;flex-direction:column;gap:8px}
+.historyYearCard{display:grid;grid-template-columns:minmax(0,1fr) 150px;border:1px solid #e1e9f0;border-radius:13px;background:#fff;overflow:hidden;padding:0!important}
+.historyYearMain{display:grid;grid-template-columns:82px minmax(260px,360px) 1fr;align-items:center;gap:14px;padding:11px 14px}
+.historyYearTop{margin:0!important;display:block!important}.historyYearTop h3{font-size:19px!important}.historyYearTop .total{display:inline-block;margin-top:3px;padding:3px 6px!important}
+.historyStats{gap:5px!important}.historyStat{padding:7px 8px!important}.historyStat b{font-size:16px!important}.historyYearNote{margin:0!important;font-size:10.5px!important}
+.historyYearToggle{border:0!important;border-left:1px solid #e7edf3!important;border-top:0!important;min-height:100%;padding:10px 12px!important}
+.historyYearCard.open{grid-template-columns:1fr}.historyYearCard.open .historyYearMain{border-bottom:1px solid #edf2f6}.historyYearCard.open .historyYearToggle{border-left:0!important;border-bottom:1px solid #e7edf3!important;min-height:auto}
+.historyJobsPanel{grid-column:1/-1;padding:12px 14px 14px!important}.historyJobsToolbar{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px;flex-wrap:wrap}.historyJobsToolbar .historyJobsTabs{margin:0!important}.historyJobsSearch{min-width:230px;max-width:340px;height:36px;border:1px solid #d7e1ea;border-radius:9px;padding:0 10px;font:inherit;font-size:11px;color:#36536d;background:#fff}
+
+
+@media(max-width:900px){.historyYearCard{grid-template-columns:1fr}.historyYearMain{grid-template-columns:70px 1fr}.historyYearNote{grid-column:1/-1}.historyYearToggle{border-left:0!important;border-top:1px solid #e7edf3!important;min-height:auto}.historyJobsSearch{max-width:none;width:100%}}
+@media(max-width:560px){.historyYearMain{grid-template-columns:1fr}.historyStats{grid-template-columns:repeat(3,1fr)!important}.historyYearNote{grid-column:auto}.historyArchiveTitle h2{font-size:19px!important}}
+</style>
+
+<style id="v314UnifiedChevronAndOccupationState">
+/* v3.14 - jeden chevron dla wszystkich elementów rozwijanych */
+:root{--ui-chevron:#526b82;--ui-chevron-size:8px;--active-occ:#c94d55;--active-occ-ring:rgba(201,77,85,.13)}
+.uiChevron,.compareChevron{display:inline-block;width:var(--ui-chevron-size)!important;height:var(--ui-chevron-size)!important;border:0!important;border-right:2px solid var(--ui-chevron)!important;border-bottom:2px solid var(--ui-chevron)!important;background:transparent!important;transform:rotate(45deg)!important;transition:transform .18s ease!important;flex:0 0 auto}
+.compareChevron{position:absolute;right:16px;top:50%;transform:translateY(-65%) rotate(45deg)!important}
+.comparePicker.open .compareChevron{transform:translateY(-20%) rotate(225deg)!important}
+.historyYearToggle .uiChevron{font-size:0!important;line-height:0!important;margin-right:2px;transform:rotate(45deg)!important}
+.historyYearCard.open .historyYearToggle .uiChevron{transform:rotate(225deg)!important}
+.historyArchive>summary{position:relative;padding-right:58px!important}
+.historyArchive>summary::after{content:''!important;width:var(--ui-chevron-size);height:var(--ui-chevron-size);border-right:2px solid var(--ui-chevron);border-bottom:2px solid var(--ui-chevron);position:absolute;right:25px;top:50%;transform:translateY(-65%) rotate(45deg);transition:transform .18s ease}
+.historyArchive[open]>summary::after{transform:translateY(-20%) rotate(225deg)}
+
+/* spójne chevrony w natywnych polach wyboru */
+select:not(.compareNative){appearance:none!important;-webkit-appearance:none!important;-moz-appearance:none!important;background-color:#fff!important;background-image:linear-gradient(45deg,transparent 50%,var(--ui-chevron) 50%),linear-gradient(135deg,var(--ui-chevron) 50%,transparent 50%)!important;background-position:calc(100% - 18px) calc(50% - 2px),calc(100% - 13px) calc(50% - 2px)!important;background-size:5px 5px,5px 5px!important;background-repeat:no-repeat!important;padding-right:42px!important}
+
+/* aktywna analiza zawodu */
+.occupationTools{transition:border-color .18s ease,box-shadow .18s ease,background .18s ease}
+.occupationTools.occupationActive{border-color:var(--active-occ)!important;background:#fffafa!important;box-shadow:0 0 0 4px var(--active-occ-ring)!important}
+.occupationTools.occupationActive label{color:#b63f47!important}
+.occupationTools.occupationActive select{border-color:var(--active-occ)!important;box-shadow:0 0 0 2px rgba(201,77,85,.06)!important}
+.occupationTools.occupationActive select:focus{outline:none!important;box-shadow:0 0 0 3px rgba(201,77,85,.14)!important}
+</style>
+
 </head>
 <body>
 <header class="header">
@@ -606,6 +736,7 @@ select::-ms-expand{display:none}
         <button class="actionBtn" id="fullscreenBtn">⛶ Tryb prezentacji</button>
         <button class="actionBtn" id="pdfBtn">⇩ Generuj PDF</button>
         <button class="actionBtn" id="pptBtn">▣ Generuj PPTX</button>
+        <button class="actionBtn" id="xlsxBtn">▦ Eksport XLSX</button>
       </div>
     </div>
   </div>
@@ -656,19 +787,24 @@ select::-ms-expand{display:none}
       <div class="occLegend" id="occLegend"><div class="occLegendTitle" id="occLegendTitle">Sytuacja wybranego zawodu w województwie</div><div class="occLegendItems"><span class="occLegendItem"><i class="occSwatch" style="background:#8f2634"></i>duży deficyt <b id="ol-DD">0</b></span><span class="occLegendItem"><i class="occSwatch" style="background:#d95c64"></i>deficyt <b id="ol-D">0</b></span><span class="occLegendItem"><i class="occSwatch" style="background:#56a47d"></i>równowaga <b id="ol-R">0</b></span><span class="occLegendItem"><i class="occSwatch" style="background:#537db7"></i>nadwyżka <b id="ol-N">0</b></span><span class="occLegendItem"><i class="occSwatch" style="background:#cbd4de"></i>bez oceny <b id="ol-X">0</b></span></div></div>
       <div class="mapInsights" id="mapInsights">
         <div class="mapInsightsTitle"><div><h3>Szybki profil powiatu</h3><p>Najważniejsze informacje do odczytania bez przechodzenia do szczegółowej karty.</p></div></div>
-        <div class="mapStructureBox"><h4>Struktura ocen 2027</h4><div id="structure"></div></div>
+        <div class="mapStructureBox"><h4>Struktura ocen 2027</h4><div id="structure">
+<div class="barRow"><span>Deficyt</span><div class="barTrack"><div class="barFill" style="width:10.2%;background:#c74d56"></div></div><b>17,1</b></div>
+<div class="barRow"><span>Równowaga</span><div class="barTrack"><div class="barFill" style="width:85.7%;background:#3b8f75"></div></div><b>143,9</b></div>
+<div class="barRow"><span>Nadwyżka</span><div class="barTrack"><div class="barFill" style="width:0.4%;background:#d59a32"></div></div><b>0,8</b></div>
+<div class="barRow"><span>Bez oceny</span><div class="barTrack"><div class="barFill" style="width:3.7%;background:#98a6b5"></div></div><b>6,2</b></div>
+</div></div>
         <div class="mapSignalsBox"><h4>Najważniejsze sygnały</h4><div class="mapSignals">
           <div class="mapSignal" id="sig-def"><span class="sLabel">Deficyt vs 2026</span><span class="sValue" id="sig-def-v">-</span><span class="sHint" id="sig-def-h">-</span></div>
-          <div class="mapSignal" id="sig-unemp"><span class="sLabel">Bezrobocie vs woj.</span><span class="sValue" id="sig-unemp-v">-</span><span class="sHint" id="sig-unemp-h">-</span></div>
-          <div class="mapSignal neutral" id="sig-bal"><span class="sLabel">Udział równowagi</span><span class="sValue" id="sig-bal-v">-</span><span class="sHint" id="sig-bal-h">-</span></div>
+          <div class="mapSignal" id="sig-unemp"><span class="sLabel">Bezrobocie vs woj.</span><span class="sValue" id="sig-unemp-v">4,8%</span><span class="sHint" id="sig-unemp-h">stan na 31.08.2026 r.</span></div>
+          <div class="mapSignal neutral" id="sig-bal"><span class="sLabel">Udział równowagi</span><span class="sValue" id="sig-bal-v">85,7%</span><span class="sHint" id="sig-bal-h">średnio 143,9 z 168,0 grup w równowadze</span></div>
         </div></div>
       </div>
-      <div class="note">Kliknij powiat na mapie lub wybierz go z listy. Możesz też wybrać zawód z listy albo kliknąć dowolny zawód w karcie powiatu. Mapa pokaże jego sytuację w całym województwie. Geometria 36 powiatów i miast na prawach powiatu jest osadzona bezpośrednio w tym pliku, więc mapa działa offline. Stopa bezrobocia: stan na 31.08.2026 r. (WUP Katowice/GUS); wskaźnik dla województwa śląskiego: 4,8%.</div>
+      
     </div>
 
     <div class="card">
       <div class="panel">
-        <div class="titleRow"><div><h2 id="countyTitle">Wybierz powiat</h2><div class="hint" id="countyHint">Kliknij jednostkę na mapie.</div></div><div class="badge">2027</div></div>
+        <div class="titleRow"><div><h2 id="countyTitle">Województwo śląskie</h2><div class="hint" id="countyHint">Widok startowy - średnie dla 36 powiatów i miast na prawach powiatu.</div></div><div class="badge">2027</div></div>
         <div class="occupationSummary" id="occupationSummary">
           <h3 id="occupationTitle">Analiza zawodu</h3>
           <div class="meta" id="occupationMeta"></div>
@@ -680,20 +816,20 @@ select::-ms-expand{display:none}
           <div class="metric"><strong id="m-bal">-</strong><span>równowaga</span><div id="d-bal" class="delta neutral"></div></div>
           <div class="metric"><strong id="m-sur">-</strong><span>nadwyżka</span><div id="d-sur" class="delta neutral"></div></div>
           <div class="metric"><strong id="m-no">-</strong><span>bez oceny</span><div id="d-no" class="delta neutral"></div></div>
-          <div class="metric"><strong id="m-unemp">-</strong><span>stopa bezrobocia</span><div id="d-unemp" class="delta neutral">stan 31.08.2026</div></div>
+          <div class="metric"><strong id="m-unemp">-</strong><span>stopa bezrobocia</span><div id="d-unemp" class="delta neutral">stan na 31.08.2026 r.</div></div>
         </div>
 
         <div class="voivBenchmark" id="voivBenchmark">
           <div class="voivBenchmarkHead">
             <div><h3>Województwo śląskie - punkt odniesienia</h3><p>Średnia dla 36 powiatów i miast na prawach powiatu; dla stopy bezrobocia pokazujemy oficjalny wskaźnik wojewódzki.</p></div>
-            <div class="voivContext">Porównanie dla: <b id="v-context-name">-</b></div>
+            <div class="voivContext">Porównanie dla: <b id="v-context-name">Województwo śląskie</b></div>
           </div>
           <div class="voivBenchmarkGrid">
-            <div class="voivRef"><div class="vLabel">Deficyt</div><div class="vValue" id="v-def">-</div><div class="vCompare" id="vc-def"></div></div>
-            <div class="voivRef"><div class="vLabel">Równowaga</div><div class="vValue" id="v-bal">-</div><div class="vCompare" id="vc-bal"></div></div>
-            <div class="voivRef"><div class="vLabel">Nadwyżka</div><div class="vValue" id="v-sur">-</div><div class="vCompare" id="vc-sur"></div></div>
-            <div class="voivRef"><div class="vLabel">Bez oceny</div><div class="vValue" id="v-no">-</div><div class="vCompare" id="vc-no"></div></div>
-            <div class="voivRef"><div class="vLabel">Stopa bezrobocia</div><div class="vValue" id="v-unemp">4,8%</div><div class="vCompare" id="vc-unemp"></div></div>
+            <div class="voivRef"><div class="vLabel">Deficyt</div><div class="vValue" id="v-def">17,1</div><div class="vCompare neutral" id="vc-def"><span class="vDelta">wartość wojewódzka</span><span class="vHint">Średnia dla 36 jednostek</span></div></div>
+            <div class="voivRef"><div class="vLabel">Równowaga</div><div class="vValue" id="v-bal">143,9</div><div class="vCompare neutral" id="vc-bal"><span class="vDelta">wartość wojewódzka</span><span class="vHint">Średnia dla 36 jednostek</span></div></div>
+            <div class="voivRef"><div class="vLabel">Nadwyżka</div><div class="vValue" id="v-sur">0,8</div><div class="vCompare neutral" id="vc-sur"><span class="vDelta">wartość wojewódzka</span><span class="vHint">Średnia dla 36 jednostek</span></div></div>
+            <div class="voivRef"><div class="vLabel">Bez oceny</div><div class="vValue" id="v-no">6,2</div><div class="vCompare neutral" id="vc-no"><span class="vDelta">wartość wojewódzka</span><span class="vHint">Średnia dla 36 jednostek</span></div></div>
+            <div class="voivRef"><div class="vLabel">Stopa bezrobocia</div><div class="vValue" id="v-unemp">4,8%</div><div class="vCompare neutral" id="vc-unemp"><span class="vDelta">wskaźnik wojewódzki</span><span class="vHint">stan na 31.08.2026 r.</span></div></div>
           </div>
         </div>
 
@@ -716,6 +852,33 @@ select::-ms-expand{display:none}
     </div>
   </section>
 
+
+
+  <section class="analyticsHub" id="analyticsHub">
+    <div class="card insightCard">
+      <div class="moduleHead"><div><span class="moduleEyebrow">AUTOMATYCZNA INTERPRETACJA</span><h2>Sygnały analityczne</h2><p>Najważniejsze obserwacje generowane z aktualnie wybranego powiatu.</p></div><span class="modulePill" id="signalCounty">-</span></div>
+      <div class="signalGrid" id="analyticSignals"></div>
+    </div>
+
+    <div class="card compareCard" id="compareSection">
+      <div class="moduleHead"><div><span class="moduleEyebrow">PORÓWNANIE</span><h2>Porównaj powiaty</h2><p>Zestawienie do trzech jednostek w jednym widoku.</p></div></div>
+      <div class="compareControls compareControlsV2">
+        <div class="compareField"><span>Powiat 1</span><select id="compare1" class="compareNative" aria-hidden="true" tabindex="-1"><option value="">— wybierz —</option><option value="bielski">bielski</option><option value="Bielsko-Biała">Bielsko-Biała</option><option value="bieruńsko-lędziński">bieruńsko-lędziński</option><option value="Bytom">Bytom</option><option value="będziński">będziński</option><option value="Chorzów">Chorzów</option><option value="cieszyński">cieszyński</option><option value="Częstochowa">Częstochowa</option><option value="częstochowski">częstochowski</option><option value="Dąbrowa Górnicza">Dąbrowa Górnicza</option><option value="Gliwice">Gliwice</option><option value="gliwicki">gliwicki</option><option value="Jastrzębie-Zdrój">Jastrzębie-Zdrój</option><option value="Jaworzno">Jaworzno</option><option value="Katowice">Katowice</option><option value="kłobucki">kłobucki</option><option value="lubliniecki">lubliniecki</option><option value="mikołowski">mikołowski</option><option value="myszkowski">myszkowski</option><option value="Mysłowice">Mysłowice</option><option value="Piekary Śląskie">Piekary Śląskie</option><option value="pszczyński">pszczyński</option><option value="raciborski">raciborski</option><option value="Ruda Śląska">Ruda Śląska</option><option value="rybnicki">rybnicki</option><option value="Rybnik">Rybnik</option><option value="Siemianowice Śląskie">Siemianowice Śląskie</option><option value="Sosnowiec">Sosnowiec</option><option value="tarnogórski">tarnogórski</option><option value="Tychy">Tychy</option><option value="wodzisławski">wodzisławski</option><option value="Zabrze">Zabrze</option><option value="zawierciański">zawierciański</option><option value="Świętochłowice">Świętochłowice</option><option value="Żory">Żory</option><option value="żywiecki">żywiecki</option></select><div class="comparePicker" data-target="compare1"><button type="button" class="comparePickerBtn" aria-haspopup="listbox" aria-expanded="false"><span class="comparePickerText">— wybierz —</span><span class="compareChevron" aria-hidden="true"></span></button><div class="comparePickerMenu" role="listbox"><button type="button" class="comparePickerOption empty active" data-value="">— wybierz —</button><button type="button" class="comparePickerOption" data-value="bielski">bielski</button><button type="button" class="comparePickerOption" data-value="Bielsko-Biała">Bielsko-Biała</button><button type="button" class="comparePickerOption" data-value="bieruńsko-lędziński">bieruńsko-lędziński</button><button type="button" class="comparePickerOption" data-value="Bytom">Bytom</button><button type="button" class="comparePickerOption" data-value="będziński">będziński</button><button type="button" class="comparePickerOption" data-value="Chorzów">Chorzów</button><button type="button" class="comparePickerOption" data-value="cieszyński">cieszyński</button><button type="button" class="comparePickerOption" data-value="Częstochowa">Częstochowa</button><button type="button" class="comparePickerOption" data-value="częstochowski">częstochowski</button><button type="button" class="comparePickerOption" data-value="Dąbrowa Górnicza">Dąbrowa Górnicza</button><button type="button" class="comparePickerOption" data-value="Gliwice">Gliwice</button><button type="button" class="comparePickerOption" data-value="gliwicki">gliwicki</button><button type="button" class="comparePickerOption" data-value="Jastrzębie-Zdrój">Jastrzębie-Zdrój</button><button type="button" class="comparePickerOption" data-value="Jaworzno">Jaworzno</button><button type="button" class="comparePickerOption" data-value="Katowice">Katowice</button><button type="button" class="comparePickerOption" data-value="kłobucki">kłobucki</button><button type="button" class="comparePickerOption" data-value="lubliniecki">lubliniecki</button><button type="button" class="comparePickerOption" data-value="mikołowski">mikołowski</button><button type="button" class="comparePickerOption" data-value="myszkowski">myszkowski</button><button type="button" class="comparePickerOption" data-value="Mysłowice">Mysłowice</button><button type="button" class="comparePickerOption" data-value="Piekary Śląskie">Piekary Śląskie</button><button type="button" class="comparePickerOption" data-value="pszczyński">pszczyński</button><button type="button" class="comparePickerOption" data-value="raciborski">raciborski</button><button type="button" class="comparePickerOption" data-value="Ruda Śląska">Ruda Śląska</button><button type="button" class="comparePickerOption" data-value="rybnicki">rybnicki</button><button type="button" class="comparePickerOption" data-value="Rybnik">Rybnik</button><button type="button" class="comparePickerOption" data-value="Siemianowice Śląskie">Siemianowice Śląskie</button><button type="button" class="comparePickerOption" data-value="Sosnowiec">Sosnowiec</button><button type="button" class="comparePickerOption" data-value="tarnogórski">tarnogórski</button><button type="button" class="comparePickerOption" data-value="Tychy">Tychy</button><button type="button" class="comparePickerOption" data-value="wodzisławski">wodzisławski</button><button type="button" class="comparePickerOption" data-value="Zabrze">Zabrze</button><button type="button" class="comparePickerOption" data-value="zawierciański">zawierciański</button><button type="button" class="comparePickerOption" data-value="Świętochłowice">Świętochłowice</button><button type="button" class="comparePickerOption" data-value="Żory">Żory</button><button type="button" class="comparePickerOption" data-value="żywiecki">żywiecki</button></div></div></div>
+        <div class="compareField"><span>Powiat 2</span><select id="compare2" class="compareNative" aria-hidden="true" tabindex="-1"><option value="">— wybierz —</option><option value="bielski">bielski</option><option value="Bielsko-Biała">Bielsko-Biała</option><option value="bieruńsko-lędziński">bieruńsko-lędziński</option><option value="Bytom">Bytom</option><option value="będziński">będziński</option><option value="Chorzów">Chorzów</option><option value="cieszyński">cieszyński</option><option value="Częstochowa">Częstochowa</option><option value="częstochowski">częstochowski</option><option value="Dąbrowa Górnicza">Dąbrowa Górnicza</option><option value="Gliwice">Gliwice</option><option value="gliwicki">gliwicki</option><option value="Jastrzębie-Zdrój">Jastrzębie-Zdrój</option><option value="Jaworzno">Jaworzno</option><option value="Katowice">Katowice</option><option value="kłobucki">kłobucki</option><option value="lubliniecki">lubliniecki</option><option value="mikołowski">mikołowski</option><option value="myszkowski">myszkowski</option><option value="Mysłowice">Mysłowice</option><option value="Piekary Śląskie">Piekary Śląskie</option><option value="pszczyński">pszczyński</option><option value="raciborski">raciborski</option><option value="Ruda Śląska">Ruda Śląska</option><option value="rybnicki">rybnicki</option><option value="Rybnik">Rybnik</option><option value="Siemianowice Śląskie">Siemianowice Śląskie</option><option value="Sosnowiec">Sosnowiec</option><option value="tarnogórski">tarnogórski</option><option value="Tychy">Tychy</option><option value="wodzisławski">wodzisławski</option><option value="Zabrze">Zabrze</option><option value="zawierciański">zawierciański</option><option value="Świętochłowice">Świętochłowice</option><option value="Żory">Żory</option><option value="żywiecki">żywiecki</option></select><div class="comparePicker" data-target="compare2"><button type="button" class="comparePickerBtn" aria-haspopup="listbox" aria-expanded="false"><span class="comparePickerText">— wybierz —</span><span class="compareChevron" aria-hidden="true"></span></button><div class="comparePickerMenu" role="listbox"><button type="button" class="comparePickerOption empty active" data-value="">— wybierz —</button><button type="button" class="comparePickerOption" data-value="bielski">bielski</button><button type="button" class="comparePickerOption" data-value="Bielsko-Biała">Bielsko-Biała</button><button type="button" class="comparePickerOption" data-value="bieruńsko-lędziński">bieruńsko-lędziński</button><button type="button" class="comparePickerOption" data-value="Bytom">Bytom</button><button type="button" class="comparePickerOption" data-value="będziński">będziński</button><button type="button" class="comparePickerOption" data-value="Chorzów">Chorzów</button><button type="button" class="comparePickerOption" data-value="cieszyński">cieszyński</button><button type="button" class="comparePickerOption" data-value="Częstochowa">Częstochowa</button><button type="button" class="comparePickerOption" data-value="częstochowski">częstochowski</button><button type="button" class="comparePickerOption" data-value="Dąbrowa Górnicza">Dąbrowa Górnicza</button><button type="button" class="comparePickerOption" data-value="Gliwice">Gliwice</button><button type="button" class="comparePickerOption" data-value="gliwicki">gliwicki</button><button type="button" class="comparePickerOption" data-value="Jastrzębie-Zdrój">Jastrzębie-Zdrój</button><button type="button" class="comparePickerOption" data-value="Jaworzno">Jaworzno</button><button type="button" class="comparePickerOption" data-value="Katowice">Katowice</button><button type="button" class="comparePickerOption" data-value="kłobucki">kłobucki</button><button type="button" class="comparePickerOption" data-value="lubliniecki">lubliniecki</button><button type="button" class="comparePickerOption" data-value="mikołowski">mikołowski</button><button type="button" class="comparePickerOption" data-value="myszkowski">myszkowski</button><button type="button" class="comparePickerOption" data-value="Mysłowice">Mysłowice</button><button type="button" class="comparePickerOption" data-value="Piekary Śląskie">Piekary Śląskie</button><button type="button" class="comparePickerOption" data-value="pszczyński">pszczyński</button><button type="button" class="comparePickerOption" data-value="raciborski">raciborski</button><button type="button" class="comparePickerOption" data-value="Ruda Śląska">Ruda Śląska</button><button type="button" class="comparePickerOption" data-value="rybnicki">rybnicki</button><button type="button" class="comparePickerOption" data-value="Rybnik">Rybnik</button><button type="button" class="comparePickerOption" data-value="Siemianowice Śląskie">Siemianowice Śląskie</button><button type="button" class="comparePickerOption" data-value="Sosnowiec">Sosnowiec</button><button type="button" class="comparePickerOption" data-value="tarnogórski">tarnogórski</button><button type="button" class="comparePickerOption" data-value="Tychy">Tychy</button><button type="button" class="comparePickerOption" data-value="wodzisławski">wodzisławski</button><button type="button" class="comparePickerOption" data-value="Zabrze">Zabrze</button><button type="button" class="comparePickerOption" data-value="zawierciański">zawierciański</button><button type="button" class="comparePickerOption" data-value="Świętochłowice">Świętochłowice</button><button type="button" class="comparePickerOption" data-value="Żory">Żory</button><button type="button" class="comparePickerOption" data-value="żywiecki">żywiecki</button></div></div></div>
+        <div class="compareField"><span>Powiat 3 <em>opcjonalnie</em></span><select id="compare3" class="compareNative" aria-hidden="true" tabindex="-1"><option value="">— wybierz —</option><option value="bielski">bielski</option><option value="Bielsko-Biała">Bielsko-Biała</option><option value="bieruńsko-lędziński">bieruńsko-lędziński</option><option value="Bytom">Bytom</option><option value="będziński">będziński</option><option value="Chorzów">Chorzów</option><option value="cieszyński">cieszyński</option><option value="Częstochowa">Częstochowa</option><option value="częstochowski">częstochowski</option><option value="Dąbrowa Górnicza">Dąbrowa Górnicza</option><option value="Gliwice">Gliwice</option><option value="gliwicki">gliwicki</option><option value="Jastrzębie-Zdrój">Jastrzębie-Zdrój</option><option value="Jaworzno">Jaworzno</option><option value="Katowice">Katowice</option><option value="kłobucki">kłobucki</option><option value="lubliniecki">lubliniecki</option><option value="mikołowski">mikołowski</option><option value="myszkowski">myszkowski</option><option value="Mysłowice">Mysłowice</option><option value="Piekary Śląskie">Piekary Śląskie</option><option value="pszczyński">pszczyński</option><option value="raciborski">raciborski</option><option value="Ruda Śląska">Ruda Śląska</option><option value="rybnicki">rybnicki</option><option value="Rybnik">Rybnik</option><option value="Siemianowice Śląskie">Siemianowice Śląskie</option><option value="Sosnowiec">Sosnowiec</option><option value="tarnogórski">tarnogórski</option><option value="Tychy">Tychy</option><option value="wodzisławski">wodzisławski</option><option value="Zabrze">Zabrze</option><option value="zawierciański">zawierciański</option><option value="Świętochłowice">Świętochłowice</option><option value="Żory">Żory</option><option value="żywiecki">żywiecki</option></select><div class="comparePicker" data-target="compare3"><button type="button" class="comparePickerBtn" aria-haspopup="listbox" aria-expanded="false"><span class="comparePickerText">— wybierz —</span><span class="compareChevron" aria-hidden="true"></span></button><div class="comparePickerMenu" role="listbox"><button type="button" class="comparePickerOption empty active" data-value="">— wybierz —</button><button type="button" class="comparePickerOption" data-value="bielski">bielski</button><button type="button" class="comparePickerOption" data-value="Bielsko-Biała">Bielsko-Biała</button><button type="button" class="comparePickerOption" data-value="bieruńsko-lędziński">bieruńsko-lędziński</button><button type="button" class="comparePickerOption" data-value="Bytom">Bytom</button><button type="button" class="comparePickerOption" data-value="będziński">będziński</button><button type="button" class="comparePickerOption" data-value="Chorzów">Chorzów</button><button type="button" class="comparePickerOption" data-value="cieszyński">cieszyński</button><button type="button" class="comparePickerOption" data-value="Częstochowa">Częstochowa</button><button type="button" class="comparePickerOption" data-value="częstochowski">częstochowski</button><button type="button" class="comparePickerOption" data-value="Dąbrowa Górnicza">Dąbrowa Górnicza</button><button type="button" class="comparePickerOption" data-value="Gliwice">Gliwice</button><button type="button" class="comparePickerOption" data-value="gliwicki">gliwicki</button><button type="button" class="comparePickerOption" data-value="Jastrzębie-Zdrój">Jastrzębie-Zdrój</button><button type="button" class="comparePickerOption" data-value="Jaworzno">Jaworzno</button><button type="button" class="comparePickerOption" data-value="Katowice">Katowice</button><button type="button" class="comparePickerOption" data-value="kłobucki">kłobucki</button><button type="button" class="comparePickerOption" data-value="lubliniecki">lubliniecki</button><button type="button" class="comparePickerOption" data-value="mikołowski">mikołowski</button><button type="button" class="comparePickerOption" data-value="myszkowski">myszkowski</button><button type="button" class="comparePickerOption" data-value="Mysłowice">Mysłowice</button><button type="button" class="comparePickerOption" data-value="Piekary Śląskie">Piekary Śląskie</button><button type="button" class="comparePickerOption" data-value="pszczyński">pszczyński</button><button type="button" class="comparePickerOption" data-value="raciborski">raciborski</button><button type="button" class="comparePickerOption" data-value="Ruda Śląska">Ruda Śląska</button><button type="button" class="comparePickerOption" data-value="rybnicki">rybnicki</button><button type="button" class="comparePickerOption" data-value="Rybnik">Rybnik</button><button type="button" class="comparePickerOption" data-value="Siemianowice Śląskie">Siemianowice Śląskie</button><button type="button" class="comparePickerOption" data-value="Sosnowiec">Sosnowiec</button><button type="button" class="comparePickerOption" data-value="tarnogórski">tarnogórski</button><button type="button" class="comparePickerOption" data-value="Tychy">Tychy</button><button type="button" class="comparePickerOption" data-value="wodzisławski">wodzisławski</button><button type="button" class="comparePickerOption" data-value="Zabrze">Zabrze</button><button type="button" class="comparePickerOption" data-value="zawierciański">zawierciański</button><button type="button" class="comparePickerOption" data-value="Świętochłowice">Świętochłowice</button><button type="button" class="comparePickerOption" data-value="Żory">Żory</button><button type="button" class="comparePickerOption" data-value="żywiecki">żywiecki</button></div></div></div>
+        <button class="moduleBtn secondary" id="compareClearBtn" type="button">Wyczyść</button>
+      </div>
+      <div id="compareOutput" class="compareOutput"></div>
+    </div>
+  </section>
+
+  <section class="card occupationProfileCard" id="occupationProfileSection">
+    <div class="moduleHead occupationProfileHead">
+      <div><span class="moduleEyebrow">PROFIL ZAWODU</span><h2 id="occProfileTitle">Wybierz zawód, aby zobaczyć profil wojewódzki</h2><p id="occProfileSub">Mapa, statusy w 36 jednostkach oraz koncentracja deficytu.</p></div>
+      <button class="moduleBtn secondary" id="occProfileClear" type="button">Wyczyść zawód</button>
+    </div>
+    <div id="occProfileBody" class="occProfileEmpty">Wybierz zawód z listy nad mapą albo kliknij zawód w profilu powiatu.</div>
+  </section>
 
   <section class="card trendCard" id="trendSection">
     <div class="trendHead">
@@ -756,6 +919,171 @@ select::-ms-expand{display:none}
         <div class="methodNote">Uwaga metodologiczna: w danych za 2024 i 2025 oceniano 163 grupy zawodów, a w danych za 2026 i 2027 - 168. Dlatego oprócz liczby grup pokazujemy także ich udział procentowy w klasyfikacji danego roku. Średnia wojewódzka oznacza średnią dla 36 powiatów i miast na prawach powiatu.</div>
       </div>
     </div>
+
+    <details class="historyArchive" id="historyArchive">
+  <summary><div class="historyArchiveTitle"><span class="eyeb">ARCHIWUM</span><h2>10 lat Barometru Zawodów - województwo śląskie</h2><p>Każdy rok pokazujemy osobno. Nie łączymy edycji jednym wykresem, ponieważ zmieniała się liczba ocenianych grup zawodów oraz zakres klasyfikacji.</p></div></summary>
+  <div class="historyArchiveBody">
+    <div class="historyArchiveIntro"><b>Jak czytać tę sekcję?</b> Statystyki dotyczą wyniku wojewódzkiego, a nie średniej powiatowej. Liczba ocenianych grup różni się między edycjami, dlatego zestawienie służy do przeglądu kolejnych edycji, a nie do mechanicznego porównywania udziałów procentowych między latami.</div>
+    
+    <div class="historyDecadeGrid"><article class="historyYearCard" data-year="2017">
+      <div class="historyYearRow">
+        <div class="historyYearIdentity"><h3>2017</h3><span class="total">oceniono 161 grup</span></div>
+        <div class="historyStats">
+          <div class="historyStat def"><b>43</b><span>deficyt</span></div>
+          <div class="historyStat bal"><b>112</b><span>równowaga</span></div>
+          <div class="historyStat sur"><b>6</b><span>nadwyżka</span></div>
+        </div>
+        <p class="historyYearNote">Wysoki poziom deficytu przy nadal widocznej grupie zawodów nadwyżkowych.</p>
+        <button class="historyYearToggle" type="button" data-year="2017" aria-expanded="false" aria-controls="history-panel-2017" onclick="toggleHistoryYear('2017', this)"><span>Pokaż zawody</span><i class="uiChevron" aria-hidden="true"></i></button>
+      </div>
+      <div class="historyJobsPanel" id="history-panel-2017" aria-hidden="true">
+          <div class="historyJobsEmpty">Dla tej starszej edycji nie osadzamy jeszcze listy zawodów w panelu. Możesz przejść do oficjalnego archiwum Barometru.</div>
+          <div class="historyJobsSource"><span>Archiwalna edycja Barometru Zawodów.</span><a href="https://barometrzawodow.pl/modul/prognozy-na-plakatach?county=&form-group%5B%5D=all&province=12&publication=province&year=2017" target="_blank" rel="noopener">Otwórz prognozę 2017 ↗</a></div>
+        </div>
+    </article><article class="historyYearCard" data-year="2018">
+      <div class="historyYearRow">
+        <div class="historyYearIdentity"><h3>2018</h3><span class="total">oceniono 159 grup</span></div>
+        <div class="historyStats">
+          <div class="historyStat def"><b>40</b><span>deficyt</span></div>
+          <div class="historyStat bal"><b>117</b><span>równowaga</span></div>
+          <div class="historyStat sur"><b>2</b><span>nadwyżka</span></div>
+        </div>
+        <p class="historyYearNote">Deficyt pozostawał wysoki, a liczba zawodów nadwyżkowych zmniejszyła się do 2.</p>
+        <button class="historyYearToggle" type="button" data-year="2018" aria-expanded="false" aria-controls="history-panel-2018" onclick="toggleHistoryYear('2018', this)"><span>Pokaż zawody</span><i class="uiChevron" aria-hidden="true"></i></button>
+      </div>
+      <div class="historyJobsPanel" id="history-panel-2018" aria-hidden="true">
+          <div class="historyJobsEmpty">Dla tej starszej edycji nie osadzamy jeszcze listy zawodów w panelu. Możesz przejść do oficjalnego archiwum Barometru.</div>
+          <div class="historyJobsSource"><span>Archiwalna edycja Barometru Zawodów.</span><a href="https://barometrzawodow.pl/modul/prognozy-na-plakatach?county=&form-group%5B%5D=all&province=12&publication=province&year=2018" target="_blank" rel="noopener">Otwórz prognozę 2018 ↗</a></div>
+        </div>
+    </article><article class="historyYearCard" data-year="2019">
+      <div class="historyYearRow">
+        <div class="historyYearIdentity"><h3>2019</h3><span class="total">oceniono 160 grup</span></div>
+        <div class="historyStats">
+          <div class="historyStat def"><b>40</b><span>deficyt</span></div>
+          <div class="historyStat bal"><b>119</b><span>równowaga</span></div>
+          <div class="historyStat sur"><b>1</b><span>nadwyżka</span></div>
+        </div>
+        <p class="historyYearNote">Deficyt utrzymał się na poziomie 40 grup, a nadwyżka spadła do jednej grupy.</p>
+        <button class="historyYearToggle" type="button" data-year="2019" aria-expanded="false" aria-controls="history-panel-2019" onclick="toggleHistoryYear('2019', this)"><span>Pokaż zawody</span><i class="uiChevron" aria-hidden="true"></i></button>
+      </div>
+      <div class="historyJobsPanel" id="history-panel-2019" aria-hidden="true">
+          <div class="historyJobsEmpty">Dla tej starszej edycji nie osadzamy jeszcze listy zawodów w panelu. Możesz przejść do oficjalnego archiwum Barometru.</div>
+          <div class="historyJobsSource"><span>Archiwalna edycja Barometru Zawodów.</span><a href="https://barometrzawodow.pl/modul/prognozy-na-plakatach?county=&form-group%5B%5D=all&province=12&publication=province&year=2019" target="_blank" rel="noopener">Otwórz prognozę 2019 ↗</a></div>
+        </div>
+    </article><article class="historyYearCard" data-year="2020">
+      <div class="historyYearRow">
+        <div class="historyYearIdentity"><h3>2020</h3><span class="total">oceniono 162 grup</span></div>
+        <div class="historyStats">
+          <div class="historyStat def"><b>41</b><span>deficyt</span></div>
+          <div class="historyStat bal"><b>121</b><span>równowaga</span></div>
+          <div class="historyStat sur"><b>0</b><span>nadwyżka</span></div>
+        </div>
+        <p class="historyYearNote">Po raz pierwszy w tej serii brak zawodów nadwyżkowych; 41 grup sklasyfikowano jako deficytowe.</p>
+        <button class="historyYearToggle" type="button" data-year="2020" aria-expanded="false" aria-controls="history-panel-2020" onclick="toggleHistoryYear('2020', this)"><span>Pokaż zawody</span><i class="uiChevron" aria-hidden="true"></i></button>
+      </div>
+      <div class="historyJobsPanel" id="history-panel-2020" aria-hidden="true">
+          <div class="historyJobsEmpty">Dla tej starszej edycji nie osadzamy jeszcze listy zawodów w panelu. Możesz przejść do oficjalnego archiwum Barometru.</div>
+          <div class="historyJobsSource"><span>Archiwalna edycja Barometru Zawodów.</span><a href="https://barometrzawodow.pl/modul/prognozy-na-plakatach?county=&form-group%5B%5D=all&province=12&publication=province&year=2020" target="_blank" rel="noopener">Otwórz prognozę 2020 ↗</a></div>
+        </div>
+    </article><article class="historyYearCard" data-year="2021">
+      <div class="historyYearRow">
+        <div class="historyYearIdentity"><h3>2021</h3><span class="total">oceniono 161 grup</span></div>
+        <div class="historyStats">
+          <div class="historyStat def"><b>33</b><span>deficyt</span></div>
+          <div class="historyStat bal"><b>128</b><span>równowaga</span></div>
+          <div class="historyStat sur"><b>0</b><span>nadwyżka</span></div>
+        </div>
+        <p class="historyYearNote">Wyraźny spadek liczby grup deficytowych i wzrost znaczenia równowagi.</p>
+        <button class="historyYearToggle" type="button" data-year="2021" aria-expanded="false" aria-controls="history-panel-2021" onclick="toggleHistoryYear('2021', this)"><span>Pokaż zawody</span><i class="uiChevron" aria-hidden="true"></i></button>
+      </div>
+      <div class="historyJobsPanel" id="history-panel-2021" aria-hidden="true">
+          <div class="historyJobsToolbar"><div><b>Deficyt - 33 grup</b><span>Województwo śląskie, edycja 2021</span></div><input class="historyJobsSearch" type="search" placeholder="Szukaj zawodu w tej edycji…" aria-label="Szukaj zawodu w edycji 2021"></div>
+          <div class="historyJobsList"><div class="historyJob">Betoniarze i zbrojarze</div><div class="historyJob">Blacharze i lakiernicy samochodowi</div><div class="historyJob">Brukarze</div><div class="historyJob">Cieśle i stolarze budowlani</div><div class="historyJob">Cukiernicy</div><div class="historyJob">Dekarze i blacharze budowlani</div><div class="historyJob">Elektrycy, elektromechanicy i elektromonterzy</div><div class="historyJob">Fryzjerzy</div><div class="historyJob">Kierowcy samochodów ciężarowych i ciągników siodłowych</div><div class="historyJob">Kucharze</div><div class="historyJob">Lekarze</div><div class="historyJob">Magazynierzy</div><div class="historyJob">Mechanicy pojazdów samochodowych</div><div class="historyJob">Monterzy instalacji budowlanych</div><div class="historyJob">Murarze i tynkarze</div><div class="historyJob">Nauczyciele praktycznej nauki zawodu</div><div class="historyJob">Nauczyciele przedmiotów zawodowych</div><div class="historyJob">Nauczyciele szkół specjalnych i oddziałów integracyjnych</div><div class="historyJob">Operatorzy i mechanicy sprzętu do robót ziemnych</div><div class="historyJob">Operatorzy obrabiarek skrawających</div><div class="historyJob">Opiekunowie osoby starszej lub niepełnosprawnej</div><div class="historyJob">Piekarze</div><div class="historyJob">Pielęgniarki i położne</div><div class="historyJob">Pomoce kuchenne</div><div class="historyJob">Pracownicy fizyczni w produkcji i pracach prostych</div><div class="historyJob">Pracownicy robót wykończeniowych w budownictwie</div><div class="historyJob">Pracownicy służb mundurowych</div><div class="historyJob">Ratownicy medyczni</div><div class="historyJob">Robotnicy budowlani</div><div class="historyJob">Robotnicy obróbki drewna i stolarze</div><div class="historyJob">Samodzielni księgowi</div><div class="historyJob">Spawacze</div><div class="historyJob">Ślusarze</div></div>
+          <div class="historyJobsSource"><span>Wbudowana lista zawodów deficytowych.</span><a href="https://barometrzawodow.pl/modul/prognozy-na-plakatach?county=&form-group%5B%5D=all&province=12&publication=province&year=2021" target="_blank" rel="noopener">Pełna prognoza 2021 ↗</a></div>
+        </div>
+    </article><article class="historyYearCard" data-year="2022">
+      <div class="historyYearRow">
+        <div class="historyYearIdentity"><h3>2022</h3><span class="total">oceniono 160 grup</span></div>
+        <div class="historyStats">
+          <div class="historyStat def"><b>32</b><span>deficyt</span></div>
+          <div class="historyStat bal"><b>128</b><span>równowaga</span></div>
+          <div class="historyStat sur"><b>0</b><span>nadwyżka</span></div>
+        </div>
+        <p class="historyYearNote">Kontynuacja przesunięcia w stronę równowagi; brak grup nadwyżkowych na poziomie województwa.</p>
+        <button class="historyYearToggle" type="button" data-year="2022" aria-expanded="false" aria-controls="history-panel-2022" onclick="toggleHistoryYear('2022', this)"><span>Pokaż zawody</span><i class="uiChevron" aria-hidden="true"></i></button>
+      </div>
+      <div class="historyJobsPanel" id="history-panel-2022" aria-hidden="true">
+          <div class="historyJobsToolbar"><div><b>Deficyt - 32 grup</b><span>Województwo śląskie, edycja 2022</span></div><input class="historyJobsSearch" type="search" placeholder="Szukaj zawodu w tej edycji…" aria-label="Szukaj zawodu w edycji 2022"></div>
+          <div class="historyJobsList"><div class="historyJob">Betoniarze i zbrojarze</div><div class="historyJob">Brukarze</div><div class="historyJob">Cieśle i stolarze budowlani</div><div class="historyJob">Dekarze i blacharze budowlani</div><div class="historyJob">Elektrycy, elektromechanicy i elektromonterzy</div><div class="historyJob">Fizjoterapeuci i masażyści</div><div class="historyJob">Fryzjerzy</div><div class="historyJob">Kierowcy autobusów</div><div class="historyJob">Kierowcy samochodów ciężarowych i ciągników siodłowych</div><div class="historyJob">Kucharze</div><div class="historyJob">Lekarze</div><div class="historyJob">Magazynierzy</div><div class="historyJob">Mechanicy pojazdów samochodowych</div><div class="historyJob">Monterzy instalacji budowlanych</div><div class="historyJob">Murarze i tynkarze</div><div class="historyJob">Nauczyciele praktycznej nauki zawodu</div><div class="historyJob">Nauczyciele przedmiotów zawodowych</div><div class="historyJob">Operatorzy i mechanicy sprzętu do robót ziemnych</div><div class="historyJob">Opiekunowie osoby starszej lub niepełnosprawnej</div><div class="historyJob">Piekarze</div><div class="historyJob">Pielęgniarki i położne</div><div class="historyJob">Pracownicy fizyczni w produkcji i pracach prostych</div><div class="historyJob">Pracownicy robót wykończeniowych w budownictwie</div><div class="historyJob">Pracownicy służb mundurowych</div><div class="historyJob">Psycholodzy i psychoterapeuci</div><div class="historyJob">Ratownicy medyczni</div><div class="historyJob">Robotnicy budowlani</div><div class="historyJob">Robotnicy obróbki drewna i stolarze</div><div class="historyJob">Samodzielni księgowi</div><div class="historyJob">Spawacze</div><div class="historyJob">Sprzedawcy i kasjerzy</div><div class="historyJob">Ślusarze</div></div>
+          <div class="historyJobsSource"><span>Wbudowana lista zawodów deficytowych.</span><a href="https://barometrzawodow.pl/modul/prognozy-na-plakatach?county=&form-group%5B%5D=all&province=12&publication=province&year=2022" target="_blank" rel="noopener">Pełna prognoza 2022 ↗</a></div>
+        </div>
+    </article><article class="historyYearCard" data-year="2023">
+      <div class="historyYearRow">
+        <div class="historyYearIdentity"><h3>2023</h3><span class="total">oceniono 162 grup</span></div>
+        <div class="historyStats">
+          <div class="historyStat def"><b>25</b><span>deficyt</span></div>
+          <div class="historyStat bal"><b>137</b><span>równowaga</span></div>
+          <div class="historyStat sur"><b>0</b><span>nadwyżka</span></div>
+        </div>
+        <p class="historyYearNote">Deficyt zmniejszył się do 25 grup, przy dalszym wzroście liczby grup zrównoważonych.</p>
+        <button class="historyYearToggle" type="button" data-year="2023" aria-expanded="false" aria-controls="history-panel-2023" onclick="toggleHistoryYear('2023', this)"><span>Pokaż zawody</span><i class="uiChevron" aria-hidden="true"></i></button>
+      </div>
+      <div class="historyJobsPanel" id="history-panel-2023" aria-hidden="true">
+          <div class="historyJobsToolbar"><div><b>Deficyt - 25 grup</b><span>Województwo śląskie, edycja 2023</span></div><input class="historyJobsSearch" type="search" placeholder="Szukaj zawodu w tej edycji…" aria-label="Szukaj zawodu w edycji 2023"></div>
+          <div class="historyJobsList"><div class="historyJob">Brukarze</div><div class="historyJob">Cieśle i stolarze budowlani</div><div class="historyJob">Dekarze i blacharze budowlani</div><div class="historyJob">Elektrycy, elektromechanicy i elektromonterzy</div><div class="historyJob">Kierowcy autobusów</div><div class="historyJob">Kierowcy samochodów ciężarowych i ciągników siodłowych</div><div class="historyJob">Kucharze</div><div class="historyJob">Lekarze</div><div class="historyJob">Magazynierzy</div><div class="historyJob">Mechanicy pojazdów samochodowych</div><div class="historyJob">Monterzy instalacji budowlanych</div><div class="historyJob">Murarze i tynkarze</div><div class="historyJob">Nauczyciele praktycznej nauki zawodu</div><div class="historyJob">Nauczyciele przedmiotów ogólnokształcących</div><div class="historyJob">Nauczyciele przedmiotów zawodowych</div><div class="historyJob">Opiekunowie osoby starszej lub niepełnosprawnej</div><div class="historyJob">Pielęgniarki i położne</div><div class="historyJob">Pracownicy ds. rachunkowości i księgowości</div><div class="historyJob">Pracownicy robót wykończeniowych w budownictwie</div><div class="historyJob">Pracownicy służb mundurowych</div><div class="historyJob">Psycholodzy i psychoterapeuci</div><div class="historyJob">Robotnicy budowlani</div><div class="historyJob">Samodzielni księgowi</div><div class="historyJob">Spawacze</div><div class="historyJob">Ślusarze</div></div>
+          <div class="historyJobsSource"><span>Wbudowana lista zawodów deficytowych.</span><a href="https://barometrzawodow.pl/modul/prognozy-na-plakatach?county=&form-group%5B%5D=all&province=12&publication=province&year=2023" target="_blank" rel="noopener">Pełna prognoza 2023 ↗</a></div>
+        </div>
+    </article><article class="historyYearCard" data-year="2024">
+      <div class="historyYearRow">
+        <div class="historyYearIdentity"><h3>2024</h3><span class="total">oceniono 163 grup</span></div>
+        <div class="historyStats">
+          <div class="historyStat def"><b>22</b><span>deficyt</span></div>
+          <div class="historyStat bal"><b>141</b><span>równowaga</span></div>
+          <div class="historyStat sur"><b>0</b><span>nadwyżka</span></div>
+        </div>
+        <p class="historyYearNote">Najmniej deficytów od początku analizowanego dziesięciolecia do tego momentu; dominacja równowagi.</p>
+        <button class="historyYearToggle" type="button" data-year="2024" aria-expanded="false" aria-controls="history-panel-2024" onclick="toggleHistoryYear('2024', this)"><span>Pokaż zawody</span><i class="uiChevron" aria-hidden="true"></i></button>
+      </div>
+      <div class="historyJobsPanel" id="history-panel-2024" aria-hidden="true">
+          <div class="historyJobsToolbar"><div><b>Deficyt - 22 grup</b><span>Województwo śląskie, edycja 2024</span></div><input class="historyJobsSearch" type="search" placeholder="Szukaj zawodu w tej edycji…" aria-label="Szukaj zawodu w edycji 2024"></div>
+          <div class="historyJobsList"><div class="historyJob">Elektrycy, elektromechanicy i elektromonterzy</div><div class="historyJob">Kierowcy autobusów</div><div class="historyJob">Kierowcy samochodów ciężarowych i ciągników siodłowych</div><div class="historyJob">Kucharze</div><div class="historyJob">Lekarze</div><div class="historyJob">Mechanicy pojazdów samochodowych</div><div class="historyJob">Monterzy instalacji budowlanych</div><div class="historyJob">Murarze i tynkarze</div><div class="historyJob">Nauczyciele praktycznej nauki zawodu</div><div class="historyJob">Nauczyciele przedmiotów ogólnokształcących</div><div class="historyJob">Nauczyciele przedmiotów zawodowych</div><div class="historyJob">Nauczyciele przedszkoli</div><div class="historyJob">Opiekunowie osoby starszej lub niepełnosprawnej</div><div class="historyJob">Piekarze</div><div class="historyJob">Pielęgniarki i położne</div><div class="historyJob">Pracownicy robót wykończeniowych w budownictwie</div><div class="historyJob">Pracownicy służb mundurowych</div><div class="historyJob">Psycholodzy i psychoterapeuci</div><div class="historyJob">Robotnicy budowlani</div><div class="historyJob">Samodzielni księgowi</div><div class="historyJob">Spawacze</div><div class="historyJob">Ślusarze</div></div>
+          <div class="historyJobsSource"><span>Wbudowana lista zawodów deficytowych.</span><a href="https://barometrzawodow.pl/modul/prognozy-na-plakatach?county=&form-group%5B%5D=all&province=12&publication=province&year=2024" target="_blank" rel="noopener">Pełna prognoza 2024 ↗</a></div>
+        </div>
+    </article><article class="historyYearCard" data-year="2025">
+      <div class="historyYearRow">
+        <div class="historyYearIdentity"><h3>2025</h3><span class="total">oceniono 163 grup</span></div>
+        <div class="historyStats">
+          <div class="historyStat def"><b>18</b><span>deficyt</span></div>
+          <div class="historyStat bal"><b>145</b><span>równowaga</span></div>
+          <div class="historyStat sur"><b>0</b><span>nadwyżka</span></div>
+        </div>
+        <p class="historyYearNote">Dalsze ograniczenie deficytów do 18 grup i wzrost równowagi do 145 grup.</p>
+        <button class="historyYearToggle" type="button" data-year="2025" aria-expanded="false" aria-controls="history-panel-2025" onclick="toggleHistoryYear('2025', this)"><span>Pokaż zawody</span><i class="uiChevron" aria-hidden="true"></i></button>
+      </div>
+      <div class="historyJobsPanel" id="history-panel-2025" aria-hidden="true">
+          <div class="historyJobsToolbar"><div><b>Deficyt - 18 grup</b><span>Województwo śląskie, edycja 2025</span></div><input class="historyJobsSearch" type="search" placeholder="Szukaj zawodu w tej edycji…" aria-label="Szukaj zawodu w edycji 2025"></div>
+          <div class="historyJobsList"><div class="historyJob">Elektrycy, elektromechanicy i elektromonterzy</div><div class="historyJob">Kierowcy autobusów</div><div class="historyJob">Kierowcy samochodów ciężarowych i ciągników siodłowych</div><div class="historyJob">Lekarze</div><div class="historyJob">Mechanicy pojazdów samochodowych</div><div class="historyJob">Murarze i tynkarze</div><div class="historyJob">Nauczyciele praktycznej nauki zawodu</div><div class="historyJob">Nauczyciele przedmiotów zawodowych</div><div class="historyJob">Nauczyciele przedszkoli</div><div class="historyJob">Nauczyciele szkół specjalnych i oddziałów integracyjnych</div><div class="historyJob">Opiekunowie osoby starszej lub niepełnosprawnej</div><div class="historyJob">Pielęgniarki i położne</div><div class="historyJob">Pracownicy robót wykończeniowych w budownictwie</div><div class="historyJob">Pracownicy służb mundurowych</div><div class="historyJob">Psycholodzy i psychoterapeuci</div><div class="historyJob">Robotnicy budowlani</div><div class="historyJob">Samodzielni księgowi</div><div class="historyJob">Spawacze</div></div>
+          <div class="historyJobsSource"><span>Wbudowana lista zawodów deficytowych.</span><a href="https://barometrzawodow.pl/modul/prognozy-na-plakatach?county=&form-group%5B%5D=all&province=12&publication=province&year=2025" target="_blank" rel="noopener">Pełna prognoza 2025 ↗</a></div>
+        </div>
+    </article><article class="historyYearCard" data-year="2026">
+      <div class="historyYearRow">
+        <div class="historyYearIdentity"><h3>2026</h3><span class="total">oceniono 164 grup</span></div>
+        <div class="historyStats">
+          <div class="historyStat def"><b>14</b><span>deficyt</span></div>
+          <div class="historyStat bal"><b>150</b><span>równowaga</span></div>
+          <div class="historyStat sur"><b>0</b><span>nadwyżka</span></div>
+        </div>
+        <p class="historyYearNote">14 grup deficytowych i 150 zrównoważonych - najsilniejsza dominacja równowagi w tej serii.</p>
+        <button class="historyYearToggle" type="button" data-year="2026" aria-expanded="false" aria-controls="history-panel-2026" onclick="toggleHistoryYear('2026', this)"><span>Pokaż zawody</span><i class="uiChevron" aria-hidden="true"></i></button>
+      </div>
+      <div class="historyJobsPanel" id="history-panel-2026" aria-hidden="true">
+          <div class="historyJobsToolbar"><div><b>Deficyt - 14 grup</b><span>Województwo śląskie, edycja 2026</span></div><input class="historyJobsSearch" type="search" placeholder="Szukaj zawodu w tej edycji…" aria-label="Szukaj zawodu w edycji 2026"></div>
+          <div class="historyJobsList"><div class="historyJob">Elektrycy i energetycy</div><div class="historyJob">Kierowcy autobusów</div><div class="historyJob">Kierowcy samochodów ciężarowych i ciągników siodłowych</div><div class="historyJob">Lekarze</div><div class="historyJob">Mechanicy pojazdów samochodowych</div><div class="historyJob">Nauczyciele praktycznej nauki zawodu</div><div class="historyJob">Nauczyciele przedmiotów zawodowych</div><div class="historyJob">Nauczyciele szkół specjalnych i oddziałów integracyjnych</div><div class="historyJob">Opiekunowie osoby starszej lub z niepełnosprawnością</div><div class="historyJob">Pielęgniarki i położne</div><div class="historyJob">Pracownicy robót wykończeniowych w budownictwie</div><div class="historyJob">Pracownicy służb mundurowych</div><div class="historyJob">Psycholodzy i terapeuci</div><div class="historyJob">Spawacze</div></div>
+          <div class="historyJobsSource"><span>Wbudowana lista zawodów deficytowych.</span><a href="https://barometrzawodow.pl/modul/prognozy-na-plakatach?county=&form-group%5B%5D=all&province=12&publication=province&year=2026" target="_blank" rel="noopener">Pełna prognoza 2026 ↗</a></div>
+        </div>
+    </article></div>
+  </div>
+</details>
   </section>
 
   <section class="lower rankGrid4">
@@ -778,10 +1106,11 @@ select::-ms-expand{display:none}
     </div>
   </section>
 </main>
-<div class="techFooter" style="max-width:1500px;margin:0 auto;padding:0 22px 22px;color:#78869a;font-size:11px">Wersja offline: geometria 36 powiatów jest osadzona w pliku. Źródło stopy bezrobocia: WUP Katowice, dane powiatowe za 31.08.2026 r.; wskaźnik dla województwa śląskiego: 4,8%. Dane trendu: zestawienia 2024–2025 oraz baza 2026–2027. Średnie dla ocen zawodowych są liczone dla 36 jednostek powiatowych.</div>
+<div class="techFooter" style="max-width:1500px;margin:0 auto;padding:0 22px 22px;color:#78869a;font-size:11px">Wersja statyczna: aplikacja ma fallback offline, a dane do aktualizacji znajdują się także w katalogu data/ w plikach JSON. Źródło stopy bezrobocia: WUP Katowice, dane powiatowe za 31.08.2026 r.; wskaźnik dla województwa śląskiego: 4,8%. Dane trendu: zestawienia 2024–2025 oraz baza 2026–2027. Średnie dla ocen zawodowych są liczone dla 36 jednostek powiatowych.</div>
 
 <script src="assets/pptxgen.bundle.js"></script>
 <script>
+const HIST_SHARE_2023 = {"będziński":{"deficit":11.3,"balance":86.9,"surplus":0.0,"no_eval":1.8},"bielski":{"deficit":8.9,"balance":89.3,"surplus":0.0,"no_eval":1.8},"cieszyński":{"deficit":31.5,"balance":63.7,"surplus":0.6,"no_eval":4.2},"częstochowski":{"deficit":29.2,"balance":58.9,"surplus":3.6,"no_eval":8.3},"gliwicki":{"deficit":20.2,"balance":73.8,"surplus":1.8,"no_eval":4.2},"kłobucki":{"deficit":26.8,"balance":64.3,"surplus":1.2,"no_eval":7.7},"lubliniecki":{"deficit":12.5,"balance":85.1,"surplus":0.0,"no_eval":2.4},"mikołowski":{"deficit":14.9,"balance":76.8,"surplus":0.0,"no_eval":8.3},"myszkowski":{"deficit":6.5,"balance":84.5,"surplus":0.0,"no_eval":8.9},"pszczyński":{"deficit":4.2,"balance":89.9,"surplus":4.2,"no_eval":1.8},"raciborski":{"deficit":16.7,"balance":77.4,"surplus":0.0,"no_eval":6.0},"rybnicki":{"deficit":10.1,"balance":84.5,"surplus":0.0,"no_eval":5.4},"tarnogórski":{"deficit":31.5,"balance":64.9,"surplus":1.2,"no_eval":2.4},"bieruńsko-lędziński":{"deficit":10.1,"balance":77.4,"surplus":1.2,"no_eval":11.3},"wodzisławski":{"deficit":25.6,"balance":55.4,"surplus":1.8,"no_eval":17.3},"zawierciański":{"deficit":16.7,"balance":81.5,"surplus":1.2,"no_eval":0.6},"żywiecki":{"deficit":4.2,"balance":92.3,"surplus":0.0,"no_eval":3.6},"Bielsko-Biała":{"deficit":8.9,"balance":89.3,"surplus":0.0,"no_eval":1.8},"Bytom":{"deficit":11.3,"balance":82.1,"surplus":0.0,"no_eval":6.5},"Chorzów":{"deficit":23.8,"balance":72.6,"surplus":0.0,"no_eval":3.6},"Częstochowa":{"deficit":28.6,"balance":63.1,"surplus":3.6,"no_eval":4.8},"Dąbrowa Górnicza":{"deficit":17.3,"balance":72.0,"surplus":0.0,"no_eval":10.7},"Gliwice":{"deficit":19.6,"balance":75.0,"surplus":0.6,"no_eval":4.8},"Jastrzębie-Zdrój":{"deficit":10.7,"balance":81.0,"surplus":0.0,"no_eval":8.3},"Jaworzno":{"deficit":23.2,"balance":58.3,"surplus":0.6,"no_eval":17.9},"Katowice":{"deficit":26.2,"balance":70.8,"surplus":0.0,"no_eval":3.0},"Mysłowice":{"deficit":16.7,"balance":80.4,"surplus":0.0,"no_eval":3.0},"Piekary Śląskie":{"deficit":13.7,"balance":65.5,"surplus":3.0,"no_eval":17.9},"Ruda Śląska":{"deficit":32.7,"balance":63.1,"surplus":0.0,"no_eval":4.2},"Rybnik":{"deficit":10.1,"balance":84.5,"surplus":0.0,"no_eval":5.4},"Siemianowice Śląskie":{"deficit":11.9,"balance":72.6,"surplus":3.0,"no_eval":12.5},"Sosnowiec":{"deficit":25.6,"balance":65.5,"surplus":1.8,"no_eval":7.1},"Świętochłowice":{"deficit":9.5,"balance":82.7,"surplus":0.0,"no_eval":7.7},"Tychy":{"deficit":12.5,"balance":75.0,"surplus":1.2,"no_eval":11.3},"Zabrze":{"deficit":24.4,"balance":65.5,"surplus":0.0,"no_eval":10.1},"Żory":{"deficit":7.1,"balance":89.3,"surplus":0.0,"no_eval":3.6}};
 const DATA = {"będziński": {"no_eval": 2, "deficit": 4, "surplus": 0, "balance": 162, "total": 168, "delta_deficit": -3, "delta_surplus": 0, "delta_balance": 4, "delta_no_eval": -1, "prev_no_eval": 3, "prev_deficit": 7, "prev_surplus": 0, "prev_balance": 158, "deficit_jobs": [["pracownicy służb mundurowych", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["fryzjerzy", "Deficyt poszukujących pracy", "usługowa"]], "comments": ["Kandydatom nie odpowiadają warunki pracy (np. wynagrodzenia, czas pracy, miejsce pracy, forma umowy, charakter pracy – obciążający fizycznie i/lub psychicznie), mniejsza liczba chętnych z uwagi na osłabienie prestiżu w zawodzie policjanta.", "brak wystarczającej liczby kandydatów do pracy", "Oferty pracy dotyczą głównie osób z orzeczeniem o stopniu niepełnosprawności."]}, "bielski": {"no_eval": 2, "deficit": 15, "surplus": 0, "balance": 151, "total": 168, "delta_deficit": -8, "delta_surplus": 0, "delta_balance": 11, "delta_no_eval": -3, "prev_no_eval": 5, "prev_deficit": 23, "prev_surplus": 0, "prev_balance": 140, "deficit_jobs": [["nauczyciele przedmiotów ogólnokształcących i języków obcych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele szkół specjalnych i oddziałów integracyjnych", "Deficyt poszukujących pracy", "edukacyjna"], ["pedagodzy i nauczyciele wspierający", "Deficyt poszukujących pracy", "edukacyjna"], ["lekarze", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["pielęgniarki i położne", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["opiekunowie osoby starszej lub z niepełnosprawnością", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"]], "comments": ["W związku z rozwojem sztucznej inteligencji i automatyzacji takich zadań jak analityka czy obsługa kampanii zmniejsza się zapotrzebowanie na tradycyjnych specjalistów.", "Część specjalistów przekwalifikowuje się, wykorzystując umiejętności i nabyte doświadczenie w nowych obszarach.", "Poszukiwane głównie osoby posiadające różnorodne kompetencje."]}, "Bielsko-Biała": {"no_eval": 2, "deficit": 15, "surplus": 0, "balance": 151, "total": 168, "delta_deficit": -8, "delta_surplus": 0, "delta_balance": 11, "delta_no_eval": -3, "prev_no_eval": 5, "prev_deficit": 23, "prev_surplus": 0, "prev_balance": 140, "deficit_jobs": [["nauczyciele przedmiotów ogólnokształcących i języków obcych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele szkół specjalnych i oddziałów integracyjnych", "Deficyt poszukujących pracy", "edukacyjna"], ["pedagodzy i nauczyciele wspierający", "Deficyt poszukujących pracy", "edukacyjna"], ["lekarze", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["pielęgniarki i położne", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["opiekunowie osoby starszej lub z niepełnosprawnością", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"]], "comments": ["W związku z rozwojem sztucznej inteligencji i automatyzacji takich zadań jak analityka czy obsługa kampanii zmniejsza się zapotrzebowanie na tradycyjnych specjalistów.", "Część specjalistów przekwalifikowuje się, wykorzystując umiejętności i nabyte doświadczenie w nowych obszarach.", "Poszukiwane głównie osoby posiadające różnorodne kompetencje."]}, "bieruńsko-lędziński": {"no_eval": 7, "deficit": 11, "surplus": 1, "balance": 149, "total": 168, "delta_deficit": 5, "delta_surplus": 1, "delta_balance": -4, "delta_no_eval": -2, "prev_no_eval": 9, "prev_deficit": 6, "prev_surplus": 0, "prev_balance": 153, "deficit_jobs": [["samodzielni księgowi", "Deficyt poszukujących pracy", "finansowo-prawna"], ["pracownicy ds. rachunkowości i księgowości", "Deficyt poszukujących pracy", "finansowo-prawna"], ["pracownicy służb mundurowych", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["lekarze", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["pielęgniarki i położne", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["robotnicy budowlani", "Deficyt poszukujących pracy", "budowlana"]], "comments": ["Rozwój sztucznej inteligencji zmniejszy zapotrzebowanie na pracowników.", "Rosnąca popularność algorytmów sztucznej inteligencji bezpośrednio wpływa na stopniowy spadek zapotrzebowania na pracowników w tej profesji. W zależności od tempa rozwoju technologicznego, w najbliższych latach może pojawić się nadwyżka kadrowa. Jednak ze względu na duże możliwości elastycznego przekwalifikowania się osób zatrudnionych w tym sektorze, ostatecznie prognozuje się utrzymanie równowagi na rynku pracy.", "Postępująca automatyzacja oraz coraz częstsze wdrażanie kas samoobsługowych systematycznie ograniczają popyt na tradycyjną obsługę. W rezultacie spada rotacja pracowników, co prowadzi do stabilizacji zatrudnienia w tym sektorze."]}, "Bytom": {"no_eval": 4, "deficit": 16, "surplus": 0, "balance": 148, "total": 168, "delta_deficit": -7, "delta_surplus": 0, "delta_balance": 9, "delta_no_eval": -2, "prev_no_eval": 6, "prev_deficit": 23, "prev_surplus": 0, "prev_balance": 139, "deficit_jobs": [["pracownicy służb mundurowych", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["lekarze", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["murarze i tynkarze", "Deficyt poszukujących pracy", "budowlana"], ["mechanicy pojazdów samochodowych", "Deficyt poszukujących pracy", "mechaniczno-motoryzacyjna"], ["blacharze i lakiernicy samochodowi", "Deficyt poszukujących pracy", "mechaniczno-motoryzacyjna"], ["kierowcy autobusów", "Deficyt poszukujących pracy", "TSL (transport-spedycja-logistyka)"]], "comments": ["brak wystarczającej liczby kandydatów do pracy", "kandydaci nie spełniają wymagań pracodawców"]}, "Chorzów": {"no_eval": 6, "deficit": 23, "surplus": 0, "balance": 139, "total": 168, "delta_deficit": 4, "delta_surplus": -3, "delta_balance": 0, "delta_no_eval": -1, "prev_no_eval": 7, "prev_deficit": 19, "prev_surplus": 3, "prev_balance": 139, "deficit_jobs": [["samodzielni księgowi", "Deficyt poszukujących pracy", "finansowo-prawna"], ["pracownicy ds. rachunkowości i księgowości", "Deficyt poszukujących pracy", "finansowo-prawna"], ["pracownicy służb mundurowych", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["nauczyciele przedszkoli", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele przedmiotów ogólnokształcących i języków obcych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele szkół specjalnych i oddziałów integracyjnych", "Deficyt poszukujących pracy", "edukacyjna"]], "comments": ["Rozwój automatyzacji (wprowadzenie kas samoobsługowych)", "Kandydaci również nie spełniają wymagań pracodawców, brakuje doświadczenia oraz bieglej znajomości specjalistycznych programów księgowych. Dynamiczne zmiany w przepisach prawnych sprawiają, że nawet krótka przerwa w zatrudnieniu utrudnia ponowną integrację z rynkiem pracy. Absolwenci wyższych uczelni posiadają wiedzę teoretyczną, lecz brakuje im doświadczenia i znajomości specjalistycznego oprogramowania księgowego.", "brak wystarczającej liczby kandydatów do pracy"]}, "cieszyński": {"no_eval": 6, "deficit": 19, "surplus": 1, "balance": 142, "total": 168, "delta_deficit": -4, "delta_surplus": 0, "delta_balance": 2, "delta_no_eval": 2, "prev_no_eval": 4, "prev_deficit": 23, "prev_surplus": 1, "prev_balance": 140, "deficit_jobs": [["sprzedawcy i kasjerzy", "Deficyt poszukujących pracy", "handlowa"], ["pracownicy sprzedaży internetowej", "Deficyt poszukujących pracy", "handlowa"], ["specjaliści ds. administracji", "Deficyt poszukujących pracy", "administracyjno-biurowa"], ["samodzielni księgowi", "Deficyt poszukujących pracy", "finansowo-prawna"], ["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele szkół specjalnych i oddziałów integracyjnych", "Deficyt poszukujących pracy", "edukacyjna"], ["wychowawcy w placówkach oświatowych i opiekuńczych", "Deficyt poszukujących pracy", "edukacyjna"]], "comments": ["Pewne umiejętności zastępowane są przez sztuczną inteligencję.", "Deficyt dotyczy głównie branży spożywczej.", "kandydatom nie odpowiadają warunki pracy"]}, "Częstochowa": {"no_eval": 8, "deficit": 25, "surplus": 7, "balance": 128, "total": 168, "delta_deficit": -4, "delta_surplus": 3, "delta_balance": 1, "delta_no_eval": 0, "prev_no_eval": 8, "prev_deficit": 29, "prev_surplus": 4, "prev_balance": 127, "deficit_jobs": [["samodzielni księgowi", "Deficyt poszukujących pracy", "finansowo-prawna"], ["pracownicy służb mundurowych", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele szkół specjalnych i oddziałów integracyjnych", "Deficyt poszukujących pracy", "edukacyjna"], ["instruktorzy nauki jazdy", "Deficyt poszukujących pracy", "edukacyjna"], ["lekarze", "Duży deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["psycholodzy i terapeuci", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"]], "comments": ["Zmniejszenie liczby ofert pracy w zawodzie oraz transformacja kanałów sprzedaży - wzrost udziału sprzedaży internetowej kosztem tradycyjnych form sprzedaży.", "Niedopasowanie kwalifikacji i kompetencji kandydatów do wymagań pracodawców, w szczególności w zakresie wiedzy specjalistycznej.", "brak wystarczającej liczby kandydatów do pracy"]}, "częstochowski": {"no_eval": 4, "deficit": 19, "surplus": 3, "balance": 142, "total": 168, "delta_deficit": -9, "delta_surplus": -2, "delta_balance": 10, "delta_no_eval": 1, "prev_no_eval": 3, "prev_deficit": 28, "prev_surplus": 5, "prev_balance": 132, "deficit_jobs": [["samodzielni księgowi", "Deficyt poszukujących pracy", "finansowo-prawna"], ["pracownicy służb mundurowych", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["nauczyciele szkół specjalnych i oddziałów integracyjnych", "Deficyt poszukujących pracy", "edukacyjna"], ["instruktorzy nauki jazdy", "Deficyt poszukujących pracy", "edukacyjna"], ["lekarze", "Duży deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["psycholodzy i terapeuci", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["opiekunowie osoby starszej lub z niepełnosprawnością", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["murarze i tynkarze", "Deficyt poszukujących pracy", "budowlana"]], "comments": ["Zmniejszenie liczby ofert pracy w zawodzie oraz transformacja kanałów sprzedaży - wzrost udziału sprzedaży internetowej kosztem tradycyjnych form sprzedaży.", "Kandydaci nie spełniają wymagań pracodawców - niedopasowanie kwalifikacji i kompetencji kandydatów do wymagań pracodawców, w szczególności w zakresie wiedzy specjalistycznej.", "brak wystarczającej liczby kandydatów do pracy"]}, "Dąbrowa Górnicza": {"no_eval": 4, "deficit": 9, "surplus": 0, "balance": 155, "total": 168, "delta_deficit": -26, "delta_surplus": 0, "delta_balance": 34, "delta_no_eval": -8, "prev_no_eval": 12, "prev_deficit": 35, "prev_surplus": 0, "prev_balance": 121, "deficit_jobs": [["pracownicy służb mundurowych", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele szkół specjalnych i oddziałów integracyjnych", "Deficyt poszukujących pracy", "edukacyjna"], ["psycholodzy i terapeuci", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["pracownicy ds. wsparcia społecznego", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["opiekunowie osoby starszej lub z niepełnosprawnością", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["kierowcy autobusów", "Deficyt poszukujących pracy", "TSL (transport-spedycja-logistyka)"]], "comments": ["Kandydaci nie spełniają wymagań pracodawców (np. ze względu na procedurę rekrutacji i selekcji. Osłabienie prestiżu zawodu policjanta.", "kandydatom nie odpowiadają warunki pracy", "Spadek zapotrzebowania z uwagi na niż demograficzny."]}, "Gliwice": {"no_eval": 11, "deficit": 24, "surplus": 0, "balance": 133, "total": 168, "delta_deficit": -26, "delta_surplus": 0, "delta_balance": 23, "delta_no_eval": 3, "prev_no_eval": 8, "prev_deficit": 50, "prev_surplus": 0, "prev_balance": 110, "deficit_jobs": [["pracownicy służb mundurowych", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["nauczyciele przedszkoli", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele nauczania wczesnoszkolnego", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele szkół specjalnych i oddziałów integracyjnych", "Deficyt poszukujących pracy", "edukacyjna"], ["pedagodzy i nauczyciele wspierający", "Deficyt poszukujących pracy", "edukacyjna"], ["instruktorzy nauki jazdy", "Deficyt poszukujących pracy", "edukacyjna"]], "comments": ["w zawodzie - 1345504 - kierownik praktycznej nauki zawodu - Występuje niedobór osób posiadających szerokie kwalifikacje zawodowe oraz praktyczne umiejętności niezbędne do przygotowywania młodzieży do wykonywania zawodu. Dodatkowym problemem jest brak uprawnień pedagogicznych wśród potencjalnych kandydatów do pracy, które są niezbędne do prowadzenia praktycznej nauki zawodu.", "Obecnie zatrudnieni pracownicy stopniowo osiągają wiek emerytalny, a część z nich przechodzi na emeryturę. Ich zastąpienie stanowi wyzwanie, przede wszystkim ze względu na duże doświadczenie zawodowe i specjalistyczną wiedzę, które trudno jest szybko uzupełnić wśród nowych pracowników. Jednocześnie obserwuje się sytuacje, w których pracownicy z Ukrainy i Białorusi podnoszą lub aktualizują swoje kwalifikacje zawodowe, aby móc podejmować pracę na tego rodzaju stanowiskach w Polsce.", "Automatyzacja ogranicza zapotrzebowanie na pracowników wykonujących proste i powtarzalne czynności księgowe. Nadal jednak poszukiwani są doświadczeni pracownicy średniego szczebla, którzy potrafią samodzielnie prowadzić bardziej złożone rozliczenia, kontrolować poprawność danych, interpretować przepisy oraz obsługiwać niestandardowe przypadki. Problemem staje się znalezienie kandydatów łączących praktyczne doświadczenie z aktualną wiedzą i umiejętnością pracy z nowoczesnymi systemami finansowo-księgowymi."]}, "gliwicki": {"no_eval": 8, "deficit": 19, "surplus": 0, "balance": 141, "total": 168, "delta_deficit": -32, "delta_surplus": 0, "delta_balance": 32, "delta_no_eval": 0, "prev_no_eval": 8, "prev_deficit": 51, "prev_surplus": 0, "prev_balance": 109, "deficit_jobs": [["nauczyciele przedszkoli", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele szkół specjalnych i oddziałów integracyjnych", "Deficyt poszukujących pracy", "edukacyjna"], ["pedagodzy i nauczyciele wspierający", "Deficyt poszukujących pracy", "edukacyjna"], ["instruktorzy nauki jazdy", "Deficyt poszukujących pracy", "edukacyjna"], ["lekarze", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["pielęgniarki i położne", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"]], "comments": ["135404 Kierownik praktycznej nauki zawodu: widoczny deficyt osób chętnych do podjęcia pracy w zawodzie, od kandydatów wymagane jest posiadanie odpowiednich kwalifikacji i uprawnień pedagogicznych.", "Zdarza się, że cudzoziemcy aktualizują wiedzę oraz uprawnienia, aby podjąć pracę w tym zawodzie.", "Występuje samozatrudnienie."]}, "Jastrzębie-Zdrój": {"no_eval": 5, "deficit": 7, "surplus": 0, "balance": 156, "total": 168, "delta_deficit": -2, "delta_surplus": 0, "delta_balance": 2, "delta_no_eval": 0, "prev_no_eval": 5, "prev_deficit": 9, "prev_surplus": 0, "prev_balance": 154, "deficit_jobs": [["animatorzy kultury i organizatorzy imprez", "Deficyt poszukujących pracy", "kulturalno-społeczna"], ["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["lekarze", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["pielęgniarki i położne", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["psycholodzy i terapeuci", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["opiekunowie osoby starszej lub z niepełnosprawnością", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"]], "comments": ["Na lokalnym rynku widoczna stabilizacja i coraz mniejsza rotacja pracowników.", "Wśród specjalistów do spraw księgowości i rachunkowości widoczna tendencja w kierunku deficytu. Kandydatom brakuje doświadczenia/wiedzy w wąskich dziedzinach/branżach. Zdarzają się przypadki braku zastępowalności pracowników przechodzących na świadczenia emerytalne.", "Zaobserwowano mniejsze zainteresowanie tym kierunkiem kształcenia."]}, "Jaworzno": {"no_eval": 3, "deficit": 20, "surplus": 0, "balance": 145, "total": 168, "delta_deficit": -7, "delta_surplus": 0, "delta_balance": 8, "delta_no_eval": -1, "prev_no_eval": 4, "prev_deficit": 27, "prev_surplus": 0, "prev_balance": 137, "deficit_jobs": [["pracownicy ochrony fizycznej", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["nauczyciele przedszkoli", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele nauczania wczesnoszkolnego", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["pedagodzy i nauczyciele wspierający", "Deficyt poszukujących pracy", "edukacyjna"], ["psycholodzy i terapeuci", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["inżynierowie inżynierii środowiska", "Deficyt poszukujących pracy", "budowlana"]], "comments": ["Zapotrzebowanie na osoby posiadające uprawnienia.", "kandydaci nie spełniają wymagań pracodawców", "brak wystarczającej liczby kandydatów do pracy"]}, "Katowice": {"no_eval": 5, "deficit": 6, "surplus": 0, "balance": 157, "total": 168, "delta_deficit": 1, "delta_surplus": 0, "delta_balance": -2, "delta_no_eval": 1, "prev_no_eval": 4, "prev_deficit": 5, "prev_surplus": 0, "prev_balance": 159, "deficit_jobs": [["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele szkół specjalnych i oddziałów integracyjnych", "Deficyt poszukujących pracy", "edukacyjna"], ["psycholodzy i terapeuci", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["elektrycy i energetycy", "Deficyt poszukujących pracy", "elektro-energetyczna"], ["kierowcy samochodów ciężarowych i ciągników siodłowych", "Deficyt poszukujących pracy", "TSL (transport-spedycja-logistyka)"]], "comments": ["Występuje duża rotacja ofert pracy. Zatrudniani także cudzoziemcy.", "Pracownicy obsługi klienta i teleankieterzy coraz częściej są zastępowani przez boty i sztuczną inteligencję. Systemy AI przejmują proste, powtarzalne zadania oraz prowadzenie infolinii. W cenie pozostają pracownicy, którzy potrafią rozwiązywać skomplikowane problemy.", "Dużo ofert pracy i dużo chętnych, rotacja pracowników."]}, "kłobucki": {"no_eval": 14, "deficit": 7, "surplus": 0, "balance": 147, "total": 168, "delta_deficit": -34, "delta_surplus": 0, "delta_balance": 28, "delta_no_eval": 6, "prev_no_eval": 8, "prev_deficit": 41, "prev_surplus": 0, "prev_balance": 119, "deficit_jobs": [["specjaliści ds. zarządzania zasobami ludzkimi i rekrutacji", "Deficyt poszukujących pracy", "administracyjno-biurowa"], ["instruktorzy nauki jazdy", "Deficyt poszukujących pracy", "edukacyjna"], ["lekarze", "Duży deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["psycholodzy i terapeuci", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["opiekunowie osoby starszej lub z niepełnosprawnością", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["kierowcy samochodów ciężarowych i ciągników siodłowych", "Deficyt poszukujących pracy", "TSL (transport-spedycja-logistyka)"], ["pracownicy usług kosmetycznych", "Deficyt poszukujących pracy", "usługowa"]], "comments": ["Nowe inwestycje w powiecie.", "kandydaci nie spełniają wymagań pracodawców", "Zatrudnienie w niepełnym wymiarze czasu pracy, dojazd do różnych placówek może powodować trudności w zaspokajaniu potrzeb kadrowych."]}, "lubliniecki": {"no_eval": 4, "deficit": 9, "surplus": 0, "balance": 155, "total": 168, "delta_deficit": -4, "delta_surplus": 0, "delta_balance": 4, "delta_no_eval": 0, "prev_no_eval": 4, "prev_deficit": 13, "prev_surplus": 0, "prev_balance": 151, "deficit_jobs": [["pracownicy służb mundurowych", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["lekarze", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["psycholodzy i terapeuci", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["opiekunowie osoby starszej lub z niepełnosprawnością", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["elektrycy i energetycy", "Deficyt poszukujących pracy", "elektro-energetyczna"], ["kierowcy samochodów ciężarowych i ciągników siodłowych", "Deficyt poszukujących pracy", "TSL (transport-spedycja-logistyka)"], ["kurierzy i listonosze", "Deficyt poszukujących pracy", "TSL (transport-spedycja-logistyka)"], ["spawacze", "Deficyt poszukujących pracy", "produkcyjno-przetwórcza"]], "comments": ["Zwiększenie punktów sprzedażny.", "Sytuacja geopolityczna. Luka pokoleniowa.", "Brak wystarczającej liczby kandydatów do pracy (np. ze względu na rozwój branży, zmiany demograficzne, brak kształcenia w zawodzie)."]}, "mikołowski": {"no_eval": 4, "deficit": 12, "surplus": 6, "balance": 146, "total": 168, "delta_deficit": 2, "delta_surplus": 6, "delta_balance": -5, "delta_no_eval": -3, "prev_no_eval": 7, "prev_deficit": 10, "prev_surplus": 0, "prev_balance": 151, "deficit_jobs": [["pracownicy ds. rachunkowości i księgowości", "Deficyt poszukujących pracy", "finansowo-prawna"], ["pracownicy służb mundurowych", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele szkół specjalnych i oddziałów integracyjnych", "Deficyt poszukujących pracy", "edukacyjna"], ["psycholodzy i terapeuci", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["pracownicy ds. wsparcia społecznego", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["operatorzy i mechanicy sprzętu do robót ziemnych", "Deficyt poszukujących pracy", "budowlana"]], "comments": ["Wzrost potrzeb związanych z umiejętnością sprzedaży i promocji w Internecie", "Występuje rotacja pracowników, na lokalnym rynku więcej osób gotowych do podjęcia zatrudnienia niż ofert pracy.", "Na lokalnym rynku więcej osób gotowych do podjęcia zatrudnienia niż ofert pracy."]}, "Mysłowice": {"no_eval": 6, "deficit": 10, "surplus": 0, "balance": 152, "total": 168, "delta_deficit": -3, "delta_surplus": 0, "delta_balance": 1, "delta_no_eval": 2, "prev_no_eval": 4, "prev_deficit": 13, "prev_surplus": 0, "prev_balance": 151, "deficit_jobs": [["pracownicy służb mundurowych", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["pielęgniarki i położne", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["psycholodzy i terapeuci", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["mechanicy pojazdów samochodowych", "Deficyt poszukujących pracy", "mechaniczno-motoryzacyjna"], ["blacharze i lakiernicy samochodowi", "Deficyt poszukujących pracy", "mechaniczno-motoryzacyjna"], ["ślusarze", "Deficyt poszukujących pracy", "produkcyjno-przetwórcza"], ["piekarze", "Deficyt poszukujących pracy", "spożywcza"], ["przetwórcy mięsa i ryb", "Deficyt poszukujących pracy", "spożywcza"]], "comments": ["Duża rotacja ofert pracy.", "W ostatnim czasie obserwuje się więcej osób chętnych do podjęcia zatrudnienia.", "Widać większe zainteresowanie do podjęcia tego typu pracy, jednak część osób nie spełnia wymagań pracodawców."]}, "myszkowski": {"no_eval": 10, "deficit": 12, "surplus": 1, "balance": 145, "total": 168, "delta_deficit": 3, "delta_surplus": 0, "delta_balance": -6, "delta_no_eval": 3, "prev_no_eval": 7, "prev_deficit": 9, "prev_surplus": 1, "prev_balance": 151, "deficit_jobs": [["sprzedawcy i kasjerzy", "Deficyt poszukujących pracy", "handlowa"], ["pracownicy służb mundurowych", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["pielęgniarki i położne", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["psycholodzy i terapeuci", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["opiekunowie osoby starszej lub z niepełnosprawnością", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["murarze i tynkarze", "Deficyt poszukujących pracy", "budowlana"], ["cieśle i stolarze budowlani", "Deficyt poszukujących pracy", "budowlana"], ["dekarze i blacharze budowlani", "Deficyt poszukujących pracy", "budowlana"]], "comments": ["Powstawanie nowych obiektów handlowych.", "kandydatom nie odpowiadają warunki pracy", "Zwiększenie bezpieczeństwa państwa."]}, "Piekary Śląskie": {"no_eval": 9, "deficit": 25, "surplus": 0, "balance": 134, "total": 168, "delta_deficit": -1, "delta_surplus": -1, "delta_balance": 1, "delta_no_eval": 1, "prev_no_eval": 8, "prev_deficit": 26, "prev_surplus": 1, "prev_balance": 133, "deficit_jobs": [["pracownicy służb mundurowych", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["nauczyciele przedszkoli", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele szkół specjalnych i oddziałów integracyjnych", "Deficyt poszukujących pracy", "edukacyjna"], ["lekarze", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["pielęgniarki i położne", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["operatorzy i mechanicy sprzętu do robót ziemnych", "Deficyt poszukujących pracy", "budowlana"]], "comments": ["Kandydaci nie spełniają wymagań pracodawców (np. ze względu na brak wymaganych kwalifikacji/ doświadczenia zawodowego).", "kandydatom nie odpowiadają warunki pracy", "Kandydatom nie odpowiadają warunki pracy (np. wynagrodzenia, czas pracy, miejsce pracy, forma umowy, charakter pracy – obciążający fizycznie i/lub psychicznie)."]}, "pszczyński": {"no_eval": 10, "deficit": 8, "surplus": 1, "balance": 149, "total": 168, "delta_deficit": -6, "delta_surplus": 1, "delta_balance": -1, "delta_no_eval": 6, "prev_no_eval": 4, "prev_deficit": 14, "prev_surplus": 0, "prev_balance": 150, "deficit_jobs": [["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["psycholodzy i terapeuci", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["opiekunowie osoby starszej lub z niepełnosprawnością", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["murarze i tynkarze", "Deficyt poszukujących pracy", "budowlana"], ["pracownicy robót wykończeniowych w budownictwie", "Deficyt poszukujących pracy", "budowlana"], ["piekarze", "Deficyt poszukujących pracy", "spożywcza"], ["cukiernicy", "Deficyt poszukujących pracy", "spożywcza"]], "comments": ["Długotrwały, specyficzny proces rekrutacji. Wysokie wymagania.", "Spadek zapotrzebowania na pracowników wynika z niżu demograficznego, skutkującego zmniejszającą się liczbą uczniów w szkołach.", "Prognozuje się utrzymanie równowagi w zawodzie, m.in. ze względu na przesunięcia stanowiskowe oraz łączenie etatów."]}, "raciborski": {"no_eval": 14, "deficit": 31, "surplus": 0, "balance": 123, "total": 168, "delta_deficit": 1, "delta_surplus": 0, "delta_balance": -5, "delta_no_eval": 4, "prev_no_eval": 10, "prev_deficit": 30, "prev_surplus": 0, "prev_balance": 128, "deficit_jobs": [["samodzielni księgowi", "Deficyt poszukujących pracy", "finansowo-prawna"], ["pracownicy ds. rachunkowości i księgowości", "Deficyt poszukujących pracy", "finansowo-prawna"], ["nauczyciele przedmiotów ogólnokształcących i języków obcych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele przedmiotów zawodowych", "Duży deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Duży deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele szkół specjalnych i oddziałów integracyjnych", "Deficyt poszukujących pracy", "edukacyjna"], ["lekarze", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["pielęgniarki i położne", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"]], "comments": ["Duża rotacja pracowników.", "Brak wystarczającej liczby kandydatów do pracy (np. ze względu na rozwój branży, zmiany demograficzne, brak kształcenia w zawodzie).", "kandydaci nie spełniają wymagań pracodawców"]}, "Ruda Śląska": {"no_eval": 3, "deficit": 41, "surplus": 0, "balance": 124, "total": 168, "delta_deficit": 1, "delta_surplus": 0, "delta_balance": 8, "delta_no_eval": -9, "prev_no_eval": 12, "prev_deficit": 40, "prev_surplus": 0, "prev_balance": 116, "deficit_jobs": [["pracownicy służb mundurowych", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["nauczyciele przedmiotów ogólnokształcących i języków obcych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele przedmiotów zawodowych", "Duży deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Duży deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele szkół specjalnych i oddziałów integracyjnych", "Deficyt poszukujących pracy", "edukacyjna"], ["lekarze", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["pielęgniarki i położne", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["ratownicy medyczni", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"]], "comments": ["Występuje ciągłe zapotrzebowanie na pracowników przy jednoczesnej dużej rotacji. Kandydaci rezygnują z kontynuowania pracy z uwagi na obciążający psychicznie i fizycznie charakter pracy, i wymaganą ciągłą dyspozycyjność (praca w trybie dwu zmianowym). Rynek równoważą również absolwenci lokalnych kierunków kształcenia.", "Najczęściej wolne stanowiska obsadzane są w ramach wewnętrznych awansów.", "Szczególne zapotrzebowanie pojawia się na rejestratorki medyczne."]}, "rybnicki": {"no_eval": 4, "deficit": 13, "surplus": 0, "balance": 151, "total": 168, "delta_deficit": 4, "delta_surplus": 0, "delta_balance": -1, "delta_no_eval": -3, "prev_no_eval": 7, "prev_deficit": 9, "prev_surplus": 0, "prev_balance": 152, "deficit_jobs": [["pracownicy służb mundurowych", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["lekarze", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["pielęgniarki i położne", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["fizjoterapeuci i masażyści", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["opiekunowie osoby starszej lub z niepełnosprawnością", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["operatorzy i mechanicy sprzętu do robót ziemnych", "Deficyt poszukujących pracy", "budowlana"]], "comments": ["Zapotrzebowanie na policjantów i służbę graniczną. Mimo sporego zainteresowania podjęciem zatrudnienia, nadal wiele wakatów pozostaje nieobsadzonych ze względu na problemy z zaliczeniem testów sprawnościowych.", "kandydaci nie spełniają wymagań pracodawców", "W zawodzie następuje przekwalifikowanie z powodu demografii."]}, "Rybnik": {"no_eval": 4, "deficit": 13, "surplus": 0, "balance": 151, "total": 168, "delta_deficit": 4, "delta_surplus": 0, "delta_balance": -1, "delta_no_eval": -3, "prev_no_eval": 7, "prev_deficit": 9, "prev_surplus": 0, "prev_balance": 152, "deficit_jobs": [["pracownicy służb mundurowych", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["lekarze", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["pielęgniarki i położne", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["fizjoterapeuci i masażyści", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["opiekunowie osoby starszej lub z niepełnosprawnością", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["operatorzy i mechanicy sprzętu do robót ziemnych", "Deficyt poszukujących pracy", "budowlana"]], "comments": ["Zapotrzebowanie na policjantów i służbę graniczną. Mimo sporego zainteresowania podjęciem zatrudnienia, nadal wiele wakatów pozostaje nieobsadzonych ze względu na problemy z zaliczeniem testów sprawnościowych.", "kandydaci nie spełniają wymagań pracodawców", "W zawodzie następuje przekwalifikowanie z powodu demografii."]}, "Siemianowice Śląskie": {"no_eval": 13, "deficit": 17, "surplus": 2, "balance": 136, "total": 168, "delta_deficit": 4, "delta_surplus": -1, "delta_balance": 0, "delta_no_eval": -3, "prev_no_eval": 16, "prev_deficit": 13, "prev_surplus": 3, "prev_balance": 136, "deficit_jobs": [["pracownicy służb mundurowych", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele szkół specjalnych i oddziałów integracyjnych", "Deficyt poszukujących pracy", "edukacyjna"], ["pedagodzy i nauczyciele wspierający", "Deficyt poszukujących pracy", "edukacyjna"], ["wychowawcy w placówkach oświatowych i opiekuńczych", "Deficyt poszukujących pracy", "edukacyjna"], ["lekarze", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["pracownicy ds. wsparcia społecznego", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"]], "comments": ["Zmniejsza się zapotrzebowanie na pracowników ze względu na coraz powszechniejsze stosowanie kas samoobsługowych oraz rozwój punktów sprzedaży niewymagających stałej obsługi sprzedawców lub kasjerów.", "Możliwość pracy zdalnej oraz odbywania staży wpływa na dostępność zarówno ofert pracy, jak i kandydatów.", "Od kandydatów na stanowisko recepcjonista hotelowy wymagana jest znajomość języków obcych oraz dyspozycyjność, często zatrudnienie podejmują studenci."]}, "Sosnowiec": {"no_eval": 5, "deficit": 15, "surplus": 2, "balance": 146, "total": 168, "delta_deficit": -7, "delta_surplus": -1, "delta_balance": 17, "delta_no_eval": -9, "prev_no_eval": 14, "prev_deficit": 22, "prev_surplus": 3, "prev_balance": 129, "deficit_jobs": [["pracownicy służb mundurowych", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["lekarze", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["pielęgniarki i położne", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["fizjoterapeuci i masażyści", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["psycholodzy i terapeuci", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["opiekunowie osoby starszej lub z niepełnosprawnością", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"]], "comments": ["Na lokalnym rynku pracy widoczny rozwój automatyzacji w handlu oraz rozwój sprzedaży internetowej (e-commerce).", "Prognozuje się spadek zapotrzebowania na pracowników w zawodzie, a głównymi przyczynami tej zmiany są coraz większa automatyzacja handlu (w tym stopniowe wprowadzanie kas samoobsługowych) oraz dynamiczny rozwój sprzedaży internetowej (e-commerce). W efekcie liczba dostępnych ofert pracy oraz liczba osób poszukujących zatrudnienia w tej branży powinny się zrównoważyć.", "Na lokalnym rynku pracy widoczny rozwój branży."]}, "Świętochłowice": {"no_eval": 6, "deficit": 15, "surplus": 0, "balance": 147, "total": 168, "delta_deficit": -5, "delta_surplus": 0, "delta_balance": 5, "delta_no_eval": 0, "prev_no_eval": 6, "prev_deficit": 20, "prev_surplus": 0, "prev_balance": 142, "deficit_jobs": [["pracownicy służb mundurowych", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["diagności laboratoryjni medyczni", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["operatorzy i mechanicy sprzętu do robót ziemnych", "Deficyt poszukujących pracy", "budowlana"], ["betoniarze i zbrojarze", "Deficyt poszukujących pracy", "budowlana"], ["murarze i tynkarze", "Deficyt poszukujących pracy", "budowlana"], ["cieśle i stolarze budowlani", "Deficyt poszukujących pracy", "budowlana"], ["dekarze i blacharze budowlani", "Deficyt poszukujących pracy", "budowlana"], ["monterzy instalacji budowlanych", "Deficyt poszukujących pracy", "budowlana"]], "comments": ["Deficyt szczególnie dotyczy służby w szeregach policji. Mimo obniżonych wymagań nadal barierą są testy sprawnościowe. Do podjęcia pracy zniechęca również obciążający psychofizycznie charakter pracy, praca często w porach nocnych.", "kandydatom nie odpowiadają warunki pracy", "Oferty często skierowane do osób z orzeczeniem o niepełnosprawności."]}, "tarnogórski": {"no_eval": 2, "deficit": 40, "surplus": 0, "balance": 126, "total": 168, "delta_deficit": -10, "delta_surplus": 0, "delta_balance": 12, "delta_no_eval": -2, "prev_no_eval": 4, "prev_deficit": 50, "prev_surplus": 0, "prev_balance": 114, "deficit_jobs": [["pracownicy służb mundurowych", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["nauczyciele przedszkoli", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele nauczania wczesnoszkolnego", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele przedmiotów ogólnokształcących i języków obcych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele szkół specjalnych i oddziałów integracyjnych", "Deficyt poszukujących pracy", "edukacyjna"], ["pedagodzy i nauczyciele wspierający", "Deficyt poszukujących pracy", "edukacyjna"]], "comments": ["Dynamiczny rozwój technologii oraz narzędzi wykorzystujących sztuczną inteligencję (AI) może powodować spadek zapotrzebowania pracodawców.", "Duży odsetek ofert stanowią formy subsydiowane (np. umowy stażowe).", "Prognozowany wzrost głównie z uwagi na występujące braki kadrowe oraz - w dalszym ciągu - niestabilną sytuację geopolityczną."]}, "Tychy": {"no_eval": 10, "deficit": 11, "surplus": 1, "balance": 146, "total": 168, "delta_deficit": 4, "delta_surplus": 1, "delta_balance": -5, "delta_no_eval": 0, "prev_no_eval": 10, "prev_deficit": 7, "prev_surplus": 0, "prev_balance": 151, "deficit_jobs": [["samodzielni księgowi", "Deficyt poszukujących pracy", "finansowo-prawna"], ["pracownicy ds. rachunkowości i księgowości", "Deficyt poszukujących pracy", "finansowo-prawna"], ["pracownicy służb mundurowych", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["lekarze", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["pielęgniarki i położne", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["robotnicy budowlani", "Deficyt poszukujących pracy", "budowlana"]], "comments": ["Rozwój sztucznej inteligencji zmniejszy zapotrzebowanie na pracowników.", "Rosnąca popularność algorytmów sztucznej inteligencji bezpośrednio wpływa na stopniowy spadek zapotrzebowania na pracowników w tej profesji. W zależności od tempa rozwoju technologicznego, w najbliższych latach może pojawić się nadwyżka kadrowa. Jednak ze względu na duże możliwości elastycznego przekwalifikowania się osób zatrudnionych w tym sektorze, ostatecznie prognozuje się utrzymanie równowagi na rynku pracy.", "Postępująca automatyzacja oraz coraz częstsze wdrażanie kas samoobsługowych systematycznie ograniczają popyt na tradycyjną obsługę. W rezultacie spada rotacja pracowników, co prowadzi do stabilizacji zatrudnienia w tym sektorze."]}, "wodzisławski": {"no_eval": 10, "deficit": 24, "surplus": 0, "balance": 134, "total": 168, "delta_deficit": 1, "delta_surplus": 0, "delta_balance": 2, "delta_no_eval": -3, "prev_no_eval": 13, "prev_deficit": 23, "prev_surplus": 0, "prev_balance": 132, "deficit_jobs": [["samodzielni księgowi", "Deficyt poszukujących pracy", "finansowo-prawna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele szkół specjalnych i oddziałów integracyjnych", "Deficyt poszukujących pracy", "edukacyjna"], ["pedagodzy i nauczyciele wspierający", "Deficyt poszukujących pracy", "edukacyjna"], ["lekarze", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["pielęgniarki i położne", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["fizjoterapeuci i masażyści", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["operatorzy i mechanicy sprzętu do robót ziemnych", "Deficyt poszukujących pracy", "budowlana"]], "comments": ["Czasami występuje problem z obsadzeniem oferty bo osobom młodym, które mogłyby podjąć zatrudnienie brakuje kompetencji społecznych,", "Występuje rotacja ofert pracy i pracujących. Specyfika pracy zniechęca do jej podejmowania lub pracy w zawodzie przez dłuższy czas, praca na zmiany co powoduje trudności w pogodzeniu pracy z życiem prywatnym.", "Tradycyjne, powtarzalne zadania są coraz częściej przejmowane przez systemy automatyczne, takie jak chatboty i voiceboty, co ogranicza zapotrzebowanie na prostą obsługę klienta.  Równocześnie rośnie znaczenie infolinii specjalistycznych. Medyczne call center organizują dla pracowników specjalistyczne szkolenia, podnosząc ich kwalifikacje i przygotowując do obsługi bardziej skomplikowanych zgłoszeń pacjentów."]}, "Zabrze": {"no_eval": 4, "deficit": 48, "surplus": 2, "balance": 114, "total": 168, "delta_deficit": 12, "delta_surplus": 2, "delta_balance": -9, "delta_no_eval": -5, "prev_no_eval": 9, "prev_deficit": 36, "prev_surplus": 0, "prev_balance": 123, "deficit_jobs": [["pracownicy telefonicznej i elektronicznej obsługi klienta, ankieterzy, teleankieterzy", "Deficyt poszukujących pracy", "handlowa"], ["specjaliści ds. zarządzania zasobami ludzkimi i rekrutacji", "Deficyt poszukujących pracy", "administracyjno-biurowa"], ["pracownicy ds. rachunkowości i księgowości", "Deficyt poszukujących pracy", "finansowo-prawna"], ["pracownicy służb mundurowych", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["nauczyciele przedszkoli", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele przedmiotów ogólnokształcących i języków obcych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"]], "comments": ["Własna działalność gospodarcza.", "kandydaci nie spełniają wymagań pracodawców", "brak wystarczającej liczby kandydatów do pracy"]}, "zawierciański": {"no_eval": 6, "deficit": 19, "surplus": 0, "balance": 143, "total": 168, "delta_deficit": -10, "delta_surplus": 0, "delta_balance": 6, "delta_no_eval": 4, "prev_no_eval": 2, "prev_deficit": 29, "prev_surplus": 0, "prev_balance": 137, "deficit_jobs": [["samodzielni księgowi", "Deficyt poszukujących pracy", "finansowo-prawna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele szkół specjalnych i oddziałów integracyjnych", "Deficyt poszukujących pracy", "edukacyjna"], ["pedagodzy i nauczyciele wspierający", "Deficyt poszukujących pracy", "edukacyjna"], ["lekarze", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["fizjoterapeuci i masażyści", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["psycholodzy i terapeuci", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["opiekunowie osoby starszej lub z niepełnosprawnością", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"]], "comments": ["Zatrudnianie cudzoziemców.", "Kandydatom nie odpowiadają warunki pracy (np. wynagrodzenie, czas pracy, miejsce pracy, charakter pracy obciążający psychicznie).", "kandydaci nie spełniają wymagań pracodawców"]}, "Żory": {"no_eval": 5, "deficit": 4, "surplus": 0, "balance": 159, "total": 168, "delta_deficit": 0, "delta_surplus": 0, "delta_balance": -2, "delta_no_eval": 2, "prev_no_eval": 3, "prev_deficit": 4, "prev_surplus": 0, "prev_balance": 161, "deficit_jobs": [["pracownicy służb mundurowych", "Deficyt poszukujących pracy", "ochrony i bezpieczeństwa"], ["fizjoterapeuci i masażyści", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["psycholodzy i terapeuci", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["opiekunowie osoby starszej lub z niepełnosprawnością", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"]], "comments": ["Osoby młode chętnie podejmują zatrudnienie w tym zawodzie. Praca często w oparciu o umowy cywilnoprawne (umowy zlecenia).", "Występuje własna działalność gospodarcza.", "Występuje zapotrzebowanie na policjantów, wojsko jak również straż graniczną. Kandydaci nie są jednak chętni do podjęcia zatrudnienia w zawodzie ze względu na obciążający psychicznie i fizycznie charakter pracy. W mieście funkcjonuje szkoła która od kilku lat prowadzi klasę mundurową objętą patronatem Ministerstwa Obrony Narodowej (MON), jak również od roku szkolnego 2025/2026 funkcjonują tam profile policyjny oraz straży granicznej, objęte patronatem MSWiA. Należy jednak pamiętać, że wykwalifikowani absolwenci tych specjalizacji zasilą formacje mundurowe dopiero za kilka lat, co nie rozwiązuje problemu obecnych niedoborów kadrowych."]}, "żywiecki": {"no_eval": 4, "deficit": 11, "surplus": 0, "balance": 153, "total": 168, "delta_deficit": -6, "delta_surplus": 0, "delta_balance": 11, "delta_no_eval": -5, "prev_no_eval": 9, "prev_deficit": 17, "prev_surplus": 0, "prev_balance": 142, "deficit_jobs": [["nauczyciele przedmiotów zawodowych", "Deficyt poszukujących pracy", "edukacyjna"], ["nauczyciele praktycznej nauki zawodu", "Deficyt poszukujących pracy", "edukacyjna"], ["lekarze", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["pielęgniarki i położne", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["opiekunowie wspomagający opiekę nad pacjentem", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["psycholodzy i terapeuci", "Deficyt poszukujących pracy", "medyczno-opiekuńcza"], ["betoniarze i zbrojarze", "Deficyt poszukujących pracy", "budowlana"], ["murarze i tynkarze", "Deficyt poszukujących pracy", "budowlana"]], "comments": ["Potencjalny wpływ w przyszłości na spadek zapotrzebowania na pracowników może mieć rozwój sztucznej inteligencji.", "Lokalny rynek pracy ustabilizował się dzięki stopniowej automatyzacji. Otwarcie nowych sklepów wielkopowierzchniowych nie zwiększyło liczby ofert pracy w handlu, a zatrudnienie w tym sektorze utrzymuje się na stałym poziomie. Występuje rotacja kadr, co wymaga prowadzenia ciągłych rekrutacji.", "Pojawiają się oferty pracy subsydiowanej - staże."]}};
 const HIST_DATA = {"będziński":{"2025":{"no_eval":2,"deficit":11,"surplus":0,"balance":150,"total":163},"2024":{"no_eval":3,"deficit":10,"surplus":0,"balance":150,"total":163}},"bielski":{"2025":{"no_eval":2,"deficit":22,"surplus":0,"balance":139,"total":163},"2024":{"no_eval":2,"deficit":20,"surplus":0,"balance":141,"total":163}},"Bielsko-Biała":{"2025":{"no_eval":2,"deficit":22,"surplus":0,"balance":139,"total":163},"2024":{"no_eval":2,"deficit":20,"surplus":0,"balance":141,"total":163}},"bieruńsko-lędziński":{"2025":{"no_eval":20,"deficit":13,"surplus":1,"balance":129,"total":163},"2024":{"no_eval":19,"deficit":15,"surplus":1,"balance":128,"total":163}},"Bytom":{"2025":{"no_eval":6,"deficit":18,"surplus":0,"balance":139,"total":163},"2024":{"no_eval":4,"deficit":14,"surplus":0,"balance":145,"total":163}},"Chorzów":{"2025":{"no_eval":5,"deficit":31,"surplus":0,"balance":127,"total":163},"2024":{"no_eval":7,"deficit":28,"surplus":0,"balance":128,"total":163}},"cieszyński":{"2025":{"no_eval":6,"deficit":33,"surplus":0,"balance":124,"total":163},"2024":{"no_eval":5,"deficit":30,"surplus":0,"balance":128,"total":163}},"Częstochowa":{"2025":{"no_eval":11,"deficit":37,"surplus":6,"balance":109,"total":163},"2024":{"no_eval":11,"deficit":42,"surplus":4,"balance":106,"total":163}},"częstochowski":{"2025":{"no_eval":8,"deficit":30,"surplus":7,"balance":118,"total":163},"2024":{"no_eval":14,"deficit":36,"surplus":5,"balance":108,"total":163}},"Dąbrowa Górnicza":{"2025":{"no_eval":8,"deficit":31,"surplus":0,"balance":124,"total":163},"2024":{"no_eval":8,"deficit":43,"surplus":0,"balance":112,"total":163}},"Gliwice":{"2025":{"no_eval":10,"deficit":52,"surplus":0,"balance":101,"total":163},"2024":{"no_eval":9,"deficit":50,"surplus":0,"balance":104,"total":163}},"gliwicki":{"2025":{"no_eval":10,"deficit":53,"surplus":0,"balance":100,"total":163},"2024":{"no_eval":9,"deficit":52,"surplus":0,"balance":102,"total":163}},"Jastrzębie-Zdrój":{"2025":{"no_eval":10,"deficit":6,"surplus":0,"balance":147,"total":163},"2024":{"no_eval":15,"deficit":15,"surplus":0,"balance":133,"total":163}},"Jaworzno":{"2025":{"no_eval":4,"deficit":30,"surplus":0,"balance":129,"total":163},"2024":{"no_eval":9,"deficit":39,"surplus":0,"balance":115,"total":163}},"Katowice":{"2025":{"no_eval":5,"deficit":13,"surplus":0,"balance":145,"total":163},"2024":{"no_eval":5,"deficit":29,"surplus":0,"balance":129,"total":163}},"kłobucki":{"2025":{"no_eval":6,"deficit":26,"surplus":5,"balance":126,"total":163},"2024":{"no_eval":10,"deficit":36,"surplus":1,"balance":116,"total":163}},"lubliniecki":{"2025":{"no_eval":5,"deficit":18,"surplus":0,"balance":140,"total":163},"2024":{"no_eval":14,"deficit":17,"surplus":2,"balance":130,"total":163}},"mikołowski":{"2025":{"no_eval":4,"deficit":15,"surplus":0,"balance":144,"total":163},"2024":{"no_eval":4,"deficit":22,"surplus":1,"balance":136,"total":163}},"Mysłowice":{"2025":{"no_eval":4,"deficit":33,"surplus":0,"balance":126,"total":163},"2024":{"no_eval":3,"deficit":39,"surplus":0,"balance":121,"total":163}},"myszkowski":{"2025":{"no_eval":5,"deficit":15,"surplus":2,"balance":141,"total":163},"2024":{"no_eval":10,"deficit":21,"surplus":1,"balance":131,"total":163}},"Piekary Śląskie":{"2025":{"no_eval":7,"deficit":26,"surplus":1,"balance":129,"total":163},"2024":{"no_eval":24,"deficit":25,"surplus":2,"balance":112,"total":163}},"pszczyński":{"2025":{"no_eval":4,"deficit":7,"surplus":0,"balance":152,"total":163},"2024":{"no_eval":3,"deficit":8,"surplus":0,"balance":152,"total":163}},"raciborski":{"2025":{"no_eval":9,"deficit":34,"surplus":0,"balance":120,"total":163},"2024":{"no_eval":10,"deficit":33,"surplus":0,"balance":120,"total":163}},"Ruda Śląska":{"2025":{"no_eval":6,"deficit":33,"surplus":0,"balance":124,"total":163},"2024":{"no_eval":6,"deficit":39,"surplus":0,"balance":118,"total":163}},"rybnicki":{"2025":{"no_eval":5,"deficit":14,"surplus":0,"balance":144,"total":163},"2024":{"no_eval":5,"deficit":17,"surplus":0,"balance":141,"total":163}},"Rybnik":{"2025":{"no_eval":5,"deficit":14,"surplus":0,"balance":144,"total":163},"2024":{"no_eval":5,"deficit":17,"surplus":0,"balance":141,"total":163}},"Siemianowice Śląskie":{"2025":{"no_eval":19,"deficit":21,"surplus":2,"balance":121,"total":163},"2024":{"no_eval":20,"deficit":20,"surplus":5,"balance":118,"total":163}},"Sosnowiec":{"2025":{"no_eval":14,"deficit":37,"surplus":0,"balance":112,"total":163},"2024":{"no_eval":12,"deficit":35,"surplus":1,"balance":115,"total":163}},"Świętochłowice":{"2025":{"no_eval":11,"deficit":17,"surplus":0,"balance":135,"total":163},"2024":{"no_eval":11,"deficit":20,"surplus":0,"balance":132,"total":163}},"tarnogórski":{"2025":{"no_eval":6,"deficit":66,"surplus":0,"balance":91,"total":163},"2024":{"no_eval":6,"deficit":53,"surplus":0,"balance":104,"total":163}},"Tychy":{"2025":{"no_eval":15,"deficit":16,"surplus":1,"balance":131,"total":163},"2024":{"no_eval":16,"deficit":18,"surplus":1,"balance":128,"total":163}},"wodzisławski":{"2025":{"no_eval":8,"deficit":35,"surplus":0,"balance":120,"total":163},"2024":{"no_eval":17,"deficit":30,"surplus":0,"balance":116,"total":163}},"Zabrze":{"2025":{"no_eval":12,"deficit":45,"surplus":2,"balance":104,"total":163},"2024":{"no_eval":11,"deficit":37,"surplus":0,"balance":115,"total":163}},"zawierciański":{"2025":{"no_eval":2,"deficit":15,"surplus":0,"balance":146,"total":163},"2024":{"no_eval":4,"deficit":21,"surplus":1,"balance":137,"total":163}},"Żory":{"2025":{"no_eval":3,"deficit":6,"surplus":0,"balance":154,"total":163},"2024":{"no_eval":4,"deficit":8,"surplus":0,"balance":151,"total":163}},"żywiecki":{"2025":{"no_eval":3,"deficit":23,"surplus":0,"balance":137,"total":163},"2024":{"no_eval":3,"deficit":23,"surplus":0,"balance":137,"total":163}}};
 const TOP_OCC = [{"name": "nauczyciele praktycznej nauki zawodu", "deficit_count": 29, "balance_count": 7, "total": 36}, {"name": "nauczyciele przedmiotów zawodowych", "deficit_count": 27, "balance_count": 9, "total": 36}, {"name": "lekarze", "deficit_count": 26, "balance_count": 10, "total": 36}, {"name": "kierowcy samochodów ciężarowych i ciągników siodłowych", "deficit_count": 24, "balance_count": 12, "total": 36}, {"name": "pracownicy służb mundurowych", "deficit_count": 23, "balance_count": 13, "total": 36}, {"name": "psycholodzy i terapeuci", "deficit_count": 22, "balance_count": 14, "total": 36}, {"name": "elektrycy i energetycy", "deficit_count": 21, "balance_count": 15, "total": 36}, {"name": "spawacze", "deficit_count": 21, "balance_count": 15, "total": 36}, {"name": "pielęgniarki i położne", "deficit_count": 20, "balance_count": 16, "total": 36}, {"name": "kierowcy autobusów", "deficit_count": 19, "balance_count": 17, "total": 36}];
@@ -816,12 +1145,12 @@ document.getElementById("k-bal").textContent=OVERALL.balance_marks.toLocaleStrin
 document.getElementById("k-sur").textContent=OVERALL.surplus_marks.toLocaleString("pl-PL");
 
 const select=document.getElementById("countySelect");
-select.innerHTML='<option value="">Wybierz powiat…</option>'+WANTED.slice().sort((a,b)=>a.localeCompare(b,"pl")).map(n=>`<option>${n}</option>`).join("");
+select.innerHTML='<option value="__WOJ__">Województwo śląskie - średnie</option>'+WANTED.slice().sort((a,b)=>a.localeCompare(b,"pl")).map(n=>`<option>${n}</option>`).join("");
 const occupationSelect=document.getElementById("occupationSelect");
 occupationSelect.innerHTML='<option value="">Wybierz zawód z listy…</option>'+Object.keys(OCC_DATA).map(n=>`<option value="${escapeHtml(n)}">${escapeHtml(n)}</option>`).join("");
 occupationSelect.addEventListener("change",()=>setOccupation(occupationSelect.value));
-document.getElementById("occupationClear").addEventListener("click",()=>{setOccupation("");selectCounty("Katowice");});
-select.addEventListener("change",()=>selectCounty(select.value));
+document.getElementById("occupationClear").addEventListener("click",()=>{setOccupation(""); if(active) selectCounty(active); else selectProvinceOverview();});
+select.addEventListener("change",()=>{if(select.value==="__WOJ__") selectProvinceOverview(); else selectCounty(select.value);});
 
 let mode="delta", active="", jobStatusFilter="D", svg=document.getElementById("map"), tooltip=document.getElementById("tooltip");
 let mapFeatures=[];
@@ -831,8 +1160,87 @@ function deltaHtml(v){
   const cls=v>0?"up":v<0?"down":"neutral";
   return `<span class="${cls}">${sign}${v} vs 2026</span>`;
 }
+function avgDelta(field){
+  const vals=Object.values(DATA).map(d=>Number(d[field])).filter(Number.isFinite);
+  return vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:0;
+}
+function selectProvinceOverview(){
+  active="";
+  select.value="__WOJ__";
+  document.querySelectorAll('.county').forEach(el=>el.classList.remove('selected'));
+  svg.querySelectorAll('.selectionOutline').forEach(x=>x.remove());
+  const total=AVG.deficit+AVG.balance+AVG.surplus+AVG.no_eval;
+  document.getElementById('countyTitle').textContent='Województwo śląskie';
+  document.getElementById('countyHint').textContent='Widok startowy - średnie dla 36 powiatów i miast na prawach powiatu.';
+  document.getElementById('m-def').textContent=pl1(AVG.deficit);
+  document.getElementById('m-bal').textContent=pl1(AVG.balance);
+  document.getElementById('m-sur').textContent=pl1(AVG.surplus);
+  document.getElementById('m-no').textContent=pl1(AVG.no_eval);
+  document.getElementById('m-unemp').textContent=pl1(VOIV_UNEMPLOYMENT)+'%';
+  [['def','delta_deficit'],['bal','delta_balance'],['sur','delta_surplus'],['no','delta_no_eval']].forEach(([id,k])=>{
+    const v=avgDelta(k), el=document.getElementById('d-'+id); el.className='delta neutral';
+    el.innerHTML=`<span class="neutral">średnia zmiana: ${v>0?'+':''}${pl1(v)} vs 2026</span>`;
+  });
+  const ud=document.getElementById('d-unemp'); ud.className='delta neutral'; ud.textContent='oficjalny wskaźnik wojewódzki';
+  document.getElementById('v-context-name').textContent='Województwo śląskie';
+  [['def','deficit'],['bal','balance'],['sur','surplus'],['no','no_eval']].forEach(([id,k])=>{
+    document.getElementById('v-'+id).textContent=pl1(AVG[k]);
+    const el=document.getElementById('vc-'+id); el.className='vCompare neutral'; el.innerHTML='<span class="vDelta">wartość wojewódzka</span><span class="vHint">Średnia dla 36 jednostek</span>';
+  });
+  document.getElementById('v-unemp').textContent=pl1(VOIV_UNEMPLOYMENT)+'%';
+  const ucmp=document.getElementById('vc-unemp'); ucmp.className='vCompare neutral'; ucmp.innerHTML='<span class="vDelta">wskaźnik wojewódzki</span><span class="vHint">stan na 31.08.2026 r.</span>';
+  const struct=[['Deficyt',AVG.deficit,'#c74d56'],['Równowaga',AVG.balance,'#3b8f75'],['Nadwyżka',AVG.surplus,'#d59a32'],['Bez oceny',AVG.no_eval,'#98a6b5']];
+  document.getElementById('structure').innerHTML=struct.map(([n,v,c])=>`<div class="barRow"><span>${n}</span><div class="barTrack"><div class="barFill" style="width:${v/total*100}%;background:${c}"></div></div><b>${pl1(v)}</b></div>`).join('');
+  const dd=avgDelta('delta_deficit');
+  const sDef=document.getElementById('sig-def'); sDef.className='mapSignal neutral'; document.getElementById('sig-def-v').textContent=(dd>0?'+':'')+pl1(dd); document.getElementById('sig-def-h').textContent='średnia zmiana liczby grup deficytowych vs 2026';
+  const sU=document.getElementById('sig-unemp'); sU.className='mapSignal neutral'; document.getElementById('sig-unemp-v').textContent=pl1(VOIV_UNEMPLOYMENT)+'%'; document.getElementById('sig-unemp-h').textContent='stan na 31.08.2026 r.';
+  document.getElementById('sig-bal-v').textContent=pl1(AVG.balance/total*100)+'%'; document.getElementById('sig-bal-h').textContent=`średnio ${pl1(AVG.balance)} z ${pl1(total)} grup w równowadze`;
+  document.getElementById('jobs').innerHTML='<div class="hint">Wybierz konkretny powiat, aby zobaczyć listę zawodów według statusu.</div>';
+  document.getElementById('comments').innerHTML='<div class="hint">Komentarze jakościowe są dostępne po wybraniu konkretnego powiatu.</div>';
+  renderProvinceTrend();
+  renderProvinceSignals();
+  updateMapLabels();
+  syncUrlState();
+}
+function renderProvinceSignals(){
+  const box=document.getElementById('analyticSignals'); if(!box) return;
+  const total=AVG.deficit+AVG.balance+AVG.surplus+AVG.no_eval, share=100*AVG.balance/total;
+  const p24=avgPoint(2024,'deficit'), p27=avgPoint(2027,'deficit'), ch=p27-p24;
+  box.innerHTML=[
+    {c:ch<0?'good':ch>0?'bad':'neutral',t:`Średni deficyt ${ch<0?'spadł':ch>0?'wzrósł':'nie zmienił się'} od 2024 r.`,d:`${pl1(p24)} → ${pl1(p27)} grup.`},
+    {c:share>=85?'good':'info',t:`${pl1(share)}% grup średnio w równowadze`,d:`Średnio ${pl1(AVG.balance)} z ${pl1(total)} grup w 2027 r.`},
+    {c:'neutral',t:`Stopa bezrobocia ${pl1(VOIV_UNEMPLOYMENT)}%`,d:'Stan na 31.08.2026 r. - oficjalny wskaźnik dla województwa śląskiego.'},
+    {c:'info',t:`Średnio ${pl1(AVG.deficit)} grup deficytowych`,d:'Średnia dla 36 powiatów i miast na prawach powiatu.'}
+  ].map(s=>`<div class="analyticSignal ${s.c}"><b>${s.t}</b><span>${s.d}</span></div>`).join('');
+  const pill=document.getElementById('signalCounty'); if(pill) pill.textContent='Województwo śląskie';
+}
+function renderProvinceTrend(){
+  const years=[2024,2025,2026,2027];
+  const totals=years.map(y=>trendPoint(WANTED[0],y).total);
+  const counts=years.map(y=>avgPoint(y,trendMetric));
+  const vals=trendMode==='share'?counts.map((v,i)=>pct(v,totals[i])):counts;
+  let min=Math.min(...vals), max=Math.max(...vals), range=Math.max(max-min,trendMode==='share'?5:4), pad=range*.2;
+  min=Math.max(0,min-pad); max=max+pad;
+  const W=760,H=330,L=62,R=30,T=28,B=52,x=i=>L+i*(W-L-R)/3,y=v=>H-B-(v-min)/(max-min||1)*(H-T-B),colors=TREND_COLORS[trendMetric]||TREND_COLORS.deficit;
+  let svg=`<rect x="0" y="0" width="${W}" height="${H}" rx="15" fill="transparent"/>`;
+  for(let i=0;i<=4;i++){const val=min+(max-min)*i/4,yy=y(val),lab=trendMode==='share'?`${Math.round(val)}%`:pl1(val);svg+=`<line x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}" stroke="#e9eef4"/><text x="${L-11}" y="${yy+4}" text-anchor="end" fill="#8291a2" font-size="10.5">${lab}</text>`;}
+  years.forEach((yr,i)=>svg+=`<text x="${x(i)}" y="${H-18}" text-anchor="middle" fill="#607286" font-size="12" font-weight="800">${yr}</text>`);
+  svg+=`<path d="${vals.map((v,i)=>`${i?'L':'M'}${x(i)},${y(v)}`).join(' ')}" fill="none" stroke="${colors.main}" stroke-width="4.5"/>`;
+  vals.forEach((v,i)=>svg+=`<circle cx="${x(i)}" cy="${y(v)}" r="6.5" fill="${colors.main}" stroke="#fff" stroke-width="2.5"/>`);
+  document.getElementById('trendChart').innerHTML=svg;
+  document.getElementById('trendSubtitle').textContent=`Województwo śląskie • średnia 36 jednostek • ${trendMode==='share'?'udział procentowy':'liczba grup zawodów'}`;
+  document.getElementById('trendCountyLegend').textContent='Średnia wojewódzka';
+  document.querySelector('.trendLegend span:nth-child(2)').style.display='none';
+  document.getElementById('trendMetricLabel').textContent=TREND_LABELS[trendMetric];
+  document.getElementById('trendMetricLabel').style.color=colors.dark;
+  const diff=vals[3]-vals[0]; document.getElementById('trendHeadline').textContent=`${diff>0?'+':''}${trendMode==='share'?pl1(diff)+' p.p.':pl1(diff)}`; document.getElementById('trendHeadline').style.color=colors.main;
+  document.getElementById('trendHeadlineDesc').textContent=`zmiana średniej: 2024 → 2027 (${pl1(vals[0])}${trendMode==='share'?'%':''} → ${pl1(vals[3])}${trendMode==='share'?'%':''})`;
+  document.getElementById('trendInsight').textContent=`Średnia wojewódzka dla kategorii „${TREND_LABELS[trendMetric].toLowerCase()}” ${diff<0?'spadła':diff>0?'wzrosła':'pozostała bez zmian'} między 2024 a 2027 r.`;
+  document.getElementById('trendYears').innerHTML=years.map((yr,i)=>`<div class="yearCard" style="border-top-color:${colors.main}"><div class="year">${yr}</div><div class="yearValue" style="color:${colors.main}">${trendMode==='share'?pl1(vals[i])+'%':pl1(vals[i])}</div><div class="yearPct">${trendMode==='share'?pl1(counts[i])+' grup średnio':pl1(pct(counts[i],totals[i]))+'% wszystkich grup'}</div><div class="yearAvg">średnia wojewódzka</div></div>`).join('');
+}
 function selectCounty(name){
   if(!name || !DATA[name]) return;
+  const avgLegend=document.querySelector('.trendLegend span:nth-child(2)'); if(avgLegend) avgLegend.style.display='flex';
   active=name; select.value=name;
   let selectedPath=null;
   document.querySelectorAll(".county").forEach(el=>{
@@ -865,7 +1273,7 @@ function selectCounty(name){
   document.getElementById("m-unemp").textContent=(u ?? "-")+((u ?? null)!==null?"%":"");
   const ud=document.getElementById("d-unemp");
   ud.className="delta neutral";
-  ud.textContent="stan 31.08.2026";
+  ud.textContent="stan na 31.08.2026 r.";
   [["def","deficit","delta_deficit"],["bal","balance","delta_balance"],["sur","surplus","delta_surplus"],["no","no_eval","delta_no_eval"]].forEach(([id,k,dk])=>{
     document.getElementById("m-"+id).textContent=d[k];
     document.getElementById("d-"+id).innerHTML=deltaHtml(d[dk]);
@@ -906,6 +1314,9 @@ function selectCounty(name){
   const comments=d.comments||[];
   document.getElementById("comments").innerHTML=comments.length?comments.slice(0,2).map(c=>`<div class="comment">${escapeHtml(c)}</div>`).join(""):'<div class="hint">Brak komentarzy jakościowych w bazie dla tej jednostki.</div>';
   renderTrend(name);
+  
+  renderAnalyticSignals(name);
+  syncUrlState();
 }
 function countyJobsByStatus(county,status){
   const idx=WANTED.indexOf(county); if(idx<0) return [];
@@ -1039,7 +1450,8 @@ function renderTrend(name){
   const summaryBox=document.querySelector('.trendSummaryBox'); if(summaryBox) summaryBox.style.borderLeftColor=colors.main;
   const countyDot=document.querySelector('.trendDot.county'); if(countyDot) countyDot.style.background=colors.main;
   const avgDot=document.querySelector('.trendDot.avg'); if(avgDot) avgDot.style.background=TREND_AVG_COLOR;
-  document.getElementById('trendYearStrip').innerHTML=years.map((yr,i)=>{
+  const trendYearStrip=document.getElementById('trendYearStrip');
+  if(trendYearStrip) trendYearStrip.innerHTML=years.map((yr,i)=>{
     const countyDisplay=trendMode==='share'?`${pl1(vals[i])}%`:pl1(vals[i]);
     const avgDisplay=trendMode==='share'?`${pl1(avgs[i])}%`:pl1(avgs[i]);
     return `<div class="trendYearMini ${yr===2027?'current':''}" style="border-color:${yr===2027?colors.main:'#e4eaf1'}"><div class="miniYear">${yr}</div><div class="miniCounty" style="color:${colors.main}">${countyDisplay}</div><div class="miniAvg">śr. woj. ${avgDisplay}</div></div>`;
@@ -1055,7 +1467,7 @@ function renderTrend(name){
 document.querySelectorAll(".trendBtn").forEach(b=>b.addEventListener("click",()=>{
   trendMetric=b.dataset.trend;
   document.querySelectorAll(".trendBtn").forEach(x=>x.classList.toggle("active",x===b));
-  if(active) renderTrend(active);
+  if(active) renderTrend(active); else renderProvinceTrend();
 }));
 document.querySelectorAll(".trendModeBtn").forEach(b=>b.addEventListener("click",()=>{
   trendMode=b.dataset.trendMode;
@@ -1100,7 +1512,11 @@ function renderOccupationSummary(){
 }
 function setOccupation(name){
   selectedOccupation=(name&&OCC_DATA[name])?name:""; occupationSelect.value=selectedOccupation;
-  renderOccupationSummary(); recolor();
+  const occupationTools=document.querySelector('.occupationTools');
+  if(occupationTools) occupationTools.classList.toggle('occupationActive',!!selectedOccupation);
+  const occupationProfile=document.querySelector('.occupationProfileCard');
+  if(occupationProfile) occupationProfile.classList.toggle('occupationProfileActive',!!selectedOccupation);
+  renderOccupationSummary(); renderOccupationProfile(); recolor(); syncUrlState();
 }
 function recolor(){
   if(selectedOccupation){
@@ -1152,7 +1568,7 @@ function buildMap(){
         const s=occupationStatus(selectedOccupation,name), meta=OCC_STATUS[s];
         tooltip.innerHTML=`<div style="font-size:14px;font-weight:800;margin-bottom:4px">${name}</div><div style="max-width:250px;margin-bottom:6px">${escapeHtml(selectedOccupation)}</div><div style="font-weight:800;color:${meta.color}">${meta.label}</div>`;
       } else {
-        tooltip.innerHTML=`<div style="font-size:14px;font-weight:800;margin-bottom:4px">${name}</div><div>Stopa bezrobocia <b style="float:right">${UNEMPLOYMENT[name] ?? "-"}%</b></div><div>Deficyt 2027 <b style="float:right">${row.deficit}</b></div><div>Równowaga <b style="float:right">${row.balance}</b></div><div style="margin-top:4px;opacity:.82">Zmiana deficytu vs 2026: <b>${row.delta_deficit>0?"+":""}${row.delta_deficit}</b></div>`;
+        tooltip.innerHTML=`<div style="font-size:14px;font-weight:800;margin-bottom:4px">${name}</div><div>Stopa bezrobocia <b style="float:right">${UNEMPLOYMENT[name] ?? "-"}%</b></div><div style="font-size:11px;opacity:.72">stan na 31.08.2026 r.</div><div>Deficyt 2027 <b style="float:right">${row.deficit}</b></div><div>Równowaga <b style="float:right">${row.balance}</b></div><div style="margin-top:4px;opacity:.82">Zmiana deficytu vs 2026: <b>${row.delta_deficit>0?"+":""}${row.delta_deficit}</b></div>`;
       }
     });
     p.addEventListener("mouseleave",()=>tooltip.style.display="none");
@@ -1160,7 +1576,7 @@ function buildMap(){
   }
   addMapLabels();
   recolor();
-  selectCounty("Katowice");
+  selectProvinceOverview();
 }
 function addMapLabels(){
   svg.querySelectorAll('.mapLabel').forEach(x=>x.remove());
@@ -1270,7 +1686,7 @@ function buildPrintReport(){
   report.innerHTML=`
     <section class="pdfPage">
       <div class="pdfHeader"><div><div class="eyeb">Prognoza rynku pracy 2027</div><h1>${escapeHtml(name)}</h1><p>Pełny raport powiatowy • dane 2024–2027</p></div><div class="pdfMeta">Województwo śląskie<br>Stan stopy bezrobocia: 31.08.2026<br>Wygenerowano: ${now.toLocaleDateString('pl-PL')}</div></div>
-      <div class="pdfKpis">${metrics.map(([l,v,delta])=>`<div class="pdfKpi"><div class="l">${l}</div><div class="v">${v}</div><div class="d">${delta==null?(l==='Stopa bezrobocia'?`woj. ${pl1(VOIV_UNEMPLOYMENT)}%`:''):`${delta>0?'+':''}${delta} vs 2026`}</div></div>`).join('')}</div>
+      <div class="pdfKpis">${metrics.map(([l,v,delta])=>`<div class="pdfKpi"><div class="l">${l}</div><div class="v">${v}</div><div class="d">${delta==null?(l==='Stopa bezrobocia'?`stan na 31.08.2026 r. • woj. ${pl1(VOIV_UNEMPLOYMENT)}%`:''):`${delta>0?'+':''}${delta} vs 2026`}</div></div>`).join('')}</div>
       <div class="pdfGrid2"><div class="pdfBox pdfMap"><h3>Powiat na mapie województwa</h3><div class="mapCanvas">${mapClone.outerHTML}</div></div><div class="pdfBox"><h3>Struktura ocen 2027</h3><div class="pdfBars">${struct.map(([l,v,c])=>`<div class="pdfBarRow"><span>${l}</span><div class="pdfBarTrack"><div class="pdfBarFill" style="width:${v/d.total*100}%;background:${c}"></div></div><b>${v}</b></div>`).join('')}</div><h3 style="margin-top:6mm">Komentarz</h3>${comments}</div></div>
     </section>
     <section class="pdfPage">
@@ -1287,7 +1703,7 @@ function buildPrintReport(){
     <section class="pdfPage pdfJobsStart">
       <div class="pdfHeader"><div><div class="eyeb">Pełne zestawienie</div><h1>Zawody według sytuacji - ${escapeHtml(name)}</h1><p>Wszystkie grupy zawodów w prognozie 2027</p></div></div>
       ${jobsHtml}
-      <div class="pdfMethod">Uwaga metodologiczna: liczby w kategoriach odnoszą się do liczby grup zawodów ocenionych w danym roku. Średnia wojewódzka jest średnią dla 36 powiatów i miast na prawach powiatu. Stopa bezrobocia województwa jest oficjalnym wskaźnikiem wojewódzkim, a nie średnią arytmetyczną powiatów.</div>
+      <div class="pdfMethod">Uwaga metodologiczna: liczby w kategoriach odnoszą się do liczby grup zawodów ocenionych w danym roku. Średnia wojewódzka jest średnią dla 36 powiatów i miast na prawach powiatu. Stopa bezrobocia: stan na 31.08.2026 r. Wartość wojewódzka jest oficjalnym wskaźnikiem wojewódzkim, a nie średnią arytmetyczną powiatów.</div>
     </section>`;
 }
 
@@ -1392,7 +1808,7 @@ async function generatePPTX(){
   const coverKpis=[
     ['DEFICYT 2027',d.deficit,'grup',C.red],
     ['RÓWNOWAGA',`${pl1(balShare)}%`,'klasyfikacji',C.green],
-    ['STOPA BEZROBOCIA',unemploymentText,`woj. ${pl1(VOIV_UNEMPLOYMENT)}%`,C.white]
+    ['STOPA BEZROBOCIA',unemploymentText,`stan na 31.08.2026 r. • woj. ${pl1(VOIV_UNEMPLOYMENT)}%`,C.white]
   ];
   coverKpis.forEach((k,i)=>{
     const x=.72+i*3.02;
@@ -1413,7 +1829,7 @@ async function generatePPTX(){
     ['Równowaga',d.balance,`${d.delta_balance>0?'+':''}${d.delta_balance} vs 2026`,C.green],
     ['Nadwyżka',d.surplus,`${d.delta_surplus>0?'+':''}${d.delta_surplus} vs 2026`,C.blue],
     ['Bez oceny',d.no_eval,`${d.delta_no_eval>0?'+':''}${d.delta_no_eval} vs 2026`,C.gray],
-    ['Stopa bezrobocia',unemploymentText,`woj. ${pl1(VOIV_UNEMPLOYMENT)}%`,C.navy]
+    ['Stopa bezrobocia',unemploymentText,`stan na 31.08.2026 r. • woj. ${pl1(VOIV_UNEMPLOYMENT)}%`,C.navy]
   ];
   metrics.forEach((z,i)=>addKpi(s,.6+i*2.47,1.43,2.25,z[0],z[1],z[2],z[3]));
   const map=document.getElementById('map');
@@ -1521,6 +1937,172 @@ async function generatePPTX(){
   await pptx.writeFile({fileName:`Prognoza rynku pracy 2027 - ${safe}.pptx`});
 }
 
+
+// ===== v3: moduły analityczne =====
+function renderAnalyticSignals(name){
+  const box=document.getElementById('analyticSignals'); if(!box||!DATA[name]) return;
+  const d=DATA[name], u=UNEMPLOYMENT[name], share=d.total?100*d.balance/d.total:0;
+  const p24=trendPoint(name,2024), change24=p24?d.deficit-p24.deficit:null;
+  const rank=Object.entries(DATA).sort((a,b)=>a[1].deficit-b[1].deficit).findIndex(([n])=>n===name)+1;
+  const signals=[];
+  if(change24!==null) signals.push({c:change24<0?'good':change24>0?'bad':'neutral',t:`Deficyt ${change24<0?'spadł':change24>0?'wzrósł':'nie zmienił się'} od 2024 r.`,d:`${p24.deficit} → ${d.deficit} grup (${change24>0?'+':''}${change24}).`});
+  signals.push({c:share>=90?'good':'info',t:`${pl1(share)}% grup w równowadze`,d:`${d.balance} z ${d.total} ocenionych grup zawodów w 2027 r.`});
+  if(u!=null){const du=Math.round((u-VOIV_UNEMPLOYMENT)*10)/10;signals.push({c:du<0?'good':du>0?'bad':'neutral',t:`Bezrobocie ${du<0?'poniżej':du>0?'powyżej':'na poziomie'} województwa`,d:`${pl1(u)}% wobec ${pl1(VOIV_UNEMPLOYMENT)}% w województwie (${du>0?'+':''}${pl1(du)} p.p.).`});}
+  signals.push({c:d.surplus===0?'good':'info',t:d.surplus===0?'Brak grup nadwyżkowych':`${d.surplus} grup nadwyżkowych`,d:d.surplus===0?'W 2027 r. nie wskazano żadnej grupy w nadwyżce.':'Warto sprawdzić, których zawodów dotyczy nadwyżka.'});
+  signals.push({c:'info',t:`Pozycja ${rank}. pod względem liczby deficytów`,d:`Ranking rosnący wśród ${Object.keys(DATA).length} powiatów i miast na prawach powiatu.`});
+  box.innerHTML=signals.slice(0,4).map(s=>`<div class="analyticSignal ${s.c}"><b>${escapeHtml(s.t)}</b><span>${escapeHtml(s.d)}</span></div>`).join('');
+  const pill=document.getElementById('signalCounty'); if(pill) pill.textContent=name;
+}
+
+function populateCompareSelects(){
+  const first=document.getElementById('compare1');
+  if(first&&!first.value){
+    const initial=(active&&DATA[active])?active:(DATA['Katowice']?'Katowice':'');
+    if(initial) first.value=initial;
+  }
+  bindCompareOptions();
+  syncComparePickers();
+}
+function syncComparePickers(){
+  document.querySelectorAll('.comparePicker').forEach(picker=>{
+    const target=document.getElementById(picker.dataset.target), menu=picker.querySelector('.comparePickerMenu'), txt=picker.querySelector('.comparePickerText');
+    if(!target||!menu||!txt) return;
+    txt.textContent=target.value||'— wybierz —';
+    menu.querySelectorAll('.comparePickerOption').forEach(opt=>opt.classList.toggle('active',(opt.dataset.value||'')===target.value));
+  });
+}
+function bindCompareOptions(){
+  document.querySelectorAll('.comparePicker').forEach(picker=>{
+    const target=document.getElementById(picker.dataset.target), menu=picker.querySelector('.comparePickerMenu'), txt=picker.querySelector('.comparePickerText');
+    if(!target||!menu||picker.dataset.bound==='1') return;
+    picker.dataset.bound='1';
+    menu.addEventListener('click',e=>{
+      const opt=e.target.closest('.comparePickerOption'); if(!opt) return;
+      e.stopPropagation();
+      target.value=opt.dataset.value||'';
+      txt.textContent=target.value||'— wybierz —';
+      picker.classList.remove('open');
+      picker.querySelector('.comparePickerBtn')?.setAttribute('aria-expanded','false');
+      syncComparePickers();
+      renderComparison();
+    });
+  });
+}
+function initComparePickers(){
+  document.querySelectorAll('.comparePicker').forEach(picker=>{
+    const btn=picker.querySelector('.comparePickerBtn');
+    btn.addEventListener('click',e=>{
+      e.stopPropagation(); const willOpen=!picker.classList.contains('open');
+      document.querySelectorAll('.comparePicker.open').forEach(p=>{p.classList.remove('open');p.querySelector('.comparePickerBtn')?.setAttribute('aria-expanded','false')});
+      picker.classList.toggle('open',willOpen); btn.setAttribute('aria-expanded',String(willOpen));
+    });
+  });
+  document.addEventListener('click',()=>document.querySelectorAll('.comparePicker.open').forEach(p=>{p.classList.remove('open');p.querySelector('.comparePickerBtn')?.setAttribute('aria-expanded','false')}));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.comparePicker.open').forEach(p=>{p.classList.remove('open');p.querySelector('.comparePickerBtn')?.setAttribute('aria-expanded','false')})});
+}
+function renderComparison(){
+  const names=[1,2,3].map(i=>document.getElementById(`compare${i}`)?.value).filter((n,i,a)=>n&&a.indexOf(n)===i);
+  const out=document.getElementById('compareOutput'); if(!out) return;
+  if(names.length<2){out.innerHTML='<div class="hint">Wybierz co najmniej dwa różne powiaty.</div>';return;}
+  const metrics=[['Deficyt','deficit','min'],['Równowaga','balance','max'],['Nadwyżka','surplus','min'],['Bez oceny','no_eval','min'],['Stopa bezrobocia','unemp','min']];
+  let rows='';
+  metrics.forEach(([label,key,best])=>{
+    const vals=names.map(n=>key==='unemp'?UNEMPLOYMENT[n]:DATA[n][key]); const valid=vals.filter(Number.isFinite); const target=best==='max'?Math.max(...valid):Math.min(...valid);
+    rows+=`<tr><td>${label}</td>`+vals.map((v,i)=>`<td class="${Number.isFinite(v)&&v===target?'compareBest':''}">${v==null?'—':(key==='unemp'?pl1(v)+'%':v)}</td>`).join('')+'</tr>';
+  });
+  rows+=`<tr><td>Zmiana deficytu vs 2026</td>`+names.map(n=>{const v=DATA[n].delta_deficit;return `<td>${v>0?'+':''}${v}</td>`}).join('')+'</tr>';
+  out.innerHTML=`<table class="compareTable"><thead><tr><th>Wskaźnik</th>${names.map(n=>`<th>${escapeHtml(n)}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+function renderOccupationProfile(){
+  const root=document.getElementById('occProfileBody'), title=document.getElementById('occProfileTitle'), sub=document.getElementById('occProfileSub'); if(!root) return;
+  if(!selectedOccupation||!OCC_DATA[selectedOccupation]){title.textContent='Wybierz zawód, aby zobaczyć profil wojewódzki';sub.textContent='Mapa, statusy w 36 jednostkach oraz koncentracja deficytu.';root.className='occProfileEmpty';root.innerHTML='Wybierz zawód z listy nad mapą albo kliknij zawód w profilu powiatu.';return;}
+  const rec=OCC_DATA[selectedOccupation], groups={DD:[],D:[],R:[],N:[],X:[]};
+  WANTED.forEach((n,i)=>{const s=rec.s[i]||'X';(groups[s]||(groups[s]=[])).push(n)});
+  const deficitN=groups.D.length+groups.DD.length;
+  title.textContent=selectedOccupation; sub.textContent=`Branża: ${rec.branch||'—'} • kod: ${rec.code||'—'} • status w 36 jednostkach`;
+  root.className='occProfileGrid';
+  const cards=[['Deficyt',deficitN,'#c74d56'],['Równowaga',groups.R.length,'#3b8f75'],['Nadwyżka',groups.N.length,'#2f6fb0'],['Bez oceny',groups.X.length,'#7d8997']];
+  const left=`<div><div class="occKpis">${cards.map(([l,n,c])=>`<div class="occKpi"><div class="l">${l}</div><div class="n" style="color:${c}">${n}</div></div>`).join('')}</div><div class="analyticSignal info" style="margin-top:10px"><b>Koncentracja deficytu</b><span>${deficitN} z ${WANTED.length} jednostek (${pl1(100*deficitN/WANTED.length)}%) wskazuje deficyt lub duży deficyt.</span></div></div>`;
+  const labels={DD:'Duży deficyt',D:'Deficyt',R:'Równowaga',N:'Nadwyżka',X:'Bez oceny'};
+  const right=`<div class="occCountyGroups">${['DD','D','N','X'].map(s=>`<div class="occStatusGroup"><h4 style="color:${OCC_STATUS[s].color}">${labels[s]} • ${groups[s].length}</h4><div class="occTags">${groups[s].length?groups[s].slice(0,18).map(n=>`<button class="occTag" data-county="${escapeHtml(n)}">${escapeHtml(n)}</button>`).join(''):'<span class="hint">Brak</span>'}${groups[s].length>18?`<span class="hint">+${groups[s].length-18}</span>`:''}</div></div>`).join('')}</div>`;
+  root.innerHTML=left+right; root.querySelectorAll('.occTag').forEach(b=>b.addEventListener('click',()=>selectCounty(b.dataset.county)));
+}
+
+// Minimalny generator XLSX bez zewnętrznego CDN (OOXML + ZIP store)
+function xlsxXmlEscape(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function xlsxCol(n){let s='';for(n++;n;n=Math.floor((n-1)/26))s=String.fromCharCode(65+(n-1)%26)+s;return s}
+function crc32(bytes){let c=-1;for(const b of bytes){c^=b;for(let k=0;k<8;k++)c=(c>>>1)^((c&1)?0xEDB88320:0)}return (c^(-1))>>>0}
+function u16(n){return [n&255,(n>>>8)&255]} function u32(n){return [n&255,(n>>>8)&255,(n>>>16)&255,(n>>>24)&255]}
+function zipStore(files){const enc=new TextEncoder(), chunks=[], central=[];let offset=0;for(const [name,content] of files){const nb=enc.encode(name),data=enc.encode(content),crc=crc32(data);const local=new Uint8Array([0x50,0x4b,0x03,0x04,...u16(20),...u16(0),...u16(0),...u16(0),...u16(0),...u32(crc),...u32(data.length),...u32(data.length),...u16(nb.length),...u16(0),...nb]);chunks.push(local,data);central.push(new Uint8Array([0x50,0x4b,0x01,0x02,...u16(20),...u16(20),...u16(0),...u16(0),...u16(0),...u16(0),...u32(crc),...u32(data.length),...u32(data.length),...u16(nb.length),...u16(0),...u16(0),...u16(0),...u16(0),...u32(0),...u32(offset),...nb]));offset+=local.length+data.length}const csize=central.reduce((a,b)=>a+b.length,0),end=new Uint8Array([0x50,0x4b,0x05,0x06,...u16(0),...u16(0),...u16(central.length),...u16(central.length),...u32(csize),...u32(offset),...u16(0)]);return new Blob([...chunks,...central,end],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'})}
+function sheetXml(rows){let xml='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData>';rows.forEach((row,r)=>{xml+=`<row r="${r+1}">`;row.forEach((v,c)=>{if(v===null||v===undefined)return;const ref=xlsxCol(c)+(r+1),style=r===0?' s="1"':'';if(typeof v==='number'&&Number.isFinite(v))xml+=`<c r="${ref}"${style}><v>${v}</v></c>`;else xml+=`<c r="${ref}" t="inlineStr"${style}><is><t>${xlsxXmlEscape(v)}</t></is></c>`});xml+='</row>'});return xml+'</sheetData></worksheet>'}
+function generateXLSX(){
+  const name=active||'Katowice',d=DATA[name],years=[2024,2025,2026,2027];if(!d)return;
+  const profile=[['Wskaźnik','Wartość','Zmiana / benchmark'],['Powiat',name,''],['Deficyt',d.deficit,d.delta_deficit],['Równowaga',d.balance,d.delta_balance],['Nadwyżka',d.surplus,d.delta_surplus],['Bez oceny',d.no_eval,d.delta_no_eval],['Stopa bezrobocia',UNEMPLOYMENT[name]??'',`stan na 31.08.2026 r. • woj. ${VOIV_UNEMPLOYMENT}%`]];
+  const trends=[['Rok','Deficyt','Równowaga','Nadwyżka','Bez oceny','Liczba grup'],...years.map(y=>{const t=trendPoint(name,y);return [y,t.deficit,t.balance,t.surplus,t.no_eval,t.total]})];
+  const jobs=[['Zawód','Status','Branża','Kod']];['D','R','N','X'].forEach(s=>countyJobsByStatus(name,s).forEach(j=>jobs.push([j.name,{D:'Deficyt',R:'Równowaga',N:'Nadwyżka',X:'Bez oceny'}[s],j.branch,j.code])));
+  const benchmark=[['Wskaźnik','Powiat','Średnia wojewódzka','Różnica'],['Deficyt',d.deficit,AVG.deficit,d.deficit-AVG.deficit],['Równowaga',d.balance,AVG.balance,d.balance-AVG.balance],['Nadwyżka',d.surplus,AVG.surplus,d.surplus-AVG.surplus],['Bez oceny',d.no_eval,AVG.no_eval,d.no_eval-AVG.no_eval],['Stopa bezrobocia',UNEMPLOYMENT[name]??'',VOIV_UNEMPLOYMENT,(UNEMPLOYMENT[name]??VOIV_UNEMPLOYMENT)-VOIV_UNEMPLOYMENT]];
+  const sheets=[['Profil',profile],['Trendy',trends],['Zawody',jobs],['Benchmark',benchmark]];
+  const files=[];files.push(['[Content_Types].xml',`<?xml version="1.0" encoding="UTF-8"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>${sheets.map((_,i)=>`<Override PartName="/xl/worksheets/sheet${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('')}</Types>`]);
+  files.push(['_rels/.rels','<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>']);
+  files.push(['xl/workbook.xml',`<?xml version="1.0" encoding="UTF-8"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>${sheets.map(([n],i)=>`<sheet name="${xlsxXmlEscape(n)}" sheetId="${i+1}" r:id="rId${i+1}"/>`).join('')}</sheets></workbook>`]);
+  files.push(['xl/_rels/workbook.xml.rels',`<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${sheets.map((_,i)=>`<Relationship Id="rId${i+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i+1}.xml"/>`).join('')}<Relationship Id="rId${sheets.length+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`]);
+  files.push(['xl/styles.xml','<?xml version="1.0" encoding="UTF-8"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="2"><font><sz val="11"/><name val="Aptos"/></font><font><b/><color rgb="FFFFFFFF"/><sz val="11"/><name val="Aptos"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF173D66"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="1"><border/></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="2"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="1" borderId="0" xfId="0" applyFont="1" applyFill="1"/></cellXfs></styleSheet>']);
+  sheets.forEach(([_,rows],i)=>files.push([`xl/worksheets/sheet${i+1}.xml`,sheetXml(rows)]));
+  const blob=zipStore(files),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`Prognoza rynku pracy 2027 - ${name.replace(/[\\/:*?"<>|]/g,'_')}.xlsx`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1500);
+}
+
+
+function toggleHistoryYear(year, btn){
+  const card=document.querySelector(`.historyYearCard[data-year="${year}"]`);
+  if(!card) return;
+  const open=!card.classList.contains('open');
+  card.classList.toggle('open',open);
+  if(btn){
+    btn.setAttribute('aria-expanded',open?'true':'false');
+    const label=btn.querySelector('span');
+    if(label) label.textContent=open?'Ukryj zawody':'Pokaż zawody';
+  }
+  const panel=card.querySelector('.historyJobsPanel');
+  if(panel){
+    panel.hidden=!open;
+    panel.setAttribute('aria-hidden',open?'false':'true');
+    panel.style.display=open?'block':'none';
+  }
+}
+
+// Awaryjna obsługa akordeonu - działa nawet jeśli inline handler zostanie usunięty przez przeglądarkę/CSP.
+document.addEventListener('click',function(e){
+  const btn=e.target.closest('.historyYearToggle');
+  if(!btn) return;
+  const year=btn.dataset.year;
+  if(!year) return;
+  // Inline onclick już wykonał akcję; zabezpieczenie uruchamiamy tylko gdy event nie pochodzi z aktywnego handlera.
+  if(!btn.hasAttribute('onclick')) toggleHistoryYear(year,btn);
+});
+
+function initHistoryArchiveJobs(){
+  document.querySelectorAll('.historyJobsSearch').forEach(inp=>{
+    inp.addEventListener('input',()=>{
+      const q=normalize(inp.value);
+      const panel=inp.closest('.historyJobsPanel'); if(!panel) return;
+      panel.querySelectorAll('.historyJob').forEach(el=>{el.style.display=!q||normalize(el.textContent).includes(q)?'':'none';});
+    });
+  });
+}
+function syncUrlState(){try{const p=new URLSearchParams(location.search);active?p.set('powiat',active):p.delete('powiat');selectedOccupation?p.set('zawod',selectedOccupation):p.delete('zawod');history.replaceState(null,'',location.pathname+(p.toString()?'?'+p.toString():'')+location.hash)}catch(e){}}
+function restoreUrlState(){try{const p=new URLSearchParams(location.search),c=p.get('powiat'),o=p.get('zawod');if(c&&DATA[c])selectCounty(c);if(o&&OCC_DATA[o])setOccupation(o)}catch(e){}}
+
+async function loadExternalDataOverrides(){
+  if(location.protocol==='file:') return false;
+  try{
+    const [d,h,u,o,m]=await Promise.all(['data/powiaty.json','data/trendy-historyczne.json','data/bezrobocie.json','data/zawody.json','data/mapa.json'].map(x=>fetch(x,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error(x);return r.json()})));
+    // Dane JSON są źródłem do aktualizacji; obecny build zawiera identyczny fallback inline.
+    // Celowo nie podmieniamy referencji const w trakcie działania, aby zachować stabilność wersji offline.
+    return !!(d&&h&&u&&o&&m);
+  }catch(e){return false}
+}
+
 function generatePDF(){
   buildPrintReport();
   const now=new Date();
@@ -1530,11 +2112,23 @@ function generatePDF(){
   window.print();
   setTimeout(()=>document.title=oldTitle,500);
 }
+
 document.getElementById('pdfBtn').addEventListener('click',generatePDF);
 document.getElementById('pptBtn').addEventListener('click',generatePPTX);
+document.getElementById('xlsxBtn').addEventListener('click',generateXLSX);
+initComparePickers();
+bindCompareOptions();
+syncComparePickers();
+['compare1','compare2','compare3'].forEach(id=>document.getElementById(id).addEventListener('change',()=>{syncComparePickers();renderComparison()}));
+document.getElementById('compareClearBtn').addEventListener('click',()=>{['compare1','compare2','compare3'].forEach(id=>document.getElementById(id).value='');syncComparePickers();renderComparison();});
+document.getElementById('occProfileClear').addEventListener('click',()=>setOccupation(''));
 document.getElementById('fullscreenBtn').addEventListener('click',async()=>{
-  try{if(!document.fullscreenElement) await document.documentElement.requestFullscreen(); else await document.exitFullscreen()}catch(e){}
+  const entering=!document.body.classList.contains('presentationMode');
+  document.body.classList.toggle('presentationMode',entering);
+  document.getElementById('fullscreenBtn').textContent=entering?'✕ Zakończ prezentację':'⛶ Tryb prezentacji';
+  try{if(entering&&!document.fullscreenElement) await document.documentElement.requestFullscreen(); else if(!entering&&document.fullscreenElement) await document.exitFullscreen()}catch(e){}
 });
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement&&document.body.classList.contains('presentationMode')){document.body.classList.remove('presentationMode');document.getElementById('fullscreenBtn').textContent='⛶ Tryb prezentacji';}});
 
 function renderRanks(){
   const allCounties=Object.entries(DATA);
@@ -1555,7 +2149,10 @@ function renderRanks(){
   document.getElementById("occupationRank").innerHTML=occHigh.map(o=>`<div class="rankitem"><span class="rankname" title="${o.name}">${o.name}</span><div class="rankbar"><i style="width:${o.deficit_count/mo*100}%"></i></div><b>${o.deficit_count}</b></div>`).join("");
   document.getElementById("occupationRankLow").innerHTML=occLow.map(o=>`<div class="rankitem"><span class="rankname" title="${o.name}">${o.name}</span><div class="rankbar"><i style="width:${o.deficit_count/moLow*100}%"></i></div><b>${o.deficit_count}</b></div>`).join("");
 }
-renderRanks(); buildMap();
+populateCompareSelects(); renderComparison(); renderRanks(); buildMap(); selectProvinceOverview(); renderOccupationProfile(); initHistoryArchiveJobs();
+requestAnimationFrame(()=>{ if(!active && !selectedOccupation) selectProvinceOverview(); });
+setTimeout(()=>{ if(!active && !selectedOccupation) selectProvinceOverview(); },80);
+restoreUrlState(); loadExternalDataOverrides();
 </script>
 <div id="printReport" aria-hidden="true"></div>
 </body>
@@ -1625,4 +2222,28 @@ renderRanks(); buildMap();
   .county{cursor:pointer}
   .btn,.jobStatusTab,.occupationClear,select{touch-action:manipulation}
 }
+
+/* v3.11 - czysty kompaktowy akordeon archiwum */
+.historyDecadeGrid{display:flex!important;flex-direction:column;gap:8px!important}
+.historyYearCard{display:block!important;border:1px solid #dfe8ef!important;border-radius:12px!important;background:#fff!important;overflow:hidden!important;padding:0!important}
+.historyYearRow{display:grid;grid-template-columns:130px 300px minmax(260px,1fr) 145px;align-items:center;gap:14px;padding:11px 13px}
+.historyYearIdentity{min-width:0}.historyYearIdentity h3{margin:0!important;font-size:20px!important;color:#173d66}.historyYearIdentity .total{display:inline-block;margin-top:3px;font-size:10px;font-weight:800;color:#70849a;background:#f2f6f9;padding:3px 6px;border-radius:999px}
+.historyYearRow .historyStats{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:6px!important}.historyYearRow .historyStat{padding:7px 9px!important;border-radius:9px!important}.historyYearRow .historyStat b{font-size:17px!important}.historyYearRow .historyStat span{font-size:9px!important}
+.historyYearRow .historyYearNote{margin:0!important;font-size:10.5px!important;line-height:1.4;color:#66798d;min-width:0}
+.historyYearToggle{border:0!important;border-radius:9px!important;background:#f5f8fb!important;min-height:42px!important;padding:9px 11px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:8px!important;color:#264b6d!important;font-size:10.5px!important;font-weight:850!important;cursor:pointer!important}
+.historyYearToggle i{font-style:normal;font-size:16px;line-height:1;transition:transform .18s ease}.historyYearCard.open .historyYearToggle i{transform:rotate(180deg)}
+.historyJobsPanel{display:none!important;border-top:1px solid #e7edf3!important;padding:14px!important;background:#fbfdff!important}.historyYearCard.open .historyJobsPanel{display:block!important}
+.historyJobsToolbar{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:12px}.historyJobsToolbar b{display:block;color:#173d66;font-size:13px}.historyJobsToolbar span{display:block;color:#74869a;font-size:10px;margin-top:2px}.historyJobsSearch{width:min(340px,100%);height:38px;border:1px solid #d8e2ea;border-radius:9px;padding:0 11px;font:inherit;font-size:11px;background:#fff}
+.historyJobsList{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important;max-height:300px;overflow:auto;padding-right:4px}.historyJob{padding:8px 9px!important;border:1px solid #e5ebf1;border-radius:8px;background:#fff;font-size:10.5px;line-height:1.35;color:#314d67}
+.historyJobsEmpty{padding:12px;border-radius:9px;background:#f5f8fb;color:#677b90;font-size:11px;line-height:1.5}.historyJobsSource{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:12px;padding-top:10px;border-top:1px solid #e5ebf1;font-size:10px;color:#75879a}.historyJobsSource a{font-weight:800;color:#173d66;text-decoration:none}
+
+@media(max-width:1100px){.historyYearRow{grid-template-columns:110px 280px 1fr}.historyYearToggle{grid-column:1/-1}.historyJobsList{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:700px){.historyYearRow{grid-template-columns:1fr}.historyYearRow .historyStats{grid-template-columns:repeat(3,1fr)!important}.historyJobsToolbar{flex-direction:column;align-items:stretch}.historyJobsSearch{width:100%}.historyJobsList{grid-template-columns:1fr!important}.historyJobsSource{flex-direction:column;align-items:flex-start}}
+</style>
+
+<style>
+/* v3.12 - niezależny akordeon archiwum */
+.historyYearToggle::after{content:none!important}
+.historyJobsPanel[hidden]{display:none!important}
+.historyYearCard.open .historyJobsPanel{display:block!important}
 </style>

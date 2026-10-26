@@ -1,0 +1,578 @@
+{
+  "będziński": {
+    "2025": {
+      "no_eval": 2,
+      "deficit": 11,
+      "surplus": 0,
+      "balance": 150,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 3,
+      "deficit": 10,
+      "surplus": 0,
+      "balance": 150,
+      "total": 163
+    }
+  },
+  "bielski": {
+    "2025": {
+      "no_eval": 2,
+      "deficit": 22,
+      "surplus": 0,
+      "balance": 139,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 2,
+      "deficit": 20,
+      "surplus": 0,
+      "balance": 141,
+      "total": 163
+    }
+  },
+  "Bielsko-Biała": {
+    "2025": {
+      "no_eval": 2,
+      "deficit": 22,
+      "surplus": 0,
+      "balance": 139,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 2,
+      "deficit": 20,
+      "surplus": 0,
+      "balance": 141,
+      "total": 163
+    }
+  },
+  "bieruńsko-lędziński": {
+    "2025": {
+      "no_eval": 20,
+      "deficit": 13,
+      "surplus": 1,
+      "balance": 129,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 19,
+      "deficit": 15,
+      "surplus": 1,
+      "balance": 128,
+      "total": 163
+    }
+  },
+  "Bytom": {
+    "2025": {
+      "no_eval": 6,
+      "deficit": 18,
+      "surplus": 0,
+      "balance": 139,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 4,
+      "deficit": 14,
+      "surplus": 0,
+      "balance": 145,
+      "total": 163
+    }
+  },
+  "Chorzów": {
+    "2025": {
+      "no_eval": 5,
+      "deficit": 31,
+      "surplus": 0,
+      "balance": 127,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 7,
+      "deficit": 28,
+      "surplus": 0,
+      "balance": 128,
+      "total": 163
+    }
+  },
+  "cieszyński": {
+    "2025": {
+      "no_eval": 6,
+      "deficit": 33,
+      "surplus": 0,
+      "balance": 124,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 5,
+      "deficit": 30,
+      "surplus": 0,
+      "balance": 128,
+      "total": 163
+    }
+  },
+  "Częstochowa": {
+    "2025": {
+      "no_eval": 11,
+      "deficit": 37,
+      "surplus": 6,
+      "balance": 109,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 11,
+      "deficit": 42,
+      "surplus": 4,
+      "balance": 106,
+      "total": 163
+    }
+  },
+  "częstochowski": {
+    "2025": {
+      "no_eval": 8,
+      "deficit": 30,
+      "surplus": 7,
+      "balance": 118,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 14,
+      "deficit": 36,
+      "surplus": 5,
+      "balance": 108,
+      "total": 163
+    }
+  },
+  "Dąbrowa Górnicza": {
+    "2025": {
+      "no_eval": 8,
+      "deficit": 31,
+      "surplus": 0,
+      "balance": 124,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 8,
+      "deficit": 43,
+      "surplus": 0,
+      "balance": 112,
+      "total": 163
+    }
+  },
+  "Gliwice": {
+    "2025": {
+      "no_eval": 10,
+      "deficit": 52,
+      "surplus": 0,
+      "balance": 101,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 9,
+      "deficit": 50,
+      "surplus": 0,
+      "balance": 104,
+      "total": 163
+    }
+  },
+  "gliwicki": {
+    "2025": {
+      "no_eval": 10,
+      "deficit": 53,
+      "surplus": 0,
+      "balance": 100,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 9,
+      "deficit": 52,
+      "surplus": 0,
+      "balance": 102,
+      "total": 163
+    }
+  },
+  "Jastrzębie-Zdrój": {
+    "2025": {
+      "no_eval": 10,
+      "deficit": 6,
+      "surplus": 0,
+      "balance": 147,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 15,
+      "deficit": 15,
+      "surplus": 0,
+      "balance": 133,
+      "total": 163
+    }
+  },
+  "Jaworzno": {
+    "2025": {
+      "no_eval": 4,
+      "deficit": 30,
+      "surplus": 0,
+      "balance": 129,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 9,
+      "deficit": 39,
+      "surplus": 0,
+      "balance": 115,
+      "total": 163
+    }
+  },
+  "Katowice": {
+    "2025": {
+      "no_eval": 5,
+      "deficit": 13,
+      "surplus": 0,
+      "balance": 145,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 5,
+      "deficit": 29,
+      "surplus": 0,
+      "balance": 129,
+      "total": 163
+    }
+  },
+  "kłobucki": {
+    "2025": {
+      "no_eval": 6,
+      "deficit": 26,
+      "surplus": 5,
+      "balance": 126,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 10,
+      "deficit": 36,
+      "surplus": 1,
+      "balance": 116,
+      "total": 163
+    }
+  },
+  "lubliniecki": {
+    "2025": {
+      "no_eval": 5,
+      "deficit": 18,
+      "surplus": 0,
+      "balance": 140,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 14,
+      "deficit": 17,
+      "surplus": 2,
+      "balance": 130,
+      "total": 163
+    }
+  },
+  "mikołowski": {
+    "2025": {
+      "no_eval": 4,
+      "deficit": 15,
+      "surplus": 0,
+      "balance": 144,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 4,
+      "deficit": 22,
+      "surplus": 1,
+      "balance": 136,
+      "total": 163
+    }
+  },
+  "Mysłowice": {
+    "2025": {
+      "no_eval": 4,
+      "deficit": 33,
+      "surplus": 0,
+      "balance": 126,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 3,
+      "deficit": 39,
+      "surplus": 0,
+      "balance": 121,
+      "total": 163
+    }
+  },
+  "myszkowski": {
+    "2025": {
+      "no_eval": 5,
+      "deficit": 15,
+      "surplus": 2,
+      "balance": 141,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 10,
+      "deficit": 21,
+      "surplus": 1,
+      "balance": 131,
+      "total": 163
+    }
+  },
+  "Piekary Śląskie": {
+    "2025": {
+      "no_eval": 7,
+      "deficit": 26,
+      "surplus": 1,
+      "balance": 129,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 24,
+      "deficit": 25,
+      "surplus": 2,
+      "balance": 112,
+      "total": 163
+    }
+  },
+  "pszczyński": {
+    "2025": {
+      "no_eval": 4,
+      "deficit": 7,
+      "surplus": 0,
+      "balance": 152,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 3,
+      "deficit": 8,
+      "surplus": 0,
+      "balance": 152,
+      "total": 163
+    }
+  },
+  "raciborski": {
+    "2025": {
+      "no_eval": 9,
+      "deficit": 34,
+      "surplus": 0,
+      "balance": 120,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 10,
+      "deficit": 33,
+      "surplus": 0,
+      "balance": 120,
+      "total": 163
+    }
+  },
+  "Ruda Śląska": {
+    "2025": {
+      "no_eval": 6,
+      "deficit": 33,
+      "surplus": 0,
+      "balance": 124,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 6,
+      "deficit": 39,
+      "surplus": 0,
+      "balance": 118,
+      "total": 163
+    }
+  },
+  "rybnicki": {
+    "2025": {
+      "no_eval": 5,
+      "deficit": 14,
+      "surplus": 0,
+      "balance": 144,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 5,
+      "deficit": 17,
+      "surplus": 0,
+      "balance": 141,
+      "total": 163
+    }
+  },
+  "Rybnik": {
+    "2025": {
+      "no_eval": 5,
+      "deficit": 14,
+      "surplus": 0,
+      "balance": 144,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 5,
+      "deficit": 17,
+      "surplus": 0,
+      "balance": 141,
+      "total": 163
+    }
+  },
+  "Siemianowice Śląskie": {
+    "2025": {
+      "no_eval": 19,
+      "deficit": 21,
+      "surplus": 2,
+      "balance": 121,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 20,
+      "deficit": 20,
+      "surplus": 5,
+      "balance": 118,
+      "total": 163
+    }
+  },
+  "Sosnowiec": {
+    "2025": {
+      "no_eval": 14,
+      "deficit": 37,
+      "surplus": 0,
+      "balance": 112,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 12,
+      "deficit": 35,
+      "surplus": 1,
+      "balance": 115,
+      "total": 163
+    }
+  },
+  "Świętochłowice": {
+    "2025": {
+      "no_eval": 11,
+      "deficit": 17,
+      "surplus": 0,
+      "balance": 135,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 11,
+      "deficit": 20,
+      "surplus": 0,
+      "balance": 132,
+      "total": 163
+    }
+  },
+  "tarnogórski": {
+    "2025": {
+      "no_eval": 6,
+      "deficit": 66,
+      "surplus": 0,
+      "balance": 91,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 6,
+      "deficit": 53,
+      "surplus": 0,
+      "balance": 104,
+      "total": 163
+    }
+  },
+  "Tychy": {
+    "2025": {
+      "no_eval": 15,
+      "deficit": 16,
+      "surplus": 1,
+      "balance": 131,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 16,
+      "deficit": 18,
+      "surplus": 1,
+      "balance": 128,
+      "total": 163
+    }
+  },
+  "wodzisławski": {
+    "2025": {
+      "no_eval": 8,
+      "deficit": 35,
+      "surplus": 0,
+      "balance": 120,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 17,
+      "deficit": 30,
+      "surplus": 0,
+      "balance": 116,
+      "total": 163
+    }
+  },
+  "Zabrze": {
+    "2025": {
+      "no_eval": 12,
+      "deficit": 45,
+      "surplus": 2,
+      "balance": 104,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 11,
+      "deficit": 37,
+      "surplus": 0,
+      "balance": 115,
+      "total": 163
+    }
+  },
+  "zawierciański": {
+    "2025": {
+      "no_eval": 2,
+      "deficit": 15,
+      "surplus": 0,
+      "balance": 146,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 4,
+      "deficit": 21,
+      "surplus": 1,
+      "balance": 137,
+      "total": 163
+    }
+  },
+  "Żory": {
+    "2025": {
+      "no_eval": 3,
+      "deficit": 6,
+      "surplus": 0,
+      "balance": 154,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 4,
+      "deficit": 8,
+      "surplus": 0,
+      "balance": 151,
+      "total": 163
+    }
+  },
+  "żywiecki": {
+    "2025": {
+      "no_eval": 3,
+      "deficit": 23,
+      "surplus": 0,
+      "balance": 137,
+      "total": 163
+    },
+    "2024": {
+      "no_eval": 3,
+      "deficit": 23,
+      "surplus": 0,
+      "balance": 137,
+      "total": 163
+    }
+  }
+}

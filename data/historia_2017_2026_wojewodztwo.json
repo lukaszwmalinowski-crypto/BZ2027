@@ -1,0 +1,72 @@
+{
+  "2017": {
+    "deficit": 43,
+    "balance": 112,
+    "surplus": 6,
+    "assessed_total": 161,
+    "source": "Barometr Zawodów - raport województwo śląskie 2026"
+  },
+  "2018": {
+    "deficit": 40,
+    "balance": 117,
+    "surplus": 2,
+    "assessed_total": 159,
+    "source": "Barometr Zawodów - raport województwo śląskie 2026"
+  },
+  "2019": {
+    "deficit": 40,
+    "balance": 119,
+    "surplus": 1,
+    "assessed_total": 160,
+    "source": "Barometr Zawodów - raport województwo śląskie 2026"
+  },
+  "2020": {
+    "deficit": 41,
+    "balance": 121,
+    "surplus": 0,
+    "assessed_total": 162,
+    "source": "Barometr Zawodów - raport województwo śląskie 2026"
+  },
+  "2021": {
+    "deficit": 33,
+    "balance": 128,
+    "surplus": 0,
+    "assessed_total": 161,
+    "source": "Barometr Zawodów - raport województwo śląskie 2026"
+  },
+  "2022": {
+    "deficit": 32,
+    "balance": 128,
+    "surplus": 0,
+    "assessed_total": 160,
+    "source": "Barometr Zawodów - raport województwo śląskie 2026"
+  },
+  "2023": {
+    "deficit": 25,
+    "balance": 137,
+    "surplus": 0,
+    "assessed_total": 162,
+    "source": "Barometr Zawodów - raport województwo śląskie 2026"
+  },
+  "2024": {
+    "deficit": 22,
+    "balance": 141,
+    "surplus": 0,
+    "assessed_total": 163,
+    "source": "Barometr Zawodów - raport województwo śląskie 2026"
+  },
+  "2025": {
+    "deficit": 18,
+    "balance": 145,
+    "surplus": 0,
+    "assessed_total": 163,
+    "source": "Barometr Zawodów - raport województwo śląskie 2026"
+  },
+  "2026": {
+    "deficit": 14,
+    "balance": 150,
+    "surplus": 0,
+    "assessed_total": 164,
+    "source": "Barometr Zawodów - raport województwo śląskie 2026"
+  }
+}
