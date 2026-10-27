@@ -244,5 +244,186 @@
       "value": 4.4
     }
   ],
-  "unemployment_annual_note": "Stopa bezrobocia rejestrowanego, stan na 31 grudnia każdego roku. Przy porównywaniu długiego szeregu należy uwzględnić zmianę podstawy części szacunków od 2020 r."
+  "unemployment_annual_note": "Stopa bezrobocia rejestrowanego, stan na 31 grudnia każdego roku. Przy porównywaniu długiego szeregu należy uwzględnić zmianę podstawy części szacunków od 2020 r.",
+  "comparisons_poland": {
+    "bael_activity_q4_2016_2025": [
+      {
+        "year": 2016,
+        "slaskie": 53.8,
+        "polska": 56.3
+      },
+      {
+        "year": 2017,
+        "slaskie": 53.1,
+        "polska": 56.2
+      },
+      {
+        "year": 2018,
+        "slaskie": 52.3,
+        "polska": 56.1
+      },
+      {
+        "year": 2019,
+        "slaskie": 52.3,
+        "polska": 56.0
+      },
+      {
+        "year": 2020,
+        "slaskie": 53.6,
+        "polska": 56.5
+      },
+      {
+        "year": 2021,
+        "slaskie": 57.0,
+        "polska": 58.4
+      },
+      {
+        "year": 2022,
+        "slaskie": 56.6,
+        "polska": 58.7
+      },
+      {
+        "year": 2023,
+        "slaskie": 56.5,
+        "polska": 58.9
+      },
+      {
+        "year": 2024,
+        "slaskie": 55.9,
+        "polska": 58.5
+      },
+      {
+        "year": 2025,
+        "slaskie": 56.5,
+        "polska": 59.0
+      }
+    ],
+    "bael_employment_q4_2024_q4_2025": [
+      {
+        "period": "IV kw. 2024",
+        "slaskie": 54.6,
+        "polska": 56.8
+      },
+      {
+        "period": "I kw. 2025",
+        "slaskie": 53.6,
+        "polska": 56.2
+      },
+      {
+        "period": "II kw. 2025",
+        "slaskie": 54.1,
+        "polska": 56.7
+      },
+      {
+        "period": "III kw. 2025",
+        "slaskie": 54.9,
+        "polska": 57.2
+      },
+      {
+        "period": "IV kw. 2025",
+        "slaskie": 55.0,
+        "polska": 57.1
+      }
+    ],
+    "unemployment_monthly_2026": [
+      {
+        "period": "Sty",
+        "slaskie": 4.7,
+        "polska": 6.0
+      },
+      {
+        "period": "Lut",
+        "slaskie": 4.8,
+        "polska": 6.1
+      },
+      {
+        "period": "Mar",
+        "slaskie": 4.9,
+        "polska": 6.1
+      },
+      {
+        "period": "Kwi",
+        "slaskie": 4.9,
+        "polska": 6.0
+      },
+      {
+        "period": "Maj",
+        "slaskie": 4.8,
+        "polska": 5.9
+      },
+      {
+        "period": "Cze",
+        "slaskie": 4.8,
+        "polska": 5.8
+      },
+      {
+        "period": "Lip",
+        "slaskie": 4.8,
+        "polska": 5.8
+      },
+      {
+        "period": "Sie",
+        "slaskie": 4.8,
+        "polska": 5.8
+      },
+      {
+        "period": "Wrz",
+        "slaskie": 4.8,
+        "polska": 5.8
+      }
+    ],
+    "unemployment_annual_2016_2025": [
+      {
+        "year": 2016,
+        "slaskie": 6.7,
+        "polska": 8.2
+      },
+      {
+        "year": 2017,
+        "slaskie": 5.1,
+        "polska": 6.6
+      },
+      {
+        "year": 2018,
+        "slaskie": 4.4,
+        "polska": 5.8
+      },
+      {
+        "year": 2019,
+        "slaskie": 3.7,
+        "polska": 5.2
+      },
+      {
+        "year": 2020,
+        "slaskie": 4.9,
+        "polska": 6.3
+      },
+      {
+        "year": 2021,
+        "slaskie": 4.2,
+        "polska": 5.4
+      },
+      {
+        "year": 2022,
+        "slaskie": 3.7,
+        "polska": 5.2
+      },
+      {
+        "year": 2023,
+        "slaskie": 3.6,
+        "polska": 5.1
+      },
+      {
+        "year": 2024,
+        "slaskie": 3.6,
+        "polska": 5.1
+      },
+      {
+        "year": 2025,
+        "slaskie": 4.4,
+        "polska": 5.7
+      }
+    ],
+    "note": "Porównania regionalne z Polską. Dla bezrobocia 2020–2021 zachowano historyczną serię przed rewizją, zgodną z wykorzystaną serią wojewódzką."
+  }
 }

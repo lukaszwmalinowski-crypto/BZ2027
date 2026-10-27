@@ -191,3 +191,16 @@ Dopracowano wizualnie moduł GUS: KPI, karty, metryki, daty odniesienia i respon
 ## v3.34
 - Wykres bezrobocia ma przełącznik: Miesiące 2026 / Lata 2016–2025.
 - Każdy punkt pokazuje dokładną wartość i ma interaktywny tooltip.
+
+
+## v3.35 – porównanie z Polską
+- BAEL: woj. śląskie vs Polska, przełącznik aktywność zawodowa / wskaźnik zatrudnienia.
+- Bezrobocie: woj. śląskie vs Polska w trybie miesięcznym 2026 i rocznym 2016–2025.
+- Wszystkie punkty mają wartości i interaktywne podpowiedzi.
+
+## v3.36 – czytelność etykiet wykresów porównawczych
+- Polska: wartości zawsze nad punktami.
+- Woj. śląskie: wartości zawsze pod punktami.
+- Przy małej różnicy między seriami odstęp etykiet zwiększa się automatycznie.
+- Dodano subtelne łączniki punkt–etykieta i większe białe halo tekstu.
+- Zwiększono wysokość wykresów BAEL i bezrobocia, aby zachować czytelność wszystkich wartości.
