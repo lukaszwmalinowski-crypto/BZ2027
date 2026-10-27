@@ -1,0 +1,248 @@
+{
+  "meta": {
+    "territory": "Województwo śląskie",
+    "bdl_unit_id": "012400000000",
+    "note": "Pakiet GUS/BDL z zasadą: najnowszy dostępny okres dla każdego wskaźnika. Daty odniesienia różnią się między wskaźnikami.",
+    "license": "CC BY 4.0"
+  },
+  "population": {
+    "value_thousands": 4246.702,
+    "date": "2026-06-30",
+    "label": "Ludność",
+    "source": "GUS - Ludność. Stan i struktura... stan 30.06.2026",
+    "source_url": "https://publikacje.new.stat.gov.pl/portal-publikacje/ludnosc-stan-i-struktura-ludnosci-oraz-ruch-naturalny-w-przekroju-terytorialnym-w-2026-r-stan-w-dniu-30-czerwca"
+  },
+  "bael_2025": {
+    "activity_rate": [
+      {
+        "period": "I kw. 2025",
+        "value": 56.5
+      },
+      {
+        "period": "II kw. 2025",
+        "value": 55.9
+      },
+      {
+        "period": "III kw. 2025",
+        "value": 55.5
+      },
+      {
+        "period": "IV kw. 2025",
+        "value": 54.9
+      }
+    ],
+    "employment_rate": [
+      {
+        "period": "I kw. 2025",
+        "value": 53.6
+      },
+      {
+        "period": "II kw. 2025",
+        "value": 54.1
+      },
+      {
+        "period": "III kw. 2025",
+        "value": 54.9
+      },
+      {
+        "period": "IV kw. 2025",
+        "value": 55.0
+      }
+    ],
+    "source": "Opracowanie Samorządu Województwa Śląskiego na podstawie GUS BDL",
+    "source_url": "https://bip.slaskie.pl/resource/239379/04.%2BZa%25C5%2582.%2B1%2Bdo%2Bproj.%2BUchwa%25C5%2582y%2BSejmiku.pdf",
+    "method_note": "BAEL, ludność w wieku 15–89 lat. Przy interpretacji dłuższych szeregów należy uwzględniać zmiany podstawy uogólniania wyników po NSP 2021."
+  },
+  "regon_per_10k": [
+    {
+      "year": 2015,
+      "value": 1000
+    },
+    {
+      "year": 2016,
+      "value": 1010
+    },
+    {
+      "year": 2017,
+      "value": 1020
+    },
+    {
+      "year": 2018,
+      "value": 1030
+    },
+    {
+      "year": 2019,
+      "value": 1040
+    },
+    {
+      "year": 2020,
+      "value": 1080
+    },
+    {
+      "year": 2021,
+      "value": 1140
+    },
+    {
+      "year": 2022,
+      "value": 1170
+    },
+    {
+      "year": 2023,
+      "value": 1210
+    },
+    {
+      "year": 2024,
+      "value": 1271
+    }
+  ],
+  "regon_current": {
+    "value": 562786,
+    "date": "2026-08",
+    "label": "Podmioty gospodarki narodowej",
+    "companies": 71009,
+    "sole_proprietors": 401514,
+    "source": "Urząd Statystyczny w Katowicach / GUS",
+    "source_url": "https://katowice.stat.gov.pl/zakladka1/"
+  },
+  "unemployment_2026": [
+    {
+      "month": "Sty",
+      "value": 4.7
+    },
+    {
+      "month": "Lut",
+      "value": 4.8
+    },
+    {
+      "month": "Mar",
+      "value": 4.9
+    },
+    {
+      "month": "Kwi",
+      "value": 4.9
+    },
+    {
+      "month": "Maj",
+      "value": 4.8
+    },
+    {
+      "month": "Cze",
+      "value": 4.8
+    },
+    {
+      "month": "Lip",
+      "value": 4.8
+    },
+    {
+      "month": "Sie",
+      "value": 4.8
+    },
+    {
+      "month": "Wrz",
+      "value": 4.8
+    }
+  ],
+  "unemployment_source": {
+    "date": "2026-09-30",
+    "source": "GUS / WUP Katowice",
+    "source_url": "https://wupkatowice.praca.gov.pl/rynek-pracy/statystyki-i-analizy/-/asset_publisher/Cmp7VCiKXRkX/content/903058-najwazniejsze-informacje"
+  },
+  "bael_latest": {
+    "period": "II kw. 2026",
+    "publication_date": "2026-09-29",
+    "source": "Urząd Statystyczny w Katowicach / GUS",
+    "source_url": "https://katowice.stat.gov.pl/opracowania-biezace/opracowania-sygnalne/praca-wynagrodzenie/aktywnosc-ekonomiczna-ludnosci-w-wojewodztwie-slaskim-w-2-kwartale-2026-r-%2C2%2C59.html",
+    "note": "Publikacja regionalna jest najnowsza; osadzony wykres kwartalny w panelu pozostaje szeregiem 2025 do czasu wczytania tabeli XLSX GUS."
+  },
+  "registered_unemployed_latest": {
+    "value": 83604,
+    "date": "2026-09-30",
+    "source": "WUP Katowice / GUS"
+  },
+  "bael_activity_q4_2016_2025": [
+    {
+      "year": 2016,
+      "value": 53.8
+    },
+    {
+      "year": 2017,
+      "value": 53.1
+    },
+    {
+      "year": 2018,
+      "value": 52.3
+    },
+    {
+      "year": 2019,
+      "value": 52.3
+    },
+    {
+      "year": 2020,
+      "value": 53.6
+    },
+    {
+      "year": 2021,
+      "value": 57.0
+    },
+    {
+      "year": 2022,
+      "value": 56.6
+    },
+    {
+      "year": 2023,
+      "value": 56.5
+    },
+    {
+      "year": 2024,
+      "value": 55.9
+    },
+    {
+      "year": 2025,
+      "value": 56.5
+    }
+  ],
+  "bael_activity_q4_note": "Współczynnik aktywności zawodowej, ludność 15–89 lat; wartości dla IV kwartału każdego roku. Przy interpretacji szeregu należy uwzględnić zmianę podstawy uogólniania BAEL po NSP 2021.",
+  "unemployment_annual_2016_2025": [
+    {
+      "year": 2016,
+      "value": 6.7
+    },
+    {
+      "year": 2017,
+      "value": 5.1
+    },
+    {
+      "year": 2018,
+      "value": 4.4
+    },
+    {
+      "year": 2019,
+      "value": 3.7
+    },
+    {
+      "year": 2020,
+      "value": 4.9
+    },
+    {
+      "year": 2021,
+      "value": 4.2
+    },
+    {
+      "year": 2022,
+      "value": 3.7
+    },
+    {
+      "year": 2023,
+      "value": 3.6
+    },
+    {
+      "year": 2024,
+      "value": 3.6
+    },
+    {
+      "year": 2025,
+      "value": 4.4
+    }
+  ],
+  "unemployment_annual_note": "Stopa bezrobocia rejestrowanego, stan na 31 grudnia każdego roku. Przy porównywaniu długiego szeregu należy uwzględnić zmianę podstawy części szacunków od 2020 r."
+}

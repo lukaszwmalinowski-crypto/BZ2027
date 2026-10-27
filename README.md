@@ -160,3 +160,34 @@ Ta paczka zawiera komplet plików wymaganych przez aplikację:
 - `.nojekyll` - konfiguracja GitHub Pages
 
 Do publikacji wgraj całą zawartość tego katalogu do głównego katalogu repozytorium.
+
+
+## v3.26 – moduł GUS / BDL
+
+Dodano rozwijaną sekcję „Dane GUS – województwo śląskie” oraz plik `data/gus_woj_slaskie.json`. Pierwszy pakiet obejmuje ludność 2025, BAEL 2025, REGON 2015–2024 + stan bieżący 2026 oraz miesięczną stopę bezrobocia w 2026 r. Każdy wskaźnik ma własną datę odniesienia i źródło.
+
+
+## v3.27 - świeżość danych GUS
+Moduł GUS stosuje zasadę „najnowszy dostępny okres dla danego wskaźnika”. Zaktualizowano ludność do 30.06.2026, REGON do sierpnia 2026 i bezrobocie do 30.09.2026. Najnowsza publikacja BAEL: II kw. 2026.
+
+
+## v3.29
+Dopracowano wizualnie moduł GUS: KPI, karty, metryki, daty odniesienia i responsywność.
+
+
+## v3.32 – BAEL 10 lat i etykiety punktów
+- współczynnik aktywności zawodowej: IV kw. 2016–2025,
+- wartość przy każdym punkcie wykresu,
+- wartości przy każdym słupku REGON i każdym punkcie bezrobocia,
+- pełniejsze opisy i uwaga metodologiczna BAEL.
+
+## v3.33 – interaktywne wykresy GUS
+- hover/tap na punktach i słupkach pokazuje dokładny okres i wartość,
+- kliknięcie przypina podpowiedź; ponowne kliknięcie ją zwalnia,
+- działa także z klawiaturą (Enter/Spacja),
+- zachowano widoczne etykiety wartości przy każdym punkcie/słupku.
+
+
+## v3.34
+- Wykres bezrobocia ma przełącznik: Miesiące 2026 / Lata 2016–2025.
+- Każdy punkt pokazuje dokładną wartość i ma interaktywny tooltip.
