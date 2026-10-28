@@ -1,0 +1,384 @@
+{
+  "meta": {
+    "description": "36 wartości stopy bezrobocia (31.08.2026) przeniesionych z panelu v7 + potwierdzona historia Rudy Śląskiej (grudzień 2016–2025, styczeń–lipiec 2026). Pozostałe powiaty: historia niekompletna.",
+    "source": "Dane powiatowe osadzone w panelu v7; do weryfikacji i aktualizacji z GUS/BDL",
+    "source_url": "https://publikacje.new.stat.gov.pl/portal-publikacje/bezrobotni-zarejestrowani-i-stopa-bezrobocia-stan-w-koncu-wrzesnia-2026-r",
+    "date": "2026-08-31",
+    "history_status": "partial_Ruda_Slaska_verified",
+    "update_method": "Import CSV/JSON w module powiatowym",
+    "extra_source_url": "https://rudaslaska.praca.gov.pl/stopy-bezrobocia"
+  },
+  "entries": [
+    {
+      "powiat": "będziński",
+      "okres": "2026-08",
+      "stopa_proc": 7.1,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "bielski",
+      "okres": "2026-08",
+      "stopa_proc": 3.7,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "cieszyński",
+      "okres": "2026-08",
+      "stopa_proc": 5.5,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "częstochowski",
+      "okres": "2026-08",
+      "stopa_proc": 7.8,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "gliwicki",
+      "okres": "2026-08",
+      "stopa_proc": 5.0,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "kłobucki",
+      "okres": "2026-08",
+      "stopa_proc": 7.8,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "lubliniecki",
+      "okres": "2026-08",
+      "stopa_proc": 5.6,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "mikołowski",
+      "okres": "2026-08",
+      "stopa_proc": 4.1,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "myszkowski",
+      "okres": "2026-08",
+      "stopa_proc": 6.5,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "pszczyński",
+      "okres": "2026-08",
+      "stopa_proc": 4.1,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "raciborski",
+      "okres": "2026-08",
+      "stopa_proc": 4.3,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "rybnicki",
+      "okres": "2026-08",
+      "stopa_proc": 7.3,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "tarnogórski",
+      "okres": "2026-08",
+      "stopa_proc": 4.9,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "bieruńsko-lędziński",
+      "okres": "2026-08",
+      "stopa_proc": 2.3,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "wodzisławski",
+      "okres": "2026-08",
+      "stopa_proc": 6.6,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "zawierciański",
+      "okres": "2026-08",
+      "stopa_proc": 7.1,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "żywiecki",
+      "okres": "2026-08",
+      "stopa_proc": 7.5,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "Bielsko-Biała",
+      "okres": "2026-08",
+      "stopa_proc": 2.6,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "Bytom",
+      "okres": "2026-08",
+      "stopa_proc": 10.5,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "Chorzów",
+      "okres": "2026-08",
+      "stopa_proc": 5.1,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "Częstochowa",
+      "okres": "2026-08",
+      "stopa_proc": 4.6,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "Dąbrowa Górnicza",
+      "okres": "2026-08",
+      "stopa_proc": 4.9,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "Gliwice",
+      "okres": "2026-08",
+      "stopa_proc": 3.3,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "Jastrzębie-Zdrój",
+      "okres": "2026-08",
+      "stopa_proc": 5.6,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "Jaworzno",
+      "okres": "2026-08",
+      "stopa_proc": 4.8,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "Katowice",
+      "okres": "2026-08",
+      "stopa_proc": 1.8,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "Mysłowice",
+      "okres": "2026-08",
+      "stopa_proc": 5.5,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "Piekary Śląskie",
+      "okres": "2026-08",
+      "stopa_proc": 9.6,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "Ruda Śląska",
+      "okres": "2026-08",
+      "stopa_proc": 4.9,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "Rybnik",
+      "okres": "2026-08",
+      "stopa_proc": 4.2,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "Siemianowice Śląskie",
+      "okres": "2026-08",
+      "stopa_proc": 6.0,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "Sosnowiec",
+      "okres": "2026-08",
+      "stopa_proc": 6.6,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "Świętochłowice",
+      "okres": "2026-08",
+      "stopa_proc": 7.2,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "Tychy",
+      "okres": "2026-08",
+      "stopa_proc": 2.8,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "Zabrze",
+      "okres": "2026-08",
+      "stopa_proc": 5.8,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "Żory",
+      "okres": "2026-08",
+      "stopa_proc": 5.2,
+      "liczba_osob": null,
+      "zrodlo": "Panel v7 / stan 31.08.2026"
+    },
+    {
+      "powiat": "Ruda Śląska",
+      "okres": "2016-12",
+      "stopa_proc": 5.3,
+      "liczba_osob": null,
+      "zrodlo": "PUP Ruda Śląska – stopy bezrobocia (wartości po korekcie) | https://rudaslaska.praca.gov.pl/stopy-bezrobocia"
+    },
+    {
+      "powiat": "Ruda Śląska",
+      "okres": "2017-12",
+      "stopa_proc": 3.9,
+      "liczba_osob": null,
+      "zrodlo": "PUP Ruda Śląska – stopy bezrobocia (wartości po korekcie) | https://rudaslaska.praca.gov.pl/stopy-bezrobocia"
+    },
+    {
+      "powiat": "Ruda Śląska",
+      "okres": "2018-12",
+      "stopa_proc": 3.0,
+      "liczba_osob": null,
+      "zrodlo": "PUP Ruda Śląska – stopy bezrobocia (wartości po korekcie) | https://rudaslaska.praca.gov.pl/stopy-bezrobocia"
+    },
+    {
+      "powiat": "Ruda Śląska",
+      "okres": "2019-12",
+      "stopa_proc": 2.6,
+      "liczba_osob": null,
+      "zrodlo": "PUP Ruda Śląska – stopy bezrobocia (wartości po korekcie) | https://rudaslaska.praca.gov.pl/stopy-bezrobocia"
+    },
+    {
+      "powiat": "Ruda Śląska",
+      "okres": "2020-12",
+      "stopa_proc": 3.4,
+      "liczba_osob": null,
+      "zrodlo": "PUP Ruda Śląska – stopy bezrobocia (wartości po korekcie) | https://rudaslaska.praca.gov.pl/stopy-bezrobocia"
+    },
+    {
+      "powiat": "Ruda Śląska",
+      "okres": "2021-12",
+      "stopa_proc": 2.6,
+      "liczba_osob": null,
+      "zrodlo": "PUP Ruda Śląska – stopy bezrobocia (wartości po korekcie) | https://rudaslaska.praca.gov.pl/stopy-bezrobocia"
+    },
+    {
+      "powiat": "Ruda Śląska",
+      "okres": "2022-12",
+      "stopa_proc": 2.5,
+      "liczba_osob": null,
+      "zrodlo": "PUP Ruda Śląska – stopy bezrobocia (wartości po korekcie) | https://rudaslaska.praca.gov.pl/stopy-bezrobocia"
+    },
+    {
+      "powiat": "Ruda Śląska",
+      "okres": "2023-12",
+      "stopa_proc": 2.7,
+      "liczba_osob": null,
+      "zrodlo": "PUP Ruda Śląska – stopy bezrobocia (wartości po korekcie) | https://rudaslaska.praca.gov.pl/stopy-bezrobocia"
+    },
+    {
+      "powiat": "Ruda Śląska",
+      "okres": "2024-12",
+      "stopa_proc": 2.8,
+      "liczba_osob": null,
+      "zrodlo": "PUP Ruda Śląska – stopy bezrobocia (wartości po korekcie) | https://rudaslaska.praca.gov.pl/stopy-bezrobocia"
+    },
+    {
+      "powiat": "Ruda Śląska",
+      "okres": "2025-12",
+      "stopa_proc": 4.0,
+      "liczba_osob": null,
+      "zrodlo": "PUP Ruda Śląska – stopy bezrobocia (wartości po korekcie) | https://rudaslaska.praca.gov.pl/stopy-bezrobocia"
+    },
+    {
+      "powiat": "Ruda Śląska",
+      "okres": "2026-01",
+      "stopa_proc": 4.3,
+      "liczba_osob": null,
+      "zrodlo": "PUP Ruda Śląska – stopy bezrobocia (wartości po korekcie) | https://rudaslaska.praca.gov.pl/stopy-bezrobocia"
+    },
+    {
+      "powiat": "Ruda Śląska",
+      "okres": "2026-02",
+      "stopa_proc": 4.5,
+      "liczba_osob": null,
+      "zrodlo": "PUP Ruda Śląska – stopy bezrobocia (wartości po korekcie) | https://rudaslaska.praca.gov.pl/stopy-bezrobocia"
+    },
+    {
+      "powiat": "Ruda Śląska",
+      "okres": "2026-03",
+      "stopa_proc": 4.5,
+      "liczba_osob": null,
+      "zrodlo": "PUP Ruda Śląska – stopy bezrobocia (wartości po korekcie) | https://rudaslaska.praca.gov.pl/stopy-bezrobocia"
+    },
+    {
+      "powiat": "Ruda Śląska",
+      "okres": "2026-04",
+      "stopa_proc": 4.5,
+      "liczba_osob": null,
+      "zrodlo": "PUP Ruda Śląska – stopy bezrobocia (wartości po korekcie) | https://rudaslaska.praca.gov.pl/stopy-bezrobocia"
+    },
+    {
+      "powiat": "Ruda Śląska",
+      "okres": "2026-05",
+      "stopa_proc": 4.4,
+      "liczba_osob": null,
+      "zrodlo": "PUP Ruda Śląska – stopy bezrobocia (wartości po korekcie) | https://rudaslaska.praca.gov.pl/stopy-bezrobocia"
+    },
+    {
+      "powiat": "Ruda Śląska",
+      "okres": "2026-06",
+      "stopa_proc": 4.5,
+      "liczba_osob": null,
+      "zrodlo": "PUP Ruda Śląska – stopy bezrobocia (wartości po korekcie) | https://rudaslaska.praca.gov.pl/stopy-bezrobocia"
+    },
+    {
+      "powiat": "Ruda Śląska",
+      "okres": "2026-07",
+      "stopa_proc": 4.8,
+      "liczba_osob": null,
+      "zrodlo": "PUP Ruda Śląska – stopy bezrobocia (wartości po korekcie) | https://rudaslaska.praca.gov.pl/stopy-bezrobocia"
+    }
+  ]
+}

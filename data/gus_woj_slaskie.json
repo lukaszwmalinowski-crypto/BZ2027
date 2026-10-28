@@ -3,7 +3,9 @@
     "territory": "Województwo śląskie",
     "bdl_unit_id": "012400000000",
     "note": "Pakiet GUS/BDL z zasadą: najnowszy dostępny okres dla każdego wskaźnika. Daty odniesienia różnią się między wskaźnikami.",
-    "license": "CC BY 4.0"
+    "license": "CC BY 4.0",
+    "audit_date": "2026-10-27",
+    "audit_note": "Brak potwierdzonych wartości BAEL dla województwa śląskiego za I i II kwartał 2026; nie są interpolowane."
   },
   "population": {
     "value_thousands": 4246.702,
@@ -28,7 +30,8 @@
       },
       {
         "period": "IV kw. 2025",
-        "value": 54.9
+        "value": 56.5,
+        "note": "Wyrównano z szeregiem BAEL IV kw. 2025 w tej samej bazie i porównaniu Polski; wymaga ostatecznej kontroli z tablicą GUS."
       }
     ],
     "employment_rate": [
@@ -55,44 +58,44 @@
   },
   "regon_per_10k": [
     {
-      "year": 2015,
-      "value": 1000
-    },
-    {
       "year": 2016,
-      "value": 1010
+      "value": 1025
     },
     {
       "year": 2017,
-      "value": 1020
+      "value": 1033
     },
     {
       "year": 2018,
-      "value": 1030
+      "value": 1042
     },
     {
       "year": 2019,
-      "value": 1040
+      "value": 1066
     },
     {
       "year": 2020,
-      "value": 1080
+      "value": 1120
     },
     {
       "year": 2021,
-      "value": 1140
+      "value": 1165
     },
     {
       "year": 2022,
-      "value": 1170
+      "value": 1201
     },
     {
       "year": 2023,
-      "value": 1210
+      "value": 1234
     },
     {
       "year": 2024,
       "value": 1271
+    },
+    {
+      "year": 2025,
+      "value": 1305
     }
   ],
   "regon_current": {
@@ -102,7 +105,9 @@
     "companies": 71009,
     "sole_proprietors": 401514,
     "source": "Urząd Statystyczny w Katowicach / GUS",
-    "source_url": "https://katowice.stat.gov.pl/zakladka1/"
+    "source_url": "https://katowice.stat.gov.pl/zakladka1/",
+    "last_complete_annual_year": 2025,
+    "last_complete_annual_total": 556288
   },
   "unemployment_2026": [
     {
@@ -425,5 +430,109 @@
       }
     ],
     "note": "Porównania regionalne z Polską. Dla bezrobocia 2020–2021 zachowano historyczną serię przed rewizją, zgodną z wykorzystaną serią wojewódzką."
+  },
+  "registered_unemployed_monthly_2026": [
+    {
+      "period": "2026-01",
+      "value": 82310
+    },
+    {
+      "period": "2026-02",
+      "value": 84628
+    },
+    {
+      "period": "2026-03",
+      "value": 85827
+    },
+    {
+      "period": "2026-04",
+      "value": 84760
+    },
+    {
+      "period": "2026-05",
+      "value": 83388
+    },
+    {
+      "period": "2026-06",
+      "value": 82944
+    },
+    {
+      "period": "2026-07",
+      "value": 83704
+    },
+    {
+      "period": "2026-08",
+      "value": 83820
+    },
+    {
+      "period": "2026-09",
+      "value": 83604
+    }
+  ],
+  "registered_unemployed_annual_2016_2025": [
+    {
+      "year": 2016,
+      "value": 119981
+    },
+    {
+      "year": 2017,
+      "value": 94687
+    },
+    {
+      "year": 2018,
+      "value": 80079
+    },
+    {
+      "year": 2019,
+      "value": 66521
+    },
+    {
+      "year": 2020,
+      "value": 91032
+    },
+    {
+      "year": 2021,
+      "value": 76324
+    },
+    {
+      "year": 2022,
+      "value": 64903
+    },
+    {
+      "year": 2023,
+      "value": 62445
+    },
+    {
+      "year": 2024,
+      "value": 62583
+    },
+    {
+      "year": 2025,
+      "value": 77144
+    }
+  ],
+  "registered_unemployed_note": "Liczba bezrobotnych zarejestrowanych, stan na koniec okresu. Od 1 czerwca 2025 r. zmieniła się zasada rejestracji (miejsce zamieszkania zamiast zameldowania), co może ograniczać porównywalność z wcześniejszymi latami.",
+  "bael_2026_quarterly": {
+    "last_published_quarter": "II kwartał 2026",
+    "publication_date_region": "2026-09-29",
+    "source_region": "https://publikacje.new.stat.gov.pl/portal-publikacje/aktywnosc-ekonomiczna-ludnosci-w-wojewodztwie-slaskim-w-2-kwartale-2026-r",
+    "source_poland": "https://ssgk.stat.gov.pl/Rynek_pracy_BAEL.html",
+    "quarters": [
+      {
+        "period": "I kw. 2026",
+        "activity_poland": 58.7,
+        "employment_poland": 56.8,
+        "activity_slaskie": null,
+        "employment_slaskie": null
+      },
+      {
+        "period": "II kw. 2026",
+        "activity_poland": 58.7,
+        "employment_poland": 56.8,
+        "activity_slaskie": null,
+        "employment_slaskie": null
+      }
+    ],
+    "status": "Dane Śląskie za 2026 opublikowane, ale liczb nie udało się potwierdzić z oryginalnych tabel GUS. Pola null celowe: brak zgadywania."
   }
 }

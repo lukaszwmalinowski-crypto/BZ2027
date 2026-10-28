@@ -204,3 +204,32 @@ Dopracowano wizualnie moduł GUS: KPI, karty, metryki, daty odniesienia i respon
 - Przy małej różnicy między seriami odstęp etykiet zwiększa się automatycznie.
 - Dodano subtelne łączniki punkt–etykieta i większe białe halo tekstu.
 - Zwiększono wysokość wykresów BAEL i bezrobocia, aby zachować czytelność wszystkich wartości.
+
+
+## v3.39 – bezrobocie
+W karcie „Bezrobocie rejestrowane” dodano przełącznik wskaźnika: stopa bezrobocia / liczba bezrobotnych oraz przełącznik okresu: miesiące 2026 / lata 2016–2025.
+
+## Aktualizacja v3.40 – BAEL / REGON
+
+- BAEL: dodano przełącznik „Historia do 2025 / Kwartały 2026”. Dla I–II kw. 2026 potwierdzono krajowe wartości aktywności zawodowej 58,7% i zatrudnienia 56,8%. Wartości woj. śląskiego za 2026 zostały **świadomie pozostawione puste** do czasu weryfikacji liczb w oryginalnej publikacji GUS; panel sygnalizuje brak bez udawania porównania.
+- REGON: historia 2016–2025 (wskaźnik na 10 tys. ludności) i przełącznik 2026, pokazujący liczbę podmiotów: 556 288 (grudzień 2025) oraz 562 786 (sierpień 2026). Miesięcznych liczb nie przedstawiamy jako rocznej wartości „na 10 tys.”.
+- Dane w `data/gus_woj_slaskie.json` zgodne z informacją o brakujących regionalnych liczbach BAEL.
+
+## v7 – audyt funkcjonalny i danych (27.10.2026)
+- Naprawiono błąd inicjalizacji mapy: dekoracyjny punkt legendy trendów nie jest już traktowany jak powiat.
+- BAEL 2026: ostatnia potwierdzona obserwacja Śląskiego (IV kw. 2025) została wyraźnie oddzielona od danych polskich z I–II kw. 2026. Pełna seria Śląskiego za 2026 wymaga dalszego pozyskania z oficjalnych tabel.
+- W eksporcie BAEL osobno wybiera się aktywność zawodową i zatrudnienie oraz historyczny lub bieżący okres. Wcześniej ustawiony widok jest przywracany po wygenerowaniu wykresów.
+- W rankingu zawodów deficytowych uwzględniono duży deficyt (DD) oraz deficyt (D).
+- Przeprowadzono test przeglądarkowy mapy, interakcji i eksportów PDF/PPTX. Protokół: `AUDYT_PANELU_2026-10-27.md`.
+
+**Uwaga:** `data/` nie zasila jeszcze automatycznie aplikacji podczas pracy. Zmiana samych plików JSON nie aktualizuje osadzonej wersji danych w `index.html`.
+
+
+## Nowość v8: bezrobocie w powiatach
+
+Moduł zmian powiatowych i porównań, mapa stopy bezrobocia, import CSV/JSON, integracja PDF/PPTX. Pełna historia powiatowa wymaga dostarczenia zweryfikowanych danych – szczegóły w `README_DANE_POWIATOWE.md`.
+
+
+## v9 – źródła danych i aktualizacja
+
+Na samym końcu widoku dodano zwijany rejestr „Źródła danych i plan aktualizacji”. Przy każdej sekcji są: zakres danych, cykl aktualizacji, linki do oficjalnych źródeł, nazwy plików i zadania kontrolne. Pełna instrukcja: `ZRODLA_DANYCH_I_AKTUALIZACJA.md`. Ważne: obecna wersja ma fallback danych osadzony w HTML, dlatego podmiana samego JSON nie odświeża wykresów.
