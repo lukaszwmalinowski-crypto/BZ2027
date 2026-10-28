@@ -814,8 +814,15 @@ select:not(.compareNative){appearance:none!important;-webkit-appearance:none!imp
 <style id="reportSelectionCSS">
 .reportDialog{border:1px solid #d7e3ec;border-radius:18px;padding:0;width:min(620px,calc(100vw - 28px));max-height:85vh;box-shadow:0 25px 85px #122a4160;color:#24394d;background:#fff}
 .reportDialog::backdrop{background:#102b47a8;backdrop-filter:blur(3px)}
+.reportCountyPicker{display:grid;gap:7px;padding:12px 14px;margin-bottom:12px;border:1px solid #bed8e3;border-radius:12px;background:#f3f8fb}
+.reportCountyPicker label{font-size:12px;font-weight:800;color:#204b6f}
+.reportCountyPicker select{width:100%;border:1px solid #c7d5df;border-radius:9px;background:#fff;color:#203f57;padding:10px 12px;font-size:14px;font-weight:650}
+.reportCountyPicker small{font-size:11px;line-height:1.45;color:#5a758a}
 .reportInner{padding:25px}.reportTop{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.reportTop h2{margin:0;color:#183d62;font-size:23px}.reportTop p{margin:8px 0 18px;font-size:13px;color:#64788b}.reportClose{border:0;background:#eff4f8;border-radius:10px;padding:7px 12px;cursor:pointer;font-size:19px}.reportItems{display:grid;grid-template-columns:1fr;gap:9px;max-height:50vh;overflow:auto}.reportOption{display:flex;gap:12px;align-items:flex-start;padding:13px 15px;border:1px solid #dee7ee;border-radius:12px;background:#f8fbfd;cursor:pointer}.reportOption:has(input:checked){background:#eef7f5;border-color:#8dcbbb}.reportOption input{width:18px;height:18px;accent-color:#287e70;flex-shrink:0}.reportOption b{font-size:13px}.reportOption small{display:block;color:#688091;margin-top:3px;font-size:11px}.reportFoot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:20px}.reportFoot button{border:0;border-radius:10px;background:#16436b;color:white;padding:12px 15px;font-weight:750;cursor:pointer}.reportFoot button:disabled{opacity:.45;cursor:not-allowed}.reportFoot #reportPdf{background:#277b70}.reportCount{color:#5f7388;font-size:12px;font-weight:750}
-@media print{.reportDialog{display:none!important}#printReport>.pdfPage.reportExcluded{display:none!important}#printReport>.pdfPage:not(.reportExcluded):first-of-type{height:auto}}
+@media print{.reportDialog{display:none!important}#printReport>.pdfPage.reportExcluded{display:none!important}#printReport>.pdfPage:not(.reportExcluded):first-of-type{height:auto}
+  /* Ukryte strony raportu nie mogą powodować dodatkowej pustej strony po ostatniej wybranej. */
+  #printReport>.pdfPage:not(.reportExcluded):not(:has(~ .pdfPage:not(.reportExcluded))){break-after:auto!important;page-break-after:auto!important}
+}
 @media print {
  #printReport>.pdfPage.exportChartPage{display:flex;flex-direction:column;box-sizing:border-box;break-after:page;page-break-after:always;min-height:180mm;padding:11mm 10mm!important;background:#fff!important}
  .exportChartPage h1{font-size:21pt;color:#173d66;margin:0 0 2mm}
@@ -867,6 +874,11 @@ body.presentationMode #countyUnempModule{display:block!important;max-width:1550p
 
 <dialog id="reportDialog" class="reportDialog" aria-labelledby="reportDialogTitle"><div class="reportInner">
 <div class="reportTop"><div><h2 id="reportDialogTitle">Wybierz zawartość raportu</h2><p>Zaznacz sekcje dla aktualnego powiatu. W PDF niektóre tematy współdzielą stronę; w PPTX każda sekcja to osobny slajd.</p></div><button type="button" class="reportClose" id="reportClose" aria-label="Zamknij">×</button></div>
+<div class="reportCountyPicker">
+  <label for="reportCountySelect">Powiat / miasto dla raportu</label>
+  <select id="reportCountySelect" aria-describedby="reportCountyHelp"></select>
+  <small id="reportCountyHelp">Raport PDF i PPTX wykorzysta dokładnie wskazany powiat. Wykresy wojewódzkie zachowują swoje własne obszary danych.</small>
+</div>
 <div class="reportItems" id="reportItems"></div>
 <div class="reportFoot"><span class="reportCount" id="reportCount"></span><div style="display:flex;gap:9px"><button type="button" id="reportPdf">PDF</button><button type="button" id="reportPpt">PowerPoint PPTX</button></div></div>
 </div></dialog>
@@ -1584,6 +1596,7 @@ function selectCounty(name){
   if(!name || !DATA[name]) return;
   const avgLegend=document.querySelector('.trendLegend span:nth-child(2)'); if(avgLegend) avgLegend.style.display='flex';
   active=name; select.value=name;
+  document.dispatchEvent(new CustomEvent('panel:county-change',{detail:{name}}));
   let selectedPath=null;
   document.querySelectorAll("#map .county").forEach(el=>{
     const isSelected=el.dataset.name===name;
@@ -2015,8 +2028,12 @@ function buildPdfFindings(name,d,u){
   ];
 }
 
+function getReportCounty(){
+  const current=document.getElementById('countySelect')?.value;
+  return (current && DATA[current]) ? current : (active && DATA[active] ? active : '');
+}
 function buildPrintReport(){
-  const name=active||'Katowice', d=DATA[name], u=UNEMPLOYMENT[name];
+  const name=getReportCounty(), d=DATA[name], u=UNEMPLOYMENT[name];
   if(!d) return;
   const now=new Date();
   const report=document.getElementById('printReport');
@@ -2123,7 +2140,8 @@ async function generatePPTX(){
     alert('Nie udało się załadować modułu PPTX. Sprawdź, czy folder assets znajduje się obok index.html.');
     return;
   }
-  const name=active||'Katowice';
+  const name=getReportCounty();
+  if(!name){alert('Wybierz powiat przed wygenerowaniem prezentacji.');return;}
   const d=DATA[name], u=UNEMPLOYMENT[name];
   if(!d) return;
 
@@ -2499,8 +2517,9 @@ async function loadExternalDataOverrides(){
 }
 
 async function generatePDF(){
-  // The checklist filters only the original four Barometer pages.
-  // Extra chart pages must remain visible if the user selected them.
+  // Drukuj dane aktualnie wybranego powiatu, nigdy domyślnych Katowic.
+  const name=getReportCounty();
+  if(!name){alert('Wybierz powiat przed wygenerowaniem PDF.');return;}
   buildPrintReport();
   const basePages=[...document.querySelectorAll('#printReport > .pdfPage')];
   basePages.forEach((page,i)=>page.classList.toggle('reportExcluded',
@@ -2518,7 +2537,7 @@ async function generatePDF(){
     items.sort((a,b)=>(priority.get(a.id)??999)-(priority.get(b.id)??999)||a.seq-b.seq).forEach(x=>report.appendChild(x.node));
   }
   const now=new Date();
-  const selected=active||'województwo śląskie';
+  const selected=name;
   document.getElementById('pdfStamp').textContent=`Widok: ${selected} • wygenerowano ${now.toLocaleDateString('pl-PL')} ${now.toLocaleTimeString('pl-PL',{hour:'2-digit',minute:'2-digit'})}`;
   const oldTitle=document.title;
   document.title=`Prognoza rynku pracy 2027 - ${selected}`;
@@ -2566,6 +2585,22 @@ const reportChoices=[
   ['jobs','10 · Zawody i wnioski','Podsumowanie i interpretacja']
 ];
 const reportDialog=document.getElementById('reportDialog');
+const reportCountySelect=document.getElementById('reportCountySelect');
+reportCountySelect.innerHTML='<option value="">— wybierz powiat do raportu —</option>'+
+  WANTED.slice().sort((a,b)=>a.localeCompare(b,'pl')).map(n=>`<option value="${escapeHtml(n)}">${escapeHtml(n)}</option>`).join('');
+reportCountySelect.addEventListener('change',()=>{
+  if(DATA[reportCountySelect.value])selectCounty(reportCountySelect.value);
+});
+function confirmReportCounty(){
+  const name=reportCountySelect.value;
+  if(!name||!DATA[name]){
+    alert('Wybierz powiat lub miasto w polu „Powiat / miasto dla raportu”. Dokument nie zostanie wygenerowany dla innych danych.');
+    reportCountySelect.focus();
+    return false;
+  }
+  if(getReportCounty()!==name)selectCounty(name);
+  return true;
+}
 const reportItems=document.getElementById('reportItems');
 const reportSelection=new Set(reportChoices.map(x=>x[0]));
 reportItems.innerHTML=reportChoices.map(([id,title,sub])=>`<label class="reportOption"><input type="checkbox" value="${id}" checked><span><b>${title}</b><small>${sub}</small></span></label>`).join('');
@@ -2586,7 +2621,13 @@ function syncReportSelection(){
 reportItems.addEventListener('change',syncReportSelection);
 syncReportSelection();
 document.getElementById('reportClose').addEventListener('click',()=>reportDialog.close());
-function openReportDialog(){syncOccupationReportChoice();window.countyUnemploymentSyncReport?.();syncReportSelection();reportDialog.showModal()}
+function openReportDialog(){
+  syncOccupationReportChoice();
+  window.countyUnemploymentSyncReport?.();
+  syncReportSelection();
+  reportCountySelect.value=getReportCounty();
+  reportDialog.showModal();
+}
 document.getElementById('pdfBtn').addEventListener('click',openReportDialog);
 document.getElementById('pptBtn').addEventListener('click',openReportDialog);
 const reportChartSpecs={
@@ -2684,6 +2725,7 @@ function appendChartPdfPages(charts){
  });
 }
 document.getElementById('reportPdf').addEventListener('click',()=>{
+   if(!confirmReportCounty())return;
   const charts=captureSelectedCharts();
   window.reportSelectedPdfPages=[0,1,2,3].filter(i=>[
     reportSelection.has('cover')||reportSelection.has('overview'),
@@ -2697,6 +2739,7 @@ document.getElementById('reportPdf').addEventListener('click',()=>{
   generatePDF().catch(error=>{console.error("Eksport PDF:",error);alert("Nie udało się przygotować PDF. Sprawdź konsolę przeglądarki.")});
 });
 document.getElementById('reportPpt').addEventListener('click',async()=>{
+   if(!confirmReportCounty())return;
   window.reportExtraCharts=captureSelectedCharts();
   window.reportSelectedSlides=['cover','overview','benchmark','trends','jobs'].map((id,i)=>reportSelection.has(id)?i:-1).filter(i=>i>=0);
   reportDialog.close();
@@ -3098,7 +3141,15 @@ restoreUrlState(); loadExternalDataOverrides();
  }
  $('countyUCounty').innerHTML=counties.map(name=>`<option value="${safe(name)}">${safe(name)}</option>`).join('');
  document.querySelectorAll('[data-cu-view]').forEach(btn=>btn.addEventListener('click',()=>{state.view=btn.dataset.cuView;render()}));
- $('countyUCounty').addEventListener('change',e=>{state.county=e.target.value;render()});
+ $('countyUCounty').addEventListener('change',e=>{
+   state.county=e.target.value;
+   if(typeof selectCounty==='function' && DATA[state.county])selectCounty(state.county);
+   render();
+ });
+ document.addEventListener('panel:county-change',e=>{
+   const name=e.detail?.name;
+   if(counties.includes(name) && state.county!==name){state.county=name;render();}
+ });
  $('countyUMetric').addEventListener('change',e=>{state.metric=e.target.value;render()});
  $('countyUPeriod').addEventListener('change',e=>{state.period=e.target.value;render()});
  $('countyUMapDate').addEventListener('change',e=>{state.mapDate=e.target.value;render()});
