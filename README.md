@@ -1,40 +1,54 @@
-**Studio v29** — zobacz `ZMIANY_V29_EKSPORT_BEZ_PUSTYCH_SLAJDOW.md`. Wersja usuwa ozdobny baner startowy i blokuje generowanie wykresów przy braku porównywalnych danych. Aktualizacja danych: `data/dane.json` na GitHub Pages.
+# Obserwatorium Śląskie 2027 — Studio v36
 
-# Obserwatorium Śląskie 2027 — Studio v24
+Narzędzie dla GitHub Pages. Główna baza: `data/dane.json`.
 
-Samodzielna aplikacja analityczna dla GitHub Pages. **Nie zawiera edytora danych ani logo WUP.**
+## Eksport v36
 
-## Funkcje
+PDF, wydruk struktury PUP i prezentacja PowerPoint używają oryginalnej niebieskiej firmówki WUP Katowice. Slajdy mają format 16:9, PDF format A4 poziomo z zachowaniem proporcji nagłówka i stopki. Grafika jest osadzona w index.html i działa bez połączenia z internetem.
 
-- Interaktywna mapa wszystkich 36 jednostek województwa śląskiego.
-- Profile powiatów i 168 grup zawodów, trendy, porównania i rankingi.
-- Bezrobocie, BAEL, REGON, dane historyczne i źródła.
-- Tryb prezentacji oraz wybór treści do PDF i PPTX, eksport XLSX.
-- Responsywny interfejs oraz uproszczony dostęp do filtrów na pierwszym ekranie.
+## Układ v35
 
-## Instalacja
+Wersja 35 poprawia siatkę list zawodów, układ filtrów, skalowanie wykresu trendów, odstępy mapy i rankingów oraz organizację źródeł. Na telefonie podgląd listy obejmuje 4 zawody, na tablecie 6, na komputerze 8. Przycisk rozwija całość.
 
-1. Wgraj zawartość paczki do głównego katalogu repozytorium GitHub.
-2. W Settings → Pages wybierz Deploy from a branch, main, /(root).
-3. Otwórz opublikowaną aplikację w przeglądarce.
+Osobne widoki: Mapa, Zawody, Trendy, Bezrobocie, Dane GUS, Rankingi i Źródła. Na telefonie wybór widoku zajmuje jeden wiersz, szczegóły są zwijane, a struktura i historia mają przełącznik. Na tabletach wykresy i karty są w dwóch kolumnach.
 
-## Dane
+Do aktualizacji wyglądu wystarczy podmienić `index.html`; zawiera style, moduły i zapasową migawkę danych. Pełna paczka zachowuje dodatkowe pliki eksportu oraz aktualizacji danych.
 
-Dane liczbowe pochodzą z `data/dane.json`. Aplikacja pobiera plik przy otwieraniu strony. Aktualizuj go poza panelem, np. osobnym edytorem, a następnie podmień na GitHubie. Nie wszystkie opisy metodologiczne są automatyczne. Pełna historia bezrobocia wszystkich powiatów wymaga weryfikacji i uzupełnienia oficjalnymi danymi.
+## Co dodano
 
-## Pliki
+- 1123 sprawdzone zestawienia pełnej struktury bezrobocia dla 20 powiatów i miast.
+- 1373 obserwacje liczby bezrobotnych dla 24 powiatów i miast, głównie z lat 2020–2026.
+- Przekroje: wiek, wykształcenie, staż pracy i czas pozostawania bez pracy. Oddzielny wybór kobiet i wszystkich bezrobotnych.
+- Wybór okresu, historia kategorii, wartości w osobach i procentach, tabela liczbowa, eksport CSV i JSON oraz karta do wydruku / zapisania jako PDF.
+- Katalog 2732 dokumentów źródłowych z 29 PUP (w tym Tychy), przypisany do obszaru właściwego urzędu.
+- Dostępność danych dla wszystkich 36 jednostek, z jawnym oznaczeniem braków.
 
-- `index.html` — interfejs.
-- `js/` — logika aplikacji i integracja centralnej bazy.
-- `data/dane.json` — baza danych statystycznych.
-- `assets/pptxgen.bundle.js` — generowanie PowerPoint.
-- `.github/workflows` i `aktualizuj_bdl.py` — opcjonalne aktualizacje BDL.
+Dane PUP zasilają także dotychczasowe wykresy liczby bezrobotnych, porównania i mapę. Nie zastępują serii stopy bezrobocia GUS ani prognozy Barometru Zawodów.
 
-Nie edytuj danych w `index.html`. Edytor jest osobnym narzędziem, nie jest częścią tego repozytorium.
+## Jak otworzyć nową sekcję
 
-## Ważne dla v22
-Zobacz `WAZNE_JAK_URUCHOMIC.md` — naprawiono informację o braku danych podczas lokalnego podglądu. Panel nadal korzysta z jednego pliku `data/dane.json`.
+Wybierz powiat, a następnie przycisk „Przejdź do danych PUP i struktury bezrobocia” pod nazwą powiatu. Możesz też przejść do „Statystyki” i rozwinąć „Bezrobocie w powiatach — historia i struktura”.
 
-## Zmiana v24 — brak ręcznego wczytywania plików
+## Podmiana na GitHubie
 
-GitHub Pages zawsze pobiera aktualne `data/dane.json`; nie ma przycisku wyboru pliku. Otwarcie `index.html` bezpośrednio z dysku działa na wbudowanej migawce startowej. Migawka służy tylko do lokalnego podglądu i nie zastępuje centralnego JSON na GitHubie. Zobacz `WAZNE_JAK_URUCHOMIC.md`.
+Aby naprawić samo uruchamianie, podmień `index.html` w głównym katalogu dotychczasowego repozytorium. Możesz też wgrać całą zawartość paczki, zastępując istniejące pliki. Zachowaj katalogi `assets`, `js` i `data`. Wersja v32 ma kod i style PUP wbudowane także w `index.html`, dzięki czemu uruchamia się nawet bez osobnych plików JS. Szczegóły: `NAPRAWA_WCZYTYWANIA_V32.md`. Po publikacji GitHub Pages odśwież stronę (Ctrl+F5).
+
+Paczka zawiera kompletną bazę. Nie wgrywaj dużych archiwów PDF do repozytorium aplikacji. Linki do oryginalnych dokumentów są w narzędziu.
+
+Lokalny podgląd po otwarciu `index.html` korzysta z aktualnej migawki danych wbudowanej w HTML. Na GitHub Pages baza jest odczytywana z `data/dane.json`.
+
+## Zakres i braki
+
+Nie każdy pobrany dokument został przekształcony w liczby. Część dotyczy gmin, zawiera skany lub ma niejednoznaczny układ. Do pełnej struktury dopuszczono tylko tabele z uzgodnionymi sumami czterech przekrojów i kobiet. Brak obserwacji nie oznacza zera. Nie sumujemy niepełnego zbioru powiatów do wartości wojewódzkiej.
+
+Dokładny zakres jednostek i okresów: `ZAKRES_DANYCH_PUP_V31.md`. Struktura i miesięczna liczba osób mają odrębne zakresy. Nie łączymy danych powiatu, miasta i gmin w jedną obserwację. Zmiana zasad rejestracji od czerwca 2025 r. wymaga ostrożności przy porównaniach.
+
+## Aktualizacja danych
+
+Centralny JSON ma nowe pola `strukturaPup` i `powiatBezrobocie.pup`. Po ręcznej zmianie danych należy również odświeżyć migawkę `panelInitialSnapshot` w `index.html`, aby podgląd bez serwera korzystał z tej samej wersji.
+
+Skrypty w `scripts/` dokumentują odczyt źródeł. Są przeznaczone do pracy z zachowanym zbiorem materiałów źródłowych, nie do uruchamiania przez użytkownika strony. `PUP_IMPORT_ROOT` wskazuje katalog roboczy oryginalnego zbioru. Nie pobierają samodzielnie aktualizacji z urzędów.
+
+## v33 — porządek w sekcjach
+
+Wykaz dostępności, katalog dokumentów PUP, odnośniki źródłowe i metodologia są w końcowej sekcji „Źródła danych”. W analizie bezrobocia pozostają wyniki, filtry, wykresy i eksport oraz krótki link do źródeł.
