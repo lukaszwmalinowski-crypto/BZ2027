@@ -1,235 +1,40 @@
-# Prognoza rynku pracy 2027 – panel analityczny WUP Katowice
+**Studio v29** — zobacz `ZMIANY_V29_EKSPORT_BEZ_PUSTYCH_SLAJDOW.md`. Wersja usuwa ozdobny baner startowy i blokuje generowanie wykresów przy braku porównywalnych danych. Aktualizacja danych: `data/dane.json` na GitHub Pages.
 
-Statyczna aplikacja przygotowana do publikacji przez GitHub Pages.
+# Obserwatorium Śląskie 2027 — Studio v24
 
-## Najważniejsze funkcje
-- profil wybranego powiatu i mapa województwa,
-- analiza zawodu na mapie,
-- trendy 2024–2027 i benchmark wojewódzki,
-- automatyczne sygnały analityczne,
-- porównanie do 3 powiatów,
-- profil zawodu w 36 jednostkach,
-- eksport PDF, PPTX i XLSX,
-- tryb prezentacyjny,
-- responsywny widok telefon/tablet/desktop,
-- stan powiatu i zawodu zapisywany w adresie URL.
+Samodzielna aplikacja analityczna dla GitHub Pages. **Nie zawiera edytora danych ani logo WUP.**
 
-## Struktura danych
-Katalog `data/` zawiera pliki JSON będące przygotowanym punktem aktualizacji danych:
-- `powiaty.json` – wartości 2026–2027 i komentarze,
-- `trendy-historyczne.json` – lata 2024–2025,
-- `bezrobocie.json` – stopa bezrobocia,
-- `zawody.json` – macierz statusów zawodów,
-- `mapa.json` – geometria SVG,
-- `meta.json` – metadane panelu.
+## Funkcje
 
-Aktualny `index.html` zachowuje zgodny fallback danych, dzięki czemu aplikacja działa także po otwarciu lokalnym. Przy kolejnej większej aktualizacji danych można przebudować fallback na podstawie tych plików JSON.
+- Interaktywna mapa wszystkich 36 jednostek województwa śląskiego.
+- Profile powiatów i 168 grup zawodów, trendy, porównania i rankingi.
+- Bezrobocie, BAEL, REGON, dane historyczne i źródła.
+- Tryb prezentacji oraz wybór treści do PDF i PPTX, eksport XLSX.
+- Responsywny interfejs oraz uproszczony dostęp do filtrów na pierwszym ekranie.
 
-## Publikacja GitHub Pages
-1. Wgraj całą zawartość katalogu do repozytorium.
-2. Wejdź w **Settings → Pages**.
-3. Wybierz **Deploy from a branch**.
-4. Branch: `main`, folder: `/ (root)`.
-5. Zapisz ustawienia.
+## Instalacja
 
-Nie usuwaj katalogu `assets/` – zawiera lokalną bibliotekę generatora PowerPoint.
+1. Wgraj zawartość paczki do głównego katalogu repozytorium GitHub.
+2. W Settings → Pages wybierz Deploy from a branch, main, /(root).
+3. Otwórz opublikowaną aplikację w przeglądarce.
 
+## Dane
 
-## v3.1
-Poprawiono moduł porównania powiatów: trzy jawne pola wyboru, automatyczne odświeżanie po zmianie oraz przycisk Wyczyść.
+Dane liczbowe pochodzą z `data/dane.json`. Aplikacja pobiera plik przy otwieraniu strony. Aktualizuj go poza panelem, np. osobnym edytorem, a następnie podmień na GitHubie. Nie wszystkie opisy metodologiczne są automatyczne. Pełna historia bezrobocia wszystkich powiatów wymaga weryfikacji i uzupełnienia oficjalnymi danymi.
 
+## Pliki
 
-## v3.3
-Lista powiatów w porównywarce jest wbudowana bezpośrednio w HTML i inicjalizowana niezależnie od mapy.
+- `index.html` — interfejs.
+- `js/` — logika aplikacji i integracja centralnej bazy.
+- `data/dane.json` — baza danych statystycznych.
+- `assets/pptxgen.bundle.js` — generowanie PowerPoint.
+- `.github/workflows` i `aktualizuj_bdl.py` — opcjonalne aktualizacje BDL.
 
+Nie edytuj danych w `index.html`. Edytor jest osobnym narzędziem, nie jest częścią tego repozytorium.
 
+## Ważne dla v22
+Zobacz `WAZNE_JAK_URUCHOMIC.md` — naprawiono informację o braku danych podczas lokalnego podglądu. Panel nadal korzysta z jednego pliku `data/dane.json`.
 
+## Zmiana v24 — brak ręcznego wczytywania plików
 
-## Nowość w v3.5
-
-- moduł **Historia struktury ocen 2023–2027** dla wszystkich 36 jednostek,
-- porównanie udziałów procentowych: deficyt, równowaga, nadwyżka, bez oceny,
-- dane 2023 z raportu wojewódzkiego Barometru Zawodów; 2024–2027 z danych panelu.
-
-
-## v3.6 - historia 2022
-
-Oś historii została rozszerzona do 2022–2027. Dla 2022 pokazujemy zweryfikowany kontekst regionalny z raportu Barometru Zawodów. Brakujące pełne udziały powiatowe nie są imputowane.
-
-
-## v3.7 - historia 2020-2027
-- oś historyczna rozszerzona do 2020 r.,
-- 2020-2022 prezentowane jako zweryfikowany kontekst archiwalny bez imputowania brakujących udziałów powiatowych,
-- 2021: 33 grupy deficytowe w prognozie wojewódzkiej,
-- pełny wykres udziałów powiatowych pozostaje od 2023 r.
-
-
-## v3.8 - archiwum 10 lat
-
-Historia została przebudowana: zamiast wspólnego wykresu jest domyślnie zwinięty moduł z osobnymi statystykami dla lat 2017-2026. Dane wojewódzkie pochodzą z raportu Barometru Zawodów 2026.
-
-
-## v3.9 - zawody w archiwum
-- karty lat 2017-2026 są rozwijane,
-- dla 2021-2026 osadzono zweryfikowane wojewódzkie listy zawodów deficytowych,
-- pełne listy równowagi/nadwyżki otwierają oficjalny widok Barometru,
-- dla 2017-2020 dostępny jest link do oficjalnej archiwalnej edycji do czasu pełnej weryfikacji list.
-
-
-## v3.10
-- naprawiony zagnieżdżony HTML archiwum,
-- kompaktowy akordeon roczników,
-- wyszukiwanie zawodu w osadzonych listach deficytów 2021–2026,
-- filtrowanie listy zawodów w obrębie rozwiniętego roku.
-
-
-## v3.11
-- przebudowany moduł archiwum do poprawnego akordeonu,
-- naprawione rozwijanie roczników,
-- kompaktowy układ kart,
-- wyszukiwarka zawodu w archiwum.
-
-
-## v3.12
-- naprawiono rozwijanie archiwum rocznego; działa niezależnie od inicjalizacji pozostałych modułów,
-- usunięto podwójny chevron przy przycisku „Pokaż zawody”.
-
-
-## v3.13
-- naprawiono błędne cudzysłowy w handlerach akordeonu archiwum,
-- przyciski `Pokaż zawody` poprawnie rozwijają panel roku.
-
-
-## v3.14
-- ujednolicone chevrony w elementach rozwijanych i polach wyboru,
-- archiwum bez dopisku „dla chętnych”,
-- czerwona ramka aktywnej sekcji „Analiza zawodu”, resetowana po wyczyszczeniu wyboru.
-
-
-## v3.15
-- usunięto globalną wyszukiwarkę „Sprawdź zawód w archiwum”.
-
-
-## v3.16
-- Profil zawodu otrzymuje czerwony stan aktywny po wyborze zawodu.
-- Archiwum ma osobną bursztynowo-złotą ramkę i akcent nagłówka.
-
-
-## v3.17
-- Widok startowy po odświeżeniu: **Województwo śląskie - średnie** zamiast Katowic.
-- Mapa startuje bez zaznaczonego powiatu.
-- Profil i trend pokazują średnie wojewódzkie; wybór powiatu przełącza panel na profil lokalny.
-
-
-## v3.18
-- naprawiono inicjalizację JavaScript po module archiwum,
-- widok startowy poprawnie pokazuje Województwo śląskie i średnie,
-- mapa renderuje się od razu po wejściu na stronę.
-
-
-## v3.19
-- widok wojewódzki jest także wpisany jako bezpieczny stan bazowy w HTML,
-- średnie 2027 są widoczne od razu po odświeżeniu,
-- inicjalizacja widoku wojewódzkiego jest ponawiana po zbudowaniu mapy.
-
-
-## v3.20
-- ujednolicono prezentację stopy bezrobocia: wszędzie widoczna jest data **stan na 31.08.2026 r.**
-
-
-## v3.21
-
-- usunięto eksport PNG mapy i wykresu; pozostają eksporty PDF, PPTX i XLSX.
-
-
-## v3.23
-- usunięto techniczny opis/instrukcję spod mapy.
-
-
-## v3.25
-- poprawiono rozwijane listy w porownywarce: nie zaslaniaja tabeli,
-- lista ma ograniczona wysokosc i przewijanie,
-- pierwsza kolumna tabeli z nazwami wskaznikow ma stala szerokosc.
-
-## Pełna paczka GitHub Pages
-
-Ta paczka zawiera komplet plików wymaganych przez aplikację:
-- `index.html`
-- `assets/pptxgen.bundle.js` - lokalna biblioteka do generowania PPTX
-- `data/*.json` - dane aplikacji i archiwum
-- `.nojekyll` - konfiguracja GitHub Pages
-
-Do publikacji wgraj całą zawartość tego katalogu do głównego katalogu repozytorium.
-
-
-## v3.26 – moduł GUS / BDL
-
-Dodano rozwijaną sekcję „Dane GUS – województwo śląskie” oraz plik `data/gus_woj_slaskie.json`. Pierwszy pakiet obejmuje ludność 2025, BAEL 2025, REGON 2015–2024 + stan bieżący 2026 oraz miesięczną stopę bezrobocia w 2026 r. Każdy wskaźnik ma własną datę odniesienia i źródło.
-
-
-## v3.27 - świeżość danych GUS
-Moduł GUS stosuje zasadę „najnowszy dostępny okres dla danego wskaźnika”. Zaktualizowano ludność do 30.06.2026, REGON do sierpnia 2026 i bezrobocie do 30.09.2026. Najnowsza publikacja BAEL: II kw. 2026.
-
-
-## v3.29
-Dopracowano wizualnie moduł GUS: KPI, karty, metryki, daty odniesienia i responsywność.
-
-
-## v3.32 – BAEL 10 lat i etykiety punktów
-- współczynnik aktywności zawodowej: IV kw. 2016–2025,
-- wartość przy każdym punkcie wykresu,
-- wartości przy każdym słupku REGON i każdym punkcie bezrobocia,
-- pełniejsze opisy i uwaga metodologiczna BAEL.
-
-## v3.33 – interaktywne wykresy GUS
-- hover/tap na punktach i słupkach pokazuje dokładny okres i wartość,
-- kliknięcie przypina podpowiedź; ponowne kliknięcie ją zwalnia,
-- działa także z klawiaturą (Enter/Spacja),
-- zachowano widoczne etykiety wartości przy każdym punkcie/słupku.
-
-
-## v3.34
-- Wykres bezrobocia ma przełącznik: Miesiące 2026 / Lata 2016–2025.
-- Każdy punkt pokazuje dokładną wartość i ma interaktywny tooltip.
-
-
-## v3.35 – porównanie z Polską
-- BAEL: woj. śląskie vs Polska, przełącznik aktywność zawodowa / wskaźnik zatrudnienia.
-- Bezrobocie: woj. śląskie vs Polska w trybie miesięcznym 2026 i rocznym 2016–2025.
-- Wszystkie punkty mają wartości i interaktywne podpowiedzi.
-
-## v3.36 – czytelność etykiet wykresów porównawczych
-- Polska: wartości zawsze nad punktami.
-- Woj. śląskie: wartości zawsze pod punktami.
-- Przy małej różnicy między seriami odstęp etykiet zwiększa się automatycznie.
-- Dodano subtelne łączniki punkt–etykieta i większe białe halo tekstu.
-- Zwiększono wysokość wykresów BAEL i bezrobocia, aby zachować czytelność wszystkich wartości.
-
-
-## v3.39 – bezrobocie
-W karcie „Bezrobocie rejestrowane” dodano przełącznik wskaźnika: stopa bezrobocia / liczba bezrobotnych oraz przełącznik okresu: miesiące 2026 / lata 2016–2025.
-
-## Aktualizacja v3.40 – BAEL / REGON
-
-- BAEL: dodano przełącznik „Historia do 2025 / Kwartały 2026”. Dla I–II kw. 2026 potwierdzono krajowe wartości aktywności zawodowej 58,7% i zatrudnienia 56,8%. Wartości woj. śląskiego za 2026 zostały **świadomie pozostawione puste** do czasu weryfikacji liczb w oryginalnej publikacji GUS; panel sygnalizuje brak bez udawania porównania.
-- REGON: historia 2016–2025 (wskaźnik na 10 tys. ludności) i przełącznik 2026, pokazujący liczbę podmiotów: 556 288 (grudzień 2025) oraz 562 786 (sierpień 2026). Miesięcznych liczb nie przedstawiamy jako rocznej wartości „na 10 tys.”.
-- Dane w `data/gus_woj_slaskie.json` zgodne z informacją o brakujących regionalnych liczbach BAEL.
-
-## v7 – audyt funkcjonalny i danych (27.10.2026)
-- Naprawiono błąd inicjalizacji mapy: dekoracyjny punkt legendy trendów nie jest już traktowany jak powiat.
-- BAEL 2026: ostatnia potwierdzona obserwacja Śląskiego (IV kw. 2025) została wyraźnie oddzielona od danych polskich z I–II kw. 2026. Pełna seria Śląskiego za 2026 wymaga dalszego pozyskania z oficjalnych tabel.
-- W eksporcie BAEL osobno wybiera się aktywność zawodową i zatrudnienie oraz historyczny lub bieżący okres. Wcześniej ustawiony widok jest przywracany po wygenerowaniu wykresów.
-- W rankingu zawodów deficytowych uwzględniono duży deficyt (DD) oraz deficyt (D).
-- Przeprowadzono test przeglądarkowy mapy, interakcji i eksportów PDF/PPTX. Protokół: `AUDYT_PANELU_2026-10-27.md`.
-
-**Uwaga:** `data/` nie zasila jeszcze automatycznie aplikacji podczas pracy. Zmiana samych plików JSON nie aktualizuje osadzonej wersji danych w `index.html`.
-
-
-## Nowość v8: bezrobocie w powiatach
-
-Moduł zmian powiatowych i porównań, mapa stopy bezrobocia, import CSV/JSON, integracja PDF/PPTX. Pełna historia powiatowa wymaga dostarczenia zweryfikowanych danych – szczegóły w `README_DANE_POWIATOWE.md`.
-
-
-## v9 – źródła danych i aktualizacja
-
-Na samym końcu widoku dodano zwijany rejestr „Źródła danych i plan aktualizacji”. Przy każdej sekcji są: zakres danych, cykl aktualizacji, linki do oficjalnych źródeł, nazwy plików i zadania kontrolne. Pełna instrukcja: `ZRODLA_DANYCH_I_AKTUALIZACJA.md`. Ważne: obecna wersja ma fallback danych osadzony w HTML, dlatego podmiana samego JSON nie odświeża wykresów.
+GitHub Pages zawsze pobiera aktualne `data/dane.json`; nie ma przycisku wyboru pliku. Otwarcie `index.html` bezpośrednio z dysku działa na wbudowanej migawce startowej. Migawka służy tylko do lokalnego podglądu i nie zastępuje centralnego JSON na GitHubie. Zobacz `WAZNE_JAK_URUCHOMIC.md`.

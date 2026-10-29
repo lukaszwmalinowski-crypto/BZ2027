@@ -24,3 +24,7 @@ W checkliście PDF/PPTX dostępnych jest pięć dodatkowych wariantów. Jeśli b
 **Status:** Interfejs i import działają na dostępnych danych; pełne dane dla powiatów 2016–2026 wymagają uzupełnienia z oficjalnych tablic GUS/BDL.
 
 Dodatkowe źródło zweryfikowanej historii Rudy Śląskiej: https://rudaslaska.praca.gov.pl/stopy-bezrobocia (wartości po korekcie, publikacja powiatowego urzędu pracy). Dane za sierpień 2026 dla Rudy Śląskiej pozostają z bazowego zestawu panelu v7.
+
+
+## Wersja 12 – uzupełnianie z GUS/BDL
+Aktualizacja automatyczna i zakres 2016–2026: zobacz `AKTUALIZACJA_BDL_2016_2026.md`. Pełna baza nie jest obecnie wbudowana w tę paczkę; uruchom aktualizację przez `AKTUALIZUJ_BDL.bat`.

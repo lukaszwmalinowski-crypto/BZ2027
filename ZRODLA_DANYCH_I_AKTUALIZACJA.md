@@ -117,3 +117,16 @@ Pliki: `data/meta.json`, `data/gus_woj_slaskie.json`
 ## Aktualizacja v10 – bezrobocie w powiatach
 
 Moduł jest domyślnie zwinięty. Wszystkie 36 jednostek mają tylko wartość bazową za sierpień 2026. Dla Rudy Śląskiej dołączono sprawdzone wartości roczne (grudzień 2016–2025) i miesięczne (styczeń–lipiec 2026) z PUP Ruda Śląska: https://rudaslaska.praca.gov.pl/stopy-bezrobocia . Pełną historię pozostałych powiatów uzupełniaj z GUS/BDL. Dane osadzone w HTML oraz JSON muszą być aktualizowane spójnie.
+
+
+## Uzupełnienie 2026-10-28 – miesięczne bezrobocie 36 powiatów
+
+**Źródło podstawowe:** GUS/BDL, grupa P3559 – stopa bezrobocia (miesięcznie) i P2961 – liczba bezrobotnych ogółem (miesięcznie). Powiaty: BDL/TERYT dla woj. śląskiego (012400000000).
+
+**Fizyczny plik:** `data/bezrobocie_powiaty_historia.json` oraz po aktualizacji `data/bezrobocie_powiaty_historia.csv`. Aby dane pojawiły się również w otwieranym offline panelu, skrypt `aktualizuj_bdl.py` wstawia je do znacznika `countyUnemploymentBDLSeed` w `index.html`.
+
+**Jak aktualizować:** Uruchom `AKTUALIZUJ_BDL.bat` (Python 3, internet) lub w GitHub Actions workflow `Aktualizacja danych GUS BDL – powiaty` (po konfiguracji repozytorium). Instrukcja: `AKTUALIZACJA_BDL_2016_2026.md`.
+
+**Weryfikacja:** przed nadpisaniem sprawdzane są 36 powiatów i min. 90 obserwacji stopy na powiat. Odczyty liczby bezrobotnych dostępne są po odnalezieniu kompletnych 12 wskaźników „ogółem” w P2961. Braki nie są zastępowane szacunkami.
+
+**Status paczki:** pełna historia nie została jeszcze pobrana z API w środowisku przygotowania; należy uruchomić powyższy updater i sprawdzić licznik w panelu.
