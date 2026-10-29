@@ -70,7 +70,7 @@ function show(id,scroll=true){
  $('filterStudio').hidden=['sources','gus','rankings'].includes(id);
  if(id==='unemployment'){
   $('countyUnempModule').open=true;
-  if($('countySelect').value==='__WOJ__'){const name=window.PUP_MODULE?.state.county||'Tychy';$('countySelect').value=name;$('countySelect').dispatchEvent(new Event('change',{bubbles:true}))}
+  /* Zachowaj wybór województwa w tej zakładce. */
  }
  if(id==='gus')$('gusModule').open=true;
  if(id==='sources')$('sourceRegistry').open=true;

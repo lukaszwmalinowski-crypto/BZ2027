@@ -1,8 +1,8 @@
-const CACHE_NAME = 'obserwatorium-slaskie-v77';
+const CACHE_NAME = 'obserwatorium-slaskie-v82';
 const CORE = ['./','./index.html','./manifest.webmanifest','./favicon.png','./apple-touch-icon.png','./assets/logo-obserwatorium.png',
   './icons/icon-192.png','./icons/icon-512.png',
   './icons/icon-maskable-192.png','./icons/icon-maskable-512.png',
-  './data/dane.json','./assets/layout.css','./assets/pup.css',
+  './data/dane.json','./data/demografia_gzm_miasta_2014_2025.json','./assets/layout.css','./assets/pup.css',
   './js/bootstrap.js','./js/app.js','./js/layout.js','./js/pup.js',
   './js/gus.js','./js/county.js','./assets/pptxgen.bundle.js'];
 self.addEventListener('install', event => {
