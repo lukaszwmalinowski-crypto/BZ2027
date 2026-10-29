@@ -3883,5 +3883,68 @@ body.compactUI #pupStructureModule .pupHeading h2{margin-top:5px!important;margi
 @media print{#v59-responsive-adaptive{display:none!important}}
 </style>
 
+
+<style id="v60-ipadpro11-layout">
+/* iPad Pro 11″ — tailored to iPadOS CSS viewport around 834×1194 and 1194×834.
+   This block intentionally comes last, overriding older breakpoint rules. */
+@media screen and (min-width:780px) and (max-width:1250px) and (pointer:coarse){
+ html,body{overflow-x:clip!important;width:100%!important}
+ body.compactUI .studioContent{width:100%!important;max-width:100%!important;padding:12px 14px!important}
+ body.compactUI .compactPane,body.compactUI .compactPane>*,body.compactUI .card{min-width:0!important;max-width:100%!important}
+ body.compactUI .headerInner{padding:10px 16px!important;gap:12px!important}
+ body.compactUI .headerActions{gap:7px!important;flex-wrap:nowrap!important}
+ body.compactUI .headerActions button,body.compactUI .exportMenu>summary{min-height:42px!important}
+ body.compactUI .chapterRailInner{padding:6px 10px!important;gap:3px!important;overflow-x:auto!important}
+ body.compactUI .compactNavButton{min-height:45px!important;min-width:0!important;padding:7px 5px!important;gap:6px!important;font-size:11px!important;white-space:nowrap!important}
+ body.compactUI .compactNavButton .navIcon,body.compactUI .compactNavButton .navIcon svg{width:15px!important;height:15px!important;flex-basis:15px!important}
+ body.compactUI .exportMenuList{z-index:3000!important;min-width:230px!important}
+ body.compactUI select,body.compactUI input{max-width:100%!important}
+ body.compactUI #filterStudio{padding:12px 14px!important;margin-bottom:12px!important}
+ body.compactUI .pupControls{gap:10px!important}
+ body.compactUI .pupKpis{gap:10px!important}
+ body.compactUI .pupKpis>div{padding:12px!important}
+ body.compactUI .pupKpis strong{font-size:24px!important}
+ body.compactUI #pupAllTables .pupRawField{grid-template-columns:minmax(0,1fr)!important}
+ body.compactUI #pupRawNumbers,body.compactUI .pupTableScroll{overflow-x:auto!important;width:100%!important;max-width:100%!important;-webkit-overflow-scrolling:touch}
+ body.compactUI .pupCard,body.compactUI .gusCard{min-width:0!important}
+ body.compactUI .compareControls{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body.compactUI .compareField,body.compactUI .compareField select{min-width:0!important;width:100%!important;max-width:100%!important}
+ body.compactUI .pupBar{grid-template-columns:minmax(98px,1.15fr) minmax(45px,1fr) 55px!important;gap:8px!important}
+ body.compactUI .pupCard svg,body.compactUI .gusCard svg{max-width:100%!important;height:auto!important}
+ body.compactUI .moduleHead{gap:9px!important}
+ body.compactUI .moduleHead h2{font-size:17px!important}
+}
+/* 11-inch iPad portrait: map and full-width county profile stacked; no cramped data columns. */
+@media screen and (min-width:780px) and (max-width:1040px) and (orientation:portrait) and (pointer:coarse){
+ body.compactUI .studioContent #atlasMap{grid-template-columns:minmax(0,1fr)!important;gap:12px!important}
+ body.compactUI .studioContent #atlasMap #map{height:clamp(520px,68vw,670px)!important;max-height:none!important}
+ body.compactUI .studioContent #atlasMap .mapwrap{margin:9px 12px!important;padding:8px!important}
+ body.compactUI .studioContent .mapSignals{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+ body.compactUI .pupControls{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body.compactUI .pupControls>div:last-child{grid-column:1/-1!important}
+ body.compactUI .pupKpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body.compactUI .pupGrid,body.compactUI .gusGrid{grid-template-columns:minmax(0,1fr)!important;gap:12px!important}
+ body.compactUI .signalGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body.compactUI #atlasAnalysis{grid-template-columns:minmax(0,1fr)!important}
+ body.compactUI #atlasRankings{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}
+ body.compactUI .compactNavButton{font-size:10.5px!important;gap:4px!important}
+}
+/* 11-inch iPad landscape: preserve two clear panes and readable charts. */
+@media screen and (min-width:1050px) and (max-width:1250px) and (orientation:landscape) and (pointer:coarse){
+ body.compactUI .studioContent #atlasMap{grid-template-columns:minmax(0,1.22fr) minmax(0,.78fr)!important;gap:12px!important;align-items:start!important}
+ body.compactUI .studioContent #atlasMap #map{height:clamp(470px,48vw,590px)!important;max-height:none!important}
+ body.compactUI .studioContent #atlasMap .mapwrap{margin:7px 9px!important;padding:5px!important}
+ body.compactUI .studioContent .mapSignals{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body.compactUI .studioContent #atlasMap .profileStudioCard{min-width:0!important}
+ body.compactUI .pupControls{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+ body.compactUI .pupKpis{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+ body.compactUI .pupGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}
+ body.compactUI .gusGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body.compactUI .signalGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body.compactUI #atlasAnalysis{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body.compactUI #atlasRankings{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+</style>
+
 </body>
 </html>
