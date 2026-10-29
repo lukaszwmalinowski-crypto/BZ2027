@@ -1,4 +1,4 @@
-# Obserwatorium Śląskie 2027 — Studio v36
+# Obserwatorium Śląskie 2027 - Studio v36
 
 Narzędzie dla GitHub Pages. Główna baza: `data/dane.json`.
 
@@ -17,7 +17,7 @@ Do aktualizacji wyglądu wystarczy podmienić `index.html`; zawiera style, modu�
 ## Co dodano
 
 - 1123 sprawdzone zestawienia pełnej struktury bezrobocia dla 20 powiatów i miast.
-- 1373 obserwacje liczby bezrobotnych dla 24 powiatów i miast, głównie z lat 2020–2026.
+- 1373 obserwacje liczby bezrobotnych dla 24 powiatów i miast, głównie z lat 2020-2026.
 - Przekroje: wiek, wykształcenie, staż pracy i czas pozostawania bez pracy. Oddzielny wybór kobiet i wszystkich bezrobotnych.
 - Wybór okresu, historia kategorii, wartości w osobach i procentach, tabela liczbowa, eksport CSV i JSON oraz karta do wydruku / zapisania jako PDF.
 - Katalog 2732 dokumentów źródłowych z 29 PUP (w tym Tychy), przypisany do obszaru właściwego urzędu.
@@ -27,7 +27,7 @@ Dane PUP zasilają także dotychczasowe wykresy liczby bezrobotnych, porównania
 
 ## Jak otworzyć nową sekcję
 
-Wybierz powiat, a następnie przycisk „Przejdź do danych PUP i struktury bezrobocia” pod nazwą powiatu. Możesz też przejść do „Statystyki” i rozwinąć „Bezrobocie w powiatach — historia i struktura”.
+Wybierz powiat, a następnie przycisk „Przejdź do danych PUP i struktury bezrobocia” pod nazwą powiatu. Możesz też przejść do „Statystyki” i rozwinąć „Bezrobocie w powiatach - historia i struktura”.
 
 ## Podmiana na GitHubie
 
@@ -49,6 +49,6 @@ Centralny JSON ma nowe pola `strukturaPup` i `powiatBezrobocie.pup`. Po ręcznej
 
 Skrypty w `scripts/` dokumentują odczyt źródeł. Są przeznaczone do pracy z zachowanym zbiorem materiałów źródłowych, nie do uruchamiania przez użytkownika strony. `PUP_IMPORT_ROOT` wskazuje katalog roboczy oryginalnego zbioru. Nie pobierają samodzielnie aktualizacji z urzędów.
 
-## v33 — porządek w sekcjach
+## v33 - porządek w sekcjach
 
 Wykaz dostępności, katalog dokumentów PUP, odnośniki źródłowe i metodologia są w końcowej sekcji „Źródła danych”. W analizie bezrobocia pozostają wyniki, filtry, wykresy i eksport oraz krótki link do źródeł.

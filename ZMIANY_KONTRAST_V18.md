@@ -1,4 +1,4 @@
-# Obserwatorium Śląskie 2027 – v18
+# Obserwatorium Śląskie 2027 - v18
 
 Wersja kontynuuje v17: nie ma bocznej nawigacji, sekcje GUS, bezrobocia i archiwum są odseparowane od ramki trendów.
 

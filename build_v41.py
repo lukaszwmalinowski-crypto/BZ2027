@@ -45,7 +45,7 @@ for f in files:
 existing={(r['powiat'],r['okres']):r for r in db['obserwacje']}
 for r in records:existing[(r['powiat'],r['okres'])]=r
 db['obserwacje']=sorted(existing.values(),key=lambda r:(r['powiat'],r['okres']))
-db['meta']['liczbaObserwacji']=len(db['obserwacje']);db['meta']['liczbaPowiatow']=len(set(r['powiat'] for r in db['obserwacje']));db['meta']['uzupelnienieWUP']='Pełne tabele 1–25 z 14 arkuszy WUP: 2021–2026; walidacja sum wszystkich grup i kobiet'; db['meta']['liczbaPelnychObserwacjiWUP']=len(records)
+db['meta']['liczbaObserwacji']=len(db['obserwacje']);db['meta']['liczbaPowiatow']=len(set(r['powiat'] for r in db['obserwacje']));db['meta']['uzupelnienieWUP']='Pełne tabele 1-25 z 14 arkuszy WUP: 2021-2026; walidacja sum wszystkich grup i kobiet'; db['meta']['liczbaPelnychObserwacjiWUP']=len(records)
 # align monthly records to validated source including county corrections
 monthly={(r['powiat'],r['okres']):r for r in db['miesieczne']}
 for r in records:

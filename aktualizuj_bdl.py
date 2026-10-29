@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Aktualizacja miesięcznego bezrobocia powiatowego GUS/BDL (2016–2026).
+"""Aktualizacja miesięcznego bezrobocia powiatowego GUS/BDL (2016-2026).
 Bez bibliotek zewnętrznych. Zachowuje poprzedni poprawny zbiór, jeżeli API nie odpowiada.
 Uruchamianie: python aktualizuj_bdl.py [--rate-only].
 """
@@ -20,7 +20,7 @@ MONTHS=['styczeń','luty','marzec','kwiecień','maj','czerwiec','lipiec','sierpi
 EXPECTED=['będziński','bielski','cieszyński','częstochowski','gliwicki','kłobucki','lubliniecki','mikołowski','myszkowski','pszczyński','raciborski','rybnicki','tarnogórski','bieruńsko-lędziński','wodzisławski','zawierciański','żywiecki','Bielsko-Biała','Bytom','Chorzów','Częstochowa','Dąbrowa Górnicza','Gliwice','Jastrzębie-Zdrój','Jaworzno','Katowice','Mysłowice','Piekary Śląskie','Ruda Śląska','Rybnik','Siemianowice Śląskie','Sosnowiec','Świętochłowice','Tychy','Zabrze','Żory']
 
 def norm(t):
-    t=str(t).strip().casefold().replace('ł','l').replace('–','-').replace('—','-')
+    t=str(t).strip().casefold().replace('ł','l').replace('-','-').replace('-','-')
     t=re.sub(r'^powiat\s+(?:m\.\s*|miasto\s+|miejskie?\s+|grodzki\s+)?','',t)
     t=re.sub(r'^m\.\s*','',t)
     return ''.join(c for c in unicodedata.normalize('NFKD',t) if not unicodedata.combining(c)).replace(' ','').replace('-','')
@@ -37,7 +37,7 @@ def request(endpoint, params=None, retries=4):
             return data
         except (HTTPError,URLError,TimeoutError,OSError,ValueError) as e:
             if isinstance(e,HTTPError) and e.code in (400,401,403,404):
-                raise RuntimeError(f'BDL: HTTP {e.code} — {url}') from e
+                raise RuntimeError(f'BDL: HTTP {e.code} - {url}') from e
             if attempt==retries-1:raise RuntimeError(f'BDL nie odpowiada: {url}: {e}') from e
             time.sleep(min(3*(attempt+1),12))
 
@@ -137,7 +137,7 @@ def build(rate_only=False):
     if min(coverage.values(),default=0)<90 or rate_count<3600:
        raise ValueError(f'Niepełny eksport BDL: {rate_count} stóp, minimalna historia powiatu {min(coverage.values(),default=0)} miesięcy. Nie nadpisano poprzednich plików.')
     now=dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds')
-    meta={'source':'GUS / Bank Danych Lokalnych (BDL) API','updated_at':now,'years':'2016–2026','province':'śląskie','powiat_count':len(mapping),'observation_count':len(entries),'rate_observation_count':rate_count,'count_observation_count':sum(r['liczba_osob'] is not None for r in entries),'subject_rate':RATE_SUBJECT,'subject_count':COUNT_SUBJECT if counts else None,'variables_rate':rates,'variables_count':counts,'unit_ids':mapping,'license':'CC BY 4.0 – GUS','limitations':'Dane po korektach BDL; stopa po grudniu 2021 nie w pełni porównywalna z latami wcześniejszymi.'}
+    meta={'source':'GUS / Bank Danych Lokalnych (BDL) API','updated_at':now,'years':'2016-2026','province':'śląskie','powiat_count':len(mapping),'observation_count':len(entries),'rate_observation_count':rate_count,'count_observation_count':sum(r['liczba_osob'] is not None for r in entries),'subject_rate':RATE_SUBJECT,'subject_count':COUNT_SUBJECT if counts else None,'variables_rate':rates,'variables_count':counts,'unit_ids':mapping,'license':'CC BY 4.0 - GUS','limitations':'Dane po korektach BDL; stopa po grudniu 2021 nie w pełni porównywalna z latami wcześniejszymi.'}
     return {'meta':meta,'entries':entries}
 
 def save(payload, no_embed=False):
@@ -145,7 +145,7 @@ def save(payload, no_embed=False):
     if not OUT.exists():raise RuntimeError('Brak centralnego pliku data/dane.json')
     document=json.loads(OUT.read_text(encoding='utf-8'))
     if not isinstance(document.get('powiatBezrobocie'),dict) or not document.get('barometr'):
-        raise RuntimeError('Niepoprawny format data/dane.json – odmowa nadpisania')
+        raise RuntimeError('Niepoprawny format data/dane.json - odmowa nadpisania')
     document['powiatBezrobocie']['bdl']=payload
     document['meta']['ostatniaAktualizacjaBDL']=payload['meta']['updated_at']
     document['meta']['wersja']='BDL '+payload['meta']['updated_at'][:10]

@@ -1,4 +1,4 @@
-# Studio danych / Śląskie 2027 — v15
+# Studio danych / Śląskie 2027 - v15
 
 Kompletny redesign warstwy wizualnej i układu z zachowaniem wszystkich danych i modułów panelu v12.
 

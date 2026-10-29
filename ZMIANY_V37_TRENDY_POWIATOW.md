@@ -1,4 +1,4 @@
-# Wersja 37 – trendy bezrobocia w powiatach
+# Wersja 37 - trendy bezrobocia w powiatach
 
 - Nowy przycisk: **Pokaż dostępne trendy PUP (liczba bezrobotnych, 2026)**. Wybiera maksymalnie cztery jednostki mające najwięcej obserwacji w 2026 i pokazuje ich przebieg miesięczny.
 - Pod wykresem automatyczne karty kierunku i wielkości zmiany pomiędzy pierwszą i ostatnią dostępną obserwacją w wybranym okresie, z podaniem dat oraz zakresu dostępności.

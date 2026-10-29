@@ -1,4 +1,4 @@
-# v43 – naprawa danych Gliwic i pozostałych powiatów
+# v43 - naprawa danych Gliwic i pozostałych powiatów
 
 Błąd: `index.html` zawierał starą kopię `panelInitialSnapshot` (1123 zestawienia struktury), a `data/dane.json` zawierał nową (1389). Uruchomienie offline korzystało ze starej bazy. Ponadto kopia modułu `js/pup.js` w `panelModuleBundle` była nieaktualna.
 

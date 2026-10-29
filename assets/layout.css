@@ -1,0 +1,229 @@
+/* Responsive arrangement, using the existing blue/white design system. */
+body.compactUI{background:#edf2f7;scroll-behavior:auto!important}
+body.compactUI [hidden]{display:none!important}
+body.compactUI .header{position:static!important}
+body.compactUI .headerInner{padding:10px 18px!important;min-height:52px!important;gap:12px!important}
+body.compactUI #dataLoadStatus{font-size:10px!important;max-width:min(70vw,820px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0!important}
+body.compactUI .chapterRail{position:sticky!important;top:0!important;z-index:100!important;background:#fff!important;border-bottom:1px solid #d5e0eb}
+body.compactUI .chapterRailInner{display:flex!important;gap:5px!important;padding:7px 18px!important;max-width:1440px!important;margin:auto!important;min-height:52px!important}
+.compactNavButton{flex:1;font:600 13px Inter,Segoe UI,sans-serif;color:#526982;border:1px solid transparent;background:transparent;border-radius:8px;min-height:40px;padding:9px 12px;cursor:pointer;white-space:nowrap}.compactNavButton:hover{background:#eef3fa}.compactNavButton.active{background:#3d64bc;color:#fff}.compactNavButton:focus-visible{outline:3px solid #8fafe3;outline-offset:2px}.compactMobileNav{display:none}
+body.compactUI .studioContent{max-width:1440px!important;margin:auto!important;padding:16px 20px 28px!important;min-height:70vh;overflow:visible!important;background:transparent!important}
+body.compactUI .compactPane{min-width:0;animation:compactIn .14s ease-out}
+body.compactUI .chapterHeading{display:none!important}
+body.compactUI .studioStartAnchor{height:0!important;margin:0!important}
+body.compactUI #filterStudio{display:block!important;padding:12px 16px!important;border-radius:12px!important;margin:0 0 14px!important}
+body.compactUI #filterStudio[hidden]{display:none!important}
+body.compactUI .filterIntro{display:none!important}
+body.compactUI #filterFields{display:grid!important;grid-template-columns:minmax(200px,300px) minmax(0,1fr)!important;align-items:start!important;gap:16px!important}
+body.compactUI #filterFields .controlBlock{min-width:0!important}
+body.compactUI #filterFields label{font-size:11px!important;margin-bottom:5px!important}
+body.compactUI #filterFields select{min-height:40px!important;padding:8px 12px!important;font-size:13px!important;border-radius:8px!important;max-width:100%!important}
+.compactFilters>summary{cursor:pointer;font-size:12px;font-weight:600;color:#476383;padding:10px 0;min-height:40px}.compactFilters[open]{display:grid;gap:8px}.compactFilters .modeControl{margin:0 0 10px}.compactFilters .modeButtons{display:flex!important;gap:6px!important;flex-wrap:wrap!important}.compactFilters .btn{min-height:38px!important;padding:7px 10px!important;font-size:12px!important}.compactFilters .occupationRow{gap:7px!important}
+body.compactUI[data-compact-view="jobs"] .compactFilters>.modeControl{display:none!important}
+body.compactUI[data-compact-view="jobs"] .compactFilters>summary{display:none}
+body.compactUI[data-compact-view="trends"] .compactFilters,body.compactUI[data-compact-view="unemployment"] .compactFilters{display:none!important}
+body.compactUI[data-compact-view="trends"] #filterFields,body.compactUI[data-compact-view="unemployment"] #filterFields{grid-template-columns:minmax(200px,360px)!important}
+body.compactUI .studioContent :is(.card,.analyticsHub,.occupationProfileCard,.trendCard,.gusModule,.historyArchive){border-radius:12px!important;min-height:0!important;margin-top:0!important;margin-bottom:14px!important;box-shadow:none!important}
+body.compactUI .studioContent :is(.unifiedSectionHead,.moduleHead,.trendHead,.occupationProfileHead){padding:16px 18px!important;margin:0!important;gap:10px!important}
+body.compactUI .studioContent :is(.unifiedSectionHead,.moduleHead,.trendHead) h2{font-size:21px!important;line-height:1.25!important;letter-spacing:-.035em!important}
+body.compactUI .studioContent :is(.unifiedSectionHead,.moduleHead,.trendHead) p{font-size:12px!important;line-height:1.5!important;margin:6px 0 0!important}
+body.compactUI .studioContent :is(.unifiedEyebrow,.moduleEyebrow,.mapCategory,.unifiedHeadBadge,.mapVisualBadge,.filterTiny){display:none!important}
+body.compactUI .studioContent #atlasMap{display:grid!important;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr)!important;gap:16px!important;align-items:start!important}
+body.compactUI .studioContent #atlasMap .mapStudioCard{position:static!important;align-self:start!important;height:auto!important;min-height:0!important}
+body.compactUI .studioContent #atlasMap .mapwrap{min-height:0!important;height:auto!important;margin:8px 12px 0!important;padding:5px!important;border-radius:9px!important;background:#f8fafd!important}
+body.compactUI .studioContent #atlasMap #map{height:clamp(300px,42vh,470px)!important;max-height:470px!important;width:100%!important;display:block!important;min-height:0!important}
+body.compactUI .studioContent #atlasMap .studioMapHead{padding:16px 18px 8px!important;min-height:0!important;display:block!important}
+body.compactUI .studioContent #atlasMap .studioMapHead h2{font-size:21px!important;margin:0!important}
+body.compactUI .studioContent #atlasMap .studioMapHead .mapHeadTitle>span{font-size:11px!important}
+body.compactUI .studioContent #atlasMap .legend{padding:12px 16px!important;margin:0!important;font-size:11px!important}
+body.compactUI .studioContent #atlasMap .profileStudioCard>.panel{padding:16px 18px!important}
+body.compactUI .studioContent #atlasMap .titleRow{padding:0 0 10px!important;min-height:0!important}
+body.compactUI .studioContent #atlasMap .titleRow h2{font-size:24px!important;line-height:1.2!important}
+body.compactUI .studioContent #atlasMap .titleRow .hint{font-size:11px!important;line-height:1.5!important}
+body.compactUI .studioContent #mapInsights{padding:12px 0 0!important;margin:0!important}
+body.compactUI .studioContent .mapInsightsTitle{display:none!important}
+body.compactUI .studioContent .mapStructureBox{padding:12px!important;margin:0 0 10px!important}
+body.compactUI .studioContent .mapSignalsBox{padding:12px!important;margin:0!important}
+body.compactUI .studioContent .mapSignals{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important}
+body.compactUI .studioContent .mapSignal{padding:9px!important;min-height:0!important}
+body.compactUI .studioContent .mapSignal .sValue{font-size:21px!important;margin:4px 0!important}
+body.compactUI .studioContent .mapSignal .sLabel{font-size:10px!important;line-height:1.35!important}
+body.compactUI .studioContent .mapSignal .sHint{font-size:9px!important;line-height:1.45!important}
+body.compactUI .studioContent .profileStudioCard .metrics{display:none!important}
+body.compactUI .studioContent .pupJump{padding:7px 9px!important;margin:7px 0!important;font-size:11px!important;min-height:35px}
+.compactMore{border-top:1px solid #dce5ed;margin:12px 0 0!important;padding:0!important}.compactMore>summary{font-size:13px;font-weight:600;color:#3f5e7f;cursor:pointer;padding:14px 2px;min-height:44px}.compactMore .voivBenchmark{padding:12px!important;margin:0 0 10px!important}.compactBenchmark .voivBenchmarkHead p{display:none!important}
+.compactJobsCard{padding:16px 18px!important}.compactJobsCard>.section{padding:0!important;border:0!important;margin:0!important}.compactJobsCard h3{font-size:18px!important;margin:0 0 12px!important}.compactJobsCard .jobs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;max-height:480px;overflow:auto}.compactJobsCard .job{margin:0!important;padding:10px!important}
+body.compactUI .studioContent .analyticsHub{padding:0!important}
+body.compactUI .studioContent .insightCard{padding:0!important}
+body.compactUI .studioContent #analyticSignals{gap:8px!important;padding:10px 16px 16px!important}
+body.compactUI .studioContent .compareCard{padding:16px!important}
+body.compactUI .studioContent .trendYears{gap:8px!important;margin-top:12px!important}
+body.compactUI .studioContent #trendChart{min-height:0!important;max-height:370px!important}
+body.compactUI .studioContent #countyUnempModule{border:0!important;background:transparent!important;margin:0!important;padding:0!important}
+body.compactUI .studioContent #countyUnempModule>summary,body.compactUI .studioContent #gusModule>summary,body.compactUI .studioContent #sourceRegistry>summary{display:none!important}
+body.compactUI .studioContent #countyUnempModule .countyUWrap{padding:0!important}
+body.compactUI .studioContent #pupStructureModule{padding:16px 18px!important;margin:0 0 12px!important;border-radius:12px!important}
+body.compactUI .compactDuplicateCounty{display:none!important}
+body.compactUI .pupHeading h2{font-size:22px!important;margin:0 0 6px!important}
+body.compactUI .pupHeading .eyeb{display:none!important}
+body.compactUI .pupHeading p{font-size:12px!important;margin-bottom:12px!important}
+body.compactUI .pupControls{grid-template-columns:1fr 1fr 1fr!important;gap:10px!important}
+body.compactUI .pupControls select{min-height:40px!important;padding:8px!important;font-size:12px!important}
+body.compactUI .pupStatus{margin:10px 0!important;font-size:12px!important}
+body.compactUI .pupKpis{gap:8px!important;margin:12px 0 16px!important}
+body.compactUI .pupKpis>div{padding:11px!important;border-radius:9px!important}
+body.compactUI .pupKpis span{font-size:10px!important;min-height:28px!important}
+body.compactUI .pupKpis strong{font-size:25px!important;margin:4px 0!important}
+body.compactUI .pupKpis small{font-size:10px!important}
+body.compactUI .pupGroupTabs{gap:6px!important;margin-bottom:12px!important}
+body.compactUI .pupGroupTabs button{font-size:12px!important;padding:8px 10px!important;min-height:40px!important}
+body.compactUI .pupGrid{grid-template-columns:1fr 1fr!important;gap:12px!important}
+body.compactUI .pupCard{padding:13px!important;border-radius:10px!important}
+body.compactUI .pupBar{gap:8px!important;padding:8px 0!important;min-height:41px!important;grid-template-columns:minmax(90px,1.15fr) minmax(30px,1fr) 48px!important}
+body.compactUI .pupBar>span:first-child{font-size:11px!important}
+body.compactUI .pupCard h3{font-size:15px!important;margin-bottom:12px!important}
+body.compactUI .pupCaption{font-size:10px!important;margin-top:10px!important}
+body.compactUI #compactCountyMore{background:#fff;border:1px solid #dce5ed!important;border-radius:10px;padding:0 14px!important}
+body.compactUI #compactCountyMore .countyUPanel{padding:14px!important}
+body.compactUI #gusModule{padding:0!important}
+body.compactUI #gusModule .gusBody{padding:16px!important}
+body.compactUI #gusModule .gusIntro{font-size:12px!important;padding:10px 12px!important;margin:0 0 12px!important}
+body.compactUI #gusModule .gusHeroKpis{gap:8px!important;margin:0 0 14px!important}
+body.compactUI #gusModule .gusHeroKpi{min-height:0!important;padding:12px!important}
+body.compactUI #gusModule .gusHeroKpi .kValue{font-size:26px!important}
+body.compactUI #gusModule .gusGrid{display:grid!important;grid-template-columns:1fr 1fr!important;gap:12px!important}
+body.compactUI #gusModule .gusColumn{min-width:0!important;gap:12px!important}
+body.compactUI #gusModule .gusCard{padding:14px!important;margin-bottom:12px!important}
+body.compactUI #gusModule .gusCardHead h3{font-size:17px!important}
+body.compactUI #gusModule .gusCardHead{margin-bottom:12px!important;gap:8px!important}
+body.compactUI #atlasOverview{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;margin:0 0 14px!important}
+body.compactUI #atlasOverview .kpi{padding:13px!important;min-height:0!important}
+body.compactUI #atlasOverview .value{font-size:27px!important}
+body.compactUI #atlasRankings{display:grid!important;grid-template-columns:1fr 1fr!important;gap:14px!important;margin:0!important}
+body.compactUI #atlasRankings>.unifiedSectionHead{grid-column:1/-1}
+body.compactUI #atlasRankings .rank{padding:16px!important;margin:0!important;min-height:0!important}
+body.compactUI #atlasRankings .rank h2{font-size:17px!important;min-height:0!important;margin-bottom:12px!important;padding-bottom:10px!important}
+body.compactUI #atlasRankings .rankitem{padding:7px 0!important;min-height:0!important}
+body.compactUI #atlasSources{padding:0!important;margin:0!important;max-width:none!important}
+body.compactUI #sourceRegistry{border-radius:12px!important}
+body.compactUI #sourceRegistry .sourceRegistryContent{padding:16px!important}
+body.compactUI .techFooter{font-size:10px!important;padding:12px 0!important;margin:0!important}
+@keyframes compactIn{from{opacity:.5}to{opacity:1}}
+@media(min-width:768px) and (max-width:1100px){body.compactUI .studioContent{padding:14px!important}body.compactUI .studioContent #atlasMap{gap:12px!important}body.compactUI .studioContent #atlasMap #map{height:360px!important}body.compactUI .studioContent #atlasMap .profileStudioCard>.panel{padding:13px!important}body.compactUI .studioContent .mapSignals{grid-template-columns:1fr!important}body.compactUI .studioContent .mapSignal{display:grid!important;grid-template-columns:1fr 62px;gap:2px 7px!important}body.compactUI .studioContent .mapSignal .sHint{grid-column:1/-1}body.compactUI .studioContent .mapSignal .sValue{grid-column:2;grid-row:1;text-align:right}body.compactUI .pupKpis strong{font-size:24px!important}body.compactUI .pupGrid{gap:9px!important}body.compactUI .pupBar{grid-template-columns:minmax(80px,1.3fr) minmax(20px,1fr) 39px!important;gap:5px!important}body.compactUI .pupBar b{font-size:12px!important}}
+@media(max-width:767px){body.compactUI .studioContent{padding:10px!important}body.compactUI .headerInner{padding:7px 10px!important;min-height:42px!important}body.compactUI #fullscreenBtn{display:none!important}body.compactUI #dataLoadStatus{max-width:65vw;font-size:9px!important}body.compactUI .chapterRailInner{padding:6px 10px!important;min-height:50px!important}.compactNavButton{display:none!important}.compactMobileNav{display:flex;align-items:center;gap:12px;width:100%}.compactMobileNav label{font-size:12px;font-weight:600;color:#51647a}.compactMobileNav select{flex:1;min-width:0;font:600 14px Inter,Segoe UI,sans-serif;min-height:40px;border:1px solid #cddce9;border-radius:8px;background:#fff;color:#244568;padding:8px 10px}body.compactUI #filterStudio{padding:10px 12px!important;margin-bottom:10px!important}body.compactUI #filterFields{grid-template-columns:1fr!important;gap:0!important}.compactFilters>summary{padding:8px 0 0;min-height:30px;font-size:11px}.compactFilters .modeButtons{display:grid!important;grid-template-columns:1fr 1fr!important}.compactFilters .occupationTools{margin-top:8px}body.compactUI[data-compact-view="jobs"] #filterFields{gap:10px!important}body.compactUI .studioContent #atlasMap{grid-template-columns:1fr!important;gap:0!important}body.compactUI .studioContent #atlasMap #map{height:270px!important;max-height:270px!important}body.compactUI .studioContent #atlasMap .studioMapHead{padding:13px 14px 6px!important}body.compactUI .studioContent #atlasMap .studioMapHead h2{font-size:19px!important}body.compactUI .studioContent #atlasMap .mapHeadTitle>span{display:none!important}body.compactUI .studioContent #atlasMap .mapwrap{margin:5px 10px!important}body.compactUI .studioContent #atlasMap .profileStudioCard>.panel{padding:14px!important}body.compactUI .studioContent #atlasMap .titleRow h2{font-size:22px!important}body.compactUI .studioContent .mapSignals{grid-template-columns:repeat(3,minmax(0,1fr))!important}body.compactUI .studioContent .mapSignal{padding:8px!important}body.compactUI .studioContent .mapSignal .sValue{font-size:19px!important}.compactJobsCard{padding:14px!important}.compactJobsCard .jobs{grid-template-columns:1fr;max-height:420px}body.compactUI .studioContent .comparePickerRow{gap:8px!important;flex-wrap:wrap!important}body.compactUI .pupHeading{display:flex!important;align-items:start;gap:8px}body.compactUI .pupHeading h2{font-size:19px!important}body.compactUI .pupHeading p{font-size:11px!important;line-height:1.5!important;margin-bottom:8px!important}body.compactUI .pupHeading>button{font-size:11px!important;min-height:38px!important;padding:7px!important;white-space:nowrap;margin:0!important}body.compactUI .studioContent #pupStructureModule{padding:13px!important}body.compactUI .pupControls{grid-template-columns:1fr 1fr!important;gap:8px!important}body.compactUI .pupControls>div:last-child{grid-column:1/-1}body.compactUI .pupControls label{font-size:10px!important}body.compactUI .pupKpis{grid-template-columns:1fr 1fr!important}body.compactUI .pupKpis span{min-height:0!important;font-size:10px!important}body.compactUI .pupKpis strong{font-size:26px!important}body.compactUI .pupGroupTabs{display:grid!important;grid-template-columns:1fr 1fr!important}body.compactUI .pupGroupTabs button{font-size:11px!important;padding:7px!important;line-height:1.3!important;min-height:40px!important}body.compactUI .pupGrid{grid-template-columns:1fr!important}body.compactUI .pupBar{grid-template-columns:minmax(95px,1.2fr) minmax(40px,1fr) 45px!important}body.compactUI .pupCard svg{margin-top:8px!important}body.compactUI .pupCaption{line-height:1.5!important}body.compactUI #gusModule .gusBody{padding:12px!important}body.compactUI #gusModule .gusGrid{grid-template-columns:1fr!important}body.compactUI #gusModule .gusHeroKpis{grid-template-columns:1fr 1fr!important}body.compactUI #gusModule .gusHeroKpi{padding:10px!important}body.compactUI #gusModule .gusHeroKpi .kValue{font-size:23px!important}body.compactUI #gusModule .gusIntro{font-size:11px!important}body.compactUI #atlasOverview{grid-template-columns:repeat(2,minmax(0,1fr))!important}body.compactUI #atlasOverview .kpi:last-child{grid-column:1/-1}body.compactUI #atlasRankings{grid-template-columns:1fr!important;gap:10px!important}body.compactUI #atlasRankings .rank{padding:14px!important}body.compactUI #sourceRegistry .sourceRegistryContent{padding:12px!important}body.compactUI #pupSourcesSection{padding-top:15px;margin-top:15px}body.compactUI .pupTableScroll{max-width:100%}body.compactUI .pupModule table{font-size:11px}body.compactUI .pupModule td,body.compactUI .pupModule th{padding:7px!important}}
+@media(prefers-reduced-motion:reduce){.compactPane{animation:none!important}}
+@media print{body.compactUI .chapterRail{display:none!important}body.compactUI.compactPrinting .compactPane[hidden]{display:block!important}body.compactUI.compactPrinting #compact-sources{display:none!important}}
+/* Reset legacy section chrome and filter-grid rules at their owning containers. */
+body.compactUI .studioContent>.shell{padding:0!important;margin:0!important;min-height:0!important;height:auto!important}
+body.compactUI .studioContent>#siteHeader{padding:0!important;margin:0 0 7px!important;background:transparent!important;border:0!important;box-shadow:none!important}
+body.compactUI .studioContent #siteHeader .headerInner{padding:6px 0!important;min-height:50px!important;max-width:none!important}
+body.compactUI #siteHeader .brandLink{padding:0!important;gap:8px!important}
+body.compactUI #siteHeader .brandMark{width:29px!important;height:29px!important;min-width:29px!important;transform:scale(.7);transform-origin:left center;margin-right:-7px!important}
+body.compactUI #siteHeader .brandType{font-size:15px!important;line-height:1.2!important}
+body.compactUI #siteHeader .brandType small{font-size:10px!important;line-height:1.3!important;letter-spacing:.05em!important}
+body.compactUI #siteHeader .internalNote{display:none!important}
+body.compactUI .studioContent>.chapterRail{padding:0!important;margin:0 0 12px!important;width:100%!important;max-width:none!important;border-radius:10px!important}
+body.compactUI .studioContent .chapterRailInner{padding:5px!important}
+body.compactUI .studioContent>#filterStudio{width:100%!important;max-width:none!important;margin:0 0 14px!important}
+body.compactUI .studioContent #filterStudio #filterFields{align-items:start!important}
+body.compactUI .studioContent #filterStudio .controlBlock{display:block!important;grid-column:auto!important;grid-row:auto!important;align-self:start!important}
+body.compactUI .studioContent #filterStudio .compactFilters{align-self:start!important}
+body.compactUI .studioContent #filterStudio .modeButtons{display:flex!important;grid-template-columns:none!important;justify-content:flex-start!important;gap:6px!important;margin:0!important}
+body.compactUI .studioContent #filterStudio .modeButtons>.btn{flex:0 1 auto!important;min-height:38px!important;padding:7px 12px!important;font-size:12px!important}
+body.compactUI .studioContent #filterStudio .occupationTools{padding:0!important;margin:0!important}
+body.compactUI .studioContent #atlasMap{padding:0!important;margin:0!important;border:0!important;background:transparent!important;box-shadow:none!important}
+body.compactUI .studioContent #atlasAnalysis,body.compactUI .studioContent #atlasRankings{padding:0!important}
+@media(max-width:767px){body.compactUI .studioContent #siteHeader .headerInner{min-height:41px!important;padding:3px 0!important}body.compactUI #siteHeader .brandType{font-size:12px!important}body.compactUI #siteHeader .brandType small{font-size:8px!important}body.compactUI #siteHeader .brandMark{display:none!important}body.compactUI .studioContent>.chapterRail{margin-bottom:9px!important}body.compactUI .studioContent #filterStudio .modeButtons{display:grid!important;grid-template-columns:1fr 1fr!important}body.compactUI .studioContent #filterStudio .modeButtons>.btn{flex:auto!important;padding:7px!important}body.compactUI .studioContent>#filterStudio{margin-bottom:10px!important}body.compactUI #dataLoadStatus{max-width:230px!important}}
+body.compactUI .studioContent #siteHeader #dataLoadStatus{white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;display:block!important;max-width:70vw!important;line-height:1.4!important;font-size:10px!important}
+@media(max-width:767px){body.compactUI .studioContent #siteHeader #dataLoadStatus{max-width:235px!important;font-size:9px!important}body.compactUI .studioContent #trendChart text{font-size:21px!important}body.compactUI .studioContent .gusChart text{font-size:18px!important}}
+.compactChartTabs{display:none}.compactResponsiveDetail{min-width:0}.compactResponsiveDetail>summary{display:none}.compactResponsiveDetail>.gusCard,.compactResponsiveDetail>.rank{width:100%;box-sizing:border-box}
+@media(max-width:767px){.compactChartTabs{display:flex;gap:4px;padding:4px;border:1px solid #dce5ef;border-radius:9px;background:#f2f5fa;margin:0 0 10px}.compactChartTabs button{flex:1;min-height:36px!important;padding:7px!important;border:0!important;background:transparent!important;font-size:12px!important;color:#526a83!important}.compactChartTabs button[aria-pressed="true"]{background:#fff!important;color:#234e92!important;box-shadow:0 1px 4px #d7e2ed}body.compactUI #pupStructureModule[data-mobile-chart="structure"] .pupGrid>.pupCard:nth-child(2){display:none!important}body.compactUI #pupStructureModule[data-mobile-chart="history"] .pupGrid>.pupCard:first-child{display:none!important}.compactResponsiveDetail{border:1px solid #d9e3ec;border-radius:10px;background:#fff;margin:0 0 10px;padding:0;overflow:hidden}.compactResponsiveDetail>summary{display:list-item;cursor:pointer;font-size:13px;font-weight:650;line-height:1.5;color:#294b6a;padding:13px;min-height:46px}.compactResponsiveDetail[open]>summary{background:#edf3fb;border-bottom:1px solid #dce5ef}.compactResponsiveDetail>.gusCard,.compactResponsiveDetail>.rank{border:0!important;margin:0!important;border-radius:0!important;box-shadow:none!important}body.compactUI .studioContent .compactRankDetail .rank h2{display:none!important}body.compactUI #gusModule .compactGusDetail .gusCardHead h3{display:none!important}body.compactUI #atlasRankings{display:block!important}body.compactUI #atlasRankings>.unifiedSectionHead{margin-bottom:10px!important}}
+body.compactUI .pupControls>div{min-width:0!important}body.compactUI .pupControls select{width:100%!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
+@media(max-width:767px){body.compactUI .pupControls{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+/* v35: size the actual content containers, not nested elements sharing .jobs. */
+body.compactUI .studioContent .compactJobsCard #jobs{display:block!important;max-height:none!important;overflow:visible!important;width:100%!important}
+body.compactUI .studioContent .compactJobsCard #jobs .jobsViewport{width:100%!important;max-height:none!important;overflow:visible!important;padding:0!important}
+body.compactUI .studioContent .compactJobsCard #jobs .jobsViewport.expanded{max-height:540px!important;overflow:auto!important;scrollbar-gutter:stable}
+body.compactUI .studioContent .compactJobsCard #jobs .jobs{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;max-height:none!important;overflow:visible!important;gap:8px!important}
+body.compactUI .studioContent .compactJobsCard #jobs .job{display:grid!important;grid-template-columns:minmax(0,1fr) 22px!important;grid-template-areas:'name arrow' 'meta arrow'!important;gap:6px 10px!important;padding:11px 13px!important;min-height:0!important;align-content:start!important}
+body.compactUI .studioContent .compactJobsCard #jobs .job>span:first-child{grid-area:name!important;font-size:13px!important;line-height:1.4!important;word-break:normal!important;overflow-wrap:normal!important}
+body.compactUI .studioContent .compactJobsCard #jobs .job .rel{grid-area:meta!important;justify-content:flex-start!important;text-align:left!important;max-width:100%!important;gap:5px!important}
+body.compactUI .studioContent .compactJobsCard #jobs .job:after{grid-area:arrow!important;align-self:center!important}
+body.compactUI .studioContent .compactJobsCard #jobs .job .statusBadge,body.compactUI .studioContent .compactJobsCard #jobs .job .branchBadge{font-size:10px!important;min-height:21px!important;padding:4px 7px!important;max-width:100%!important}
+body.compactUI .studioContent .compactJobsCard #jobs .jobsFooter{width:100%!important;height:auto!important;min-height:0!important;margin-top:10px!important;padding-top:10px!important;flex-direction:row!important;align-items:center!important}
+body.compactUI .studioContent .compactJobsCard #jobs .jobsToggle{width:auto!important;min-height:38px!important}
+body.compactUI .studioContent #filterStudio #filterFields{grid-template-areas:none!important;grid-template-rows:auto!important}
+body.compactUI .studioContent #filterStudio #filterFields .compactFilters{display:block!important;min-width:0!important}
+body.compactUI .studioContent #filterStudio #filterFields .modeControl{margin:0 0 10px!important;padding:0!important;border:0!important;background:transparent!important}
+body.compactUI .studioContent #filterStudio #filterFields .modeButtons{display:flex!important;flex-flow:row wrap!important;align-items:center!important;height:auto!important;min-height:0!important}
+body.compactUI .studioContent #filterStudio #filterFields .modeButtons>.btn{width:auto!important;min-width:0!important;flex:0 1 auto!important;height:auto!important;margin:0!important}
+body.compactUI .studioContent #filterStudio #filterFields .occupationTools{border:0!important;background:transparent!important;min-width:0!important}
+body.compactUI .studioContent #filterStudio #filterFields .occupationRow{display:flex!important;gap:8px!important;min-width:0!important}
+body.compactUI .studioContent #filterStudio #filterFields .occupationRow select{flex:1!important;min-width:0!important;width:100%!important}
+body.compactUI .studioContent #filterStudio #filterFields .occupationClear{flex:0 0 auto!important;width:auto!important;min-height:40px!important;height:40px!important}
+body.compactUI[data-compact-view="jobs"] .studioContent #filterStudio #filterFields .modeControl{display:none!important}
+body.compactUI[data-compact-view="jobs"] .studioContent #filterStudio #filterFields .compactFilters>summary{display:none!important}
+body.compactUI[data-compact-view="trends"] .studioContent #filterStudio #filterFields .compactFilters,body.compactUI[data-compact-view="unemployment"] .studioContent #filterStudio #filterFields .compactFilters{display:none!important}
+body.compactUI .studioContent #atlasAnalysis{align-items:start!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;margin-top:14px!important}
+body.compactUI .studioContent #atlasAnalysis>.unifiedSectionHead{display:none!important}
+body.compactUI .studioContent #atlasAnalysis .insightCard{padding:0!important;min-height:0!important}
+body.compactUI .studioContent #atlasAnalysis .moduleHead{padding:14px 16px!important;margin:0!important;min-height:0!important}
+body.compactUI .studioContent #atlasAnalysis .moduleHead h2{font-size:18px!important}
+body.compactUI .studioContent #atlasAnalysis .moduleHead p{font-size:11px!important;margin:5px 0 0!important;line-height:1.5!important}
+body.compactUI .studioContent #atlasAnalysis .moduleEyebrow{display:none!important}
+body.compactUI .studioContent #atlasAnalysis .compareCard{padding:0 14px 14px!important;min-height:0!important}
+body.compactUI .studioContent #atlasAnalysis .compareCard .moduleHead{padding:14px 0!important}
+body.compactUI .studioContent #atlasAnalysis .compareControls{padding:0!important;gap:8px!important;grid-template-columns:repeat(3,minmax(0,1fr))!important}
+body.compactUI .studioContent #atlasAnalysis .compareField{min-width:0!important}
+body.compactUI .studioContent #atlasAnalysis .comparePickerBtn{min-width:0!important;padding:9px!important;min-height:40px!important;font-size:12px!important}
+body.compactUI .studioContent #atlasAnalysis #compareResult{min-height:0!important}
+body.compactUI .studioContent #occupationProfileSection{margin-top:14px!important;padding:16px!important}
+body.compactUI .studioContent #occupationProfileSection:has(.occProfileEmpty){display:none!important}
+body.compactUI .studioContent #trendSection{margin:0!important}
+body.compactUI .studioContent #trendSection .trendHead{padding:16px!important;gap:12px!important}
+body.compactUI .studioContent #trendSection .trendHead h2{font-size:22px!important}
+body.compactUI .studioContent #trendSection .trendBody{grid-template-columns:minmax(200px,.7fr) minmax(0,2fr)!important;gap:16px!important;padding:16px!important}
+body.compactUI .studioContent #trendSection .trendChartWrap{min-width:0!important}
+body.compactUI .studioContent #trendSection .trendChart{width:100%!important;height:auto!important;max-height:320px!important}
+body.compactUI .studioContent #trendSection .trendSummaryBox{padding:14px!important}
+body.compactUI .studioContent #trendSection .trendSummaryBox .big{font-size:32px!important}
+body.compactUI .studioContent #trendSection .yearGrid{gap:8px!important;margin-top:10px!important}
+body.compactUI .studioContent #historyArchive{margin-top:12px!important}
+body.compactUI .studioContent #historyArchive>summary{padding:14px 40px 14px 16px!important}
+body.compactUI .studioContent #historyArchive .historyArchiveTitle h2{font-size:19px!important}
+body.compactUI .studioContent #sourceRegistry .sourceGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+body.compactUI .studioContent #sourceRegistry .sourceCard{min-height:0!important;padding:14px!important}
+@media(max-width:1000px){body.compactUI .studioContent #atlasAnalysis{grid-template-columns:minmax(0,1fr)!important}}
+@media(max-width:767px){
+ body.compactUI .studioContent .compactJobsCard #jobs .jobs{grid-template-columns:minmax(0,1fr)!important}
+ body.compactUI .studioContent .compactJobsCard #jobs .jobsViewport.expanded{max-height:470px!important}
+ body.compactUI .studioContent #filterStudio #filterFields{grid-template-columns:minmax(0,1fr)!important}
+ body.compactUI .studioContent #filterStudio #filterFields .modeButtons>.btn{flex:1 1 calc(50% - 8px)!important;font-size:11px!important}
+ body.compactUI .studioContent #atlasAnalysis .compareControls{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body.compactUI .studioContent #trendSection .trendBody{grid-template-columns:minmax(0,1fr)!important;padding:12px!important;gap:12px!important}
+ body.compactUI .studioContent #trendSection .trendSummary{display:grid!important;grid-template-columns:100px minmax(0,1fr)!important;gap:8px!important}
+ body.compactUI .studioContent #trendSection .trendSummaryBox{padding:10px!important}
+ body.compactUI .studioContent #trendSection .trendInsight{padding:10px!important;font-size:11px!important}
+ body.compactUI .studioContent #trendSection .trendHead{padding:13px!important}
+ body.compactUI .studioContent #trendSection .trendControls{gap:6px!important}
+ body.compactUI .studioContent #trendSection .trendBtn,body.compactUI .studioContent #trendSection .trendModeBtn{min-height:36px!important;padding:7px 9px!important;font-size:11px!important}
+ body.compactUI .studioContent #sourceRegistry .sourceGrid{grid-template-columns:minmax(0,1fr)!important}
+}
+body.compactUI[data-compact-view="trends"] .studioContent>#filterStudio,body.compactUI[data-compact-view="unemployment"] .studioContent>#filterStudio{width:min(100%,390px)!important;padding:10px 12px!important}
+body.compactUI[data-compact-view="trends"] .studioContent #filterStudio #filterFields,body.compactUI[data-compact-view="unemployment"] .studioContent #filterStudio #filterFields{grid-template-columns:minmax(0,1fr)!important}
+body.compactUI .studioContent #trendSection .trendBody{display:block!important}
+body.compactUI .studioContent #trendSection .trendSummary{display:grid!important;grid-template-columns:minmax(180px,.6fr) minmax(0,2fr)!important;gap:12px!important;margin:0 0 12px!important}
+body.compactUI .studioContent #trendSection .trendInsight{margin:0!important;align-self:stretch!important;display:flex!important;align-items:center!important;padding:14px!important}
+body.compactUI .studioContent #trendSection .trendChart{height:290px!important;max-height:290px!important}
+body.compactUI .studioContent #atlasMap .profileStudioCard #countyHint{display:none!important}
+body.compactUI .studioContent #atlasMap #mapInsights{padding-top:4px!important}
+body.compactUI .studioContent #atlasMap #mapInsights .mapStructureBox,body.compactUI .studioContent #atlasMap #mapInsights .mapSignalsBox{padding:12px!important;margin:0 0 10px!important;min-height:0!important}
+body.compactUI .studioContent #atlasRankings .rank .rankitem{margin:4px 0!important;padding:5px 0!important;min-height:28px!important}
+body.compactUI .studioContent #occupationProfileSection{scroll-margin-top:75px}
+body.compactUI .studioContent #pupSourcesSection{border-top:0!important;margin:0 0 14px!important;padding-top:0!important}
+.compactSourceGroup{border:1px solid #dce5ef;border-radius:10px;margin:10px 0;background:#fff;min-width:0}
+.compactSourceGroup>summary{cursor:pointer;padding:13px 15px;color:#294b6a;font-size:13px;font-weight:650;line-height:1.5}
+.compactSourceGroup>.srcGroup{padding:0 14px 14px!important;margin:0!important}
+.compactSourceGroup>.srcNotice,.compactSourceGroup>.srcStatusLine,.compactSourceGroup>.srcEndNote{margin:10px 14px!important}
+@media(max-width:767px){body.compactUI .studioContent #trendSection .trendSummary{grid-template-columns:100px minmax(0,1fr)!important;gap:8px!important}body.compactUI .studioContent #trendSection .trendChart{height:auto!important;max-height:240px!important}body.compactUI .studioContent #occupationProfileSection .occCountyGroups{grid-template-columns:minmax(0,1fr)!important}body.compactUI .studioContent #occupationProfileSection .moduleHead{flex-wrap:wrap!important;gap:8px!important}body.compactUI .studioContent #occupationProfileSection .moduleHead h2{font-size:20px!important}}
+@media(max-width:767px){body.compactUI .studioContent #trendSection #trendChart text{font-size:11px!important}}

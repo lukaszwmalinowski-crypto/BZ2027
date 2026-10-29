@@ -1,4 +1,4 @@
-# Studio 2027 – korekta interfejsu v17
+# Studio 2027 - korekta interfejsu v17
 
 1. Fizycznie usunięto boczny panel nawigacji i jego ozdobny branding. Treść ma całą dostępną szerokość.
 2. Dodano dyskretną nawigację poziomą; na telefonie można ją przewijać w poziomie.

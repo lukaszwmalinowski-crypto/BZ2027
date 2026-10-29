@@ -1,4 +1,4 @@
-# Obserwatorium Śląskie 2027 – v26
+# Obserwatorium Śląskie 2027 - v26
 
 ## Poprawione menu Eksportuj
 - Rozwijane menu PDF / PowerPoint / Excel pojawia się nad paskiem nawigacji i treścią strony.

@@ -1,4 +1,4 @@
-# v57 — naprawa eksportu PPTX
+# v57 - naprawa eksportu PPTX
 
 - Poprawiono wywołanie API PptxGenJS `addSlide({masterName:'MASTER'})`, wcześniej przekazywano zwykły napis.
 - Dodano przechwytywanie wyjątków w przycisku generowania prezentacji, z komunikatem o rzeczywistej przyczynie niepowodzenia.

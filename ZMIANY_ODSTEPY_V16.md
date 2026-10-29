@@ -1,4 +1,4 @@
-# Studio danych 2027 — v16: korekta przestrzeni interfejsu
+# Studio danych 2027 - v16: korekta przestrzeni interfejsu
 
 **Zakres:** warstwa CSS, bez zmiany danych, obsługi mapy oraz mechanizmu eksportu PDF/PPTX.
 

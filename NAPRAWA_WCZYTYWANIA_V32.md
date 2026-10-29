@@ -1,4 +1,4 @@
-# Wersja v32 — wczytywanie danych
+# Wersja v32 - wczytywanie danych
 
 Podmień plik index.html w głównym katalogu repozytorium. Zawiera kod czterech modułów, style PUP i bazę startową. Nie wymaga osobnych plików JS do uruchomienia.
 

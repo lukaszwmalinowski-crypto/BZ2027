@@ -1,4 +1,4 @@
-# Studio v24 — automatyczne dane, bez wyboru pliku
+# Studio v24 - automatyczne dane, bez wyboru pliku
 
 ## GitHub Pages
 1. Wyślij całą zawartość archiwum na GitHub (nie sam `index.html`).

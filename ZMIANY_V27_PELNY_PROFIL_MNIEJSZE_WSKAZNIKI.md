@@ -1,4 +1,4 @@
-# Studio v27 — zmiany wizualne i pełny profil zawodu
+# Studio v27 - zmiany wizualne i pełny profil zawodu
 
 - Profil zawodu wyświetla pełne nazwy wszystkich 36 jednostek w pięciu kategoriach (duży deficyt, deficyt, równowaga, nadwyżka, bez oceny), bez ucinania list do 18 pozycji i oznaczeń `+N`.
 - Kliknięcie nazwy powiatu nadal przełącza profil.

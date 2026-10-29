@@ -1,4 +1,4 @@
-# Studio v21 — uproszczenie interfejsu
+# Studio v21 - uproszczenie interfejsu
 
 - Edytor danych całkowicie oddzielony: usunięto odnośnik i pliki edytora z paczki.
 - Jedno zwięzłe otwarcie strony zamiast dwóch dużych nagłówków.

@@ -1,5 +1,5 @@
-const CACHE_NAME = 'obserwatorium-slaskie-v60';
-const CORE = ['./','./index.html','./manifest.webmanifest','./favicon.png',
+const CACHE_NAME = 'obserwatorium-slaskie-v77';
+const CORE = ['./','./index.html','./manifest.webmanifest','./favicon.png','./apple-touch-icon.png','./assets/logo-obserwatorium.png',
   './icons/icon-192.png','./icons/icon-512.png',
   './icons/icon-maskable-192.png','./icons/icon-maskable-512.png',
   './data/dane.json','./assets/layout.css','./assets/pup.css',

@@ -1,4 +1,4 @@
-# Wersja 29 – eksport bez pustych slajdów i krótszy ekran startowy
+# Wersja 29 - eksport bez pustych slajdów i krótszy ekran startowy
 
 - Usunięto cały ozdobny baner „INTERAKTYWNY ATLAS DANYCH / 2027”, w tym duży tytuł i grafikę orbit. Wybór danych pojawia się od razu pod nawigacją.
 - Eksport powiatowej historii bezrobocia wymaga co najmniej dwóch obserwacji **wybranego powiatu** w wybranym okresie i dla wybranego wskaźnika. Jeden miesiąc nie tworzy trendu.

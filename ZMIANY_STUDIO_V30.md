@@ -1,4 +1,4 @@
-# Studio v30 — spójny układ zgodny z sekcją GUS/BDL
+# Studio v30 - spójny układ zgodny z sekcją GUS/BDL
 
 - Sekcja **Dane GUS / BDL** jest wzorcem wizualnym: jasne karty, subtelne obramowania, wyraźne nagłówki i oszczędne przełączniki.
 - Mapa i profil powiatu, sygnały, porównywarka, profil zawodu, trendy, rankingi, dane powiatowe i archiwum otrzymały analogiczny układ i odstępy.

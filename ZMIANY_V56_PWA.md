@@ -1,6 +1,6 @@
-# v56 — ikona i PWA
+# v56 - ikona i PWA
 
-- Dołączono oryginalny znak jako ikony PNG 48–512 px, bez zmiany czarnego środka i kolorów.
+- Dołączono oryginalny znak jako ikony PNG 48-512 px, bez zmiany czarnego środka i kolorów.
 - Dodano ikony maskowalne 192 i 512 px z bezpiecznymi marginesami.
 - Dodano `manifest.webmanifest`, favicon, ikonę iOS oraz `sw.js` do cache offline.
 - Serwis worker rejestruje się przez HTTPS lub localhost, nie przez `file://`.

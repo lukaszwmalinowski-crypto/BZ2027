@@ -1,4 +1,4 @@
-# Wersja 34 — kompaktowy układ
+# Wersja 34 - kompaktowy układ
 
 - Siedem oddzielnych widoków zamiast jednej długiej strony.
 - Mniejsze odstępy i nagłówek; dodatkowe ustawienia i porównania zwijane.

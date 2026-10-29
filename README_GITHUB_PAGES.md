@@ -1,4 +1,4 @@
-# Obserwatorium Śląskie 2027 — Studio v21
+# Obserwatorium Śląskie 2027 - Studio v21
 
 Panel analityczny przeznaczony do publikacji na GitHub Pages. Wersja bez logo WUP i bez wbudowanego edytora danych.
 

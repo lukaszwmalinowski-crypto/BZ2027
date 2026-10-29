@@ -1,4 +1,4 @@
-# Wersja 35 — optymalizacja widoków
+# Wersja 35 - optymalizacja widoków
 
 - Zawody: pełna szerokość listy, licznik i przycisk pod listą, nazwa nad etykietami; podgląd 4/6/8 pozycji na telefonie/tablecie/komputerze. Rozwinięcie pokazuje całość.
 - Usunięty konflikt zagnieżdżonych kontenerów .jobs i dawnych reguł filtrów. Przyciski mapy zachowują naturalną szerokość; nie pojawiają się w widoku zawodów.

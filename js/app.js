@@ -1,3 +1,40 @@
+// Original WUP letterheads, embedded for offline exports.
+const exportBrandAssets=JSON.parse(document.getElementById('exportBrandAssets').textContent);
+const exportBrandCss=`
+.brandPrintHeader,.brandPrintFooter{display:none}
+@media print{
+ @page{size:A4 landscape;margin:32mm 12mm 16mm}
+ .brandPrintHeader,.brandPrintFooter{display:block!important;position:fixed;left:-12mm;width:297mm;overflow:hidden;z-index:1000;pointer-events:none;background:white}
+ .brandPrintHeader{top:-32mm;height:27.6mm}.brandPrintFooter{bottom:-16mm;height:10mm}
+ .brandPrintHeader img,.brandPrintFooter img{position:absolute;width:297mm!important;max-width:none!important;height:auto!important;left:0}
+ .brandPrintHeader img{top:0}.brandPrintFooter img{bottom:0}
+ body.brandPrint{margin:0!important;background:white!important}
+ body.brandPrint .studioContent,body.brandPrint .pdfStamp{display:none!important}
+ body.brandPrint #printReport{display:block!important;background:white!important}
+ body.brandPrint #printReport>.pdfPage{height:auto!important;min-height:0!important;padding:0!important;background:white!important}
+ body.brandPrint #printReport>.pdfPage:first-child{display:block!important;height:auto!important}
+ body.brandPrint #printReport>.pdfPage:first-child .pdfGrid2{display:flex!important;align-items:flex-start!important;gap:3mm!important}
+ body.brandPrint #printReport>.pdfPage:first-child .pdfGrid2>.pdfBox{width:49%!important;flex:1!important}
+ body.brandPrint #printReport>.pdfPage:first-child .pdfMap .mapCanvas{display:block!important;height:82mm!important;min-height:82mm!important;flex:none!important}
+ body.brandPrint #printReport>.pdfPage:first-child .pdfBox,body.brandPrint #printReport>.pdfPage:first-child .pdfMap,body.brandPrint #printReport>.pdfPage:first-child .mapCanvas{height:auto!important;min-height:0!important}
+ body.brandPrint #printReport>.pdfPage:first-child .pdfMap svg{height:82mm!important;max-height:82mm!important;transform:none!important}
+ body.brandPrint #printReport>.pdfPage.exportChartPage{display:block!important}
+ body.brandPrint #printReport .exportChartImage{height:78mm!important;margin:2mm auto 3mm!important}
+ body.brandPrint #printReport .exportChartSubtitle{margin-bottom:3mm!important}
+ body.brandPrint #printReport .exportChartNote,body.brandPrint #printReport .exportChartInsight,body.brandPrint #printReport .exportChartSource{margin-top:2mm!important;font-size:8pt!important}
+ body.brandPrint #printReport .pdfHeader{margin-bottom:3mm!important;padding-bottom:3mm!important}
+ body.brandPrint #printReport .pdfTrend svg{height:43mm!important}
+}
+`;
+const exportBrandStyle=document.createElement('style');exportBrandStyle.id='exportBrandStyle';exportBrandStyle.textContent=exportBrandCss;document.head.append(exportBrandStyle);
+window.EXPORT_BRAND={
+ get data(){return exportBrandAssets.blue},
+ css:exportBrandCss,
+ markup(){return '<div class="brandPrintHeader"><img alt="Wojewódzki Urząd Pracy w Katowicach" src="'+this.data+'"></div><div class="brandPrintFooter"><img alt="Dane kontaktowe WUP Katowice" src="'+this.data+'"></div>'},
+ prepare(){document.body.classList.add('brandPrint');document.querySelectorAll('body>.brandPrintHeader,body>.brandPrintFooter').forEach(e=>e.remove());document.body.insertAdjacentHTML('beforeend',this.markup())}
+};
+window.addEventListener('afterprint',()=>{document.body.classList.remove('brandPrint');document.querySelectorAll('body>.brandPrintHeader,body>.brandPrintFooter').forEach(e=>e.remove())});
+
 const HIST_SHARE_2023 = window.PANEL_DATA.barometr.histShare2023;
 const DATA = window.PANEL_DATA.barometr.powiaty;
 const HIST_DATA = window.PANEL_DATA.barometr.trendHistoryczne;
@@ -109,7 +146,7 @@ function renderProvinceTrend(){
   const vals=trendMode==='share'?counts.map((v,i)=>pct(v,totals[i])):counts;
   let min=Math.min(...vals), max=Math.max(...vals), range=Math.max(max-min,trendMode==='share'?5:4), pad=range*.2;
   min=Math.max(0,min-pad); max=max+pad;
-  const W=760,H=330,L=62,R=30,T=28,B=52,x=i=>L+i*(W-L-R)/3,y=v=>H-B-(v-min)/(max-min||1)*(H-T-B),colors=TREND_COLORS[trendMetric]||TREND_COLORS.deficit;
+  const W=Math.max(300,document.getElementById('trendChart').clientWidth||760),H=window.innerWidth<768?250:290,L=48,R=76,T=28,B=42,x=i=>L+i*(W-L-R)/3,y=v=>H-B-(v-min)/(max-min||1)*(H-T-B),colors=TREND_COLORS[trendMetric]||TREND_COLORS.deficit;
   let svg=`<rect x="0" y="0" width="${W}" height="${H}" rx="15" fill="transparent"/>`;
   for(let i=0;i<=4;i++){const val=min+(max-min)*i/4,yy=y(val),lab=trendMode==='share'?`${Math.round(val)}%`:pl1(val);svg+=`<line x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}" stroke="#e9eef4"/><text x="${L-11}" y="${yy+4}" text-anchor="end" fill="#8291a2" font-size="10.5">${lab}</text>`;}
   years.forEach((yr,i)=>svg+=`<text x="${x(i)}" y="${H-18}" text-anchor="middle" fill="#607286" font-size="12" font-weight="800">${yr}</text>`);
@@ -119,6 +156,7 @@ function renderProvinceTrend(){
     svg+=`<path d="${vals.map((v,i)=>`${i?'L':'M'}${x(i)},${y(v)}`).join(' ')}" fill="none" stroke="${colors.main}" stroke-width="4.5"/>`;
     vals.forEach((v,i)=>svg+=`<circle cx="${x(i)}" cy="${y(v)}" r="8" fill="${colors.main}" stroke="#fff" stroke-width="2.5" data-trend-point="1" data-year="${years[i]}" data-value="${pl1(v)}" data-area="Średnia wojewódzka"/>`);
   }
+  document.getElementById('trendChart').setAttribute('viewBox',`0 0 ${W} ${H}`);
   document.getElementById('trendChart').innerHTML=svg;
   document.getElementById('trendSubtitle').textContent=`Województwo śląskie • średnia 36 jednostek • ${trendMode==='share'?'udział procentowy':'liczba grup zawodów'}`;
   document.getElementById('trendCountyLegend').textContent='Średnia wojewódzka';
@@ -226,9 +264,10 @@ function renderCountyJobs(county){
     box.innerHTML=`<div class="hint">Brak zawodów w kategorii „${labels[jobStatusFilter]}” dla tej jednostki.</div>`;
     return;
   }
-  const visible=jobsExpanded?jobs:jobs.slice(0,JOBS_PREVIEW);
+  const previewLimit=window.innerWidth<768?4:window.innerWidth<1100?6:JOBS_PREVIEW;
+  const visible=jobsExpanded?jobs:jobs.slice(0,previewLimit);
   const rows=visible.map(j=>`<div class="job clickable" data-occ="${escapeHtml(j.name)}" title="Pokaż sytuację tego zawodu na mapie"><span>${escapeHtml(j.name)}</span><span class="rel status-${jobStatusFilter}"><span class="statusBadge">${labels[jobStatusFilter]}</span><span class="branchBadge">${escapeHtml(j.branch)}</span></span></div>`).join("");
-  const footer=jobs.length>JOBS_PREVIEW?`<div class="jobsFooter"><span class="jobsCount">${jobsExpanded?jobs.length:Math.min(JOBS_PREVIEW,jobs.length)} z ${jobs.length} zawodów</span><button type="button" class="jobsToggle" id="jobsToggle">${jobsExpanded?'Zwiń listę':'Pokaż wszystkie'}</button></div>`:`<div class="jobsFooter"><span class="jobsCount">${jobs.length} ${jobs.length===1?'zawód':'zawodów'}</span></div>`;
+  const footer=jobs.length>previewLimit?`<div class="jobsFooter"><span class="jobsCount">${jobsExpanded?jobs.length:Math.min(previewLimit,jobs.length)} z ${jobs.length} zawodów</span><button type="button" class="jobsToggle" id="jobsToggle">${jobsExpanded?'Zwiń listę':'Pokaż wszystkie'}</button></div>`:`<div class="jobsFooter"><span class="jobsCount">${jobs.length} ${jobs.length===1?'zawód':'zawodów'}</span></div>`;
   box.innerHTML=`<div class="jobsViewport ${jobsExpanded?'expanded':''}"><div class="jobs">${rows}</div></div>${footer}`;
   box.querySelectorAll(".job.clickable").forEach(el=>el.addEventListener("click",()=>setOccupation(el.dataset.occ)));
   const toggle=box.querySelector("#jobsToggle");
@@ -274,10 +313,10 @@ function trendInterpretation(name,metric,pts,avgs){
   const unit=trendMode==='share'?" p.p.":"";
   let firstSentence='';
   if(Math.abs(diff)<0.05){
-    firstSentence=`W latach 2024–2027 wartość dla kategorii „${TREND_LABELS[metric].toLowerCase()}” pozostała bez zmian.`;
+    firstSentence=`W latach 2024-2027 wartość dla kategorii „${TREND_LABELS[metric].toLowerCase()}” pozostała bez zmian.`;
   }else{
     const dir=diff>0?"wzrosła":"spadła";
-    firstSentence=`W latach 2024–2027 wartość dla kategorii „${TREND_LABELS[metric].toLowerCase()}” ${dir} o ${pl1(Math.abs(diff))}${unit}.`;
+    firstSentence=`W latach 2024-2027 wartość dla kategorii „${TREND_LABELS[metric].toLowerCase()}” ${dir} o ${pl1(Math.abs(diff))}${unit}.`;
   }
   return `${firstSentence} W 2027 r. ${name} znajduje się ${rel} średniej wojewódzkiej.`;
 }
@@ -296,7 +335,7 @@ function renderTrend(name){
   min=Math.max(0,min-pad); max=max+pad;
   if(trendMode==='share'){min=Math.max(0,Math.floor(min/5)*5);max=Math.min(100,Math.ceil(max/5)*5||5)}
   else {min=Math.max(0,Math.floor(min));max=Math.ceil(max)}
-  const W=760,H=330,L=62,R=30,T=28,B=52;
+  const W=Math.max(300,document.getElementById('trendChart').clientWidth||760),H=window.innerWidth<768?250:290,L=48,R=76,T=28,B=42;
   const x=i=>L+i*(W-L-R)/3;
   const y=v=>H-B-(v-min)/(max-min||1)*(H-T-B);
   const colors=TREND_COLORS[trendMetric]||TREND_COLORS.deficit;
@@ -337,6 +376,7 @@ function renderTrend(name){
   svg+=`<g transform="translate(${endX+34},${countyLabelY})"><rect x="-30" y="-13" width="60" height="26" rx="13" fill="#fff" stroke="${colors.main}" stroke-width="1.5"/><text text-anchor="middle" y="4" fill="${colors.dark}" font-size="11" font-weight="800">${fmt(lastV)}</text></g>`;
   // Średnia wojewódzka: osobna etykieta po lewej, zawsze widoczna.
   svg+=`<g transform="translate(${endX-48},${avgLabelY})"><rect x="-38" y="-12" width="76" height="24" rx="12" fill="#fffaf1" stroke="${TREND_AVG_COLOR}" stroke-width="1.2"/><text text-anchor="middle" y="4" fill="${TREND_AVG_DARK}" font-size="10.5" font-weight="800">śr. ${fmt(lastA)}</text></g>`;
+  document.getElementById('trendChart').setAttribute('viewBox',`0 0 ${W} ${H}`);
   document.getElementById('trendChart').innerHTML=svg;
   document.getElementById('trendSubtitle').textContent=`${name} • czteroletni trend • ${trendMode==='share'?'udział procentowy':'liczba grup zawodów'}`;
   document.getElementById('trendModeNote').textContent=trendMode==='share'?'Wykres pokazuje udział danej kategorii w klasyfikacji każdego roku.':'Wykres pokazuje liczbę grup zawodów.';
@@ -439,6 +479,7 @@ function setOccupation(name){
   selectedOccupation=(name&&OCC_DATA[name])?name:""; occupationSelect.value=selectedOccupation;
   const occupationTools=document.querySelector('.occupationTools');
   if(occupationTools) occupationTools.classList.toggle('occupationActive',!!selectedOccupation);
+  document.body.classList.toggle('hasSelectedOccupation',!!selectedOccupation);
   const occupationProfile=document.querySelector('.occupationProfileCard');
   if(occupationProfile) occupationProfile.classList.toggle('occupationProfileActive',!!selectedOccupation);
   renderOccupationSummary(); renderOccupationProfile(); recolor(); syncUrlState();
@@ -561,7 +602,7 @@ function buildPdfFindings(name,d,u){
     `<b>Deficyt 2027:</b> ${d.deficit} grup zawodów (${signed(d.delta_deficit)} vs 2026).`,
     `<b>Równowaga:</b> ${d.balance} grup, czyli ${pl1(pct(d.balance,d.total))}% całej klasyfikacji 2027.`,
     `<b>Pozycja względem województwa:</b> deficyt ${d.deficit>AVG.deficit?'powyżej':'poniżej'} średniej wojewódzkiej, a równowaga ${d.balance>AVG.balance?'powyżej':'poniżej'} średniej.`,
-    `<b>Najsilniejsza zmiana 2024–2027:</b> kategoria „${biggest.label}” ${Math.abs(biggest.diff)<0.05?'pozostała bez zmian':(biggest.diff>0?'wzrosła':'spadła') + ' o ' + pl1(Math.abs(biggest.diff))}.`,
+    `<b>Najsilniejsza zmiana 2024-2027:</b> kategoria „${biggest.label}” ${Math.abs(biggest.diff)<0.05?'pozostała bez zmian':(biggest.diff>0?'wzrosła':'spadła') + ' o ' + pl1(Math.abs(biggest.diff))}.`,
     `<b>Rynek pracy:</b> ${relUnemp}.`
   ];
 }
@@ -577,7 +618,7 @@ function buildPrintReport(){
   const report=document.getElementById('printReport');
   const statusDefs=[['D','Deficyt'],['R','Równowaga'],['N','Nadwyżka'],['X','Bez oceny']];
   const metrics=[
-    ['Deficyt',d.deficit,d.delta_deficit],['Równowaga',d.balance,d.delta_balance],['Nadwyżka',d.surplus,d.delta_surplus],['Bez oceny',d.no_eval,d.delta_no_eval],['Stopa bezrobocia',u==null?'–':pl1(u)+'%',null]
+    ['Deficyt',d.deficit,d.delta_deficit],['Równowaga',d.balance,d.delta_balance],['Nadwyżka',d.surplus,d.delta_surplus],['Bez oceny',d.no_eval,d.delta_no_eval],['Stopa bezrobocia',u==null?'-':pl1(u)+'%',null]
   ];
   const struct=[['Deficyt',d.deficit,'#c74d56'],['Równowaga',d.balance,'#3b8f75'],['Nadwyżka',d.surplus,'#d59a32'],['Bez oceny',d.no_eval,'#98a6b5']];
   const refs=[
@@ -614,18 +655,18 @@ function buildPrintReport(){
   const findings=buildPdfFindings(name,d,u).map(x=>`<li>${x}</li>`).join('');
   report.innerHTML=`
     <section class="pdfPage">
-      <div class="pdfHeader"><div><div class="eyeb">Prognoza rynku pracy 2027</div><h1>${escapeHtml(name)}</h1><p>Pełny raport powiatowy • dane 2024–2027</p></div><div class="pdfMeta">Województwo śląskie<br>Stan stopy bezrobocia: 31.08.2026<br>Wygenerowano: ${now.toLocaleDateString('pl-PL')}</div></div>
+      <div class="pdfHeader"><div><div class="eyeb">Prognoza rynku pracy 2027</div><h1>${escapeHtml(name)}</h1><p>Pełny raport powiatowy • dane 2024-2027</p></div><div class="pdfMeta">Województwo śląskie<br>Stan stopy bezrobocia: 31.08.2026<br>Wygenerowano: ${now.toLocaleDateString('pl-PL')}</div></div>
       <div class="pdfKpis">${metrics.map(([l,v,delta])=>`<div class="pdfKpi"><div class="l">${l}</div><div class="v">${v}</div><div class="d">${delta==null?(l==='Stopa bezrobocia'?`stan na 31.08.2026 r. • woj. ${pl1(VOIV_UNEMPLOYMENT)}%`:''):`${delta>0?'+':''}${delta} vs 2026`}</div></div>`).join('')}</div>
       <div class="pdfGrid2"><div class="pdfBox pdfMap"><h3>Powiat na mapie województwa</h3><div class="mapCanvas">${mapClone.outerHTML}</div></div><div class="pdfBox"><h3>Struktura ocen 2027</h3><div class="pdfBars">${struct.map(([l,v,c])=>`<div class="pdfBarRow"><span>${l}</span><div class="pdfBarTrack"><div class="pdfBarFill" style="width:${v/d.total*100}%;background:${c}"></div></div><b>${v}</b></div>`).join('')}</div><h3 style="margin-top:6mm">Komentarz</h3>${comments}</div></div>
     </section>
     <section class="pdfPage">
       <div class="pdfHeader"><div><div class="eyeb">Benchmark wojewódzki</div><h1>${escapeHtml(name)} na tle woj. śląskiego</h1><p>Punkt odniesienia dla kluczowych wskaźników</p></div></div>
       <div class="pdfBenchmark">${refs.map(([l,avg,diff,inverse])=>{const cls=diff==null?'':((inverse?diff<0:diff>0)?'color:#26745e':'color:#b2444d');return `<div class="pdfRef"><div class="l">${l}</div><div class="v">${l==='Stopa bezrobocia'?pl1(avg)+'%':pl1(avg)}</div><div class="c" style="${cls}">${diff==null?'brak danych':`${diff>0?'+':''}${pl1(diff)}${l==='Stopa bezrobocia'?' p.p.':' od średniej'}`}</div></div>`}).join('')}</div>
-      <h2 class="pdfSectionTitle" style="margin-top:4mm">Trendy 2024–2027</h2><p class="pdfLead">Wszystkie cztery kategorie ocen. W latach 2024–2025 oceniano 163 grupy zawodów, a w 2026–2027 - 168.</p>
+      <h2 class="pdfSectionTitle" style="margin-top:4mm">Trendy 2024-2027</h2><p class="pdfLead">Wszystkie cztery kategorie ocen. W latach 2024-2025 oceniano 163 grupy zawodów, a w 2026-2027 - 168.</p>
       <div class="pdfTrendGrid">${trendMap.deficit}${trendMap.balance}</div>
     </section>
     <section class="pdfPage">
-      <div class="pdfHeader"><div><div class="eyeb">Trendy 2024–2027</div><h1>${escapeHtml(name)} - nadwyżka i bez oceny</h1><p>Uzupełnienie przeglądu trendów oraz skrócone wnioski.</p></div></div>
+      <div class="pdfHeader"><div><div class="eyeb">Trendy 2024-2027</div><h1>${escapeHtml(name)} - nadwyżka i bez oceny</h1><p>Uzupełnienie przeglądu trendów oraz skrócone wnioski.</p></div></div>
       <div class="pdfTrendGrid">${trendMap.surplus}${trendMap.no_eval}</div>
       <div class="pdfSummaryBox"><h3>Najważniejsze wnioski dla powiatu</h3><ul class="pdfSummaryList">${findings}</ul></div>
     </section>
@@ -669,7 +710,7 @@ function pptFindings(name,d,u){
   return [
     `Deficyt 2027: ${d.deficit} grup (${d.delta_deficit>0?'+':''}${d.delta_deficit} vs 2026).`,
     `Równowaga: ${d.balance} grup (${pl1(100*d.balance/d.total)}% klasyfikacji).`,
-    `Najsilniejsza zmiana 2024–2027: ${changes[0].label.toLowerCase()} ${changes[0].diff>0?'wzrosła':changes[0].diff<0?'spadła':'pozostała bez zmian'}${changes[0].diff?` o ${Math.abs(changes[0].diff)}`:''}.`,
+    `Najsilniejsza zmiana 2024-2027: ${changes[0].label.toLowerCase()} ${changes[0].diff>0?'wzrosła':changes[0].diff<0?'spadła':'pozostała bez zmian'}${changes[0].diff?` o ${Math.abs(changes[0].diff)}`:''}.`,
     unemp
   ];
 }
@@ -694,13 +735,29 @@ async function generatePPTX(){
 
   const C={navy:'173D66',navy2:'214C78',red:'C74D56',green:'3B8F75',blue:'2F6FB0',gray:'7D8997',gold:'C58A2B',text:'33485D',muted:'66758A',line:'DCE5EE',pale:'F6F9FC',white:'FFFFFF'};
   pptx.defineSlideMaster({
-    title:'MASTER', background:{color:'FFFFFF'},
-    objects:[
-      {rect:{x:0,y:0,w:13.333,h:.12,fill:{color:C.navy},line:{color:C.navy}}},
-      {text:{text:'Wojewódzki Urząd Pracy w Katowicach',options:{x:.58,y:7.18,w:4.4,h:.15,fontFace:'Arial',fontSize:6.4,color:'8A98A8',margin:0}}}
-    ],
-    slideNumber:{x:12.25,y:7.16,w:.45,h:.18,fontFace:'Arial',fontSize:6.4,color:'8A98A8',align:'right'}
+    title:'MASTER',background:{color:'FFFFFF'},
+    objects:[{image:{data:window.EXPORT_BRAND.data,x:0,y:0,w:13.333333,h:7.5}}],
+    slideNumber:{x:12.25,y:6.91,w:.45,h:.12,fontFace:'Arial',fontSize:6.4,color:'66758A',align:'right'}
   });
+  // Map existing content into the white area between the original header and footer.
+  const originalAddSlide=pptx.addSlide.bind(pptx);
+  pptx.addSlide=(master='MASTER')=>{
+    // PptxGenJS expects an options object, not a bare master-name string.
+    const slide=originalAddSlide({masterName:master});
+    for(const method of ['addText','addShape','addImage','addChart']){
+      const original=slide[method].bind(slide);
+      slide[method]=(...args)=>{
+        const last=method==='addImage'?0:method==='addChart'?2:1;
+        const opts={...(args[last]||{})};
+        if(typeof opts.y==='number')opts.y=1.08+opts.y*.82;
+        if(typeof opts.h==='number')opts.h*=.82;
+        if(typeof opts.fontSize==='number')opts.fontSize*=.92;
+        if(method==='addImage'&&typeof opts.w==='number'){const oldW=opts.w;opts.w*=.82;opts.x=(opts.x||0)+(oldW-opts.w)/2;}
+        args[last]=opts;return original(...args);
+      };
+    }
+    return slide;
+  };
 
   const addHeader=(slide,title,subtitle='')=>{
     slide.addText(title,{x:.6,y:.35,w:12.1,h:.42,fontFace:'Arial',fontSize:24,bold:true,color:C.navy,margin:0});
@@ -730,24 +787,23 @@ async function generatePPTX(){
 
   // 1. Okładka + trzy liczby
   let s=pptx.addSlide();
-  s.background={color:C.navy};
-  s.addText('PROGNOZA RYNKU PRACY 2027',{x:.72,y:1.03,w:11.8,h:.3,fontSize:12.5,bold:true,color:'BFD2E4',charSpacing:1.2,margin:0});
-  s.addText(name,{x:.72,y:1.58,w:11.7,h:.68,fontSize:35,bold:true,color:C.white,margin:0});
-  s.addText('Materiał roboczy dla Obserwatorium Rynku Pracy',{x:.72,y:2.45,w:11.7,h:.34,fontSize:15.5,color:'E5EEF6',margin:0});
-  s.addText('Dane 2024–2027 • benchmark wojewódzki • stopa bezrobocia 2026',{x:.72,y:2.95,w:11.7,h:.26,fontSize:10.5,color:'BFD2E4',margin:0});
+  s.background={color:'FFFFFF'};
+  s.addText('PROGNOZA RYNKU PRACY 2027',{x:.72,y:1.03,w:11.8,h:.3,fontSize:12.5,bold:true,color:C.muted,charSpacing:1.2,margin:0});
+  s.addText(name,{x:.72,y:1.58,w:11.7,h:.68,fontSize:35,bold:true,color:C.navy,margin:0});
+  s.addText('Materiał roboczy dla Obserwatorium Rynku Pracy',{x:.72,y:2.45,w:11.7,h:.34,fontSize:15.5,color:C.text,margin:0});
+  s.addText('Dane 2024-2027 • benchmark wojewódzki • stopa bezrobocia 2026',{x:.72,y:2.95,w:11.7,h:.26,fontSize:10.5,color:C.muted,margin:0});
   const coverKpis=[
     ['DEFICYT 2027',d.deficit,'grup',C.red],
     ['RÓWNOWAGA',`${pl1(balShare)}%`,'klasyfikacji',C.green],
-    ['STOPA BEZROBOCIA',unemploymentText,`stan na 31.08.2026 r. • woj. ${pl1(VOIV_UNEMPLOYMENT)}%`,C.white]
+    ['STOPA BEZROBOCIA',unemploymentText,`stan na 31.08.2026 r. • woj. ${pl1(VOIV_UNEMPLOYMENT)}%`,C.navy]
   ];
   coverKpis.forEach((k,i)=>{
     const x=.72+i*3.02;
-    s.addShape('roundRect',{x,y:4.17,w:2.72,h:1.12,rectRadius:.06,fill:{color:'214B75',transparency:0},line:{color:'4F7296',width:1}});
-    s.addText(k[0],{x:x+.16,y:4.35,w:2.4,h:.16,fontSize:7.4,bold:true,color:'BFD2E4',margin:0});
+    s.addShape('roundRect',{x,y:4.17,w:2.72,h:1.12,rectRadius:.06,fill:{color:'F4F7FA',transparency:0},line:{color:C.line,width:1}});
+    s.addText(k[0],{x:x+.16,y:4.35,w:2.4,h:.16,fontSize:7.4,bold:true,color:C.muted,margin:0});
     s.addText(String(k[1]),{x:x+.16,y:4.58,w:2.4,h:.34,fontSize:22,bold:true,color:k[3],margin:0});
-    s.addText(k[2],{x:x+.16,y:4.96,w:2.4,h:.15,fontSize:7.6,color:'D9E6F1',margin:0});
+    s.addText(k[2],{x:x+.16,y:4.96,w:2.4,h:.15,fontSize:7.6,color:C.muted,margin:0});
   });
-  s.addText('Wojewódzki Urząd Pracy w Katowicach',{x:.72,y:6.78,w:4.2,h:.18,fontSize:7,color:'AFC4D7',margin:0});
 
   // 2. Obraz rynku 2027
   s=pptx.addSlide('MASTER');
@@ -812,7 +868,7 @@ async function generatePPTX(){
 
   // 4. Trendy - tylko najważniejsze
   s=pptx.addSlide('MASTER');
-  addHeader(s,'Jak zmieniał się rynek pracy w latach 2024–2027',name);
+  addHeader(s,'Jak zmieniał się rynek pracy w latach 2024-2027',name);
   const chartOpts=(x,color)=>({x,y:1.78,w:5.72,h:3.55,showTitle:false,showLegend:true,legendPos:'b',showValue:false,catAxisLabelFontFace:'Arial',catAxisLabelFontSize:9.5,valAxisLabelFontSize:8.5,valGridLine:{color:'E7EDF3',width:1},chartColors:[color,C.gold],showMarker:true,lineSize:2.5,showBorder:false});
   s.addText('Deficyt',{x:.65,y:1.38,w:2,h:.25,fontSize:15,bold:true,color:C.red,margin:0});
   s.addChart(pptx.ChartType.line,[{name,label:name,labels:years.map(String),values:deficitT.vals},{name:'Średnia województwa',labels:years.map(String),values:deficitT.avgs}],chartOpts(.65,C.red));
@@ -848,7 +904,7 @@ async function generatePPTX(){
   const bullets=[
     d.deficit<AVG.deficit?`Deficyt jest niższy niż przeciętnie w województwie (${d.deficit} vs śr. ${pl1(AVG.deficit)}).`:`Deficyt wynosi ${d.deficit} grup przy średniej wojewódzkiej ${pl1(AVG.deficit)}.`,
     `Równowaga obejmuje ${pl1(balShare)}% klasyfikacji.`,
-    `W latach 2024–2027 liczba grup deficytowych zmieniła się z ${deficitT.vals[0]} do ${deficitT.vals[3]}.`,
+    `W latach 2024-2027 liczba grup deficytowych zmieniła się z ${deficitT.vals[0]} do ${deficitT.vals[3]}.`,
     extra,
     u==null?'Brak danych o stopie bezrobocia.':unempHeadline
   ];
@@ -919,7 +975,7 @@ function syncComparePickers(){
   document.querySelectorAll('.comparePicker').forEach(picker=>{
     const target=document.getElementById(picker.dataset.target), menu=picker.querySelector('.comparePickerMenu'), txt=picker.querySelector('.comparePickerText');
     if(!target||!menu||!txt) return;
-    txt.textContent=target.value||'— wybierz —';
+    txt.textContent=target.value||'- wybierz -';
     menu.querySelectorAll('.comparePickerOption').forEach(opt=>opt.classList.toggle('active',(opt.dataset.value||'')===target.value));
   });
 }
@@ -932,7 +988,7 @@ function bindCompareOptions(){
       const opt=e.target.closest('.comparePickerOption'); if(!opt) return;
       e.stopPropagation();
       target.value=opt.dataset.value||'';
-      txt.textContent=target.value||'— wybierz —';
+      txt.textContent=target.value||'- wybierz -';
       picker.classList.remove('open');
       picker.querySelector('.comparePickerBtn')?.setAttribute('aria-expanded','false');
       syncComparePickers();
@@ -960,7 +1016,7 @@ function renderComparison(){
   let rows='';
   metrics.forEach(([label,key,best])=>{
     const vals=names.map(n=>key==='unemp'?UNEMPLOYMENT[n]:DATA[n][key]); const valid=vals.filter(Number.isFinite); const target=best==='max'?Math.max(...valid):Math.min(...valid);
-    rows+=`<tr><td>${label}</td>`+vals.map((v,i)=>`<td class="${Number.isFinite(v)&&v===target?'compareBest':''}">${v==null?'—':(key==='unemp'?pl1(v)+'%':v)}</td>`).join('')+'</tr>';
+    rows+=`<tr><td>${label}</td>`+vals.map((v,i)=>`<td class="${Number.isFinite(v)&&v===target?'compareBest':''}">${v==null?'-':(key==='unemp'?pl1(v)+'%':v)}</td>`).join('')+'</tr>';
   });
   rows+=`<tr><td>Zmiana deficytu vs 2026</td>`+names.map(n=>{const v=DATA[n].delta_deficit;return `<td>${v>0?'+':''}${v}</td>`}).join('')+'</tr>';
   out.innerHTML=`<table class="compareTable"><thead><tr><th>Wskaźnik</th>${names.map(n=>`<th>${escapeHtml(n)}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table>`;
@@ -972,7 +1028,7 @@ function renderOccupationProfile(){
   const rec=OCC_DATA[selectedOccupation], groups={DD:[],D:[],R:[],N:[],X:[]};
   WANTED.forEach((n,i)=>{const s=rec.s[i]||'X';(groups[s]||(groups[s]=[])).push(n)});
   const deficitN=groups.D.length+groups.DD.length;
-  title.textContent=selectedOccupation; sub.textContent=`Branża: ${rec.branch||'—'} • kod: ${rec.code||'—'} • status w 36 jednostkach`;
+  title.textContent=selectedOccupation; sub.textContent=`Branża: ${rec.branch||'-'} • kod: ${rec.code||'-'} • status w 36 jednostkach`;
   root.className='occProfileGrid';
   const cards=[['Deficyt',deficitN,'#c74d56'],['Równowaga',groups.R.length,'#3b8f75'],['Nadwyżka',groups.N.length,'#2f6fb0'],['Bez oceny',groups.X.length,'#7d8997']];
   const left=`<div><div class="occKpis">${cards.map(([l,n,c])=>`<div class="occKpi"><div class="l">${l}</div><div class="n" style="color:${c}">${n}</div></div>`).join('')}</div><div class="analyticSignal info" style="margin-top:10px"><b>Koncentracja deficytu</b><span>${deficitN} z ${WANTED.length} jednostek (${pl1(100*deficitN/WANTED.length)}%) wskazuje deficyt lub duży deficyt.</span></div></div>`;
@@ -1071,49 +1127,41 @@ async function generatePDF(){
   const now=new Date();
   const selected=name;
   document.getElementById('pdfStamp').textContent=`Widok: ${selected} • wygenerowano ${now.toLocaleDateString('pl-PL')} ${now.toLocaleTimeString('pl-PL',{hour:'2-digit',minute:'2-digit'})}`;
-  const oldTitle=document.title;
-  document.title=`Prognoza rynku pracy 2027 - ${selected}`;
-  const report=document.getElementById('printReport');
-  try{
-    // Wait for SVG chart images before opening the browser print dialog.
-    const images=[...report.querySelectorAll('.exportChartPage img')];
-    await Promise.all(images.map(img=>img.decode?.().catch(()=>{})||Promise.resolve()));
-    await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
-    window.print();
-  }finally{
-    // Keep the prepared print tree until the browser finishes printing.
-    // Subsequent exports rebuild it and do not inherit the previous selection.
-    document.title=oldTitle;
-    window.reportSelectedPdfPages=null;
-    window.reportExtraCharts=null;
-  }
+  const win=window.open('','_blank');
+  if(!win){alert('Zezwól na otwarcie okna raportu PDF dla tej strony.');return;}
+  const css=JSON.parse(document.getElementById('exportPrintCss').textContent)+window.EXPORT_BRAND.css;
+  win.document.write('<!doctype html><html lang="pl"><meta charset="utf-8"><title>Prognoza rynku pracy 2027 - '+escapeHtml(selected)+'</title><style>'+css+'</style><body class="brandPrint">'+window.EXPORT_BRAND.markup()+'<button class="printButton" onclick="window.print()">Drukuj lub zapisz jako PDF</button><div id="printReport">'+document.getElementById('printReport').innerHTML+'</div></body></html>');
+  win.document.close();
+  window.reportSelectedPdfPages=null;window.reportExtraCharts=null;
+  await Promise.all([...win.document.images].map(img=>img.decode?.().catch(()=>{})||Promise.resolve()));
+  win.print();
 }
 
 const reportChoices=[
   ['cover','01 · Strona tytułowa','Podsumowanie i najważniejsze wskaźniki'],
   ['overview','02 · Profil powiatu i mapa','Oceny zawodów, struktura i mapa'],
-  ['unemp-rate-monthly','03 · Bezrobocie – stopa 2026','Miesiące: Śląskie na tle Polski'],
-  ['unemp-rate-annual','Bezrobocie – stopa 2016–2025','Porównanie historyczne'],
-  ['unemp-count-monthly','Bezrobocie – liczba osób 2026','Dane miesięczne'],
-  ['unemp-count-annual','Bezrobocie – liczba osób 2016–2025','Dane historyczne'],
-  ['county-rate-monthly','Bezrobocie powiatów – miesiące wybranego roku','2016–2026 · wybrany powiat'],
-  ['county-rate-annual','Bezrobocie powiatów – lata 2016–2025','Szereg grudniowy wybranego powiatu'],
-  ['county-compare-monthly','Porównanie powiatów – wybrany rok','Do czterech powiatów na jednym wykresie'],
-  ['county-compare-annual','Porównanie powiatów – 2016–2025','Do czterech powiatów na jednym wykresie'],
+  ['unemp-rate-monthly','03 · Bezrobocie - stopa 2026','Miesiące: Śląskie na tle Polski'],
+  ['unemp-rate-annual','Bezrobocie - stopa 2016-2025','Porównanie historyczne'],
+  ['unemp-count-monthly','Bezrobocie - liczba osób 2026','Dane miesięczne'],
+  ['unemp-count-annual','Bezrobocie - liczba osób 2016-2025','Dane historyczne'],
+  ['county-rate-monthly','Bezrobocie powiatów - miesiące wybranego roku','2016-2026 · wybrany powiat'],
+  ['county-rate-annual','Bezrobocie powiatów - lata 2016-2025','Szereg grudniowy wybranego powiatu'],
+  ['county-compare-monthly','Porównanie powiatów - wybrany rok','Do czterech powiatów na jednym wykresie'],
+  ['county-compare-annual','Porównanie powiatów - 2016-2025','Do czterech powiatów na jednym wykresie'],
   ['county-map','Mapa bezrobocia w powiatach','Dostępne okresy i poziomy bezrobocia'],
-  ['county-count-monthly','Bezrobocie powiatów – liczba osób · miesiące','Wybierany rok i powiat'],
-  ['county-count-annual','Bezrobocie powiatów – liczba osób · grudzień','Grudzień 2016–2025'],
-  ['county-count-compare-monthly','Liczba bezrobotnych – porównanie · miesiące','Do czterech powiatów'],
-  ['county-count-compare-annual','Liczba bezrobotnych – porównanie · grudzień','Do czterech powiatów'],
-  ['county-count-map','Mapa bezrobocia – liczba osób','Wybrany miesiąc'],
-  ['bael-historic','04 · BAEL – aktywność 2016–2025','Śląskie i Polska, IV kwartał każdego roku'],
-  ['bael-employment-historic','BAEL – zatrudnienie 2024–2025','Śląskie i Polska, porównanie kwartalne'],
-  ['bael-current','BAEL – aktywność 2026','Polska 2026 i ostatni potwierdzony punkt Śląskiego 2025'],
-  ['bael-employment-current','BAEL – zatrudnienie 2026','Polska 2026 i ostatni potwierdzony punkt Śląskiego 2025'],
-  ['regon-current','05 · REGON – rok 2026','Liczba podmiotów'],
-  ['regon-historic','REGON – historia','Podmioty na 10 tys. mieszkańców'],
+  ['county-count-monthly','Bezrobocie powiatów - liczba osób · miesiące','Wybierany rok i powiat'],
+  ['county-count-annual','Bezrobocie powiatów - liczba osób · grudzień','Grudzień 2016-2025'],
+  ['county-count-compare-monthly','Liczba bezrobotnych - porównanie · miesiące','Do czterech powiatów'],
+  ['county-count-compare-annual','Liczba bezrobotnych - porównanie · grudzień','Do czterech powiatów'],
+  ['county-count-map','Mapa bezrobocia - liczba osób','Wybrany miesiąc'],
+  ['bael-historic','04 · BAEL - aktywność 2016-2025','Śląskie i Polska, IV kwartał każdego roku'],
+  ['bael-employment-historic','BAEL - zatrudnienie 2024-2025','Śląskie i Polska, porównanie kwartalne'],
+  ['bael-current','BAEL - aktywność 2026','Polska 2026 i ostatni potwierdzony punkt Śląskiego 2025'],
+  ['bael-employment-current','BAEL - zatrudnienie 2026','Polska 2026 i ostatni potwierdzony punkt Śląskiego 2025'],
+  ['regon-current','05 · REGON - rok 2026','Liczba podmiotów'],
+  ['regon-historic','REGON - historia','Podmioty na 10 tys. mieszkańców'],
   ['benchmark','06 · Porównanie z województwem','Benchmark i odchylenia od średniej'],
-  ['trends','07 · Trendy 2024–2027','Zmiany deficytu i równowagi'],
+  ['trends','07 · Trendy 2024-2027','Zmiany deficytu i równowagi'],
   ['rank-deficit-most','08 · Najwięcej grup deficytowych','Ranking powiatów w 2027'],
   ['rank-deficit-least','Najmniej grup deficytowych','Ranking powiatów w 2027'],
   ['rank-jobs-most','Najczęstsze zawody deficytowe','Ranking zawodów w 2027'],
@@ -1123,7 +1171,7 @@ const reportChoices=[
 ];
 const reportDialog=document.getElementById('reportDialog');
 const reportCountySelect=document.getElementById('reportCountySelect');
-reportCountySelect.innerHTML='<option value="">— wybierz powiat do raportu —</option>'+
+reportCountySelect.innerHTML='<option value="">- wybierz powiat do raportu -</option>'+
   WANTED.slice().sort((a,b)=>a.localeCompare(b,'pl')).map(n=>`<option value="${escapeHtml(n)}">${escapeHtml(n)}</option>`).join('');
 reportCountySelect.addEventListener('change',()=>{
   if(DATA[reportCountySelect.value])selectCounty(reportCountySelect.value);
@@ -1142,7 +1190,7 @@ function confirmReportCounty(){
 const reportItems=document.getElementById('reportItems');
 const reportSelection=new Set(reportChoices.map(x=>x[0]));
 reportItems.innerHTML=reportChoices.map(([id,title,sub])=>`<label class="reportOption"><input type="checkbox" value="${id}" checked><span><b>${title}</b><small>${sub}</small></span></label>`).join('');
-// BAEL 2026 is not a comparable Śląskie–Polska series until the regional values
+// BAEL 2026 is not a comparable Śląskie-Polska series until the regional values
 // for matching 2026 quarters are both available AND supported by the chart renderer.
 function syncBaelReportChoices(){
   for(const id of ['bael-current','bael-employment-current']){
@@ -1187,16 +1235,16 @@ function openReportDialog(){
 document.getElementById('pdfBtn').addEventListener('click',openReportDialog);
 document.getElementById('pptBtn').addEventListener('click',openReportDialog);
 const reportChartSpecs={
- 'unemp-rate-monthly':['gusUnempChart','Bezrobocie – stopa, miesiące 2026',[['unemp-metric','rate'],['unemp-mode','monthly']],'gusUnemp'],
- 'unemp-rate-annual':['gusUnempChart','Bezrobocie – stopa, lata 2016–2025',[['unemp-metric','rate'],['unemp-mode','annual']],'gusUnemp'],
- 'unemp-count-monthly':['gusUnempChart','Bezrobocie – liczba osób, miesiące 2026',[['unemp-metric','count'],['unemp-mode','monthly']],'gusUnemp'],
- 'unemp-count-annual':['gusUnempChart','Bezrobocie – liczba osób, lata 2016–2025',[['unemp-metric','count'],['unemp-mode','annual']],'gusUnemp'],
- 'bael-historic':['gusBaelChart','BAEL – aktywność: Śląskie vs Polska 2016–2025',[['bael-mode','activity'],['bael-period','historic']],'gusBael'],
- 'bael-employment-historic':['gusBaelChart','BAEL – zatrudnienie: Śląskie vs Polska 2024–2025',[['bael-mode','employment'],['bael-period','historic']],'gusBael'],
- 'bael-employment-current':['gusBaelChart','BAEL – zatrudnienie: Śląskie 2025, Polska 2026',[['bael-mode','employment'],['bael-period','current']],'gusBael'],
- 'bael-current':['gusBaelChart','BAEL – aktywność: Śląskie 2025, Polska 2026',[['bael-mode','activity'],['bael-period','current']],'gusBael'],
- 'regon-historic':['gusRegonChart','REGON – podmioty na 10 tys. ludności',[['regon-mode','historic']],'gusRegon'],
- 'regon-current':['gusRegonChart','REGON – liczba podmiotów w 2026',[['regon-mode','current']],'gusRegon']
+ 'unemp-rate-monthly':['gusUnempChart','Bezrobocie - stopa, miesiące 2026',[['unemp-metric','rate'],['unemp-mode','monthly']],'gusUnemp'],
+ 'unemp-rate-annual':['gusUnempChart','Bezrobocie - stopa, lata 2016-2025',[['unemp-metric','rate'],['unemp-mode','annual']],'gusUnemp'],
+ 'unemp-count-monthly':['gusUnempChart','Bezrobocie - liczba osób, miesiące 2026',[['unemp-metric','count'],['unemp-mode','monthly']],'gusUnemp'],
+ 'unemp-count-annual':['gusUnempChart','Bezrobocie - liczba osób, lata 2016-2025',[['unemp-metric','count'],['unemp-mode','annual']],'gusUnemp'],
+ 'bael-historic':['gusBaelChart','BAEL - aktywność: Śląskie vs Polska 2016-2025',[['bael-mode','activity'],['bael-period','historic']],'gusBael'],
+ 'bael-employment-historic':['gusBaelChart','BAEL - zatrudnienie: Śląskie vs Polska 2024-2025',[['bael-mode','employment'],['bael-period','historic']],'gusBael'],
+ 'bael-employment-current':['gusBaelChart','BAEL - zatrudnienie: Śląskie 2025, Polska 2026',[['bael-mode','employment'],['bael-period','current']],'gusBael'],
+ 'bael-current':['gusBaelChart','BAEL - aktywność: Śląskie 2025, Polska 2026',[['bael-mode','activity'],['bael-period','current']],'gusBael'],
+ 'regon-historic':['gusRegonChart','REGON - podmioty na 10 tys. ludności',[['regon-mode','historic']],'gusRegon'],
+ 'regon-current':['gusRegonChart','REGON - liczba podmiotów w 2026',[['regon-mode','current']],'gusRegon']
 };
 const rankExportSpecs={
  'rank-deficit-most':['countyRank','Najwięcej grup deficytowych w 2027','Liczba grup zawodów w deficycie w powiecie'],
@@ -1221,7 +1269,7 @@ function captureRankChart(id){
   return `<text x="${left-15}" y="${y+22}" fill="#273e57" font-family="Arial,sans-serif" font-size="20" text-anchor="end">${esc(label(r.name))}</text><rect x="${left}" y="${y}" width="${barMax-left}" height="30" rx="7" fill="#edf2f7"/><rect x="${left}" y="${y}" width="${width}" height="30" rx="7" fill="${id.includes('least')?'#548ca8':'#d45e65'}"/><text x="${barMax+22}" y="${y+23}" fill="#173d66" font-family="Arial,sans-serif" font-size="21" font-weight="bold">${r.value}</text>`;
  }).join('');
  const markup=`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><rect width="${W}" height="${H}" fill="#ffffff"/>${body}</svg>`;
- return {id,title,subtitle,note:'Ranking przedstawia 10 pozycji. Dane: Barometr Zawodów 2027, województwo śląskie.',insight:'',source:'Źródło: Barometr Zawodów 2027 – prognoza dla województwa śląskiego.',markup,data:'data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(markup)))};
+ return {id,title,subtitle,note:'Ranking przedstawia 10 pozycji. Dane: Barometr Zawodów 2027, województwo śląskie.',insight:'',source:'Źródło: Barometr Zawodów 2027 - prognoza dla województwa śląskiego.',markup,data:'data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(markup)))};
 }
 function captureOccupationProfile(){
  if(!selectedOccupation||!OCC_DATA[selectedOccupation])return null;
@@ -1233,7 +1281,7 @@ function captureOccupationProfile(){
  const esc=v=>String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
  const lines=rows.map(([label,count,color],i)=>{const y=110+i*92;return `<text x="55" y="${y}" font-size="27" font-family="Arial" fill="#243f59">${esc(label)}</text><rect x="315" y="${y-28}" width="520" height="36" rx="9" fill="#e9eff5"/><rect x="315" y="${y-28}" width="${Math.max(0,520*count/WANTED.length)}" height="36" rx="9" fill="${color}"/><text x="865" y="${y}" font-size="28" font-family="Arial" font-weight="bold" fill="#243f59">${count}</text>`}).join('');
  const deficitPlaces=[...groups.DD,...groups.D].join(', ')||'Brak powiatów z deficytem';
- const title=`Profil zawodu – ${selectedOccupation}`;
+ const title=`Profil zawodu - ${selectedOccupation}`;
  const markup=`<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="680" viewBox="0 0 1100 680"><rect width="1100" height="680" fill="#ffffff"/><text x="55" y="50" font-size="24" font-family="Arial" fill="#173d66">Status zawodu w ${WANTED.length} jednostkach</text>${lines}<text x="55" y="610" font-size="22" font-family="Arial" fill="#173d66" font-weight="bold">Deficyt łącznie: ${defs} z ${WANTED.length} jednostek</text><text x="55" y="649" font-size="19" font-family="Arial" fill="#52677b">Branża: ${esc(rec.branch||'brak danych')} • Kod: ${esc(rec.code||'brak danych')}</text></svg>`;
  return {id:'occupation-profile',title,subtitle:`Barometr Zawodów 2027 • status w województwie śląskim`,markup,data:'data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(markup))),note:`Jednostki z deficytem: ${deficitPlaces}.`,insight:`Deficyt w ${defs} z ${WANTED.length} jednostek.`,source:'Źródło: Barometr Zawodów 2027'};
 }
@@ -1262,7 +1310,7 @@ function captureOccupationCountyLists(){
    y+=21;
  }
  const height=Math.max(660,y+35),markup=`<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="${height}" viewBox="0 0 1160 ${height}"><rect width="1160" height="${height}" fill="#fff"/>${body}</svg>`;
- return {id:'occupation-profile-lists',title:'Profil zawodu – wszystkie powiaty',subtitle:selectedOccupation,markup,data:'data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(markup))),note:'Pełny wykaz 36 jednostek w pięciu statusach, bez ukrywania nazw.',source:'Źródło: Barometr Zawodów 2027'};
+ return {id:'occupation-profile-lists',title:'Profil zawodu - wszystkie powiaty',subtitle:selectedOccupation,markup,data:'data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(markup))),note:'Pełny wykaz 36 jednostek w pięciu statusach, bez ukrywania nazw.',source:'Źródło: Barometr Zawodów 2027'};
 }
 function captureSelectedCharts(){
  const activeBefore={};
@@ -1332,7 +1380,18 @@ document.getElementById('reportPpt').addEventListener('click',async()=>{
   if(!window.reportExtraCharts.length && !['cover','overview','benchmark','trends','jobs'].some(id=>reportSelection.has(id))){alert('Brak slajdów z wystarczającymi danymi. Zmień zakres lub zaznacz inne elementy.');window.reportExtraCharts=null;return;}
   window.reportSelectedSlides=['cover','overview','benchmark','trends','jobs'].map((id,i)=>reportSelection.has(id)?i:-1).filter(i=>i>=0);
   reportDialog.close();
-  try{await generatePPTX()}finally{window.reportSelectedSlides=null;window.reportExtraCharts=null}
+  const button=document.getElementById('reportPpt');
+  button.disabled=true;
+  try{
+    await generatePPTX();
+  }catch(error){
+    console.error('[PPTX] Nie udało się wygenerować prezentacji',error);
+    alert('Nie udało się wygenerować prezentacji PPTX.\n\n'+(error?.message||String(error))+'\n\nSprawdź, czy plik został pobrany. W razie potrzeby prześlij treść tego komunikatu.');
+  }finally{
+    window.reportSelectedSlides=null;
+    window.reportExtraCharts=null;
+    button.disabled=false;
+  }
 });
 document.getElementById('xlsxBtn').addEventListener('click',generateXLSX);
 initComparePickers();
@@ -1374,3 +1433,5 @@ populateCompareSelects(); renderComparison(); renderRanks(); buildMap(); selectP
 requestAnimationFrame(()=>{ if(!active && !selectedOccupation) selectProvinceOverview(); });
 setTimeout(()=>{ if(!active && !selectedOccupation) selectProvinceOverview(); },80);
 restoreUrlState();
+
+window.addEventListener("resize",()=>{if(document.getElementById("trendChart").getClientRects().length){if(active)renderTrend(active);else renderProvinceTrend();}});

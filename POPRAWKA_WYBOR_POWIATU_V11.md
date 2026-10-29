@@ -1,4 +1,4 @@
-# Wersja 11 – prawidłowy powiat w eksporcie PDF/PPTX
+# Wersja 11 - prawidłowy powiat w eksporcie PDF/PPTX
 
 ## Przyczyna błędu
 Panel przechowywał niezależny wybór powiatu w module bezrobocia i w profilu powiatu. Eksport odczytywał tylko drugi wybór, a przy braku aktywnego powiatu podstawiał Katowice. W konsekwencji po wskazaniu np. powiatu częstochowskiego w dolnym module wydruk mógł obejmować Katowice.

@@ -1,4 +1,4 @@
-# Studio v25 — odstępy w rozwijanych analizach
+# Studio v25 - odstępy w rozwijanych analizach
 
 Naprawiono brak odstępu nad pierwszą kartą w sekcji **Zmiany bezrobocia w powiatach**.
 Zwiększono wewnętrzne marginesy komunikatu „Zakres danych”, przekroju powiatów, zestawu przycisków oraz kart wskaźników.

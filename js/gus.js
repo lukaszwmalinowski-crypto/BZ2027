@@ -57,10 +57,10 @@
  }
  function renderRegon(mode){
    document.querySelectorAll('[data-regon-mode]').forEach(b=>{const on=b.dataset.regonMode===mode;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on))});
-   const cur=mode==='current',label='2016–2025';
+   const cur=mode==='current',label='2016-2025';
    document.getElementById('gusRegonFresh').textContent=cur?'sierpień 2026':'2025';
-   document.getElementById('gusRegonSubtitle').textContent=cur?'Zarejestrowane podmioty • grudzień 2025 vs sierpień 2026':'Podmioty na 10 tys. mieszkańców • pełne lata 2016–2025';
-   document.getElementById('gusRegonPeriod').textContent=cur?'grudzień 2025 → sierpień 2026':'lata 2016–2025';
+   document.getElementById('gusRegonSubtitle').textContent=cur?'Zarejestrowane podmioty • grudzień 2025 vs sierpień 2026':'Podmioty na 10 tys. mieszkańców • pełne lata 2016-2025';
+   document.getElementById('gusRegonPeriod').textContent=cur?'grudzień 2025 → sierpień 2026':'lata 2016-2025';
    document.getElementById('gusRegonUnit').textContent=cur?'liczba podmiotów':'na 10 tys. ludności';
    if(cur){regonCurrentBars();
      document.getElementById('gusRegonKpi1').textContent=fmtInt(window.PANEL_DATA.gus.regon.total2026);document.getElementById('gusRegonKpiLabel1').textContent='podmioty w REGON • sierpień 2026';
@@ -74,8 +74,8 @@
      bars('gusRegonChart',window.PANEL_DATA.gus.regon.historicalYears,values,Math.floor(Math.min(...values)*.96),Math.ceil(Math.max(...values)*1.04));
      document.getElementById('gusRegonKpi1').textContent=fmtInt(window.PANEL_DATA.gus.regon.historyPer10k.at(-1));document.getElementById('gusRegonKpiLabel1').textContent='na 10 tys. mieszkańców • 2025';
      document.getElementById('gusRegonKpi2').textContent=fmtInt(window.PANEL_DATA.gus.regon.total2026);document.getElementById('gusRegonKpiLabel2').textContent='liczba podmiotów • sierpień 2026';
-     document.getElementById('gusRegonChartNote').innerHTML='<b>Opis wykresu:</b> liczba podmiotów REGON <b>na 10 tys. mieszkańców</b> województwa śląskiego w latach <b>2016–2025</b>, bez mieszania z bieżącą liczbą podmiotów z 2026 r.';
-     document.getElementById('gusRegonInsight').innerHTML=`<strong>${window.PANEL_DATA.gus.regon.historicalYears[0]}–${window.PANEL_DATA.gus.regon.historicalYears.at(-1)}:</strong> wskaźnik zmienił się z <b>${values[0]}</b> do <b>${values.at(-1)}</b> na 10 tys. mieszkańców, o <b>${values.at(-1)-values[0]}</b> (${pl((values.at(-1)/values[0]-1)*100)}%).`;
+     document.getElementById('gusRegonChartNote').innerHTML='<b>Opis wykresu:</b> liczba podmiotów REGON <b>na 10 tys. mieszkańców</b> województwa śląskiego w latach <b>2016-2025</b>, bez mieszania z bieżącą liczbą podmiotów z 2026 r.';
+     document.getElementById('gusRegonInsight').innerHTML=`<strong>${window.PANEL_DATA.gus.regon.historicalYears[0]}-${window.PANEL_DATA.gus.regon.historicalYears.at(-1)}:</strong> wskaźnik zmienił się z <b>${values[0]}</b> do <b>${values.at(-1)}</b> na 10 tys. mieszkańców, o <b>${values.at(-1)-values[0]}</b> (${pl((values.at(-1)/values[0]-1)*100)}%).`;
      document.getElementById('gusRegonNote').textContent='Wykres roczny kończy się na 2025 r. Najnowszy stan z sierpnia 2026 r. jest w drugim trybie, ponieważ dotyczy liczby podmiotów, a nie wskaźnika przeliczonego na ludność.';
      document.getElementById('gusRegonSource').innerHTML='Źródła: GUS / BDL oraz agregacja historyczna według danych GUS. <a href="https://bdl.stat.gov.pl/bdl/dane/podgrup/tablica" target="_blank" rel="noopener">BDL</a> · <a href="https://katowice.stat.gov.pl/zakladka1/" target="_blank" rel="noopener">Stan 2026</a>';
    }
@@ -119,28 +119,28 @@
      const values=(a?window.PANEL_DATA.gus.bael2026.employment:window.PANEL_DATA.gus.bael2026.activity).poland2026;
      const lastSl=(a?window.PANEL_DATA.gus.bael2026.employment:window.PANEL_DATA.gus.bael2026.activity).slaskie2025,lastPl=(a?window.PANEL_DATA.gus.bael2026.employment:window.PANEL_DATA.gus.bael2026.activity).poland2025;
      baelPoland2026(values,metric,lastSl,lastPl);
-     document.getElementById('gusBaelFresh').textContent='2025–II kw. 2026';document.getElementById('gusBaelSubtitle').textContent=metric+' • porównanie do 2025 i dane krajowe za 2026';
-     document.getElementById('gusBaelPeriod').textContent='IV kw. 2025 oraz I–II kw. 2026';document.getElementById('gusBaelTerritory').textContent='Śląskie: IV kw. 2025 • Polska: do II kw. 2026';
+     document.getElementById('gusBaelFresh').textContent='2025-II kw. 2026';document.getElementById('gusBaelSubtitle').textContent=metric+' • porównanie do 2025 i dane krajowe za 2026';
+     document.getElementById('gusBaelPeriod').textContent='IV kw. 2025 oraz I-II kw. 2026';document.getElementById('gusBaelTerritory').textContent='Śląskie: IV kw. 2025 • Polska: do II kw. 2026';
      document.getElementById('gusBaelSlaskie').textContent=pl(lastSl)+'%';document.getElementById('gusBaelSlaskie').classList.remove('gusKpiUnavailable');
      document.getElementById('gusBaelSlaskieLabel').textContent='Śląskie • IV kw. 2025 (ostatni potwierdzony w panelu)';
      document.getElementById('gusBaelPolska').textContent=pl(values[1])+'%';document.getElementById('gusBaelPolskaLabel').textContent='Polska • II kw. 2026';
      document.getElementById('gusBaelGap').textContent='brak porównania dla tego samego kwartału 2026';
-     document.getElementById('gusBaelChartNote').innerHTML='<b>Co pokazuje wykres?</b> Po lewej <b>Śląskie i Polska – IV kw. 2025</b>, a następnie <b>tylko Polska – I–II kw. 2026</b>. Śląski punkt z 2025 r. nie stanowi szacunku na 2026 r. Dane dotyczą ludności w wieku 15–89 lat.';
+     document.getElementById('gusBaelChartNote').innerHTML='<b>Co pokazuje wykres?</b> Po lewej <b>Śląskie i Polska - IV kw. 2025</b>, a następnie <b>tylko Polska - I-II kw. 2026</b>. Śląski punkt z 2025 r. nie stanowi szacunku na 2026 r. Dane dotyczą ludności w wieku 15-89 lat.';
      document.getElementById('gusBaelInsight').innerHTML=`<strong>Ostatni pełny porównywalny okres (IV kw. 2025):</strong> Śląskie <b>${pl(lastSl)}%</b>, Polska <b>${pl(lastPl)}%</b>. W II kw. 2026 r. Polska <b>${pl(values[1])}%</b>; brak regionalnej wartości w bazie panelu.`;
-     note.innerHTML='<b>Uwaga – brakująca seria Śląskiego:</b> US Katowice opublikował dane BAEL za II kwartał 2026 (29.09.2026), jednak wartości regionalne nie są zweryfikowane w dostarczonej bazie. Dane z IV kw. 2025 są pokazane z własną datą, bez interpolowania ani łączenia nieporównywalnych okresów.';
-     source.innerHTML='Źródła: <a href="https://ssgk.stat.gov.pl/Rynek_pracy_BAEL.html" target="_blank" rel="noopener">GUS – Polska, II kw. 2026</a> · <a href="https://katowice.stat.gov.pl/opracowania-biezace/opracowania-sygnalne/praca-wynagrodzenie/aktywnosc-ekonomiczna-ludnosci-w-wojewodztwie-slaskim-w-4-kwartale-2025-r-%2C2%2C57.html" target="_blank" rel="noopener">US Katowice – Śląskie, IV kw. 2025</a> · <a href="https://publikacje.new.stat.gov.pl/portal-publikacje/aktywnosc-ekonomiczna-ludnosci-w-wojewodztwie-slaskim-w-2-kwartale-2026-r" target="_blank" rel="noopener">Publikacja BAEL Śląskie 2026 – do uzupełnienia</a>';
+     note.innerHTML='<b>Uwaga - brakująca seria Śląskiego:</b> US Katowice opublikował dane BAEL za II kwartał 2026 (29.09.2026), jednak wartości regionalne nie są zweryfikowane w dostarczonej bazie. Dane z IV kw. 2025 są pokazane z własną datą, bez interpolowania ani łączenia nieporównywalnych okresów.';
+     source.innerHTML='Źródła: <a href="https://ssgk.stat.gov.pl/Rynek_pracy_BAEL.html" target="_blank" rel="noopener">GUS - Polska, II kw. 2026</a> · <a href="https://katowice.stat.gov.pl/opracowania-biezace/opracowania-sygnalne/praca-wynagrodzenie/aktywnosc-ekonomiczna-ludnosci-w-wojewodztwie-slaskim-w-4-kwartale-2025-r-%2C2%2C57.html" target="_blank" rel="noopener">US Katowice - Śląskie, IV kw. 2025</a> · <a href="https://publikacje.new.stat.gov.pl/portal-publikacje/aktywnosc-ekonomiczna-ludnosci-w-wojewodztwie-slaskim-w-2-kwartale-2026-r" target="_blank" rel="noopener">Publikacja BAEL Śląskie 2026 - do uzupełnienia</a>';
      return;
    }
    document.getElementById('gusBaelSlaskie').classList.remove('gusKpiUnavailable');
    compareLines('gusBaelChart',d.labels,d.detail,d.sl,d.pl,{metric,width:760,height:280});
-   const last=d.labels.length-1,gap=d.sl[last]-d.pl[last],p=a?'IV kw. 2024 – IV kw. 2025':'IV kwartał każdego roku';
+   const last=d.labels.length-1,gap=d.sl[last]-d.pl[last],p=a?'IV kw. 2024 - IV kw. 2025':'IV kwartał każdego roku';
    document.getElementById('gusBaelSubtitle').textContent=a?'Wskaźnik zatrudnienia • kwartalnie • Śląskie vs Polska':'Współczynnik aktywności zawodowej • IV kwartał każdego roku';
-   document.getElementById('gusBaelFresh').textContent=a?'IV kw. 2024–2025':'2016–2025';document.getElementById('gusBaelPeriod').textContent=p;
+   document.getElementById('gusBaelFresh').textContent=a?'IV kw. 2024-2025':'2016-2025';document.getElementById('gusBaelPeriod').textContent=p;
    document.getElementById('gusBaelTerritory').textContent='Śląskie vs Polska';
    document.getElementById('gusBaelSlaskie').textContent=pl(d.sl[last])+'%';document.getElementById('gusBaelPolska').textContent=pl(d.pl[last])+'%';
    document.getElementById('gusBaelSlaskieLabel').textContent='Śląskie • '+d.detail[last];document.getElementById('gusBaelPolskaLabel').textContent='Polska • '+d.detail[last];
    document.getElementById('gusBaelGap').textContent=`różnica: ${gap>0?'+':'−'}${pl(Math.abs(gap))} p.p.`;
-   document.getElementById('gusBaelChartNote').innerHTML=a?'<b>Co pokazuje wykres?</b> Wskaźnik zatrudnienia – udział osób pracujących w ludności w wieku <b>15–89 lat</b>. Te same kwartały dla regionu i kraju.':'<b>Co pokazuje wykres?</b> Współczynnik aktywności zawodowej – udział osób aktywnych zawodowo (pracujących i bezrobotnych według BAEL) w ludności w wieku <b>15–89 lat</b>. Porównujemy <b>IV kwartał każdego roku</b>.';
+   document.getElementById('gusBaelChartNote').innerHTML=a?'<b>Co pokazuje wykres?</b> Wskaźnik zatrudnienia - udział osób pracujących w ludności w wieku <b>15-89 lat</b>. Te same kwartały dla regionu i kraju.':'<b>Co pokazuje wykres?</b> Współczynnik aktywności zawodowej - udział osób aktywnych zawodowo (pracujących i bezrobotnych według BAEL) w ludności w wieku <b>15-89 lat</b>. Porównujemy <b>IV kwartał każdego roku</b>.';
    document.getElementById('gusBaelInsight').innerHTML=`<strong>${d.detail[last]}:</strong> Śląskie <b>${pl(d.sl[last])}%</b>, Polska <b>${pl(d.pl[last])}%</b>; różnica <b>${gap>0?'+':'−'}${pl(Math.abs(gap))} p.p.</b>.`;
    note.innerHTML='<b>Uwaga metodologiczna:</b> porównania danych sprzed i po NSP 2021 wymagają uwzględnienia zmiany podstawy uogólniania BAEL.';
    source.innerHTML='Źródła: GUS / BDL oraz US Katowice. <a href="https://katowice.stat.gov.pl/opracowania-biezace/opracowania-sygnalne/praca-wynagrodzenie/aktywnosc-ekonomiczna-ludnosci-w-wojewodztwie-slaskim-w-4-kwartale-2025-r-%2C2%2C57.html" target="_blank" rel="noopener">Śląskie</a> · <a href="https://ssgk.stat.gov.pl/04.2026/Rynek_pracy_BAEL.html" target="_blank" rel="noopener">Polska</a>';
@@ -154,8 +154,8 @@
    const annual=unempMode==='annual',count=unempMetric==='count';
    document.querySelectorAll('[data-unemp-mode]').forEach(b=>{const on=b.dataset.unempMode===unempMode;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on))});
    document.querySelectorAll('[data-unemp-metric]').forEach(b=>{const on=b.dataset.unempMetric===unempMetric;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on))});
-   const period=annual?'stan na 31 grudnia każdego roku':'styczeń–wrzesień 2026';document.getElementById('gusUnempPeriod').textContent=period;
-   document.getElementById('gusUnempFresh').textContent=annual?'2016–2025':'30.09.2026';
+   const period=annual?'stan na 31 grudnia każdego roku':'styczeń-wrzesień 2026';document.getElementById('gusUnempPeriod').textContent=period;
+   document.getElementById('gusUnempFresh').textContent=annual?'2016-2025':'30.09.2026';
    document.getElementById('gusUnempLegendPl').classList.toggle('is-hidden',count);
    document.getElementById('gusUnempArea').textContent=count?'woj. śląskie':'Śląskie vs Polska';document.getElementById('gusUnempUnit').textContent=count?'jednostka: osoby':'jednostka: %';
    if(count){
@@ -163,8 +163,8 @@
      document.getElementById('gusUnempSubtitle').textContent=annual?'Liczba bezrobotnych na koniec roku • woj. śląskie':'Miesięczna liczba bezrobotnych w 2026 r. • woj. śląskie';
      const first=d.vals[0],last=d.vals[d.vals.length-1],chg=last-first,pct=chg/first*100,maxV=Math.max(...d.vals),maxI=d.vals.indexOf(maxV);
      document.getElementById('gusUnempGap').textContent=annual?`2025: ${fmtInt(last)} osób`:`wrzesień 2026: ${fmtInt(last)} osób`;
-     document.getElementById('gusUnempChartNote').innerHTML=annual?'<b>Opis wykresu:</b> liczba <b>bezrobotnych zarejestrowanych</b> w województwie śląskim według stanu na <b>31 grudnia</b> każdego roku w latach <b>2016–2025</b>. Każdy punkt pokazuje dokładną liczbę osób.':'<b>Opis wykresu:</b> miesięczna liczba <b>bezrobotnych zarejestrowanych</b> w województwie śląskim od stycznia do września 2026 r. Każdy punkt pokazuje stan na koniec miesiąca.';
-     document.getElementById('gusUnempInsight').innerHTML=annual?`<strong>Zmiana 2016–2025:</strong> liczba bezrobotnych spadła z <b>${fmtInt(first)}</b> do <b>${fmtInt(last)}</b> osób, czyli o <b>${fmtInt(Math.abs(chg))}</b> (${pct<0?'−':'+'}${pl(Math.abs(pct))}%).`:`<strong>2026:</strong> w styczniu zarejestrowanych było <b>${fmtInt(first)}</b> osób, najwyższą wartość odnotowano w ${d.labels[maxI]} – <b>${fmtInt(maxV)}</b>, a we wrześniu <b>${fmtInt(last)}</b> osób.`;
+     document.getElementById('gusUnempChartNote').innerHTML=annual?'<b>Opis wykresu:</b> liczba <b>bezrobotnych zarejestrowanych</b> w województwie śląskim według stanu na <b>31 grudnia</b> każdego roku w latach <b>2016-2025</b>. Każdy punkt pokazuje dokładną liczbę osób.':'<b>Opis wykresu:</b> miesięczna liczba <b>bezrobotnych zarejestrowanych</b> w województwie śląskim od stycznia do września 2026 r. Każdy punkt pokazuje stan na koniec miesiąca.';
+     document.getElementById('gusUnempInsight').innerHTML=annual?`<strong>Zmiana 2016-2025:</strong> liczba bezrobotnych spadła z <b>${fmtInt(first)}</b> do <b>${fmtInt(last)}</b> osób, czyli o <b>${fmtInt(Math.abs(chg))}</b> (${pct<0?'−':'+'}${pl(Math.abs(pct))}%).`:`<strong>2026:</strong> w styczniu zarejestrowanych było <b>${fmtInt(first)}</b> osób, najwyższą wartość odnotowano w ${d.labels[maxI]} - <b>${fmtInt(maxV)}</b>, a we wrześniu <b>${fmtInt(last)}</b> osób.`;
      document.getElementById('gusUnempNote').innerHTML=annual?'<b>Uwaga metodologiczna:</b> od 1 czerwca 2025 r. zmieniły się zasady rejestracji osób bezrobotnych (miejsce zamieszkania zamiast zameldowania), dlatego porównania 2025 z wcześniejszymi latami należy interpretować ostrożnie.':'Dane miesięczne pokazują stan rejestrów PUP na koniec miesiąca. Od 1 czerwca 2025 r. obowiązują nowe zasady rejestracji według miejsca zamieszkania.';
      document.getElementById('gusUnempSource').innerHTML='Źródło: GUS / BDL oraz Wojewódzki Urząd Pracy w Katowicach. <a href="https://wupkatowice.praca.gov.pl/rynek-pracy/statystyki-i-analizy" target="_blank" rel="noopener">Otwórz dane WUP</a>';
    }else{
@@ -172,9 +172,9 @@
      compareLines('gusUnempChart',d.labels,d.detail,d.sl,d.pl,{metric:'Stopa bezrobocia rejestrowanego',width:640,height:250,min,max,slaskieColor:'#b35e62'});
      document.getElementById('gusUnempSubtitle').textContent=annual?'Stopa bezrobocia na koniec roku • Śląskie vs Polska':'Miesięczny przebieg stopy bezrobocia w 2026 r. • Śląskie vs Polska';
      const last=d.labels.length-1,gap=d.sl[last]-d.pl[last];document.getElementById('gusUnempGap').textContent=`${annual?'grudzień 2025':'wrzesień 2026'}: ${gap>0?'+':'−'}${pl(Math.abs(gap))} p.p.`;
-     document.getElementById('gusUnempChartNote').innerHTML=annual?'<b>Opis wykresu:</b> stopa bezrobocia rejestrowanego według stanu na <b>31 grudnia</b> w latach <b>2016–2025</b> – woj. śląskie na tle Polski. Każdy punkt ma podaną dokładną wartość.':'<b>Opis wykresu:</b> miesięczny przebieg <b>stopy bezrobocia rejestrowanego</b> od stycznia do września 2026 r. – woj. śląskie na tle Polski. Każdy punkt ma podaną dokładną wartość.';
+     document.getElementById('gusUnempChartNote').innerHTML=annual?'<b>Opis wykresu:</b> stopa bezrobocia rejestrowanego według stanu na <b>31 grudnia</b> w latach <b>2016-2025</b> - woj. śląskie na tle Polski. Każdy punkt ma podaną dokładną wartość.':'<b>Opis wykresu:</b> miesięczny przebieg <b>stopy bezrobocia rejestrowanego</b> od stycznia do września 2026 r. - woj. śląskie na tle Polski. Każdy punkt ma podaną dokładną wartość.';
      document.getElementById('gusUnempInsight').innerHTML=annual?`<strong>2025:</strong> Śląskie <b>${pl(d.sl[last])}%</b>, Polska <b>${pl(d.pl[last])}%</b>; region był niżej o <b>${pl(Math.abs(gap))} p.p.</b>. W 2016 r. różnica wynosiła ${pl(Math.abs(d.sl[0]-d.pl[0]))} p.p.`:`<strong>Wrzesień 2026:</strong> Śląskie <b>${pl(d.sl[last])}%</b>, Polska <b>${pl(d.pl[last])}%</b>; różnica wynosiła <b>${pl(Math.abs(gap))} p.p.</b>.`;
-     document.getElementById('gusUnempNote').innerHTML=annual?'<b>Uwaga metodologiczna:</b> dla 2020–2021 GUS publikował także wartości po rewizji. Wykres zachowuje historyczną serię zgodną z wykorzystaną serią wojewódzką.':'Główna mapa Barometru wykorzystuje dane powiatowe wg stanu na 31.08.2026 r. Ten wykres pokazuje nowszy wskaźnik wojewódzki i krajowy za wrzesień 2026 r.';
+     document.getElementById('gusUnempNote').innerHTML=annual?'<b>Uwaga metodologiczna:</b> dla 2020-2021 GUS publikował także wartości po rewizji. Wykres zachowuje historyczną serię zgodną z wykorzystaną serią wojewódzką.':'Główna mapa Barometru wykorzystuje dane powiatowe wg stanu na 31.08.2026 r. Ten wykres pokazuje nowszy wskaźnik wojewódzki i krajowy za wrzesień 2026 r.';
      document.getElementById('gusUnempSource').innerHTML='Źródło: GUS / Wojewódzki Urząd Pracy w Katowicach. <a href="https://stat.gov.pl/obszary-tematyczne/rynek-pracy/bezrobocie-rejestrowane/stopa-bezrobocia-rejestrowanego-w-latach-1990-2026%2C4%2C1.html" target="_blank" rel="noopener">Otwórz źródło GUS</a>';
    }
  }

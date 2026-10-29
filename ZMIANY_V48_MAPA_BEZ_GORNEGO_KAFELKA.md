@@ -1,4 +1,4 @@
-# v48 — mapa bez górnego kafelka
+# v48 - mapa bez górnego kafelka
 
 - Na desktopie cały panel wyboru powiatu i widoku mapy został przeniesiony do prawej kolumny, nad profilem powiatu.
 - Zniknął pełnoszerokościowy kafelek sterowania nad mapą; mapa i profil zaczynają się bezpośrednio pod nawigacją.

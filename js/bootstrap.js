@@ -1,67 +1,32 @@
-/* Studio v24 — odczyt bez pytania o pliki.
-   GitHub Pages: zawsze aktualny data/dane.json (bez cache).
-   Plik index.html otwarty z dysku: read-only migawka startowa osadzona w HTML.
-   Awaria sieci: migawka z czytelnym ostrzezeniem o jej mozliwej nieaktualnosci.
-*/
+/* Studio v32: bundled startup, timeout and explicit PUP schema validation. */
 (async function(){
-  'use strict';
-  const host=document.querySelector('.headerInner > div:first-child') || document.querySelector('.header') || document.body;
-  const status=document.createElement('div');
-  status.className='dataStatusLine';
-  status.id='dataLoadStatus';
-  status.setAttribute('role','status');
-  status.setAttribute('aria-live','polite');
-  status.textContent='Wczytywanie danych…';
-  host.appendChild(status);
-
-  function label(s,problem=false){status.textContent=s;status.classList.toggle('dataStatusError',problem)}
-  function snapshot(){
-    const el=document.getElementById('panelInitialSnapshot');
-    if(!el)throw new Error('Brak migawki poczatkowej danych.');
-    return JSON.parse(el.textContent);
-  }
-  function validate(data){
-    return !!(data && data.barometr && data.barometr.powiaty &&
-      Object.keys(data.barometr.powiaty).length===36 && data.barometr.zawody &&
-      data.gus && data.powiatBezrobocie);
-  }
-  async function loadModules(data){
-    if(!validate(data))throw new Error('Plik data/dane.json nie zawiera kompletnej struktury panelu.');
-    window.PANEL_DATA=data;
-    for (const src of ['js/app.js','js/gus.js','js/county.js']){
-      await new Promise((resolve,reject)=>{
-        const script=document.createElement('script');
-        script.src=src;
-        script.onload=resolve;
-        script.onerror=()=>reject(new Error('Nie mozna uruchomic '+src));
-        document.body.appendChild(script);
-      });
-    }
-  }
-  try{
-    let data,source='remote',warn=false;
-    if(location.protocol==='file:'){
-      data=snapshot();source='local';
-    }else{
-      try{
-        const response=await fetch('data/dane.json?odswiez='+Date.now(),{cache:'no-store'});
-        if(!response.ok)throw new Error('HTTP '+response.status);
-        data=await response.json();
-        if(!validate(data))throw new Error('Nieprawidlowy format danych');
-      }catch(e){
-        console.error('[Obserwatorium: aktualna baza danych]',e);
-        data=snapshot();source='backup';warn=true;
-      }
-    }
-    label('Przygotowywanie map i wykresów…');
-    await loadModules(data);
-    const count=Object.keys(data.barometr.powiaty).length;
-    const version=data.meta?.wersja ? ' • '+data.meta.wersja : '';
-    if(source==='remote') label('Dane aktualne z data/dane.json • '+count+' jednostek'+version);
-    else if(source==='local')label('Podgląd lokalny • dane startowe z paczki • '+count+' jednostek. Na GitHub Pages wczytywany jest aktualny dane.json.');
-    else label('Nie udało się pobrać aktualnych danych z GitHub. Wyświetlam wbudowaną kopię startową, która może być nieaktualna.',true);
-  }catch(e){
-    console.error('[Obserwatorium: uruchamianie]',e);
-    label('Nie udało się uruchomić panelu: '+e.message,true);
-  }
+'use strict';
+const host=document.querySelector('.headerInner > div:first-child')||document.querySelector('.header')||document.body;
+const status=document.createElement('div');status.id='dataLoadStatus';status.className='dataStatusLine';status.setAttribute('role','status');status.setAttribute('aria-live','polite');host.appendChild(status);
+const label=(s,error=false)=>{status.textContent=s;status.classList.toggle('dataStatusError',error)};
+function validate(data){return !!(data?.barometr?.powiaty&&Object.keys(data.barometr.powiaty).length===36&&data.barometr.zawody&&data.gus&&data.powiatBezrobocie&&Array.isArray(data.strukturaPup?.obserwacje)&&data.strukturaPup.obserwacje.length&&Array.isArray(data.strukturaPup.miesieczne)&&data.strukturaPup.miesieczne.length)}
+function snapshot(){const el=document.getElementById('panelInitialSnapshot');if(!el)throw Error('Brak wbudowanej bazy danych.');const data=JSON.parse(el.textContent);if(!validate(data))throw Error('Wbudowana baza danych jest niekompletna.');return data}
+async function module(src,bundle){
+ if(bundle&&typeof bundle[src]==='string'){
+  let failure=null;const onError=e=>{failure=e.error||Error(e.message||'Błąd skryptu '+src)};window.addEventListener('error',onError);
+  try{const script=document.createElement('script');script.dataset.panelModule=src;script.textContent=bundle[src]+'\n//# sourceURL='+src+'?v=32-bundle';document.body.appendChild(script)}finally{window.removeEventListener('error',onError)}
+  if(failure)throw failure;
+ }else await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src=src+'?v=32';script.onload=resolve;script.onerror=()=>reject(Error('Brak pliku '+src));document.body.appendChild(script)});
+}
+try{
+ label('Wczytywanie danych…');let data=snapshot(),source='embedded',warning='';
+ if(location.protocol!=='file:'){
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),10000);
+  try{const response=await fetch(new URL('data/dane.json?odswiez='+Date.now(),document.baseURI),{cache:'no-store',signal:controller.signal});if(!response.ok)throw Error('HTTP '+response.status);const remote=await response.json();if(!validate(remote))throw Error('Pobrana baza nie zawiera pełnej struktury PUP');data=remote;source='remote'}
+  catch(error){warning=error.name==='AbortError'?'Serwer nie odpowiedział w ciągu 10 sekund.':'Nie udało się pobrać kompletnej bazy z serwera.';console.warn('[Panel: użyto kompletnej kopii wbudowanej; pobranie z serwera]',error.message)}
+  finally{clearTimeout(timer)}
+ }
+ window.PANEL_DATA=data;label('Przygotowywanie map i wykresów…');
+ const embedded=document.getElementById('panelModuleBundle');const bundle=embedded?JSON.parse(embedded.textContent):null;
+ for(const src of ['js/app.js','js/gus.js','js/county.js','js/pup.js','js/layout.js'])await module(src,bundle);
+ if(!document.getElementById('pupStructureModule'))throw Error('Nie uruchomiła się sekcja danych PUP.');
+ const n=data.strukturaPup.obserwacje.length,m=data.strukturaPup.miesieczne.length;
+ if(source==='remote')label(`Baza z serwera • ${n.toLocaleString('pl-PL')} zestawień struktury PUP • ${m.toLocaleString('pl-PL')} obserwacji liczby osób • ${data.meta?.wersja||'v32'}`);
+ else label(`Dane z paczki (tryb offline/zapasowy) • ${n.toLocaleString('pl-PL')} zestawień struktury PUP • ${m.toLocaleString('pl-PL')} obserwacji liczby osób.`,false);
+}catch(error){console.error('[Panel: uruchamianie]',error);label('Nie udało się uruchomić narzędzia: '+error.message,true)}
 })();

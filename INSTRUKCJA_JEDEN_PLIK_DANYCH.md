@@ -1,4 +1,4 @@
-# Aktualizacja danych — jeden plik
+# Aktualizacja danych - jeden plik
 
 Aplikacja na GitHub Pages wczytuje **data/dane.json** przy każdym otwarciu strony. Wszystkie główne wskaźniki wykresów i map korzystają z tego pliku.
 
@@ -14,4 +14,4 @@ Aplikacja na GitHub Pages wczytuje **data/dane.json** przy każdym otwarciu stro
 - Strona jest statyczna i nie wymaga Apps Script ani serwera aplikacyjnego.
 - Przycisk F5/odświeżenie strony pobiera plik ponownie. GitHub może potrzebować krótkiego czasu na publikację commitu.
 - Część redakcyjnych podpisów i opisów metodologicznych ma stałą treść; przy zmianie dat odniesienia lub metodologii trzeba zweryfikować je również merytorycznie.
-- Dane historyczne powiatów GUS za wszystkie miesiące nie zostały dodane w tej paczce – wpisy z `powiatBezrobocie.bdl` pozostają takie jak w v18, dopóki nie zostanie wykonana aktualizacja.
+- Dane historyczne powiatów GUS za wszystkie miesiące nie zostały dodane w tej paczce - wpisy z `powiatBezrobocie.bdl` pozostają takie jak w v18, dopóki nie zostanie wykonana aktualizacja.
