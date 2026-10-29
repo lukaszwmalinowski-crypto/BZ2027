@@ -18,7 +18,7 @@ try{
  if(location.protocol!=='file:'){
   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),10000);
   try{const response=await fetch(new URL('data/dane.json?odswiez='+Date.now(),document.baseURI),{cache:'no-store',signal:controller.signal});if(!response.ok)throw Error('HTTP '+response.status);const remote=await response.json();if(!validate(remote))throw Error('Pobrana baza nie zawiera pełnej struktury PUP');data=remote;source='remote'}
-  catch(error){warning=error.name==='AbortError'?'Serwer nie odpowiedział w ciągu 10 sekund.':'Nie udało się pobrać kompletnej bazy z serwera.';console.warn('[Panel: kopia startowa]',error.message)}
+  catch(error){warning=error.name==='AbortError'?'Serwer nie odpowiedział w ciągu 10 sekund.':'Nie udało się pobrać kompletnej bazy z serwera.';console.warn('[Panel: użyto kompletnej kopii wbudowanej; pobranie z serwera]',error.message)}
   finally{clearTimeout(timer)}
  }
  window.PANEL_DATA=data;label('Przygotowywanie map i wykresów…');
@@ -27,6 +27,6 @@ try{
  if(!document.getElementById('pupStructureModule'))throw Error('Nie uruchomiła się sekcja danych PUP.');
  const n=data.strukturaPup.obserwacje.length,m=data.strukturaPup.miesieczne.length;
  if(source==='remote')label(`Baza z serwera • ${n.toLocaleString('pl-PL')} zestawień struktury PUP • ${m.toLocaleString('pl-PL')} obserwacji liczby osób • ${data.meta?.wersja||'v32'}`);
- else label(`${warning?warning+' ':''}Wczytano dane wbudowane w paczkę • ${n.toLocaleString('pl-PL')} zestawień struktury PUP • ${m.toLocaleString('pl-PL')} obserwacji liczby osób.`,!!warning);
+ else label(`Dane z paczki (tryb offline/zapasowy) • ${n.toLocaleString('pl-PL')} zestawień struktury PUP • ${m.toLocaleString('pl-PL')} obserwacji liczby osób.`,false);
 }catch(error){console.error('[Panel: uruchamianie]',error);label('Nie udało się uruchomić narzędzia: '+error.message,true)}
 })();

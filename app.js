@@ -742,7 +742,8 @@ async function generatePPTX(){
   // Map existing content into the white area between the original header and footer.
   const originalAddSlide=pptx.addSlide.bind(pptx);
   pptx.addSlide=(master='MASTER')=>{
-    const slide=originalAddSlide(master);
+    // PptxGenJS expects an options object, not a bare master-name string.
+    const slide=originalAddSlide({masterName:master});
     for(const method of ['addText','addShape','addImage','addChart']){
       const original=slide[method].bind(slide);
       slide[method]=(...args)=>{
@@ -1379,7 +1380,18 @@ document.getElementById('reportPpt').addEventListener('click',async()=>{
   if(!window.reportExtraCharts.length && !['cover','overview','benchmark','trends','jobs'].some(id=>reportSelection.has(id))){alert('Brak slajdów z wystarczającymi danymi. Zmień zakres lub zaznacz inne elementy.');window.reportExtraCharts=null;return;}
   window.reportSelectedSlides=['cover','overview','benchmark','trends','jobs'].map((id,i)=>reportSelection.has(id)?i:-1).filter(i=>i>=0);
   reportDialog.close();
-  try{await generatePPTX()}finally{window.reportSelectedSlides=null;window.reportExtraCharts=null}
+  const button=document.getElementById('reportPpt');
+  button.disabled=true;
+  try{
+    await generatePPTX();
+  }catch(error){
+    console.error('[PPTX] Nie udało się wygenerować prezentacji',error);
+    alert('Nie udało się wygenerować prezentacji PPTX.\n\n'+(error?.message||String(error))+'\n\nSprawdź, czy plik został pobrany. W razie potrzeby prześlij treść tego komunikatu.');
+  }finally{
+    window.reportSelectedSlides=null;
+    window.reportExtraCharts=null;
+    button.disabled=false;
+  }
 });
 document.getElementById('xlsxBtn').addEventListener('click',generateXLSX);
 initComparePickers();
