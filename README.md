@@ -1,4 +1,4 @@
-# Obserwatorium Śląskie 2027 - wydanie publikacyjne v78
+# Obserwatorium Śląskie 2027 - wydanie publikacyjne v84
 
 To jest odchudzona paczka do publikacji jako statyczna strona (np. GitHub Pages).
 
@@ -20,3 +20,10 @@ Eksport „Dane dla AI” zawiera teraz blok `kontekst_regionalny_gus`, tj. ustr
 
 ### Gospodarka regionu - v82
 Na karcie Dane GUS znajdują się cztery wskaźniki z biuletynu US Katowice za lipiec 2026 (zatrudnienie, płace, produkcja sprzedana przemysłu, inwestycje). Kafelki korzystają z wbudowanego bloku `aiRegionalGusContext` współdzielonego z eksportem do AI. Dane są historyczne, regionalne, nie powiatowe; odsyłacze i metodologia są w Źródłach.
+
+
+### Nowy wygląd - v83
+Nowoczesna warstwa wizualna (jasne karty, miękkie cienie, płaskie przyciski i przełączniki, nowa nawigacja, spójna typografia). Zmiana dotyczy wyłącznie stylów: dane, logika, eksporty (PDF/PPTX/XLSX/AI) i druk pozostają bez zmian. Styl znajduje się w ostatnim bloku `<style id="v83-modern-ui">` w `index.html`.
+
+### Responsywność - v84
+Dopracowanie układu na iPadzie 11" (pion i poziom), iPadzie 12,9", telefonach i w Split View: zawijanie akcji w nagłówku, 7 równych kafelków nawigacji, siatki KPI/GUS dopasowane do szerokości, większe cele dotykowe (44 px), brak „przyklejonych” efektów hover na dotyku, poprawka tła na iOS Safari oraz zapas dla starszych przeglądarek (bez `color-mix`). Styl: blok `<style id="v84-responsive-polish">`.
