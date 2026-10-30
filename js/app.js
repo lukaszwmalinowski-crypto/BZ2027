@@ -1011,15 +1011,29 @@ function initComparePickers(){
 function renderComparison(){
   const names=[1,2,3].map(i=>document.getElementById(`compare${i}`)?.value).filter((n,i,a)=>n&&a.indexOf(n)===i);
   const out=document.getElementById('compareOutput'); if(!out) return;
-  if(names.length<2){out.innerHTML='<div class="hint">Wybierz co najmniej dwa różne powiaty.</div>';return;}
+  if(names.length<2){out.innerHTML='<div class="hint">Wybierz co najmniej dwa różne powiaty. Wykres porównawczy pojawi się automatycznie.</div>';return;}
   const metrics=[['Deficyt','deficit','min'],['Równowaga','balance','max'],['Nadwyżka','surplus','min'],['Bez oceny','no_eval','min'],['Stopa bezrobocia','unemp','min']];
   let rows='';
   metrics.forEach(([label,key,best])=>{
-    const vals=names.map(n=>key==='unemp'?UNEMPLOYMENT[n]:DATA[n][key]); const valid=vals.filter(Number.isFinite); const target=best==='max'?Math.max(...valid):Math.min(...valid);
-    rows+=`<tr><td>${label}</td>`+vals.map((v,i)=>`<td class="${Number.isFinite(v)&&v===target?'compareBest':''}">${v==null?'-':(key==='unemp'?pl1(v)+'%':v)}</td>`).join('')+'</tr>';
+    const vals=names.map(n=>key==='unemp'?UNEMPLOYMENT[n]:DATA[n][key]); const valid=vals.filter(Number.isFinite); const target=valid.length?(best==='max'?Math.max(...valid):Math.min(...valid)):null;
+    rows+=`<tr><td>${label}</td>`+vals.map(v=>`<td class="${Number.isFinite(v)&&v===target?'compareBest':''}">${v==null?'-':(key==='unemp'?pl1(v)+'%':v)}</td>`).join('')+'</tr>';
   });
   rows+=`<tr><td>Zmiana deficytu vs 2026</td>`+names.map(n=>{const v=DATA[n].delta_deficit;return `<td>${v>0?'+':''}${v}</td>`}).join('')+'</tr>';
-  out.innerHTML=`<table class="compareTable"><thead><tr><th>Wskaźnik</th>${names.map(n=>`<th>${escapeHtml(n)}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table>`;
+  const current=out.querySelector('#compareChartMetric')?.value||window.__compareChartMetric||'deficit';
+  const metric=metrics.some(m=>m[1]===current)?current:'deficit';
+  const labels={deficit:'Liczba grup w deficycie',balance:'Liczba grup w równowadze',surplus:'Liczba grup w nadwyżce',no_eval:'Liczba grup bez oceny',unemp:'Stopa bezrobocia (%)'};
+  const colors=['#2e66b1','#23a19b','#bd7194'];
+  const values=names.map(n=>metric==='unemp'?UNEMPLOYMENT[n]:DATA[n][metric]);
+  const finite=values.filter(Number.isFinite);const max=Math.max(...finite,1);
+  const ticks=Array.from({length:5},(_,i)=>max*i/4);
+  const safe=(v)=>escapeHtml(String(v));
+  const bars=names.map((name,i)=>{
+    const val=values[i], valid=Number.isFinite(val),percent=valid?Math.max(0,Math.min(100,val/max*100)):0;
+    const formatted=valid?(metric==='unemp'?pl1(val)+'%':String(val)):'b.d.';
+    return `<div class="compareBarItem"><div class="compareBarValue">${formatted}</div><div class="compareBarTrack"><div class="compareBarFill" style="height:${percent}%;background:${colors[i]}"></div></div><div class="compareBarName" title="${safe(name)}"><i style="background:${colors[i]}"></i>${safe(name)}</div></div>`;
+  }).join('');
+  out.innerHTML=`<div class="compareChartPanel"><div class="compareChartHeader"><div><h3>Porównanie na żywo</h3><p>Wykres aktualizuje się po zmianie wybranych jednostek.</p></div><label class="compareChartSelector">Wskaźnik <select id="compareChartMetric" aria-label="Wskaźnik wykresu">${metrics.map(([label,key])=>`<option value="${key}" ${metric===key?'selected':''}>${label}</option>`).join('')}</select></label></div><div class="compareChartCaption">${labels[metric]} • ${metric==='unemp'?'wartość procentowa':'prognoza Barometru Zawodów 2027'}</div><div class="comparePlot"><div class="compareAxis">${ticks.slice().reverse().map(v=>`<span>${metric==='unemp'?pl1(v)+'%':Number(v.toFixed(1)).toLocaleString('pl-PL')}</span>`).join('')}</div><div class="compareChartArea"><div class="compareGrid">${ticks.map(()=>'<span></span>').join('')}</div><div class="compareBars">${bars}</div></div></div><p class="compareChartFoot">Wszystkie słupki przedstawiają ten sam wskaźnik i korzystają ze wspólnej skali od zera. Brak danych nie jest traktowany jako zero.</p></div><div class="compareTableWrap"><table class="compareTable"><thead><tr><th>Wskaźnik</th>${names.map(n=>`<th>${escapeHtml(n)}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>`;
+  out.querySelector('#compareChartMetric').addEventListener('change',e=>{window.__compareChartMetric=e.target.value;renderComparison()});
 }
 
 function renderOccupationProfile(){

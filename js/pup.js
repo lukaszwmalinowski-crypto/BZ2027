@@ -7,16 +7,25 @@ const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,
 const names=Object.keys(window.PANEL_DATA.barometr.powiaty).sort((a,b)=>a.localeCompare(b,'pl'));
 const byCounty=Object.fromEntries(names.map(n=>[n,db.obserwacje.filter(r=>r.powiat===n)]));
 const monthly=Object.fromEntries(names.map(n=>[n,(db.miesieczne||[]).filter(r=>r.powiat===n)]));
+const REGION='__WOJ__',regionName='Województwo śląskie';
+// The 36 mutually exclusive county records form an exact regional total. Never sum PUP office aggregates.
+function regionalRows(rows,strict){const buckets=new Map();for(const row of rows){if(!names.includes(row.powiat))continue;const list=buckets.get(row.okres)||[];list.push(row);buckets.set(row.okres,list)}const out=[];
+for(const [okres,list] of buckets){if(list.length!==names.length)continue;const n={powiat:regionName,okres,ogolem:list.reduce((a,r)=>a+Number(r.ogolem??r.liczba_osob??0),0),kobiety:list.reduce((a,r)=>a+Number(r.kobiety??0),0),zrodlo:'Agregacja 36 powiatów / miast, dane PUP'};if(!list.every(r=>r.kobiety!=null&&Number.isFinite(Number(r.ogolem??r.liczba_osob))))continue;
+if(strict){const groups=['wiek','wyksztalcenie','staz','czas'];if(!list.every(r=>groups.every(g=>Array.isArray(r[g])&&Array.isArray(r[g+'Kobiety'])&&r[g].length===db.etykiety[g].length&&r[g+'Kobiety'].length===db.etykiety[g].length)))continue;for(const g of groups){n[g]=db.etykiety[g].map((_,i)=>list.reduce((a,r)=>a+Number(r[g][i]),0));n[g+'Kobiety']=db.etykiety[g].map((_,i)=>list.reduce((a,r)=>a+Number(r[g+'Kobiety'][i]),0));}}else n.liczba_osob=n.ogolem;out.push(n)}return out.sort((a,b)=>a.okres.localeCompare(b.okres))}
+byCounty[REGION]=regionalRows(db.obserwacje,true);
+// Prefer detailed observations for count series: they're tied to the identical 36 administrative units.
+monthly[REGION]=regionalRows(db.obserwacje,false);
+
 const titles={wiek:'Wiek',wyksztalcenie:'Wykształcenie',staz:'Staż pracy',czas:'Czas pozostawania bez pracy'};
 const fmt=(n,d=0)=>n==null?'-':Number(n).toLocaleString('pl-PL',{maximumFractionDigits:d,minimumFractionDigits:d});
 const date=p=>p?`${p.slice(5)}.${p.slice(0,4)}`:'brak danych';
 const periodEnd=p=>p?`${new Date(Number(p.slice(0,4)),Number(p.slice(5)),0).getDate()}.${p.slice(5)}.${p.slice(0,4)}`:'brak danych';
 const validUrl=u=>{try{const a=new URL(u);return a.protocol==='https:'||a.protocol==='http:'?a.href:''}catch{return ''}};
-const state={county:names.includes($('countySelect')?.value)?$('countySelect').value:'Tychy',period:'',group:'wiek',population:'all',unit:'count',trend:'total'};
+const state={county:(names.includes($('countySelect')?.value)||$('countySelect')?.value===REGION)?$('countySelect').value:'Tychy',period:'',group:'wiek',population:'all',unit:'count',trend:'total'};
 const root=document.createElement('section');root.id='pupStructureModule';root.className='pupModule countyUPanel';
 root.innerHTML=`<div class="pupHeading"><div><span class="eyeb">DANE POWIATOWYCH URZĘDÓW PRACY</span><h2>Struktura bezrobocia i historia zmian</h2><p>Wiek, wykształcenie, staż pracy i czas pozostawania bez pracy.</p></div><button type="button" id="pupPrint">Drukuj / PDF</button></div>
 <div class="pupCoverageSummary" id="pupCoverageSummary"></div>
-<div class="pupControls"><div><label for="pupCounty">Powiat / miasto</label><select id="pupCounty"></select></div><div><label for="pupPeriod">Stan na koniec miesiąca</label><select id="pupPeriod"></select></div><div><label for="pupPopulation">Grupa osób</label><select id="pupPopulation"><option value="all">Wszyscy bezrobotni</option><option value="women">Kobiety</option></select></div><div><label for="pupUnit">Wartości na wykresie</label><select id="pupUnit"><option value="count">Liczba osób</option><option value="share">Udział w grupie (%)</option></select></div></div>
+<div class="pupControls"><div><label for="pupCounty">Powiat / miasto</label><select id="pupCounty"></select></div><div><label for="pupPeriod">Stan na koniec miesiąca</label><select id="pupPeriod"></select></div><div><label for="pupPopulation">Grupa osób</label><select id="pupPopulation"><option value="all">Wszyscy bezrobotni</option><option value="women">Kobiety</option><option value="men">Mężczyźni</option></select></div><div><label for="pupUnit">Wartości na wykresie</label><select id="pupUnit"><option value="count">Liczba osób</option><option value="share">Udział w grupie (%)</option></select></div></div>
 <div id="pupStatus" class="pupStatus" role="status" aria-live="polite"></div><div class="pupKpis" id="pupKpis"></div>
 <div class="pupGroupTabs" role="group" aria-label="Przekrój struktury">${Object.entries(titles).map(([k,v])=>`<button type="button" data-pup-group="${k}">${v}</button>`).join('')}</div>
 <div class="pupGrid"><article class="pupCard"><h3 id="pupGroupTitle"></h3><div id="pupBars"></div><p class="pupCaption" id="pupDistributionCaption"></p></article><article class="pupCard"><div class="pupTrendHeading"><h3>Historia zmian</h3><label for="pupTrendMetric" class="pupSrOnly">Wskaźnik historii zmian</label><select id="pupTrendMetric"></select></div><div id="pupTrendChart"></div><p class="pupCaption">Punkty oznaczają dostępne obserwacje. Przerwy w szeregu nie są uzupełniane.</p></article></div>
@@ -24,7 +33,7 @@ root.innerHTML=`<div class="pupHeading"><div><span class="eyeb">DANE POWIATOWYCH
 <div class="pupSource" id="pupSource"></div>
 <details class="pupDetails"><summary>Dane liczbowe i pobieranie</summary><div class="pupActions"><button type="button" id="pupCsv">Pobierz historię powiatu (CSV)</button><button type="button" id="pupJson">Pobierz dane powiatu (JSON)</button></div><div class="pupTableScroll" id="pupNumbers"></div></details>
 <details class="pupDetails"><summary>Dostępność danych dla 36 powiatów i miast</summary><p>Każdy powiat ma własny zakres okresów. Brak danych nie oznacza braku bezrobocia.</p><div class="pupTableScroll" id="pupCoverage"></div></details>
-<details class="pupDetails"><summary>Dokumenty źródłowe właściwego PUP</summary><label for="pupSourceSearch">Szukaj w nazwie dokumentu (np. 2026)</label><input id="pupSourceSearch" type="search" placeholder="Rok, miesiąc lub nazwa dokumentu"/><p id="pupSourceScope"></p><div id="pupSourceList"></div><button type="button" id="pupSourceMore">Pokaż kolejne dokumenty</button></details><details class="pupDetails"><summary>Źródła i sposób odczytu</summary><p>Źródłem są tabele MRPiPS-01 (dział 5 i dział 1) oraz załącznik nr 1 do sprawozdania. Dla każdej struktury sprawdzono, czy sumy według wieku, wykształcenia, stażu i czasu bez pracy są równe ogółem. Tak samo sprawdzono zestawienia kobiet. Zestawienia gminne i nierozstrzygnięte sprzeczności pominięto.</p><p>Czas pozostawania bez pracy powyżej 12 miesięcy jest inną miarą niż ustawowa kategoria „długotrwale bezrobotni”. Kategorie wykształcenia zachowują łączny zakres tabel źródłowych.</p><p>Od czerwca 2025 r. zmieniły się zasady rejestracji i część kategorii sprawozdawczych. Porównania okresów wymagają uwzględnienia tej zmiany. Nie wyliczamy sumy wojewódzkiej z niepełnego zbioru powiatów.</p></details>`;
+<details class="pupDetails"><summary>Dokumenty źródłowe właściwego PUP</summary><label for="pupSourceSearch">Szukaj w nazwie dokumentu (np. 2026)</label><input id="pupSourceSearch" type="search" placeholder="Rok, miesiąc lub nazwa dokumentu"/><p id="pupSourceScope"></p><div id="pupSourceList"></div><button type="button" id="pupSourceMore">Pokaż kolejne dokumenty</button></details><details class="pupDetails"><summary>Źródła i sposób odczytu</summary><p>Źródłem są tabele MRPiPS-01 (dział 5 i dział 1) oraz załącznik nr 1 do sprawozdania. Dla każdej struktury sprawdzono, czy sumy według wieku, wykształcenia, stażu i czasu bez pracy są równe ogółem. Tak samo sprawdzono zestawienia kobiet. Liczebność mężczyzn w każdej kategorii obliczana jest jako ogółem minus kobiety; nie stanowi oddzielnego odczytu ze sprawozdania. Zestawienia gminne i nierozstrzygnięte sprzeczności pominięto.</p><p>Czas pozostawania bez pracy powyżej 12 miesięcy jest inną miarą niż ustawowa kategoria „długotrwale bezrobotni”. Kategorie wykształcenia zachowują łączny zakres tabel źródłowych.</p><p>Od czerwca 2025 r. zmieniły się zasady rejestracji i część kategorii sprawozdawczych. Porównania okresów wymagają uwzględnienia tej zmiany. Nie wyliczamy sumy wojewódzkiej z niepełnego zbioru powiatów.</p></details>`;
 $('countyUnempModule').querySelector('.countyUWrap').appendChild(root);
 // Keep documentation and coverage in the final Sources section.
 const sourcePanel=document.createElement('section');sourcePanel.id='pupSourcesSection';sourcePanel.className='pupModule srcGroup';
@@ -37,39 +46,40 @@ sourcePanel.appendChild($('pupSourceSearch').closest('details'));
 const method=Array.from(root.querySelectorAll('details')).find(d=>d.querySelector('summary')?.textContent==='Źródła i sposób odczytu');if(method)sourcePanel.appendChild(method);
 const sourceJump=document.createElement('a');sourceJump.href='#pupSourcesSection';sourceJump.className='pupSourcesJump';sourceJump.textContent='Źródła i dostępność danych';root.appendChild(sourceJump);
 sourceJump.addEventListener('click',e=>{e.preventDefault();$('sourceRegistry').open=true;sourcePanel.scrollIntoView({behavior:'smooth',block:'start'})});
-$('pupSourceCounty').innerHTML=names.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('');
+$('pupSourceCounty').innerHTML='<option value="'+REGION+'">'+regionName+'</option>'+names.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('');
 $('pupSourceCounty').addEventListener('change',e=>chooseCounty(e.target.value));
 
-$('pupCounty').innerHTML=names.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('');
+$('pupCounty').innerHTML='<option value="'+REGION+'">'+regionName+'</option>'+names.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('');
 function periods(){return [...new Set([...byCounty[state.county],...monthly[state.county]].map(r=>r.okres))].sort().reverse()}
 function resetPeriod(){const p=periods();state.period=p[0]||'';$('pupPeriod').innerHTML=p.length?p.map(p=>`<option value="${p}">${periodEnd(p)}</option>`).join(''):'<option value="">Brak danych</option>';$('pupPeriod').disabled=!p.length}
 function records(){return {detail:byCounty[state.county].find(r=>r.okres===state.period),month:monthly[state.county].find(r=>r.okres===state.period)}}
-function count(r){return state.population==='women'?(r?.kobiety??null):(r?.ogolem??r?.liczba_osob??null)}
-function values(r){return r?.[state.group+(state.population==='women'?'Kobiety':'')]}
+function count(r){if(state.population==='women')return r?.kobiety??null;if(state.population==='men')return r?.kobiety!=null&&r?.ogolem!=null?Number(r.ogolem)-Number(r.kobiety):r?.kobiety!=null&&r?.liczba_osob!=null?Number(r.liczba_osob)-Number(r.kobiety):null;return r?.ogolem??r?.liczba_osob??null}
+function groupValues(r,g){if(!r)return null;if(state.population==='women')return r[g+'Kobiety'];if(state.population==='men'){const all=r[g],women=r[g+'Kobiety'];return Array.isArray(all)&&Array.isArray(women)&&all.length===women.length?all.map((v,i)=>Number(v)-Number(women[i])):null;}return r[g];}
+function values(r){return groupValues(r,state.group)}
 function render(){
  $('pupCounty').value=state.county;$('pupSourceCounty').value=state.county;$('pupPeriod').value=state.period;
  const {detail,month}=records(),r=detail||month,total=r?.ogolem??r?.liczba_osob,women=r?.kobiety,denom=count(r);
  const own=byCounty[state.county],all=periods();
- $('pupStatus').innerHTML=!r?`Brak odczytanych danych PUP dla jednostki: <b>${esc(state.county)}</b>.`:`<b>${esc(state.county)}</b> · stan na <b>${periodEnd(state.period)}</b> · ${detail?'pełna struktura bezrobocia':'liczba bezrobotnych; szczegółowa struktura niedostępna dla tego miesiąca'}.`;
+ $('pupStatus').innerHTML=!r?`Brak odczytanych danych PUP dla jednostki: <b>${esc(state.county)}</b>.`:`<b>${esc(state.county)}</b> · stan na <b>${periodEnd(state.period)}</b> · ${detail?(state.county===REGION?'suma 36 jednostek · pełna struktura bezrobocia':'pełna struktura bezrobocia'):'liczba bezrobotnych; szczegółowa struktura niedostępna dla tego miesiąca'}.`;
  if(!detail&&own.length)$('pupStatus').innerHTML+=` <button type="button" id="pupLatestStructure">Pokaż ostatnią pełną strukturę (${date(own.at(-1).okres)})</button>`;
  $('pupLatestStructure')?.addEventListener('click',()=>{state.period=own.at(-1).okres;render()});
  const over=detail?detail.czas[4]+detail.czas[5]:null;
  $('pupKpis').innerHTML=[['Zarejestrowani bezrobotni',total,'osób'],['Kobiety',women,total>0?fmt(women/total*100,1)+'% ogółu':'osób'],['Mężczyźni',total!=null&&women!=null?total-women:null,'osób'],['Bez pracy ponad 12 miesięcy',over,detail&&total>0?fmt(over/total*100,1)+'% ogółu':'brak pełnej struktury']].map(([label,n,sub])=>`<div><span>${label}</span><strong>${fmt(n)}</strong><small>${sub}</small></div>`).join('');
  root.querySelectorAll('[data-pup-group]').forEach(b=>{const active=b.dataset.pupGroup===state.group;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});
- $('pupGroupTitle').textContent=titles[state.group]+(state.population==='women'?' - kobiety':'');
+ $('pupGroupTitle').textContent=titles[state.group]+(state.population==='women'?' - kobiety':state.population==='men'?' - mężczyźni':'');
  const vals=values(detail);
  $('pupBars').innerHTML=vals?vals.map((v,i)=>{const share=denom>0?v/denom*100:0;return `<button type="button" class="pupBar" data-pup-index="${i}" aria-label="${esc(db.etykiety[state.group][i])}: ${fmt(v)} osób; ${fmt(share,1)} procent. Pokaż historię."><span>${esc(db.etykiety[state.group][i])}</span><span class="pupBarTrack"><i style="width:${share}%"></i></span><b>${state.unit==='share'?fmt(share,1)+'%':fmt(v)}</b></button>`}).join(''):'<p class="pupEmpty">Brak pełnej struktury dla wybranego powiatu i okresu.</p>';
- $('pupDistributionCaption').textContent=vals?`Razem: ${fmt(denom)} ${state.population==='women'?'kobiet':'osób'}. Udziały obliczone w wybranej grupie. Kliknij kategorię, aby zobaczyć jej historię.`:'';
+ $('pupDistributionCaption').textContent=vals?`Razem: ${fmt(denom)} ${state.population==='women'?'kobiet':state.population==='men'?'mężczyzn':'osób'}. Udziały obliczone w wybranej grupie. Kliknij kategorię, aby zobaczyć jej historię.`:'';
  const opts=[['total','Bezrobotni ogółem'],...db.etykiety[state.group].map((l,i)=>[String(i),l])];
  if(!opts.some(([v])=>v===state.trend))state.trend='total';
  $('pupTrendMetric').innerHTML=opts.map(([v,l])=>`<option value="${v}">${esc(l)}</option>`).join('');$('pupTrendMetric').value=state.trend;
  trend();sources(r);table(detail);renderRawTables(detail);coverage();sourceLimit=20;catalogue();
  $('pupCsv').disabled=!all.length;$('pupJson').disabled=!all.length;$('pupPrint').disabled=!r;
- root.querySelectorAll('[data-pup-index]').forEach(b=>b.addEventListener('click',()=>{state.trend=b.dataset.pupIndex;render()}));
+ $('pupAllTables').hidden=state.county===REGION;root.querySelectorAll('[data-pup-index]').forEach(b=>b.addEventListener('click',()=>{state.trend=b.dataset.pupIndex;render()}));
 }
 function sources(r){
  const u=validUrl(r?.zrodlo),doc=r?.dokument||'';
- $('pupSource').innerHTML=r?`<b>Źródło:</b> ${u?`<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(doc||'Dokument PUP')} ↗</a>`:esc(doc)}${r.plikArchiwum?`<span>Plik w archiwum: ${esc(r.plikArchiwum)}</span>`:''}`:'Źródło pojawi się po wybraniu dostępnej obserwacji.';
+ $('pupSource').innerHTML=state.county===REGION?'Źródło: zagregowane dane 36 powiatów i miast na prawach powiatu (MRPiPS-01 / PUP). Sumowanie tylko dla miesięcy z kompletem 36 jednostek.':r?`<b>Źródło:</b> ${u?`<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(doc||'Dokument PUP')} ↗</a>`:esc(doc)}${r.plikArchiwum?`<span>Plik w archiwum: ${esc(r.plikArchiwum)}</span>`:''}`:'Źródło pojawi się po wybraniu dostępnej obserwacji.';
 }
 function trend(){
  const points=state.trend==='total'?monthly[state.county].map(r=>({p:r.okres,v:count(r)})):byCounty[state.county].map(r=>({p:r.okres,v:values(r)?.[Number(state.trend)]??null}));
@@ -113,7 +123,7 @@ function renderRawTables(detail){
 function table(detail){
  if(!detail){$('pupNumbers').innerHTML='<p>Brak szczegółowej tabeli dla wybranego okresu. Eksport historii obejmuje dostępne obserwacje.</p>';return}
  const denom=count(detail);
- $('pupNumbers').innerHTML=`<table><caption>${esc(state.county)} - ${periodEnd(state.period)} - ${state.population==='women'?'kobiety':'wszyscy bezrobotni'}</caption><thead><tr><th>Przekrój</th><th>Kategoria</th><th>Liczba osób</th><th>Udział (%)</th></tr></thead><tbody>${Object.keys(titles).flatMap(g=>detail[g+(state.population==='women'?'Kobiety':'')].map((v,i)=>`<tr><th scope="row">${titles[g]}</th><td>${esc(db.etykiety[g][i])}</td><td>${fmt(v)}</td><td>${denom>0?fmt(v/denom*100,1):'-'}</td></tr>`)).join('')}</tbody></table>`;
+ $('pupNumbers').innerHTML=`<table><caption>${esc(state.county)} - ${periodEnd(state.period)} - ${state.population==='women'?'kobiety':state.population==='men'?'mężczyźni':'wszyscy bezrobotni'}</caption><thead><tr><th>Przekrój</th><th>Kategoria</th><th>Liczba osób</th><th>Udział (%)</th></tr></thead><tbody>${Object.keys(titles).flatMap(g=>groupValues(detail,g).map((v,i)=>`<tr><th scope="row">${titles[g]}</th><td>${esc(db.etykiety[g][i])}</td><td>${fmt(v)}</td><td>${denom>0?fmt(v/denom*100,1):'-'}</td></tr>`)).join('')}</tbody></table>`;
 }
 function coverage(){
  const n=names.filter(n=>byCounty[n].length).length,nm=names.filter(n=>monthly[n].length).length;
@@ -123,7 +133,7 @@ function coverage(){
 }
 function countyData(){return {powiat:state.county,pobrano:db.meta.pobrano,etykiety:db.etykiety,struktura:byCounty[state.county],miesieczne:monthly[state.county]}}
 function save(text,type,extension){const blob=new Blob([text],{type});const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=`bezrobocie_${state.county.replace(/\s+/g,'_')}.${extension}`;a.click();setTimeout(()=>URL.revokeObjectURL(u),1500)}
-$('pupCsv').addEventListener('click',()=>{const rows=[['powiat','okres','przekroj','kategoria','ogolem','kobiety','zrodlo']];monthly[state.county].forEach(r=>rows.push([r.powiat,r.okres,'ogolem','Bezrobotni',r.liczba_osob,r.kobiety,r.zrodlo]));byCounty[state.county].forEach(r=>Object.keys(titles).forEach(g=>r[g].forEach((v,i)=>rows.push([r.powiat,r.okres,g,db.etykiety[g][i],v,r[g+'Kobiety'][i],r.zrodlo]))));save('\ufeff'+rows.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\r\n'),'text/csv;charset=utf-8','csv')});
+$('pupCsv').addEventListener('click',()=>{const rows=[['powiat','okres','przekroj','kategoria','ogolem','kobiety','mezczyzni','zrodlo']];monthly[state.county].forEach(r=>rows.push([r.powiat,r.okres,'ogolem','Bezrobotni',r.liczba_osob??r.ogolem,r.kobiety,(r.liczba_osob??r.ogolem)!=null&&r.kobiety!=null?Number(r.liczba_osob??r.ogolem)-Number(r.kobiety):'',r.zrodlo]));byCounty[state.county].forEach(r=>Object.keys(titles).forEach(g=>r[g].forEach((v,i)=>rows.push([r.powiat,r.okres,g,db.etykiety[g][i],v,r[g+'Kobiety'][i],Number(v)-Number(r[g+'Kobiety'][i]),r.zrodlo]))));save('\ufeff'+rows.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\r\n'),'text/csv;charset=utf-8','csv')});
 $('pupJson').addEventListener('click',()=>save(JSON.stringify(countyData(),null,2),'application/json','json'));
 $('pupPrint').addEventListener('click',()=>{const {detail,month}=records(),r=detail||month;if(!r)return;const win=window.open('','_blank');if(!win){$('pupStatus').textContent='Przeglądarka zablokowała okno wydruku. Zezwól na otwieranie okien dla tej strony.';return}const title=`Struktura bezrobocia - ${state.county} - ${periodEnd(state.period)}`;win.document.write(`<!doctype html><html lang="pl"><meta charset="utf-8"><title>${esc(title)}</title><style>body{font:11pt Arial;color:#203447;margin:28px}h1{font-size:23pt}table{border-collapse:collapse;width:100%;font-size:10pt}td,th{padding:7px;border-bottom:1px solid #d4dde6;text-align:left}caption{text-align:left;margin:12px 0}thead{display:table-header-group}tr{break-inside:avoid}a{overflow-wrap:anywhere}.pupKpis{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin:25px 0}.pupKpis span,.pupKpis small{display:block;font-size:9pt}.pupKpis strong{font-size:21pt}button{padding:10px 16px}@page{size:A4 landscape;margin:32mm 12mm 16mm}@media print{body{margin:0}.printButton{display:none}}${window.EXPORT_BRAND?.css||''}</style>${window.EXPORT_BRAND?.markup()||''}<button class="printButton" onclick="window.print()">Drukuj lub zapisz jako PDF</button><h1>${esc(title)}</h1><div class="pupKpis">${$('pupKpis').innerHTML}</div>${$('pupNumbers').innerHTML}<p>${$('pupSource').innerHTML}</p><p>Dane PUP. Stan na koniec miesiąca. Kategorie wykształcenia zgodne z łącznym zakresem formularza. Od czerwca 2025 r. zmieniły się zasady rejestracji.</p></html>`);win.document.close()});
 function chooseCounty(name){const main=$('countySelect');if(main&&main.value!==name){main.value=name;main.dispatchEvent(new Event('change',{bubbles:true}))}else{state.county=name;resetPeriod();render()}}
@@ -133,14 +143,14 @@ $('pupPopulation').addEventListener('change',e=>{state.population=e.target.value
 $('pupUnit').addEventListener('change',e=>{state.unit=e.target.value;render()});
 $('pupTrendMetric').addEventListener('change',e=>{state.trend=e.target.value;trend()});
 root.querySelectorAll('[data-pup-group]').forEach(b=>b.addEventListener('click',()=>{state.group=b.dataset.pupGroup;state.trend='total';render()}));
-document.addEventListener('panel:county-change',e=>{if(names.includes(e.detail?.name)){state.county=e.detail.name;resetPeriod();render()}});
-$('countyUCounty').addEventListener('change',e=>{if(names.includes(e.target.value)){state.county=e.target.value;resetPeriod();render()}});
+document.addEventListener('panel:county-change',e=>{if(names.includes(e.detail?.name)||e.detail?.name===REGION){state.county=e.detail.name;resetPeriod();render()}});
+$('countyUCounty').addEventListener('change',e=>{if(names.includes(e.target.value)||e.target.value===REGION){state.county=e.target.value;resetPeriod();render()}});
 let sourceLimit=20;
 function catalogue(){
- const office=db.urzedy?.find(o=>o.powiaty.includes(state.county));
+ const office=state.county===REGION?null:db.urzedy?.find(o=>o.powiaty.includes(state.county));
  const search=($('pupSourceSearch').value||'').toLocaleLowerCase('pl');
  const docs=(db.dokumenty||[]).filter(d=>d.pup===office?.id&&d.nazwa.toLocaleLowerCase('pl').includes(search));
- $('pupSourceScope').textContent=office?`PUP: ${office.nazwa}. Obszar obsługi: ${office.powiaty.join(', ')}. Dokumenty mogą dotyczyć całego obszaru PUP albo wskazanych w tytule powiatów lub gmin. Znaleziono: ${docs.length}.`: 'Brak przypisanego źródła.';
+ $('pupSourceScope').textContent=office?`PUP: ${office.nazwa}. Obszar obsługi: ${office.powiaty.join(', ')}. Dokumenty mogą dotyczyć całego obszaru PUP albo wskazanych w tytule powiatów lub gmin. Znaleziono: ${docs.length}.`: (state.county===REGION?'Województwo: agregacja danych 36 powiatów. Dokumenty źródłowe wybieraj oddzielnie dla powiatu.':'Brak przypisanego źródła.');
  $('pupSourceList').innerHTML=docs.length?'<ul>'+docs.slice(0,sourceLimit).map(d=>`<li><a href="${esc(validUrl(d.url))}" target="_blank" rel="noopener noreferrer">${esc(d.nazwa.replace(/^Załącznik\s+/,''))}</a></li>`).join('')+'</ul>':'<p>Nie pozyskano dokumentów spełniających ten wybór.</p>';
  $('pupSourceMore').hidden=docs.length<=sourceLimit;
 }
