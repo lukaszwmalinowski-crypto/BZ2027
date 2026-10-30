@@ -5821,5 +5821,41 @@ window.showRegionalHistory=function(id){if(typeof oldShow==='function')oldShow(i
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
+
+<!-- v101: stabilna nawigacja dolna i usunięcie pustego pasa na iPhone -->
+<style id="v101-iphone-gap-fix">
+@media screen and (max-width:767px){
+ html body.compactUI .studioContent{display:block!important;height:auto!important;min-height:0!important;align-content:start!important;justify-content:start!important;gap:0!important;grid-auto-rows:auto!important;}
+ html body.compactUI .studioContent>.chapterRail{display:none!important;visibility:hidden!important;position:absolute!important;width:0!important;height:0!important;min-height:0!important;max-height:0!important;padding:0!important;margin:0!important;border:0!important;overflow:hidden!important;}
+ html body.compactUI .studioContent>#siteHeader{display:block!important;float:none!important;position:relative!important;top:auto!important;bottom:auto!important;min-height:0!important;max-height:none!important;height:auto!important;margin:0 0 10px!important;}
+ html body.compactUI .studioContent>#siteHeader .headerInner,html body.compactUI .studioContent>#siteHeader .headerRight{height:auto!important;max-height:none!important;min-height:0!important;}
+ html body.compactUI .studioContent>main.shell{display:block!important;float:none!important;position:relative!important;top:auto!important;min-height:0!important;height:auto!important;max-height:none!important;margin-bottom:0!important;padding-top:0!important;}
+ html body.compactUI .studioContent>main.shell #filterStudio{margin-top:0!important;}
+}
+</style>
+<script id="v101-iphone-gap-guard">
+(function(){
+ 'use strict';
+ var updating=false;
+ function fix(){
+  if(updating)return;
+  var m=window.matchMedia('(max-width:767px)').matches;
+  var root=document.querySelector('.studioContent'),header=document.getElementById('siteHeader'),main=root&&root.querySelector(':scope > main.shell');
+  if(!root||!header||!main)return;
+  updating=true;
+  if(!m){main.style.removeProperty('margin-top');updating=false;return;}
+  // Czyścimy poprzednią korektę przed pomiarem; poprawiamy tylko niepożądany duży odstęp.
+  main.style.setProperty('margin-top','0px','important');
+  var gap=main.getBoundingClientRect().top-header.getBoundingClientRect().bottom;
+  if(gap>35){main.style.setProperty('margin-top',(-Math.round(gap)+12)+'px','important');}
+  updating=false;
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fix);else fix();
+ window.addEventListener('load',fix);
+ window.addEventListener('resize',fix);
+ document.addEventListener('visibilitychange',function(){if(!document.hidden)fix()});
+ setTimeout(fix,400);setTimeout(fix,1600);
+})();
+</script>
 </body>
 </html>

@@ -1,0 +1,1 @@
+Wersja 101: usunięto rezerwowanie pustego miejsca przez górną nawigację na ekranach do 767 px. Dolny pasek pozostaje aktywny. Dodano ochronę przed dużymi odstępami po dynamicznym załadowaniu widoku. Zmieniono identyfikator cache PWA. Po wdrożeniu zamknij i ponownie otwórz Safari.
