@@ -1982,6 +1982,37 @@ html,body,body.compactUI,body.compactUI .studioFrame,.studioFrame {background:#a
   }
 }
 </style>
+
+<style id="v96-iphone-nav-layout-fix">
+/* Mobile layout: prevent a stretched chapter rail / empty navigation gap on iOS Safari. */
+@media screen and (max-width:767px){
+ html body.compactUI .studioFrame,
+ html body.compactUI .studioContent{display:block!important;height:auto!important;min-height:0!important;max-height:none!important}
+ html body.compactUI .studioContent{padding:10px 12px 30px!important;width:100%!important;max-width:100%!important;overflow-x:clip!important}
+ html body.compactUI #siteHeader{display:block!important;position:relative!important;height:auto!important;min-height:0!important;max-height:none!important;margin:0 0 10px!important;padding:0!important;overflow:visible!important}
+ html body.compactUI #siteHeader .headerInner{display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:flex-start!important;gap:10px!important;height:auto!important;min-height:0!important;max-height:none!important;padding:0!important}
+ html body.compactUI #siteHeader .brandIdentity{width:100%!important;flex:none!important;min-height:0!important;height:auto!important;padding:16px 17px!important;margin:0!important}
+ html body.compactUI #siteHeader .observatoryLogo{width:min(340px,100%)!important;max-width:100%!important;height:auto!important;max-height:100px!important;object-fit:contain!important;object-position:left center!important}
+ html body.compactUI #siteHeader .headerRight{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:7px!important;width:100%!important;margin:0!important;padding:0!important;height:auto!important;min-height:0!important}
+ html body.compactUI #siteHeader .headerActions{display:flex!important;flex-wrap:wrap!important;align-items:center!important;justify-content:flex-start!important;gap:7px!important;width:100%!important;max-width:100%!important;margin:0!important;padding:0!important}
+ html body.compactUI #siteHeader .headerActions>*{flex:0 1 auto!important;max-width:100%!important}
+ html body.compactUI #siteHeader .headerMeta{order:2!important;align-self:stretch!important;width:100%!important;max-width:100%!important;min-width:0!important;margin:0!important;overflow-wrap:anywhere!important}
+ html body.compactUI #siteHeader .dataStatusLine{max-width:100%!important;margin:0!important;white-space:normal!important;overflow:hidden!important;text-overflow:ellipsis!important}
+ html body.compactUI .chapterRail{display:block!important;position:relative!important;top:auto!important;left:auto!important;right:auto!important;float:none!important;clear:both!important;height:auto!important;max-height:76px!important;min-height:0!important;overflow:visible!important;margin:0 0 12px!important;padding:5px 8px!important;width:100%!important;box-sizing:border-box!important}
+ html body.compactUI .chapterRailInner{display:flex!important;align-items:center!important;justify-content:flex-start!important;width:100%!important;min-height:0!important;max-height:60px!important;height:auto!important;overflow:visible!important;padding:0!important;margin:0!important;gap:8px!important}
+ html body.compactUI .chapterRailInner>.compactNavButton{display:none!important}
+ html body.compactUI .chapterRailInner>.compactMobileNav{display:flex!important;flex:1 1 auto!important;align-items:center!important;min-width:0!important;width:100%!important;min-height:44px!important;max-height:60px!important;margin:0!important;padding:0!important;gap:10px!important}
+ html body.compactUI .compactMobileNav label{flex:0 0 auto!important;margin:0!important}
+ html body.compactUI .compactMobileNav select{flex:1 1 auto!important;min-width:0!important;max-width:100%!important;height:46px!important;min-height:44px!important;font-size:16px!important}
+ html body.compactUI .studioContent>.shell{margin:0!important;padding:0!important;width:100%!important;max-width:100%!important;min-height:0!important;height:auto!important}
+ html body.compactUI .compactPane{min-width:0!important;max-width:100%!important}
+}
+@media screen and (max-width:370px){
+ html body.compactUI #siteHeader .headerActions{gap:5px!important}
+ html body.compactUI #siteHeader .headerActions .actionBtn,
+ html body.compactUI #siteHeader .headerActions .exportMenu>summary{font-size:12px!important;padding:9px 10px!important}
+}
+</style>
 </head>
 <body>
 <div class="studioFrame">
@@ -2225,6 +2256,7 @@ html,body,body.compactUI,body.compactUI .studioFrame,.studioFrame {background:#a
 <div class="regionalNationalPanel" id="regionalNationalPanel" aria-labelledby="regionalNationalTitle">
 <div class="regionalNationalHeader"><div><h4 id="regionalNationalTitle">Śląskie na tle Polski</h4><p>Zmiana rok do roku · lipiec 2026 · wartości w procentach</p></div><a href="https://stat.gov.pl/" target="_blank" rel="noopener noreferrer">GUS – dane krajowe</a></div>
 <div id="regionalNationalChart" role="img" aria-label="Porównanie dynamiki zatrudnienia, wynagrodzeń i produkcji przemysłowej w województwie śląskim i w Polsce"></div>
+<section id="regionalHistoryPanel" class="regionalHistoryPanel" hidden aria-live="polite"></section>
 <div class="regionalNationalLegend"><span><i class="regionalNationalDot sl"></i>Śląskie</span><span><i class="regionalNationalDot pl"></i>Polska</span></div>
 <p class="regionalNationalNote">Dynamika zatrudnienia i wynagrodzeń dotyczy sektora przedsiębiorstw, a produkcji – przemysłu. Zestawiono te same okresy odniesienia. Nakładów inwestycyjnych nie uwzględniono: dane regionalne i krajowe mogą różnić się zakresem i sposobem liczenia dynamiki.</p>
 <div class="regionalNationalSources">Źródła: <a href="https://stat.gov.pl/obszary-tematyczne/rynek-pracy/pracujacy-zatrudnieni-wynagrodzenia-koszty-pracy/przecietne-zatrudnienie-i-wynagrodzenie-w-sektorze-przedsiebiorstw-w-lipcu-2026-r-%2C3%2C176.html" target="_blank" rel="noopener noreferrer">GUS – zatrudnienie i płace</a> · <a href="https://publikacje.new.stat.gov.pl/portal-publikacje/produkcja-sprzedana-przemyslu-w-lipcu-2026-r" target="_blank" rel="noopener noreferrer">GUS – przemysł</a></div></div>
@@ -2239,15 +2271,15 @@ html,body,body.compactUI,body.compactUI .studioFrame,.studioFrame {background:#a
 </section>
 
 <section class="gusCard demogCountyCard" id="demogCountyCard" aria-label="Demografia miast na prawach powiatu - 2014-2025">
-<div class="gusCardHead"><div><h3>Demografia powiatowa</h3><div class="sub">Zmiany liczby mieszkańców - miasta na prawach powiatu GZM</div></div><div class="gusFresh">2014-2025</div></div>
-<div class="demogMiniHead"><span>13 miast na prawach powiatu</span><button type="button" class="demogInfoBtn" id="demogInfoBtn" aria-label="Wyjaśnienia danych demograficznych" aria-expanded="false" aria-controls="demogInfoPanel">i</button><div class="demogInfoPanel" id="demogInfoPanel" hidden>Wykres przedstawia liczbę mieszkańców na koniec lat 2014-2025. Od 2020 r. GUS stosuje bilans ludności z uwzględnieniem NSP 2021. Skoku między 2019 i 2020 r. nie można interpretować wyłącznie jako migracji lub depopulacji. Źródła i szczegóły metodologiczne znajdują się w zakładce „Źródła”.</div></div>
-<label class="demogLabel" for="demogSelect">Miasto na prawach powiatu</label><select id="demogSelect" class="demogSelect"></select>
+<div class="gusCardHead"><div><h3>Demografia powiatowa</h3><div class="sub">Ludność w powiatach i miastach na prawach powiatu · GZM i GUS</div></div><div class="gusFresh">2014-2025</div></div>
+<div class="demogMiniHead"><span>13 miast z historią + 4 jednostki do uzupełnienia z GUS</span><button type="button" class="demogInfoBtn" id="demogInfoBtn" aria-label="Wyjaśnienia danych demograficznych" aria-expanded="false" aria-controls="demogInfoPanel">i</button><div class="demogInfoPanel" id="demogInfoPanel" hidden>Wykres przedstawia liczbę mieszkańców na koniec lat 2014-2025. Od 2020 r. GUS stosuje bilans ludności z uwzględnieniem NSP 2021. Skoku między 2019 i 2020 r. nie można interpretować wyłącznie jako migracji lub depopulacji. Źródła i szczegóły metodologiczne znajdują się w zakładce „Źródła”.</div></div>
+<label class="demogLabel" for="demogSelect">Powiat lub miasto na prawach powiatu</label><select id="demogSelect" class="demogSelect"></select>
 <div class="demogStatGrid"><div class="demogStat"><span>Stan na 2025 r.</span><strong id="demogCurrent">-</strong></div><div class="demogStat"><span>Zmiana od 2014 r.</span><strong id="demogDiff">-</strong></div><div class="demogStat"><span>Zmiana procentowa</span><strong id="demogPercent">-</strong></div></div>
 <div class="demogChartLegend"><span><i></i> Liczba ludności - stan na koniec roku</span><span id="demogRange">2014-2025</span></div>
 <svg id="demogLineChart" class="demogLineChart" role="img" aria-label="Wykres liczby mieszkańców w latach 2014-2025" viewBox="0 0 640 210"></svg>
 <div id="demogCoverage" class="demogCoverage" role="status"></div>
 
-<div class="gusSource demogQuickSources"><a href="https://infogzm.metropoliagzm.pl/gornoslasko-zaglebiowska-metropolia-w-cieniu-depopulacji/" target="_blank" rel="noopener noreferrer">InfoGZM - dane historyczne</a><a href="https://publikacje.new.stat.gov.pl/portal-publikacje/ludnosc-stan-i-struktura-ludnosci-oraz-ruch-naturalny-w-przekroju-terytorialnym-w-2026-r-stan-w-dniu-30-czerwca" target="_blank" rel="noopener noreferrer">GUS - najnowsze dane</a><a href="#atlasSources" id="demogMethodLink">Metodologia i źródła</a></div>
+<div class="demogV93Import"><label for="demogImportFile"><strong>Uzupełnij dane z GUS (CSV)</strong></label><div class="demogV93Actions"><input type="file" id="demogImportFile" accept=".csv,text/csv" aria-label="Wczytaj CSV z liczbą ludności"/><button id="demogCsvTemplate" type="button">Pobierz szablon CSV</button></div><p id="demogV93Sources">Import: jednostka;rok;ludnosc. Dane zapisują się lokalnie na urządzeniu. Nie zastępują oficjalnej bazy GUS.</p></div><div class="gusSource demogQuickSources"><a href="https://infogzm.metropoliagzm.pl/gornoslasko-zaglebiowska-metropolia-w-cieniu-depopulacji/" target="_blank" rel="noopener noreferrer">InfoGZM - dane historyczne</a><a href="https://publikacje.new.stat.gov.pl/portal-publikacje/ludnosc-stan-i-struktura-ludnosci-oraz-ruch-naturalny-w-przekroju-terytorialnym-w-2026-r-stan-w-dniu-30-czerwca" target="_blank" rel="noopener noreferrer">GUS - najnowsze dane</a><a href="#atlasSources" id="demogMethodLink">Metodologia i źródła</a></div>
 </section>
 <section class="gusCard gusVisualCard unemp">
 <div class="gusCardHead"><div><h3>Bezrobocie rejestrowane</h3><div class="sub" id="gusUnempSubtitle">Miesięczny przebieg stopy bezrobocia w 2026 r.</div></div><div class="gusFresh" id="gusUnempFresh">30.09.2026</div></div>
@@ -2621,7 +2653,7 @@ body.presentationMode .sourceRegistryWrap{display:none!important}
 <div class="srcCard"><div><div class="srcCardTitle">Ludność województwa śląskiego</div><div class="srcWhen">30.06.2026</div><span class="srcPeriod">półroczna</span></div><div><p class="srcCardDesc">Po nowej publikacji GUS zmień liczbę mieszkańców oraz datę. Wartość w panelu podana jest w tysiącach.</p><div class="srcFiles"><a target="_blank" rel="noopener" href="data/dane.json" title="Zobacz plik z paczki">data/dane.json</a></div></div><div class="srcLinks"><a target="_blank" rel="noopener" href="https://publikacje.new.stat.gov.pl/portal-publikacje/ludnosc-stan-i-struktura-ludnosci-oraz-ruch-naturalny-w-przekroju-terytorialnym-w-2026-r-stan-w-dniu-30-czerwca">GUS - stan ludności 30.06.2026</a></div></div>
 </div>
 <div class="srcGroup"><h3>Demografia powiatowa - zakres i metodologia</h3>
-<div class="srcCard"><div><div class="srcCardTitle">Historia ludności - 13 miast na prawach powiatu</div><div class="srcWhen">Stan na 31 grudnia, 2014-2025</div><span class="srcPeriod attention">ograniczony zakres</span></div><div><p class="srcCardDesc">Zestawienie InfoGZM obejmuje 41 gmin GZM. W module pokazano tylko 13 miast na prawach powiatu, których granice są równocześnie granicami gmin. Nie sumowano wybranych gmin do niepełnych powiatów ziemskich. Dla pozostałych 23 powiatów i miast na prawach powiatu województwa brak porównywalnych szeregów w dostarczonym pliku. Żadna wartość nie została oszacowana.</p><div class="srcFiles"><a href="data/demografia_gzm_miasta_2014_2025.json" target="_blank" rel="noopener">Dane źródłowe w paczce</a></div></div><div class="srcLinks"><a href="https://infogzm.metropoliagzm.pl/gornoslasko-zaglebiowska-metropolia-w-cieniu-depopulacji/" target="_blank" rel="noopener">InfoGZM - depopulacja</a></div></div>
+<div class="srcCard"><div><div class="srcCardTitle">Historia ludności - wszystkie 36 jednostek (13 z dostępnymi szeregami InfoGZM)</div><div class="srcWhen">Stan na 31 grudnia, 2014-2025</div><span class="srcPeriod attention">ograniczony zakres</span></div><div><p class="srcCardDesc">Zestawienie InfoGZM obejmuje 41 gmin GZM. W module pokazano tylko 13 miast na prawach powiatu, których granice są równocześnie granicami gmin. Nie sumowano wybranych gmin do niepełnych powiatów ziemskich. Wszystkie 36 powiatów i miast na prawach powiatu są dostępne do wyboru. Dla 23 jednostek nieobjętych zestawieniem InfoGZM dane historyczne wymagają importu i weryfikacji z GUS. Żadna wartość nie została oszacowana.</p><div class="srcFiles"><a href="data/demografia_gzm_miasta_2014_2025.json" target="_blank" rel="noopener">Dane źródłowe w paczce</a></div></div><div class="srcLinks"><a href="https://infogzm.metropoliagzm.pl/gornoslasko-zaglebiowska-metropolia-w-cieniu-depopulacji/" target="_blank" rel="noopener">InfoGZM - depopulacja</a></div></div>
 <div class="srcCard"><div><div class="srcCardTitle">Porównywalność danych ludności w czasie</div><div class="srcWhen">Zmiana podstawy bilansowania od 2020 r.</div><span class="srcPeriod attention">uwaga metodologiczna</span></div><div><p class="srcCardDesc">Od 2020 r. GUS uwzględnia wyniki NSP 2021 w bilansach ludności. W seriach mogą występować korekty poziomów pomiędzy 2019 a 2020 r. Różnica na tym przełomie nie musi odpowiadać faktycznej zmianie stanu ludności w jednym roku. Porównanie 2014-2025 ma charakter orientacyjny, do interpretacji trendu wymagane są szeregi ujednolicone metodologicznie.</p></div><div class="srcLinks"><a href="https://stat.gov.pl/obszary-tematyczne/ludnosc/" target="_blank" rel="noopener">GUS - ludność</a><a href="https://bdl.stat.gov.pl/bdl/start" target="_blank" rel="noopener">BDL GUS</a></div></div>
 <div class="srcCard"><div><div class="srcCardTitle">Najnowszy stan ludności powiatów</div><div class="srcWhen">30 czerwca 2026, publikacja 15 października 2026</div><span class="srcPeriod attention">do wczytania</span></div><div><p class="srcCardDesc">Dane GUS za 30.06.2026 obejmują powiaty i miasta na prawach powiatu. W bieżącej wersji nie wpisano wartości dla poszczególnych 36 jednostek, ponieważ tablice powiatowe nie zostały pobrane i zweryfikowane. Dane półroczne nie są bezpośrednio porównywalne ze stanem na koniec roku z InfoGZM.</p></div><div class="srcLinks"><a href="https://publikacje.new.stat.gov.pl/portal-publikacje/ludnosc-stan-i-struktura-ludnosci-oraz-ruch-naturalny-w-przekroju-terytorialnym-w-2026-r-stan-w-dniu-30-czerwca" target="_blank" rel="noopener">GUS - publikacja 2026</a></div></div>
 </div>
@@ -4770,56 +4802,60 @@ body.compactUI #demogCountyCard{background:#f8fbff!important;border:1px solid #a
 #demogCountyCard .gusSource{line-height:1.6;margin-top:14px}
 }@media(max-width:620px){#demogCountyCard .demogStatGrid{grid-template-columns:1fr 1fr}#demogCountyCard .demogStat:first-child{grid-column:1/-1}}
 </style>
-<script id="v76Demography">(function(){
-const series={"Bytom":{"2014":172306,"2015":170761,"2016":169617,"2017":168394,"2018":166795,"2019":165263,"2020":153827,"2021":151691,"2022":149576,"2023":147759,"2024":146290,"2025":144598},"Chorzów":{"2014":110337,"2015":109757,"2016":109398,"2017":109021,"2018":108434,"2019":107807,"2020":104448,"2021":103229,"2022":101914,"2023":100593,"2024":99420,"2025":98418},"Dąbrowa Górnicza":{"2014":123376,"2015":122712,"2016":121802,"2017":121121,"2018":120259,"2019":119373,"2020":117257,"2021":115955,"2022":114765,"2023":113460,"2024":112408,"2025":111309},"Gliwice":{"2014":184415,"2015":183392,"2016":182156,"2017":181309,"2018":179806,"2019":178603,"2020":174581,"2021":172628,"2022":171023,"2023":169915,"2024":168248,"2025":166942},"Katowice":{"2014":301834,"2015":299910,"2016":298111,"2017":296262,"2018":294510,"2019":292774,"2020":286369,"2021":282755,"2022":280190,"2023":279190,"2024":278885,"2025":277415},"Mysłowice":{"2014":75037,"2015":74851,"2016":74592,"2017":74647,"2018":74586,"2019":74618,"2020":72587,"2021":72124,"2022":71643,"2023":71280,"2024":70741,"2025":70160},"Piekary Śląskie":{"2014":56755,"2015":56374,"2016":55954,"2017":55652,"2018":55299,"2019":55030,"2020":53168,"2021":52699,"2022":52137,"2023":51707,"2024":51373,"2025":51030},"Ruda Śląska":{"2014":140669,"2015":139844,"2016":139125,"2017":138578,"2018":138000,"2019":137360,"2020":134169,"2021":132766,"2022":131532,"2023":130302,"2024":128793,"2025":127601},"Siemianowice Śląskie":{"2014":68634,"2015":68231,"2016":67905,"2017":67523,"2018":67154,"2019":66841,"2020":64935,"2021":64365,"2022":63892,"2023":63401,"2024":62817,"2025":62311},"Sosnowiec":{"2014":209274,"2015":207381,"2016":205873,"2017":204013,"2018":202036,"2019":199974,"2020":194438,"2021":191676,"2022":189178,"2023":187115,"2024":184988,"2025":182971},"Świętochłowice":{"2014":51494,"2015":50970,"2016":50644,"2017":50385,"2018":50012,"2019":49557,"2020":46645,"2021":46112,"2022":45795,"2023":45434,"2024":45021,"2025":44621},"Tychy":{"2014":128621,"2015":128444,"2016":128351,"2017":128211,"2018":127831,"2019":127590,"2020":125223,"2021":124139,"2022":123105,"2023":122045,"2024":121063,"2025":120081},"Zabrze":{"2014":177188,"2015":176327,"2016":175459,"2017":174349,"2018":173374,"2019":172360,"2020":158923,"2021":156935,"2022":155430,"2023":153838,"2024":152461,"2025":150780}};
+<script id="v93Demography">(function(){
+'use strict';
+const base={"Bytom":{"2014":172306,"2015":170761,"2016":169617,"2017":168394,"2018":166795,"2019":165263,"2020":153827,"2021":151691,"2022":149576,"2023":147759,"2024":146290,"2025":144598},"Chorzów":{"2014":110337,"2015":109757,"2016":109398,"2017":109021,"2018":108434,"2019":107807,"2020":104448,"2021":103229,"2022":101914,"2023":100593,"2024":99420,"2025":98418},"Dąbrowa Górnicza":{"2014":123376,"2015":122712,"2016":121802,"2017":121121,"2018":120259,"2019":119373,"2020":117257,"2021":115955,"2022":114765,"2023":113460,"2024":112408,"2025":111309},"Gliwice":{"2014":184415,"2015":183392,"2016":182156,"2017":181309,"2018":179806,"2019":178603,"2020":174581,"2021":172628,"2022":171023,"2023":169915,"2024":168248,"2025":166942},"Katowice":{"2014":301834,"2015":299910,"2016":298111,"2017":296262,"2018":294510,"2019":292774,"2020":286369,"2021":282755,"2022":280190,"2023":279190,"2024":278885,"2025":277415},"Mysłowice":{"2014":75037,"2015":74851,"2016":74592,"2017":74647,"2018":74586,"2019":74618,"2020":72587,"2021":72124,"2022":71643,"2023":71280,"2024":70741,"2025":70160},"Piekary Śląskie":{"2014":56755,"2015":56374,"2016":55954,"2017":55652,"2018":55299,"2019":55030,"2020":53168,"2021":52699,"2022":52137,"2023":51707,"2024":51373,"2025":51030},"Ruda Śląska":{"2014":140669,"2015":139844,"2016":139125,"2017":138578,"2018":138000,"2019":137360,"2020":134169,"2021":132766,"2022":131532,"2023":130302,"2024":128793,"2025":127601},"Siemianowice Śląskie":{"2014":68634,"2015":68231,"2016":67905,"2017":67523,"2018":67154,"2019":66841,"2020":64935,"2021":64365,"2022":63892,"2023":63401,"2024":62817,"2025":62311},"Sosnowiec":{"2014":209274,"2015":207381,"2016":205873,"2017":204013,"2018":202036,"2019":199974,"2020":194438,"2021":191676,"2022":189178,"2023":187115,"2024":184988,"2025":182971},"Świętochłowice":{"2014":51494,"2015":50970,"2016":50644,"2017":50385,"2018":50012,"2019":49557,"2020":46645,"2021":46112,"2022":45795,"2023":45434,"2024":45021,"2025":44621},"Tychy":{"2014":128621,"2015":128444,"2016":128351,"2017":128211,"2018":127831,"2019":127590,"2020":125223,"2021":124139,"2022":123105,"2023":122045,"2024":121063,"2025":120081},"Zabrze":{"2014":177188,"2015":176327,"2016":175459,"2017":174349,"2018":173374,"2019":172360,"2020":158923,"2021":156935,"2022":155430,"2023":153838,"2024":152461,"2025":150780}};
+const extra=["bielski", "Bielsko-Biała", "bieruńsko-lędziński", "będziński", "cieszyński", "Częstochowa", "częstochowski", "gliwicki", "Jastrzębie-Zdrój", "Jaworzno", "kłobucki", "lubliniecki", "mikołowski", "myszkowski", "pszczyński", "raciborski", "rybnicki", "Rybnik", "tarnogórski", "wodzisławski", "zawierciański", "Żory", "żywiecki"];
+const key='wup_demografia_2014_2025_v93';
+let imported={};try{imported=JSON.parse(localStorage.getItem(key)||'{}')}catch(e){}
+const getSeries=()=>{const out={...base};for(const [name,row] of Object.entries(imported))if(row&&typeof row==='object')out[name]={...(out[name]||{}),...row};return out};
 const fmt=n=>new Intl.NumberFormat('pl-PL').format(n);
+const el=id=>document.getElementById(id);
 function init(){
- const card=document.getElementById('demogCountyCard'),select=document.getElementById('demogSelect');if(!card||!select)return;
- const names=Object.keys(series).sort((a,b)=>a.localeCompare(b,'pl'));
- select.innerHTML='<option value="">Wybierz miasto</option>'+names.map(n=>'<option value="'+n+'">'+n+'</option>').join('');
- const county=document.getElementById('countySelect');
- const coverage=document.getElementById('demogCoverage');
- const sync=()=>{
-  if(!county)return render();
-  const name=county.value;
-  if(series[name]) {select.value=name;select.disabled=false;render();}
-  else if(name==='__WOJ__') {select.value='';select.disabled=true;showMissing('województwa śląskiego');coverage.textContent='Pełny szereg wojewódzki nie jest dostępny w tej bazie.';}
-  else {select.value='';select.disabled=false;showMissing(name);}
- };
- function showMissing(name){
-  document.getElementById('demogCurrent').textContent='-';
-  document.getElementById('demogDiff').textContent='-';
-  document.getElementById('demogPercent').textContent='-';
-  document.getElementById('demogLineChart').replaceChildren();
-  document.getElementById('demogLineChart').setAttribute('aria-label','Brak danych dla '+name);
-  coverage.textContent='Brak serii dla '+name+'.';
- }
+ const select=el('demogSelect');if(!select)return;
+ const county=el('countySelect'),coverage=el('demogCoverage'),chart=el('demogLineChart');
+ const names=[...new Set([...Object.keys(base),...extra])].sort((a,b)=>a.localeCompare(b,'pl'));
+ select.innerHTML='<option value="">Wybierz powiat lub miasto na prawach powiatu</option>' + names.map(n=>'<option value="'+n+'">'+(extra.includes(n)&&!base[n]?n+' · uzupełnij GUS':n)+'</option>').join('');
+ const source=el('demogV93Sources');
+ function clear(name){el('demogCurrent').textContent='—';el('demogDiff').textContent='—';el('demogPercent').textContent='—';chart.replaceChildren();chart.setAttribute('aria-label','Brak danych dla '+name)}
  function render(){
-  const name=select.value,entry=series[name];if(!entry)return showMissing(county?.value||'wybranego powiatu');
-  const years=Array.from({length:12},(_,i)=>String(2014+i)),v=years.map(y=>entry[y]);
-  const a=v[0],z=v.at(-1),diff=z-a,pc=diff/a*100;
-  document.getElementById('demogCurrent').textContent=fmt(z);
-  document.getElementById('demogDiff').textContent=(diff>0?'+':'')+fmt(diff)+' osób';
-  document.getElementById('demogPercent').textContent=(pc>0?'+':'')+pc.toLocaleString('pl-PL',{maximumFractionDigits:1,minimumFractionDigits:1})+'%';
-  const d=document.getElementById('demogDiff'),p=document.getElementById('demogPercent');
-  d.style.color=p.style.color=diff<0?'#af4454':'#187454';
-  const min=Math.min(...v),max=Math.max(...v),pad=Math.max((max-min)*.15,50),lo=min-pad,hi=max+pad;
-  const x=i=>48+i*540/(v.length-1),y=n=>170-(n-lo)/(hi-lo)*133;
-  const pts=v.map((n,i)=>x(i).toFixed(1)+','+y(n).toFixed(1)).join(' ');
-  const circles=v.map((n,i)=>'<circle cx="'+x(i).toFixed(1)+'" cy="'+y(n).toFixed(1)+'" r="3.4" fill="#24558e"><title>'+years[i]+': '+fmt(n)+' osób</title></circle>').join('');
-  const grid=[0,.5,1].map(t=>{const val=lo+t*(hi-lo),yy=y(val);return '<line x1="48" y1="'+yy+'" x2="596" y2="'+yy+'" stroke="#d9e2ee"/><text x="40" y="'+(yy+4)+'" text-anchor="end" font-size="11" fill="#60748d">'+(val/1000).toLocaleString('pl-PL',{maximumFractionDigits:1})+' tys.</text>'}).join('');
-  document.getElementById('demogLineChart').innerHTML=grid+'<polyline points="'+pts+'" fill="none" stroke="#24558e" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>'+circles+'<text x="48" y="195" font-size="12" fill="#526984">2014</text><text x="596" y="195" font-size="12" fill="#526984" text-anchor="end">2025</text>';
-  document.getElementById('demogLineChart').setAttribute('aria-label','Ludność '+name+' w latach 2014-2025: od '+fmt(a)+' do '+fmt(z));
-  coverage.textContent='';
+  const name=select.value,entry=getSeries()[name];const years=Array.from({length:12},(_,i)=>2014+i);
+  const available=years.filter(y=>Number.isFinite(Number(entry?.[y]))&&entry?.[y]!==undefined&&entry?.[y]!==null);
+  if(available.length<2){clear(name||'wybranej jednostki');coverage.textContent=name?'Brak zweryfikowanego szeregu dla '+name+'. Wczytaj wartości z GUS (CSV: jednostka;rok;ludnosc).':'Wybierz jednostkę, aby wyświetlić wykres.';return}
+  const vals=available.map(y=>Number(entry[y])),a=vals[0],z=vals[vals.length-1],diff=z-a,pc=diff/a*100;
+  el('demogCurrent').textContent=entry[2025]!=null?fmt(Number(entry[2025])):fmt(z)+' ('+available.at(-1)+')';
+  el('demogDiff').textContent=(diff>0?'+':'')+fmt(diff)+' osób';
+  el('demogPercent').textContent=(pc>0?'+':'')+pc.toLocaleString('pl-PL',{minimumFractionDigits:1,maximumFractionDigits:1})+'%';
+  el('demogDiff').style.color=el('demogPercent').style.color=diff<0?'#af4454':'#187454';
+  const lo=Math.min(...vals),hi=Math.max(...vals),pad=Math.max((hi-lo)*.15,50),min=lo-pad,max=hi+pad;
+  const x=yr=>48+(yr-2014)*540/11,y=v=>170-(v-min)/(max-min)*133;
+  const points=available.map(yr=>x(yr).toFixed(1)+','+y(Number(entry[yr])).toFixed(1));
+  const segments=[];let run=[];for(const yr of years){if(available.includes(yr))run.push(x(yr).toFixed(1)+','+y(Number(entry[yr])).toFixed(1));else{if(run.length>1)segments.push(run);run=[]}}if(run.length>1)segments.push(run);
+  const grid=[0,.5,1].map(t=>{const v=min+t*(max-min), yy=y(v);return '<line x1="48" y1="'+yy+'" x2="596" y2="'+yy+'" stroke="#d9e2ee"/><text x="40" y="'+(yy+4)+'" text-anchor="end" font-size="11" fill="#60748d">'+(v/1000).toLocaleString('pl-PL',{maximumFractionDigits:1})+' tys.</text>'}).join('');
+  chart.innerHTML=grid+segments.map(pts=>'<polyline points="'+pts.join(' ')+'" fill="none" stroke="#24558e" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>').join('')+available.map(yr=>'<circle cx="'+x(yr)+'" cy="'+y(Number(entry[yr]))+'" r="3.4" fill="#24558e"><title>'+yr+': '+fmt(Number(entry[yr]))+' osób</title></circle>').join('')+'<text x="48" y="195" font-size="12" fill="#526984">2014</text><text x="596" y="195" font-size="12" fill="#526984" text-anchor="end">2025</text>';
+  chart.setAttribute('aria-label','Ludność '+name+' w latach '+available[0]+'–'+available.at(-1));
+  coverage.textContent=available.length===12?'Pełny szereg 2014–2025 · '+(base[name]?'InfoGZM':'dane GUS importowane przez użytkownika'):'Dostępnych lat: '+available.length+'/12. Brakujące lata nie są uzupełniane szacunkami.';
  }
- select.addEventListener('change',render);
- document.getElementById('demogInfoBtn').addEventListener('click',()=>{const panel=document.getElementById('demogInfoPanel');panel.hidden=!panel.hidden;document.getElementById('demogInfoBtn').setAttribute('aria-expanded',String(!panel.hidden))});
- if(county)county.addEventListener('change',sync);
+ function sync(){const name=county?.value;if(name==='__WOJ__'){select.value='';select.disabled=true;clear('województwa');coverage.textContent='Dane wojewódzkie wymagają osobnego szeregu GUS.';return}select.disabled=false;select.value=names.includes(name)?name:'';render()}
+ select.addEventListener('change',render);county?.addEventListener('change',sync);
+ el('demogInfoBtn')?.addEventListener('click',()=>{const panel=el('demogInfoPanel');panel.hidden=!panel.hidden;el('demogInfoBtn').setAttribute('aria-expanded',String(!panel.hidden))});
+ el('demogImportFile').addEventListener('change',async ev=>{
+  const f=ev.target.files?.[0];if(!f)return;
+  try{const text=await f.text();const lines=text.replace(/^\uFEFF/,'').trim().split(/\r?\n/);let added=0;const normalized=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/ł/g,'l').replace(/[^a-z0-9]+/g,'');
+   for(const line of lines){const parts=line.includes(';')?line.split(';'):line.split(',');if(parts.length<3)continue;const [raw,yr,val]=parts.map(x=>x.trim().replace(/^"|"$/g,''));const name=names.find(n=>normalized(n)===normalized(raw));const year=Number(yr);const value=Number(val.replace(/\s/g,''));if(!name||!Number.isInteger(year)||year<2014||year>2025||!Number.isSafeInteger(value)||value<1)continue;imported[name]??={};imported[name][year]=value;added++}
+   if(!added)throw new Error('Brak poprawnych rekordów: jednostka;rok;ludnosc (2014–2025).');
+   localStorage.setItem(key,JSON.stringify(imported));render();source.textContent='Zaimportowano '+added+' wartości. Dane zapisano lokalnie w tej przeglądarce.';
+  }catch(err){source.textContent='Nie zaimportowano danych: '+err.message}ev.target.value='';
+ });
+ el('demogCsvTemplate').addEventListener('click',()=>{
+  const content='jednostka;rok;ludnosc\n'+extra.flatMap(n=>Array.from({length:12},(_,i)=>n+';'+(2014+i)+';')).join('\n')+'\n';
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+content],{type:'text/csv;charset=utf-8'}));a.download='demografia_GUS_36_jednostek_szablon.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+ });
  sync();
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();</script>
-<style id="v79ProvinceStyles">
+<style id="v93DemographyStyles">.demogV93Import{margin:12px 0;padding:13px;background:#f2f6fb;border:1px solid #cbd9e8;border-radius:14px;color:#344f6a;font-size:13px}.demogV93Actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px}.demogV93Actions input{max-width:100%;font-size:12px}.demogV93Actions button{padding:9px 13px;border-radius:10px;border:1px solid #a5bfd9;background:white;color:#244f80;font-weight:700;cursor:pointer}.demogV93Import p{font-size:12px;line-height:1.5;margin:8px 0 0}</style><style id="v79ProvinceStyles">
 @media screen{
  body.compactUI .provinceOverview{background:#f8fbff;border:1px solid #a6bed9;border-radius:22px;padding:18px 20px;margin:8px 0 16px;box-shadow:0 3px 10px #34577b0d;}
  body.compactUI .provinceOverview .provinceEyebrow{font-size:10px;color:#3f6589;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
@@ -4951,6 +4987,75 @@ function makeExport(){
   metadane:{zrodla:resources,zakres_zapisu:'Zestaw wyeksportowany z aktualnie załadowanej bazy aplikacji; nie jest automatycznie aktualizowany z urzędów.',zasady_agregacji:province?'Statusy zawodów: liczba wskazań statusów w 36 powiatach; nie są to oferty pracy. Tabele PUP: surowe rekordy, nie są sumowane automatycznie.':'Dane przypisane dokładnie do wybranego powiatu; bez zastępowania braków średnią.',meta_bazy:d.meta},
   polecenie_dla_ai:'Jesteś analitykiem regionalnego rynku pracy. Przeanalizuj ten plik JSON dla obszaru wskazanego w manifest.obszar. Zbuduj odpowiedź w sekcjach: (1) zakres, aktualność, jakość i braki danych; (2) najważniejsze fakty liczbowe i trendy historyczne ze wskazaniem okresów; (3) obraz regionalnego kontekstu gospodarczego z kontekst_regionalny_gus; (4) relacje z Barometrem Zawodów 2027, bez mylenia deficytu z wakatami; (5) trzy wyraźnie nazwane hipotezy do weryfikacji i dane potrzebne do ich oceny; (6) dwa lub trzy ostrożne scenariusze warunkowe z założeniami, horyzontem i niepewnością; (7) rekomendacje analityczne. Rozróżniaj fakty, interpretacje i hipotezy. Dla powiatu traktuj dane GUS za lipiec 2026 wyłącznie jako tło wojewódzkie. Nie nadpisuj nowszych wskaźników starszymi. Uwaga na przerwę metodologiczną PUP od 2025-06-01, zmianę bilansu ludności po NSP 2021, nieporównywalne zakresy przedsiębiorstw i REGON. Przy liczbach podawaj okresy oraz źródła, a przy brakach wpisuj brak danych, nie twórz fikcyjnych wartości. Scenariusze nie są oficjalną prognozą.'
  };
+ // V95: uniwersalny pakiet badawczy do pracy z dowolnym pytaniem użytkownika.
+ const completeness=(o)=>{if(o===null||o===undefined)return {status:'brak',obserwacje:0};if(Array.isArray(o))return {status:o.length?'dostępne':'puste',obserwacje:o.length};if(typeof o==='object')return {status:Object.keys(o).length?'dostępne':'puste',obserwacje:Object.keys(o).length};return {status:'dostępne',obserwacje:1};};
+ const bar=d.barometr||{};
+ const local=province?null:(bar.powiaty?.[selected]||null);
+ const localScores=province?null:(bar.trendHistoryczne?.[selected]||null);
+ const nearby=province?[]:known.filter(name=>name!==selected).map(name=>({nazwa:name,deficyt:bar.powiaty?.[name]?.deficit??null,rownwaga:bar.powiaty?.[name]?.balance??null,nadwyzka:bar.powiaty?.[name]?.surplus??null}));
+ data.schema='wup-katowice/ai-research-context/2.0';
+ data.manifest.typ='uniwersalny_pakiet_badawczy_dla_ai';
+ data.manifest.przeznaczenie=['odpowiedzi na dowolne pytania','analiza zawodów i kompetencji','raporty','prezentacje','infografiki','wykresy','mapy','porównania terytorialne','analiza trendów','scenariusze','ostrożne prognozowanie'];
+ data.przewodnik_dla_ai={
+  priorytet:'Najpierw odpowiedz na rzeczywiste pytanie użytkownika; nie narzucaj szablonu prezentacji. Dopasuj poziom szczegółowości i formę wyniku.',
+  pierwsze_kroki:['Rozpoznaj obszar, okres, zawody i odbiorcę pytania.','Zidentyfikuj obserwacje, prognozy jakościowe, kontekst i luki.','Wybierz wskaźniki faktycznie uzasadniające odpowiedź, bez sztucznego rozbudowywania.','Oddziel wartości powiatowe od wojewódzkich i krajowych.','Podaj daty, źródła, definicje i ograniczenia.'],
+  dyscyplina_dowodowa:{poziomy:['FAKT: bezpośrednio w polu danych wraz z okresem i geografią','OBLICZENIE: pochodna jawnego wzoru z pól źródłowych','INTERPRETACJA: logicznie uzasadniony komentarz do kilku danych','HIPOTEZA: prawdopodobny mechanizm wymagający sprawdzenia','SCENARIUSZ: warunkowa możliwość, nie pewna przyszłość'],regula:'Każde twierdzenie liczbowe musi mieć poprawną podstawę. Bez danych nie podawaj dat, dokładnych wielkości, rankingów, temp ani pewnych przyczyn.',luki:'null, pusty szereg i brak jednostki nie oznaczają zera. Nie interpoluj bez ostrzeżenia.'},
+  barometr_zawodow:{
+   natura:'Barometr jest jakościową jednoroczną oceną ekspercką relacji popytu i podaży pracowników w grupach zawodów, oddzielną dla powiatów. Rok 2027 oznacza prognozę, nie zaobserwowany wynik 2027.',
+   znaczenie_kategorii:{deficyt:'przewidywany niedobór kandydatów spełniających wymagania względem potrzeb pracodawców',rownowaga:'przewidywana względna równowaga podaży i popytu',nadwyzka:'przewidywana przewaga kandydatów nad zapotrzebowaniem',bez_oceny:'brak oceny w panelu; nie jest dowodem braku zawodu ani braku popytu'},
+   niedopuszczalne_wnioski:['Liczba deficytowych grup zawodów to nie liczba wakatów ani prognozowany przyrost miejsc pracy.','Deficyt nie dowodzi wzrostu liczby ofert: może wynikać ze złych warunków, braków kwalifikacyjnych, dojazdów, rotacji lub demografii.','Brak deficytu nie dowodzi braku możliwości zatrudnienia.','Wynik dla całego województwa nie jest prostą średnią ani sumą ocen powiatowych; porównaj z oficjalną agregacją.','Kody grup i definicje mogą zmieniać się między edycjami; porównaj listy zawodów.'],
+   pytania_diagnostyczne:['Jakie zawody są deficytowe w wybranym powiecie i jak zmieniła się ich ocena 2024–2027?','Które deficyty są trwałe, które nowe, a które zanikają?','Czy deficyt jest specyficzny lokalnie czy powszechny w województwie?','Jakie komentarze ekspertów wskazują przyczyny: płace, zmianowość, kwalifikacje, warunki, transport, rotacja?','Które zawody wiążą się z przemysłem, budownictwem, logistyką, edukacją, zdrowiem lub usługami?','Jak deficyty i brak ocen współwystępują z bezrobociem, strukturą wieku, edukacją i demografią?','Czy wzrost automatyzacji lub ograniczanie działalności zmieni profil kompetencji, zamiast jedynie zmniejszać popyt?','W jakich obszarach uzasadnione są szkolenia, przekwalifikowanie, doradztwo albo współpraca z pracodawcami?'],
+   analiza_trendu:['Dla każdej grupy zawodowej porównaj status rok po roku, o ile historia faktycznie istnieje.','Zidentyfikuj przejścia: równowaga→deficyt, deficyt→równowaga, nadwyżka→równowaga, brak oceny→ocena.','Policz częstość wskazań w 36 jednostkach jako zasięg przestrzenny deficytu, a nie wielkość deficytu osób.','Odróżnij zmianę klasyfikacji eksperckiej od zmiany liczby ofert i zatrudnionych.'],
+   ograniczenie:'Uzasadnienia ekspertów i statusy nie są pomiarem przyczynowości ani liczbą wolnych miejsc pracy.',
+   zrodlo:'https://barometrzawodow.pl/strona/metodologia'
+  },
+  historia_regionu_i_transformacja:{
+   tlo_historyczne:['Silne dziedzictwo górnictwa, hutnictwa i przemysłu ciężkiego w części regionu.','Restrukturyzacja przemysłu po 1989 r. oraz rozwój usług, logistyki, przemysłu zaawansowanego i sektorów technologicznych.','Duża różnorodność subregionalna: aglomeracja centralna, północ regionu, Podbeskidzie, subregion zachodni; nie przypisuj tej samej historii każdemu powiatowi.'],
+   mechanizmy_do_sprawdzenia:['transformacja energetyczna i stopniowe zmiany w sektorach wysokoemisyjnych','elektromobilność, motoryzacja i przemysł komponentów','automatyzacja, robotyzacja i AI zmieniające zadania oraz profile kompetencji','starzenie się ludności, migracje, depopulacja i zastępowalność kadr','zmiany w edukacji zawodowej, dojazdy i dostępność transportu','inwestycje, infrastruktura, łańcuchy dostaw i zależność od koniunktury','wzrost zapotrzebowania na zdrowie, opiekę i usługi dla starszych osób'],
+   ostrzezenie:'To mapa potencjalnych czynników i szersze tło, a NIE potwierdzone lokalne wydarzenia. Nie przypisuj powiatowi kopalni, zakładu, inwestycji, zwolnień ani profilu gospodarczego bez odrębnego źródła.'
+  },
+  kontekst_polski:{
+   zadanie:'Porównuj Śląskie z Polską osobno dla bezrobocia, wynagrodzeń, zatrudnienia, przemysłu, BAEL, REGON i demografii, tylko gdy dostępne są zgodne definicje i okresy.',
+   wskazniki:['poziom wskaźnika','zmiana rok do roku','różnica w punktach procentowych dla stóp i dynamik','zmiana względna dla poziomów','indeks z bazą 100 przy porównaniach wieloletnich'],
+   zasady:['Dynamika sprzedaży produkcji przemysłowej w cenach stałych nie jest tym samym co nominalna wartość sprzedaży.','Wynagrodzenia w sektorze przedsiębiorstw nie reprezentują zarobków wszystkich zatrudnionych.','Zatrudnienie w sektorze przedsiębiorstw nie jest liczbą wszystkich pracujących.','Nie odejmuj wskaźników z odmiennymi populacjami, okresami ani jednostkami.'],
+   stan:'Kontekst GUS zapisany w pliku może pochodzić z lipca 2026 r.; do aktualnej analizy zweryfikuj także najnowsze porównywalne publikacje krajowe.'
+  },
+  bezrobocie_i_demografia:{
+   pytania:['Czy liczba bezrobotnych maleje szybciej czy wolniej niż stopa bezrobocia?','Czy zmiany liczby bezrobotnych wynikają również ze zmian liczebności populacji aktywnej zawodowo?','Jakie różnice struktury widać według wieku, wykształcenia, stażu i czasu pozostawania bez pracy?','Czy wartości kobiet i mężczyzn można zestawić dla tej samej daty i kategorii?','Czy lokalny powiat odstaje od województwa i z jakiej przyczyny (hipoteza)?'],
+   zasady:['Bezrobocie rejestrowane i BAEL to odrębne definicje.','Suma powiatowych liczebności może dać województwo po zapewnieniu kompletności i wspólnej daty; średnia stóp powiatowych nie daje stopy województwa.','Załamania serii demografii wokół NSP 2021 mogą wynikać ze zmiany podstawy bilansowania.','Różnice w strukturze płci można policzyć jako ogółem minus kobiety wyłącznie przy spójnych definicjach i terminach.']
+  },
+  analiza_scenariuszowa:{
+   horyzonty:['krótki: 12 miesięcy','średni: 2–3 lata','długi: do 2030 r. lub inny termin zadany przez użytkownika'],
+   scenariusze:['bazowy: kontynuacja obserwowanych tendencji przy założonych warunkach','przyspieszonej transformacji: szybkie inwestycje i zmiany zapotrzebowania na kompetencje','negatywnego szoku: spadek popytu, restrukturyzacja lub problemy przedsiębiorstw'],
+   reguly:['Nie nazywaj jakościowego Barometru 2027 statystyczną prognozą liczby zatrudnionych.','Prognoza liczbowa jest dopuszczalna po weryfikacji długości i jakości szeregu, doborze metody, założeń i ocenie niepewności.','Przy danych punktowych lub krótkiej historii przedstaw jedynie jakościowe scenariusze i wskaźniki do monitorowania.','Dla każdego scenariusza podaj założenia, argumenty, ryzyka, wskaźniki wyprzedzające i stopień pewności.']
+  },
+  formy_wyniku:{
+   raport:'teza, streszczenie, metodyka, stan i trendy, mapa ryzyk, wnioski, rekomendacje, bibliografia',
+   prezentacja:'opowieść od kontekstu przez dowody i porównania po scenariusze oraz rekomendacje; podpisy źródeł na slajdach',
+   infografika:'jedna teza i najwyżej kilka sprawdzonych wskaźników; daty, jednostki i źródła na grafice',
+   wykres:'dobierz liniowy dla czasu, słupkowy dla jednostek, małe wielokrotności dla zawodów; nie stosuj wspólnej osi dla różnych jednostek miary',
+   porownanie:'jednolite okresy i definicje, ranking tylko w obrębie kompletnego zbioru',
+   pytania_zawodowe:'status w 2027, historia, geografia, komentarze ekspertów, implikacje kompetencyjne, brak utożsamiania z wakatami'
+  },
+  rodzaje_uzytkownikow:['zarząd i decydenci regionalni','WUP i PUP','doradcy zawodowi i szkoły','pracodawcy i inwestorzy','organizatorzy szkoleń','media i odbiorcy publiczni'],
+  przygotowanie_źródeł:'Jeśli użytkownik prosi o najnowsze wydarzenia, inwestycje, dane krajowe lub liczby spoza JSON, poszukaj oficjalnych, aktualnych źródeł i wyraźnie oddziel je od treści eksportu.'
+ };
+ data.kontrola_jakosci={
+  obszar:area,poziom:province?'województwo':'powiat',
+  barometr_profil:completeness(data.dane.barometr_zawodow.profil),
+  barometr_historia:completeness(data.dane.barometr_zawodow.historia_ocen),
+  barometr_zawody:completeness(jobs),
+  pup_obserwacje:completeness(data.dane.bezrobocie_rejestrowane.obserwacje_miesieczne_pup),
+  pup_struktura:completeness(data.dane.bezrobocie_rejestrowane.struktura_bezrobotnych_pup),
+  demografia:completeness(data.dane.demografia.historia_2014_2025),
+  zastrzezenie:'To raport obecności danych, nie potwierdzenie kompletności wszystkich miesięcy, jednostek i lat; przy każdym wniosku sprawdź daty i zakres.'
+ };
+ data.benchmark_regionalny={
+  barometr_2027:{lista_jednostek:known,liczba_jednostek:known.length,profile_dla_36_jednostek:bar.powiaty||null,uwaga:'Dostępne dla benchmarkingu liczby grup zawodowych w każdej jednostce; nie wolno mylić ich z liczebnością osób ani wakatów.'},
+  wybrany_powiat:province?null:{profil:local,historia:localScores,pozostale_powiaty_podglad:nearby},
+  uwaga:'Benchmark lokalny nie zawiera wszystkich wskaźników gospodarczych dla 36 powiatów, jeśli nie zostały pobrane do aplikacji.'
+ };
+ data.polecenie_dla_ai='Najpierw przeczytaj manifest, przewodnik_dla_ai, kontrola_jakosci i metadane. Odpowiedz na faktyczne pytanie użytkownika, niezależnie od formatu: krótka odpowiedź, analiza Barometru Zawodów, wykres, infografika, raport, prezentacja lub scenariusz. Użyj danych dla właściwej geografii i okresu; sprawdź metodologię i luki. Zwróć uwagę na historię transformacji regionu, trendy zawodowe, czynniki gospodarcze oraz — przy dostępnych spójnych danych — porównanie z Polską. Oddziel fakty, obliczenia, interpretacje, hipotezy i scenariusze. Nie dopisuj brakujących danych. Jeśli potrzebne są aktualne fakty spoza pliku, zweryfikuj je z oficjalnymi źródłami.';
  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json;charset=utf-8'});
  const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='dane-ai-'+fileSafe(area)+'-'+new Date().toISOString().slice(0,10)+'.json';a.style.display='none';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);
 }
@@ -5547,11 +5652,80 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  }
 }
 </style>
+<style id="v91-history-style">
+#regionalNationalChart .regionalNationalRow{cursor:pointer;border-radius:12px;padding:10px;border:1px solid transparent;transition:background .12s}
+#regionalNationalChart .regionalNationalRow:hover,#regionalNationalChart .regionalNationalRow:focus-visible,#regionalNationalChart .regionalNationalRow[aria-pressed="true"]{border-color:#a9bfde;background:#f1f6fd;outline:none}
+.regionalNationalRowHead::after{content:'  ▾';font-size:13px;color:#456fa4}
+.regionalHistoryPanel{margin-top:16px;background:#f8fbff;border:1px solid #ccdaec;border-radius:15px;padding:18px;min-width:0}
+.regionalHistoryPanel[hidden]{display:none!important}.regionalHistoryPanel h4{font-size:18px;margin:0 0 5px;color:#173b67}.regionalHistoryPanel p{font-size:13px;color:#4f637f;line-height:1.55}
+.regionalHistoryTop{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}.regionalHistoryClose{border:1px solid #b8cbe4;background:white;border-radius:9px;padding:8px 12px;color:#173b67;cursor:pointer;font-weight:700}
+.regionalHistoryStats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0}.regionalHistoryStats>div{background:white;border:1px solid #d9e4f1;border-radius:11px;padding:12px;min-width:0}.regionalHistoryStats strong{font-size:20px;color:#234e87;display:block;overflow-wrap:anywhere}.regionalHistoryStats small{display:block;color:#63758d;margin-bottom:5px}
+.regionalHistorySvg{display:block;width:100%;height:auto;max-height:290px;background:white;border:1px solid #e0e8f2;border-radius:12px}
+.regionalHistoryInfo{font-size:12px;color:#5c7088;margin-top:10px}.regionalHistoryPanel a{color:#225d9d}
+@media(max-width:600px){.regionalHistoryStats{grid-template-columns:1fr}.regionalHistoryPanel{padding:12px}}
+</style>
 <script id="v87-national-comparison">
 (function(){function draw(){const host=document.getElementById('regionalNationalChart');const source=document.getElementById('aiRegionalGusContext');if(!host||!source)return;let d;try{d=JSON.parse(source.textContent)}catch{return}const map=Object.fromEntries((d.wskazniki||[]).map(x=>[x.id,x]));
 const rows=[{id:'zatrudnienie_sektor_przedsiebiorstw',label:'Zatrudnienie',poland:-0.8},{id:'wynagrodzenie_brutto',label:'Wynagrodzenia',poland:6.8},{id:'produkcja_sprzedana_przemyslu',label:'Produkcja przemysłowa',poland:5.1}];
 const fmt=n=>(n>0?'+':'')+Number(n).toLocaleString('pl-PL',{minimumFractionDigits:1,maximumFractionDigits:1})+'%';
-host.replaceChildren();for(const row of rows){const regional=Number(map[row.id]?.zmiana_rdr?.wartosc);if(!Number.isFinite(regional))continue;const wrap=document.createElement('div');wrap.className='regionalNationalRow';const head=document.createElement('div');head.className='regionalNationalRowHead';head.textContent=row.label;wrap.append(head);const max=10,mid=50;for(const [name,value,cls] of [['Śląskie',regional,'sl'],['Polska',row.poland,'pl']]){const line=document.createElement('div');line.className='regionalNationalLine';const title=document.createElement('span');title.textContent=name;const plot=document.createElement('div');plot.className='regionalNationalTrack';const zero=document.createElement('i');zero.className='regionalNationalZero';plot.append(zero);const bar=document.createElement('i');bar.className='regionalNationalBar '+cls;const fraction=Math.min(Math.abs(value)/max,1)*50;bar.style.left=(value<0?mid-fraction:mid)+'%';bar.style.width=fraction+'%';plot.append(bar);const val=document.createElement('strong');val.textContent=fmt(value);line.append(title,plot,val);wrap.append(line)}host.append(wrap)}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',draw);else draw()})();
+host.replaceChildren();for(const row of rows){const regional=Number(map[row.id]?.zmiana_rdr?.wartosc);if(!Number.isFinite(regional))continue;const wrap=document.createElement('div');wrap.className='regionalNationalRow';wrap.tabIndex=0;wrap.setAttribute('role','button');wrap.setAttribute('aria-pressed','false');wrap.title='Kliknij, aby zobaczyć szczegóły i dane porównawcze';wrap.dataset.metric=row.id;wrap.addEventListener('click',()=>window.showRegionalHistory?.(row.id));wrap.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();window.showRegionalHistory?.(row.id)}});const head=document.createElement('div');head.className='regionalNationalRowHead';head.textContent=row.label;wrap.append(head);const max=10,mid=50;for(const [name,value,cls] of [['Śląskie',regional,'sl'],['Polska',row.poland,'pl']]){const line=document.createElement('div');line.className='regionalNationalLine';const title=document.createElement('span');title.textContent=name;const plot=document.createElement('div');plot.className='regionalNationalTrack';const zero=document.createElement('i');zero.className='regionalNationalZero';plot.append(zero);const bar=document.createElement('i');bar.className='regionalNationalBar '+cls;const fraction=Math.min(Math.abs(value)/max,1)*50;bar.style.left=(value<0?mid-fraction:mid)+'%';bar.style.width=fraction+'%';plot.append(bar);const val=document.createElement('strong');val.textContent=fmt(value);line.append(title,plot,val);wrap.append(line)}host.append(wrap)}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',draw);else draw()})();
+</script>
+<script id="v91-regional-history">
+(function(){
+ const data={
+ zatrudnienie_sektor_przedsiebiorstw:{title:'Zatrudnienie w sektorze przedsiębiorstw',unit:'tys. etatów',digits:1,poland:-0.8,regional:-2.9,note:'Przeciętne zatrudnienie w sektorze przedsiębiorstw (jednostki powyżej 9 pracujących). Nie jest to liczba wszystkich pracujących.'},
+ wynagrodzenie_brutto:{title:'Przeciętne miesięczne wynagrodzenie brutto',unit:'zł brutto',digits:2,poland:6.8,regional:5, note:'Wynagrodzenie nominalne brutto w sektorze przedsiębiorstw, a nie mediana płac ani przeciętna całej gospodarki.'},
+ produkcja_sprzedana_przemyslu:{title:'Produkcja sprzedana przemysłu',unit:'mln zł',digits:1,poland:5.1,regional:1.2,note:'Wartość sprzedaży przemysłowej w cenach bieżących; dynamika r/r jest wyrażona w cenach stałych. Z tego powodu nie wyliczamy historycznej wartości z dynamiki.'}
+ };
+ function fmt(x,d=1){return Number(x).toLocaleString('pl-PL',{minimumFractionDigits:d,maximumFractionDigits:d})}
+ function signed(x){return (x>0?'+':'')+fmt(x)+'%'}
+ const source=document.getElementById('aiRegionalGusContext');let observations={};try{const json=JSON.parse(source.textContent);observations=Object.fromEntries((json.wskazniki||[]).map(x=>[x.id,x]))}catch(e){}
+ const panel=document.getElementById('regionalHistoryPanel');const parent=document.getElementById('regionalNationalChart');if(!panel||!parent)return;
+ function escape(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+ function chart(value,prev,unit,digits){const max=Math.max(value,prev)*1.12;const w=740,h=255,x0=100,y0=205,chartH=155,barW=126;
+ const bars=[{x:184,v:prev,l:'Lipiec 2025',c:'#9dbadd'},{x:430,v:value,l:'Lipiec 2026',c:'#346ba5'}];
+ const ticks=[0,.25,.5,.75,1].map(f=>`<line x1="${x0}" y1="${y0-f*chartH}" x2="700" y2="${y0-f*chartH}" stroke="#e7eef7"/><text x="91" y="${y0-f*chartH+4}" text-anchor="end" font-size="12" fill="#62758c">${escape(fmt(max*f,digits))}</text>`).join('');
+ return `<svg class="regionalHistorySvg" viewBox="0 0 ${w} ${h}" role="img" aria-label="Porównanie poziomu wskaźnika w lipcu 2025 i lipcu 2026"><text x="22" y="22" fill="#536783" font-size="12">${escape(unit)}</text>${ticks}${bars.map(b=>{const bh=b.v/max*chartH;return `<rect x="${b.x}" y="${y0-bh}" width="${barW}" height="${bh}" rx="8" fill="${b.c}"/><text x="${b.x+barW/2}" y="${y0-bh-10}" text-anchor="middle" fill="#173b67" font-weight="700" font-size="17">${escape(fmt(b.v,digits))}</text><text x="${b.x+barW/2}" y="234" text-anchor="middle" fill="#445b76" font-size="15">${b.l}</text>`}).join('')}</svg>`}
+ window.showRegionalHistory=function(id){const m=data[id];if(!m)return;const ob=observations[id],value=Number(ob?.wartosc);if(!Number.isFinite(value))return;
+ const current=parent.querySelector('[data-metric="'+id+'"]');const already=panel.dataset.metric===id&&!panel.hidden;if(already){panel.hidden=true;parent.querySelectorAll('[data-metric]').forEach(e=>e.setAttribute('aria-pressed','false'));return}
+ parent.querySelectorAll('[data-metric]').forEach(e=>e.setAttribute('aria-pressed',String(e===current)));
+ panel.dataset.metric=id;panel.hidden=false;
+ let visualization='';let explanation='';
+ if(id!=='produkcja_sprzedana_przemyslu'){
+ const previous=value/(1+m.regional/100);visualization=chart(value,previous,m.unit,m.digits);
+ explanation='Wartość za lipiec 2025 r. została obliczona wstecz z poziomu z lipca 2026 r. i opublikowanej dynamiki r/r. Jest to wartość przybliżona, a nie osobna obserwacja z bazy GUS. Dane miesięczne za pozostałe miesiące nie są jeszcze osadzone w aplikacji.';
+ } else {visualization='<p>W paczce dostępna jest wartość produkcji za lipiec 2026 r. Nie pokazujemy sztucznego wykresu poziomów za 2025 r., ponieważ zmiana +1,2% jest liczona w cenach stałych, a pokazany poziom w cenach bieżących.</p>';explanation='Do wykresu pełnej historii potrzebny jest miesięczny szereg GUS wyrażony w porównywalnych cenach.'}
+ panel.innerHTML=`<div class="regionalHistoryTop"><div><h4>${escape(m.title)} – szczegóły</h4><p>Śląskie na tle Polski · lipiec 2026 · zmiana rok do roku</p></div><button type="button" class="regionalHistoryClose" id="regionalHistoryClose">Zamknij ×</button></div><div class="regionalHistoryStats"><div><small>Śląskie – lipiec 2026</small><strong>${escape(fmt(value,m.digits))} ${escape(m.unit)}</strong></div><div><small>Dynamika Śląskie r/r</small><strong>${signed(m.regional)}</strong></div><div><small>Dynamika Polska r/r</small><strong>${signed(m.poland)}</strong></div></div>${visualization}<p class="regionalHistoryInfo">${escape(explanation)}</p><p class="regionalHistoryInfo">${escape(m.note)}</p><p class="regionalHistoryInfo"><a href="https://katowice.stat.gov.pl/opracowania-biezace/komunikaty-i-biuletyny/inne-opracowania/sytuacja-spoleczno-gospodarcza-wojewodztwa-slaskiego-we-wrzesniu-2026-r-%2C2%2C180.html" target="_blank" rel="noopener noreferrer">GUS: pobierz dane do wykresów i miesięczne publikacje źródłowe</a>. Wartości porównawcze Polska pochodzą z publikacji krajowych za lipiec 2026 r.</p>`;
+ panel.querySelector('#regionalHistoryClose').addEventListener('click',()=>{panel.hidden=true;parent.querySelectorAll('[data-metric]').forEach(e=>e.setAttribute('aria-pressed','false'))});
+ panel.scrollIntoView({block:'nearest',behavior:'smooth'});
+ };
+})();
+</script>
+<style id="v92-gus-series-css">
+.gusSeriesTools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0}.gusSeriesTools label{font-size:13px;font-weight:700;color:#315171}.gusSeriesTools select,.gusSeriesTools button,.gusSeriesTools input{font:inherit;border:1px solid #a7bcd4;border-radius:9px;padding:8px 10px;background:white;color:#163a66;max-width:100%}.gusSeriesTools button{cursor:pointer}.gusSeriesError{color:#a32932;font-size:13px}.gusSeriesLegend{display:flex;gap:18px;flex-wrap:wrap;color:#405773;font-size:13px;margin:12px 0}.gusSeriesLegend span:before{content:'';display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:7px;background:#2866a2}.gusSeriesLegend span:last-child:before{background:#e0903b}.gusSeriesPanel svg{width:100%;height:auto;display:block;background:#fff;border:1px solid #d7e2ef;border-radius:12px}.gusSeriesPanel small{color:#526b86;line-height:1.5;display:block;margin:9px 0}.gusSeriesTools input[type=file]{max-width:230px;font-size:12px}.gusSeriesPanel details{margin-top:12px;color:#405773}.gusSeriesPanel summary{cursor:pointer;font-weight:700}
+</style>
+<script id="v92-gus-timeseries">
+(function(){
+'use strict';
+const KEY='wup-gus-szeregi-v92';
+const validMetrics=['zatrudnienie_sektor_przedsiebiorstw','wynagrodzenie_brutto','produkcja_sprzedana_przemyslu'];
+const labels={zatrudnienie_sektor_przedsiebiorstw:'Zatrudnienie',wynagrodzenie_brutto:'Wynagrodzenia',produkcja_sprzedana_przemyslu:'Produkcja sprzedana przemysłu'};
+let series=[];try{const a=JSON.parse(localStorage.getItem(KEY)||'[]');if(Array.isArray(a))series=a.filter(r=>validMetrics.includes(r.metric)&&/^\d{4}-\d{2}$/.test(r.period)&&Number.isFinite(r.slaskie)&&Number.isFinite(r.polska)&&['value','yoy'].includes(r.mode))}catch(e){}
+const oldShow=window.showRegionalHistory;
+function csvSplit(line,sep){let out=[],buf='',quoted=false;for(let i=0;i<line.length;i++){let c=line[i];if(c==='"'){if(quoted&&line[i+1]==='"'){buf+='"';i++}else quoted=!quoted}else if(c===sep&&!quoted){out.push(buf.trim());buf=''}else buf+=c}out.push(buf.trim());return out}
+function parseCSV(text){let lines=text.replace(/^\uFEFF/,'').split(/\r?\n/).filter(x=>x.trim());if(lines.length<2)throw Error('Arkusz nie zawiera danych.');let sep=lines[0].includes(';')?';':',';let headers=csvSplit(lines.shift(),sep).map(x=>x.toLowerCase().trim());let required=['metric','period','mode','slaskie','polska'];if(required.some(c=>!headers.includes(c)))throw Error('Wymagane nagłówki: metric;period;mode;slaskie;polska;unit');let seen=new Map();for(let [i,line] of lines.entries()){let a=csvSplit(line,sep),r=Object.fromEntries(headers.map((h,j)=>[h,a[j]||'']));r.metric=r.metric.trim();r.period=r.period.trim();r.mode=r.mode.trim().toLowerCase();for(let k of ['slaskie','polska'])r[k]=Number(r[k].replace(/\s/g,'').replace(',','.'));if(!validMetrics.includes(r.metric)||!/^\d{4}-(0[1-9]|1[0-2])$/.test(r.period)||!['value','yoy'].includes(r.mode)||!Number.isFinite(r.slaskie)||!Number.isFinite(r.polska))throw Error('Niepoprawny wiersz '+(i+2)+'. Sprawdź wskaźnik, okres, tryb i wartości.');r.unit=(r.unit|| (r.mode==='yoy'?'%':'')).slice(0,40);seen.set([r.metric,r.period,r.mode].join('|'),r)}return [...seen.values()].sort((a,b)=>a.period.localeCompare(b.period))}
+function format(v){return Number(v).toLocaleString('pl-PL',{maximumFractionDigits:2})}
+function svgChart(rows,unit){let w=900,h=325,L=77,R=22,T=25,B=58,iw=w-L-R,ih=h-T-B;let vals=rows.flatMap(r=>[r.slaskie,r.polska]);let lo=Math.min(...vals),hi=Math.max(...vals);if(lo===hi){lo-=1;hi+=1}let pad=(hi-lo)*.1;lo-=pad;hi+=pad;let x=i=>L+iw*(rows.length===1?.5:i/(rows.length-1));let y=v=>T+ih*(hi-v)/(hi-lo);let grid=Array.from({length:5},(_,i)=>{let v=lo+i*(hi-lo)/4,yy=y(v);return `<line x1="${L}" x2="${w-R}" y1="${yy}" y2="${yy}" stroke="#e0e8f1"/><text x="${L-9}" y="${yy+4}" font-size="13" fill="#61768f" text-anchor="end">${format(v)}</text>`}).join('');let poly=(key,color)=>`<polyline points="${rows.map((r,i)=>`${x(i).toFixed(1)},${y(r[key]).toFixed(1)}`).join(' ')}" fill="none" stroke="${color}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>`;let every=Math.max(1,Math.ceil(rows.length/8));let ticks=rows.map((r,i)=>i%every===0||i===rows.length-1?`<text x="${x(i)}" y="${h-25}" font-size="12" fill="#51647b" text-anchor="middle">${r.period}</text>`:'').join('');let dots=rows.length<=18?rows.map((r,i)=>`<circle cx="${x(i)}" cy="${y(r.slaskie)}" r="4" fill="#2866a2"><title>${r.period}: Śląskie ${format(r.slaskie)} ${unit}</title></circle><circle cx="${x(i)}" cy="${y(r.polska)}" r="4" fill="#e0903b"><title>${r.period}: Polska ${format(r.polska)} ${unit}</title></circle>`).join(''):'';return `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Wykres historyczny województwo śląskie na tle Polski"><text x="${L}" y="16" font-size="12" fill="#546b84">${unit.replace(/[<>&]/g,'')}</text>${grid}${poly('slaskie','#2866a2')}${poly('polska','#e0903b')}${dots}${ticks}</svg>`}
+function render(id){let panel=document.getElementById('regionalHistoryPanel');if(!panel||panel.hidden||panel.dataset.metric!==id)return;
+let old=panel.querySelector('.gusSeriesPanel');if(old)old.remove();let el=document.createElement('section');el.className='gusSeriesPanel';el.innerHTML=`<h4>Historia wskaźnika · Śląskie i Polska</h4><div class="gusSeriesTools"><label>Zakres <select data-role="range"><option value="12">12 miesięcy</option><option value="36">3 lata</option><option value="60">5 lat</option><option value="all" selected>Cała dostępna historia</option></select></label><label>Prezentacja <select data-role="mode"><option value="yoy">Dynamika r/r (%)</option><option value="value">Wartość wskaźnika</option></select></label></div><div data-role="graphic"></div><details><summary>Wczytaj oficjalne dane historyczne (CSV)</summary><p>Wybierz CSV z kolumnami <code>metric;period;mode;slaskie;polska;unit</code>. Jeden wiersz = miesiąc; tryb <code>value</code> oznacza wartości w tej samej jednostce, a <code>yoy</code> dynamikę rok do roku. Import zastępuje poprzednio zapisany zestaw.</p><div class="gusSeriesTools"><input type="file" accept=".csv,text/csv" data-role="file" aria-label="Wczytaj plik CSV"/><button type="button" data-role="clear">Usuń zaimportowane dane</button></div><p data-role="status" class="gusSeriesError" aria-live="polite"></p></details><small>Dane lokalne w aplikacji offline. Nie porównuj poziomów w różnych cenach ani nie mieszaj różnych definicji zatrudnienia i wynagrodzenia. Zmiany r/r powinny pochodzić z porównywalnych okresów GUS.</small>`;
+panel.append(el);let range=el.querySelector('[data-role="range"]'),mode=el.querySelector('[data-role="mode"]'),graphic=el.querySelector('[data-role="graphic"]'),status=el.querySelector('[data-role="status"]');
+function update(){let rows=series.filter(r=>r.metric===id&&r.mode===mode.value).sort((a,b)=>a.period.localeCompare(b.period));if(range.value!=='all'&&rows.length){let maxPeriod=rows[rows.length-1].period;let [yr,mo]=maxPeriod.split('-').map(Number);let n=Number(range.value),cutoff=new Date(Date.UTC(yr,mo-1-(n-1),1)),threshold=cutoff.getUTCFullYear()+'-'+String(cutoff.getUTCMonth()+1).padStart(2,'0'); rows=rows.filter(r=>r.period>=threshold)}if(!rows.length){graphic.innerHTML='<p>Brak zweryfikowanego szeregu miesięcznego dla wybranego trybu. Aby zobaczyć wykres, zaimportuj dane GUS w formacie CSV. Powyżej pozostaje dotychczasowe zestawienie za lipiec 2026 r.</p>';return}let unit=rows[0].unit|| (mode.value==='yoy'?'%':'jednostki z GUS');graphic.innerHTML=`<p><strong>${labels[id]}</strong> · ${rows.length} ${rows.length===1?'miesiąc':'miesięcy'} · ${rows[0].period}–${rows[rows.length-1].period}</p><div class="gusSeriesLegend"><span>Śląskie</span><span>Polska</span></div>${svgChart(rows,unit)}<small>Źródło: dane GUS wczytane przez użytkownika. Zakres i porównywalność wynikają z zawartości pliku.</small>`}
+range.addEventListener('change',update);mode.addEventListener('change',update);
+el.querySelector('[data-role="file"]').addEventListener('change',async e=>{let f=e.target.files?.[0];if(!f)return;try{let parsed=parseCSV(await f.text());series=parsed;localStorage.setItem(KEY,JSON.stringify(series));status.style.color='#23694a';status.textContent='Wczytano '+series.length+' obserwacji. Wykres zaktualizowany.';update()}catch(err){status.style.color='#a32932';status.textContent=err.message}});
+el.querySelector('[data-role="clear"]').addEventListener('click',()=>{series=[];localStorage.removeItem(KEY);status.textContent='Wyczyszczono lokalne dane historyczne.';update()});update()
+}
+window.showRegionalHistory=function(id){if(typeof oldShow==='function')oldShow(id);render(id)};
+})();
 </script>
 </body>
 </html>

@@ -29,3 +29,6 @@ Nowoczesna warstwa wizualna (jasne karty, miękkie cienie, płaskie przyciski i 
 Dopracowanie układu na iPadzie 11" (pion i poziom), iPadzie 12,9", telefonach i w Split View: zawijanie akcji w nagłówku, 7 równych kafelków nawigacji, siatki KPI/GUS dopasowane do szerokości, większe cele dotykowe (44 px), brak „przyklejonych” efektów hover na dotyku, poprawka tła na iOS Safari oraz zapas dla starszych przeglądarek (bez `color-mix`). Styl: blok `<style id="v84-responsive-polish">`.
 
 Wersja v88: naprawione wyświetlanie szczegółowej struktury bezrobocia wojewódzkiego (w poprzedniej wersji ukrywała ją reguła CSS). Zsynchronizowano kod modułu PUP w pakiecie awaryjnym osadzonym w HTML.
+
+## v94 – Demografia: 36 jednostek
+Pełna lista wszystkich 36 powiatów i miast na prawach powiatu w module demografii; 13 szeregów InfoGZM pozostaje, 23 jednostki oczekują na zweryfikowane wartości GUS.
