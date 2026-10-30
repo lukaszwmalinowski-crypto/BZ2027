@@ -2013,6 +2013,47 @@ html,body,body.compactUI,body.compactUI .studioFrame,.studioFrame {background:#a
  html body.compactUI #siteHeader .headerActions .exportMenu>summary{font-size:12px!important;padding:9px 10px!important}
 }
 </style>
+<style id="v97-iphone-no-gap">
+@media screen and (max-width:767px){
+ html body.compactUI .studioContent {display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:flex-start!important;gap:0!important;}
+ html body.compactUI #siteHeader {flex:0 0 auto!important;align-self:stretch!important;display:block!important;position:static!important;inset:auto!important;min-height:0!important;height:auto!important;max-height:none!important;margin:0 0 8px!important;}
+ html body.compactUI #siteHeader .headerInner{display:flex!important;flex-flow:column nowrap!important;justify-content:flex-start!important;align-items:stretch!important;min-height:0!important;height:auto!important;max-height:none!important;}
+ html body.compactUI .chapterRail{flex:0 0 auto!important;align-self:stretch!important;display:block!important;min-height:0!important;height:auto!important;max-height:none!important;margin:0 0 10px!important;position:static!important;inset:auto!important;transform:none!important;}
+ html body.compactUI .chapterRailInner{display:flex!important;min-height:0!important;height:auto!important;max-height:none!important;align-items:center!important;}
+ html body.compactUI .chapterRailInner>.compactMobileNav{min-height:44px!important;height:auto!important;max-height:none!important;}
+ html body.compactUI .studioContent>.shell{flex:0 0 auto!important;align-self:stretch!important;min-height:0!important;height:auto!important;max-height:none!important;margin:0!important;}
+ html body.compactUI #siteHeader .brandIdentity{min-height:0!important;height:auto!important;}
+ html body.compactUI #siteHeader .headerRight{min-height:0!important;height:auto!important;}
+}
+</style>
+<style id="v98-mobile-redesign">
+@media screen and (max-width:767px){
+ html body.compactUI .studioFrame,html body.compactUI .studioContent{min-height:0!important;height:auto!important;max-height:none!important;overflow:visible!important}
+ html body.compactUI #siteHeader{margin:0 0 8px!important;padding:10px 14px!important;border-radius:0 0 18px 18px!important;min-height:0!important;height:auto!important}
+ html body.compactUI #siteHeader .headerInner{display:flex!important;flex-direction:column!important;gap:10px!important;min-height:0!important;height:auto!important}
+ html body.compactUI #siteHeader .brandIdentity{padding:0!important;min-height:0!important;height:auto!important}
+ html body.compactUI #siteHeader .observatoryLogo{max-height:64px!important;width:auto!important;max-width:80vw!important;object-fit:contain!important}
+ html body.compactUI #siteHeader .headerRight{padding:0!important;min-height:0!important;height:auto!important}
+ html body.compactUI #siteHeader .headerActions{display:flex!important;flex-wrap:wrap!important;gap:8px!important;justify-content:flex-start!important}
+ html body.compactUI #siteHeader .headerActions .actionBtn,html body.compactUI #siteHeader .headerActions .exportMenu>summary{font-size:12px!important;padding:9px 11px!important;min-height:42px!important}
+ html body.compactUI #siteHeader .headerMeta{font-size:11px!important;white-space:normal!important;overflow-wrap:anywhere!important}
+ html body.compactUI .chapterRail{display:none!important;height:0!important;min-height:0!important;max-height:0!important;margin:0!important;padding:0!important;overflow:hidden!important}
+ html body.compactUI .studioContent>.shell,html body.compactUI .shell{margin-top:0!important;padding-top:8px!important;min-height:0!important}
+ html body.compactUI .filterStudio{margin-top:0!important}
+ html body.compactUI .compactPane{min-height:0!important}
+ html body.compactUI .compactPane[hidden]{display:none!important}
+ html body.compactUI .studioContent{padding-bottom:calc(92px + env(safe-area-inset-bottom))!important}
+ html body.compactUI .mobileBottomNav{position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(255,255,255,.98);border-top:1px solid #cbd9e9;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:7px 5px calc(7px + env(safe-area-inset-bottom));gap:3px;box-shadow:0 -5px 24px rgba(17,39,66,.12)}
+ html body.compactUI .mobileBottomNav button{border:0;background:transparent;color:#45607c;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:10px;font-weight:700;min-height:51px;border-radius:12px;min-width:0;padding:5px 2px;line-height:1.1}
+ html body.compactUI .mobileBottomNav button svg{width:21px;height:21px;stroke:currentColor;stroke-width:1.9;fill:none;stroke-linecap:round;stroke-linejoin:round}
+ html body.compactUI .mobileBottomNav button[aria-current="page"]{color:#15467b;background:#e6effb}
+ html body.compactUI .mobileMoreSheet{position:fixed;left:12px;right:12px;bottom:calc(78px + env(safe-area-inset-bottom));z-index:10000;display:none;padding:10px;background:#fff;border:1px solid #cbd9e9;border-radius:16px;box-shadow:0 12px 36px rgba(16,35,58,.22)}
+ html body.compactUI .mobileMoreSheet.open{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ html body.compactUI .mobileMoreSheet button{padding:13px 8px;font-size:14px;border:1px solid #dce5f0;border-radius:10px;background:#f5f8fc;color:#193e67;font-weight:700}
+ html body.compactUI :is(.panel,.card,.chartCard,.mapPanel){max-width:100%!important;min-width:0!important}
+}
+@media screen and (min-width:768px){.mobileBottomNav,.mobileMoreSheet{display:none!important}}
+</style>
 </head>
 <body>
 <div class="studioFrame">
@@ -4852,6 +4893,18 @@ function init(){
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+content],{type:'text/csv;charset=utf-8'}));a.download='demografia_GUS_36_jednostek_szablon.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
  });
  sync();
+ // Automatyczne dane BDL zapisane w repozytorium przez GitHub Actions.
+ // Jeżeli pliku brak albo jest błędny, zachowujemy wcześniejsze źródła.
+ fetch('data/gus_bdl_demografia.json',{cache:'default'}).then(r=>{if(!r.ok)throw Error('Brak zasilenia BDL');return r.json()})
+ .then(d=>{if(!d.series||!Object.keys(d.series).length)throw Error('Brak danych BDL');
+  for(const [name,row] of Object.entries(d.series))if(names.includes(name)&&row&&typeof row==='object'){
+   imported[name]={...(imported[name]||{}),...row};
+  }
+  select.innerHTML='<option value="">Wybierz powiat lub miasto na prawach powiatu</option>'+names.map(n=>'<option value="'+n+'">'+n+'</option>').join('');
+  if(county?.value&&names.includes(county.value))select.value=county.value;
+  source.textContent='GUS BDL: '+d.coverage_counties+'/36 jednostek · stan paczki: '+(d.retrieved_utc ? new Date(d.retrieved_utc).toLocaleDateString('pl-PL') : 'dane archiwalne')+'. Zapis lokalny — dostępny bez internetu po pierwszym otwarciu.';
+  render();
+ }).catch(()=>{source.textContent='Offline: dostępne są wbudowane szeregi dla 13 miast. Dane pozostałych jednostek pojawią się po opublikowaniu zweryfikowanej paczki GUS BDL.'});
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();</script>
@@ -5725,6 +5778,47 @@ el.querySelector('[data-role="file"]').addEventListener('change',async e=>{let f
 el.querySelector('[data-role="clear"]').addEventListener('click',()=>{series=[];localStorage.removeItem(KEY);status.textContent='Wyczyszczono lokalne dane historyczne.';update()});update()
 }
 window.showRegionalHistory=function(id){if(typeof oldShow==='function')oldShow(id);render(id)};
+})();
+</script>
+<script id="v97-iphone-runtime-fix">
+(function(){
+ function repairMobileLayout(){
+  if(!window.matchMedia('(max-width:767px)').matches)return;
+  var content=document.querySelector('.studioContent'), header=document.getElementById('siteHeader'), rail=document.querySelector('.chapterRail'), shell=content&&content.querySelector(':scope > .shell');
+  if(!content||!header||!rail||!shell)return;
+  // Reinstate the logical order; older layouts may have positioned the mobile navigation away from the header.
+  if(header.nextElementSibling!==rail)header.insertAdjacentElement('afterend',rail);
+  var forced=[ [header,'position','static'],[header,'height','auto'],[header,'min-height','0px'],[header,'max-height','none'],[rail,'position','static'],[rail,'height','auto'],[rail,'min-height','0px'],[rail,'max-height','none'] ];
+  forced.forEach(function(x){x[0].style.setProperty(x[1],x[2],'important')});
+  // Also collapse unexpected growth caused by legacy grid/flex sizing rules on mobile.
+  content.style.setProperty('display','flex','important');
+  content.style.setProperty('flex-direction','column','important');
+  content.style.setProperty('justify-content','flex-start','important');
+  content.style.setProperty('align-items','stretch','important');
+  header.style.setProperty('flex','0 0 auto','important');
+  rail.style.setProperty('flex','0 0 auto','important');
+  shell.style.setProperty('flex','0 0 auto','important');
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',repairMobileLayout); else repairMobileLayout();
+ window.addEventListener('load',repairMobileLayout);
+ window.addEventListener('resize',repairMobileLayout);
+})();
+</script>
+<script id="v98-mobile-navigation">
+(function(){
+ const items=[['map','Mapa','map'],['jobs','Zawody','briefcase'],['unemployment','Bezrobocie','users'],['gus','GUS','chart'],['more','Więcej','dots']];
+ const icons={map:'<path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/>',briefcase:'<rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/>',users:'<circle cx="9" cy="8" r="3"/><path d="M3 21v-2a6 6 0 0 1 12 0v2M17 5a3 3 0 0 1 0 6M19 21v-2a6 6 0 0 0-3-5"/>',chart:'<path d="M4 20V11M10 20V5M16 20V14M22 20V8"/>',dots:'<circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/>'};
+ function init(){if(document.getElementById('mobileBottomNav'))return;const rail=document.querySelector('.chapterRailInner');if(!rail)return;
+ const nav=document.createElement('nav');nav.id='mobileBottomNav';nav.className='mobileBottomNav';nav.setAttribute('aria-label','Nawigacja mobilna');
+ const sheet=document.createElement('div');sheet.className='mobileMoreSheet';sheet.id='mobileMoreSheet';
+ function choose(view){const original=rail.querySelector('.compactNavButton[data-view="'+view+'"]');if(original)original.click();sheet.classList.remove('open');sync();}
+ for(const [id,label,ico] of items){const b=document.createElement('button');b.type='button';b.dataset.mobileView=id;b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true">'+icons[ico]+'</svg><span>'+label+'</span>';b.addEventListener('click',()=>id==='more'?(sheet.classList.toggle('open'),sync()):choose(id));nav.appendChild(b)}
+ for(const [id,label] of [['trends','Trendy'],['rankings','Rankingi'],['sources','Źródła']]){const b=document.createElement('button');b.type='button';b.textContent=label;b.addEventListener('click',()=>choose(id));sheet.appendChild(b)}
+ document.body.append(nav,sheet);
+ function sync(){const active=rail.querySelector('.compactNavButton.active')?.dataset.view||document.querySelector('.compactPane:not([hidden])')?.dataset.view||'map';nav.querySelectorAll('button').forEach(b=>{const on=b.dataset.mobileView===(['trends','rankings','sources'].includes(active)?'more':active);if(on)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')})}
+ rail.addEventListener('click',()=>setTimeout(sync,0));document.addEventListener('click',e=>{if(!sheet.contains(e.target)&&!e.target.closest('[data-mobile-view="more"]'))sheet.classList.remove('open')});sync();
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
 </body>

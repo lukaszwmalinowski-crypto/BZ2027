@@ -32,3 +32,7 @@ Wersja v88: naprawione wyświetlanie szczegółowej struktury bezrobocia wojewó
 
 ## v94 – Demografia: 36 jednostek
 Pełna lista wszystkich 36 powiatów i miast na prawach powiatu w module demografii; 13 szeregów InfoGZM pozostaje, 23 jednostki oczekują na zweryfikowane wartości GUS.
+
+
+## v97 – iPhone
+Usunięto odstęp między nagłówkiem a wyborem widoku: końcowe reguły CSS + wymuszenie kolejności i układu przez JS na ekranach do 767px.
