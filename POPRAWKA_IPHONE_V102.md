@@ -1,0 +1,1 @@
+Wersja 102: przebudowa kolejności DOM na telefonie: nagłówek → główna treść. Okno dialogowe raportu przeniesiono poza kontener układu. Dodano stabilny flex-column bez wolnego miejsca. Widok desktop pozostawiono bez zmian. Test na rzeczywistym Safari wymagany.

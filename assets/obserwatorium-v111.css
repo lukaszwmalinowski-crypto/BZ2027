@@ -1,0 +1,42 @@
+/* v111: nawigacja 3-obszarowa i selektor eksportu; reszta modułów jest nienaruszona. */
+body.compactUI{--v111-accent:#a63e53;--v111-soft:#fff1f3;--v111-edge:#efd0d6;--v111-ink:#25344b;--v111-gap:20px}
+body.compactUI[data-main-area="bezrobocie"]{--v111-accent:#ab682b;--v111-soft:#fff4e7;--v111-edge:#efd4b7}
+body.compactUI[data-main-area="gospodarka"]{--v111-accent:#6652a4;--v111-soft:#f3efff;--v111-edge:#dad1f4}
+body.compactUI .v111Rail{display:none!important}
+.v111Toolbar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px clamp(16px,3vw,38px);background:#fff;border-bottom:1px solid #e2e8f0}
+.v111MainTabs{display:flex;gap:10px;flex-wrap:wrap}
+.v111MainTabs button,.v111Presentation button,.v111Subnav button{font:inherit;cursor:pointer;border:1px solid #dde5ed;background:#fff;color:#334762;border-radius:12px;padding:11px 16px;font-size:14px;font-weight:750}
+.v111MainTabs button.active{background:var(--v111-accent);border-color:var(--v111-accent);color:#fff}
+.v111Presentation button{white-space:nowrap;background:#163f69;color:white}
+.v111Subnav{display:flex;flex-wrap:wrap;gap:8px;padding:12px clamp(16px,3vw,38px);background:var(--v111-soft);border-bottom:1px solid var(--v111-edge)}
+.v111Subnav button{border-color:transparent;background:transparent;font-size:13px;padding:9px 13px}
+.v111Subnav button.selected{background:white;color:var(--v111-accent);border-color:var(--v111-edge);box-shadow:0 1px 4px rgba(20,35,60,.05)}
+.v111Heading{padding:22px clamp(16px,3vw,38px) 6px;background:var(--v111-soft)}
+.v111Heading span{font-size:11px;font-weight:800;letter-spacing:.13em;color:var(--v111-accent)}
+.v111Heading h1{font-size:clamp(24px,3vw,35px);line-height:1.2;margin:5px 0 4px;color:#1a2b44}
+.v111Heading p{font-size:13px;color:#5f6e83;margin:0}
+body.compactUI[data-main-area] .compactPane:not([hidden]){background:transparent}
+body.compactUI[data-main-area] .compactPane:not([hidden]) :is(.card,.gusCard,.pupModule,.trendCard,.rank,.historyArchive){border-color:var(--v111-edge)!important}
+body.compactUI[data-main-area] .compactPane:not([hidden]) :is(.cardhead,.pupHeading,.trendHead,.gusCardHead){background:var(--v111-soft)!important}
+body.compactUI .compactPane[hidden]{display:none!important}
+.v111Pick{position:relative;z-index:2;display:flex;align-items:center;justify-content:flex-end;gap:7px;float:right;margin:12px 14px 6px;padding:7px 10px;background:#fff;border:1px solid #dce5ed;border-radius:10px;font:700 12px/1.2 Inter,Arial,sans-serif;color:#314663;cursor:pointer}
+.v111Pick input{width:17px;height:17px;accent-color:var(--v111-accent)}
+.v111Footer{padding:26px clamp(16px,3vw,38px) 110px;border-top:1px solid #e5eaf0;background:#f7f9fc;text-align:center}
+.v111Footer button{cursor:pointer;border:1px solid #cad6e3;border-radius:12px;background:#fff;color:#23446a;font-weight:800;padding:13px 18px}
+.v111Footer p{color:#66778c;font-size:12px}
+.v111Dialog{border:1px solid #d8e3ee;border-radius:20px;box-shadow:0 25px 80px #13284444;width:min(860px,calc(100vw - 28px));max-height:85vh;padding:0;color:#20354e;background:#fff}
+.v111Dialog::backdrop{background:#081c34aa}
+.v111DialogHead{display:flex;justify-content:space-between;gap:18px;padding:24px;border-bottom:1px solid #e4ebf3}.v111DialogHead span{color:#7b5ba1;font-size:11px;letter-spacing:.1em;font-weight:800}.v111DialogHead h2{font-size:24px;margin:6px 0}.v111DialogHead p{color:#62758c;font-size:13px;margin:0}.v111DialogHead button{align-self:flex-start;border:0;background:#edf2f7;border-radius:10px;font-size:25px;width:40px;height:40px;cursor:pointer}
+#v111BasketList{max-height:51vh;overflow:auto;padding:14px 22px}.v111BasketRow{display:grid;grid-template-columns:24px minmax(0,1fr) auto;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #e8edf3}.v111BasketRow strong{display:block;font-size:14px}.v111BasketRow small{display:block;color:#66778c;line-height:1.5;font-size:12px}.v111BasketRowActions{display:flex;gap:5px}.v111BasketRowActions button{padding:7px 10px;border:1px solid #d8e2ed;border-radius:9px;background:white;cursor:pointer}.v111DialogFoot{display:flex;justify-content:flex-end;gap:10px;padding:18px 22px;border-top:1px solid #e4ebf3}.v111DialogFoot button{border:1px solid #d2dce8;background:white;padding:12px 16px;border-radius:10px;font-weight:750;cursor:pointer}.v111DialogFoot button:last-child{background:#183f6a;color:white}
+.v111MobileNav{display:none}
+@media(max-width:900px){.v111Toolbar{flex-wrap:wrap}.v111MainTabs{width:100%}.v111MainTabs button{flex:1}.v111Presentation{margin-left:auto}}
+@media(max-width:767px){.v111Toolbar{padding:12px 14px}.v111MainTabs{display:none}.v111Subnav{padding:10px 12px;gap:5px}.v111Subnav button{font-size:12px;padding:8px 10px}.v111Heading{padding:18px 16px 6px}.v111MobileNav{position:fixed;z-index:9999;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));bottom:0;left:0;right:0;padding:8px 7px calc(8px + env(safe-area-inset-bottom));gap:5px;background:#fff;border-top:1px solid #dce5ed;box-shadow:0 -8px 25px #18385420}.v111MobileNav button{font:700 11px/1.2 Inter,Arial,sans-serif;color:#304a65;border:0;border-radius:11px;background:#f2f5f9;min-height:49px;padding:6px 3px}.v111MobileNav button[data-v111-mobile="barometr"]{color:#a63e53}.v111MobileNav button[data-v111-mobile="bezrobocie"]{color:#ab682b}.v111MobileNav button[data-v111-mobile="gospodarka"]{color:#6652a4}body.compactUI .mobileBottomNav,body.compactUI .mobileMoreSheet{display:none!important}.v111BasketRow{grid-template-columns:24px minmax(0,1fr)}.v111BasketRowActions{grid-column:2}.v111DialogFoot{flex-wrap:wrap}.v111Pick{margin:10px 10px 4px}.v111Toolbar .v111Presentation button{min-height:44px}}
+@media print{.v111Toolbar,.v111Subnav,.v111Heading,.v111Footer,.v111Pick,.v111MobileNav{display:none!important}}
+
+/* v112: wybór do prezentacji NIE może być bezpośrednim dzieckiem siatki mapy. */
+body.compactUI .studioContent #atlasMap{grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr)!important;align-items:start!important;}
+body.compactUI .studioContent #atlasMap>.mapStudioCard{grid-column:1!important;grid-row:1!important;min-width:0!important;}
+body.compactUI .studioContent #atlasMap>.profileStudioCard{grid-column:2!important;grid-row:1!important;min-width:0!important;display:block!important;}
+body.compactUI #atlasMap .studioMapHead{display:flex!important;flex-wrap:wrap;align-items:center;gap:10px!important;}
+body.compactUI #atlasMap .v112MapPick{float:none!important;margin:0 0 0 auto!important;flex:0 0 auto;}
+@media(max-width:767px){body.compactUI .studioContent #atlasMap{grid-template-columns:minmax(0,1fr)!important;gap:12px!important;}body.compactUI .studioContent #atlasMap>.mapStudioCard{grid-column:1!important;grid-row:1!important;}body.compactUI .studioContent #atlasMap>.profileStudioCard{grid-column:1!important;grid-row:2!important;}}

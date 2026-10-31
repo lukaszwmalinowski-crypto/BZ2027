@@ -36,3 +36,28 @@ Pełna lista wszystkich 36 powiatów i miast na prawach powiatu w module demogra
 
 ## v97 – iPhone
 Usunięto odstęp między nagłówkiem a wyborem widoku: końcowe reguły CSS + wymuszenie kolejności i układu przez JS na ekranach do 767px.
+
+## v104 — GUS bez ręcznego importu
+W GUS usunięto pola do wczytywania CSV i przyciski szablonów. Demografia: 16/36 jednostek z osadzonymi szeregami ludności (13 InfoGZM + Częstochowa, Bielsko-Biała i powiat częstochowski). Niekompletna karta „Wynagrodzenia powiatowe” została usunięta; porównania Śląskie–Polska pozostają w GUS. Pozostałe powiaty są nadal na liście, ale brakujących liczb nie zastępujemy szacunkami. Pełne informacje o pokryciu: `GUS_WBUDOWANE_V104.md`.
+
+## Zmiany v105 (30.10.2026)
+- Jednolita, pastelowa kolorystyka sekcji związana z głównymi przyciskami. Nie zmienia znaczenia kolorów danych na mapach i wykresach.
+- Usunięto kartę „Wynagrodzenia powiatowe” (dostępne tylko jedno miasto i jeden rok). Pozostają wynagrodzenia regionalne Śląskie–Polska.
+- Zaktualizowano identyfikator pamięci offline.
+
+## Poprawka v106 (30.10.2026)
+- Skorygowano motywy kolorystyczne: akcent wyłącznie na obramowaniu kart i małych etykietach; usunięto tła i wewnętrzne cienie z nagłówków.
+- Naprawiono problem nachodzenia paska koloru na tytuły „Struktura bezrobocia” i „Archiwum”, bez modyfikowania danych i legend.
+- Dodano podstawowe zabezpieczenia zawijania tekstu i odświeżono pamięć offline.
+
+
+## Aktualizacja v116 – trwały wybór do prezentacji
+
+- Można dodać cały panel „Struktura bezrobocia i historia zmian”.
+- Checkbox zaznaczony dla wybranego powiatu, miesiąca i wariantu wykresu nie znika po chwili.
+- Ponowne odznaczenie usuwa pozycję; wybory są zapisywane w pamięci przeglądarki.
+
+
+## Prezentacja na firmówce WUP – v118
+
+Wybierz panele przez „Dodaj” → „Moja prezentacja” → „Generuj PPTX”. Każdy slajd korzysta z oryginalnej firmówki WUP Katowice jako tła 16:9. Generator zapewnia kartom, wykresom i mapom bezpieczny obszar między logotypami i stopką. Tytułowy slajd powstaje automatycznie. Zmiana nie dotyczy plików z danymi ani innych eksportów.

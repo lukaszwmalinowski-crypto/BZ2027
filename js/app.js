@@ -1246,8 +1246,8 @@ function openReportDialog(){
   reportCountySelect.value=getReportCounty();
   reportDialog.showModal();
 }
-document.getElementById('pdfBtn').addEventListener('click',openReportDialog);
-document.getElementById('pptBtn').addEventListener('click',openReportDialog);
+document.getElementById('pdfBtn')?.addEventListener('click',openReportDialog);
+document.getElementById('pptBtn')?.addEventListener('click',openReportDialog);
 const reportChartSpecs={
  'unemp-rate-monthly':['gusUnempChart','Bezrobocie - stopa, miesiące 2026',[['unemp-metric','rate'],['unemp-mode','monthly']],'gusUnemp'],
  'unemp-rate-annual':['gusUnempChart','Bezrobocie - stopa, lata 2016-2025',[['unemp-metric','rate'],['unemp-mode','annual']],'gusUnemp'],

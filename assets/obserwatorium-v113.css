@@ -1,0 +1,10 @@
+/* v114: actions are a true footer row inside selectable panels; never overlay content. */
+.v113Selectable{min-width:0;max-width:100%;position:relative;}
+.v114ActionRow{display:flex;justify-content:flex-end;align-items:center;gap:8px;flex:0 0 auto;grid-column:1/-1;width:100%;padding:10px 13px;margin-top:12px;border-top:1px solid #e5ebf2;background:#fafcff;box-sizing:border-box;}
+.v113Pick{position:static;z-index:auto;display:inline-flex;align-items:center;gap:7px;min-height:36px;padding:7px 12px;border:1px solid #d2deeb;border-radius:10px;background:#fff;color:#274460;font:700 12px/1.2 Inter,Arial,sans-serif;cursor:pointer;box-shadow:none;max-width:100%;}
+.v113Pick input{width:17px;height:17px;margin:0;accent-color:#275a97;flex:none;}
+.v113Pick:focus-within{outline:2px solid #275a97;outline-offset:2px;}
+.v113Added{background:#e9f7ef;border-color:#9fdbba;}
+.v113Selectable.mapStudioCard,.v113Selectable.profileStudioCard{padding-top:0!important;}
+@media(max-width:640px){.v114ActionRow{padding:8px 10px}.v113Pick{min-height:36px;font-size:12px}}
+@media print{.v114ActionRow{display:none!important}}

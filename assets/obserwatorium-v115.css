@@ -1,0 +1,233 @@
+/* v114 - Korekty układu potwierdzone na zrzutach i w testach Chromium */
+@media screen{
+  body.compactUI .v111Heading{display:none!important}
+  /* Redukcja redundantnych tytułów rozdziałów: aktualny podwidok jest już w podnawigacji. */
+  body.compactUI .compactPane .chapterHeading{display:none!important}
+  body.compactUI .v111Toolbar{padding-block:12px}
+  body.compactUI .v111Subnav{padding-block:10px}
+  body.compactUI .compactPane:not([hidden]){min-width:0}
+  body.compactUI .compactPane:not([hidden]) :is(.card,.rank,.gusCard,.pupModule,.trendCard,.voivBenchmark){min-width:0;max-width:100%;}
+  /* Bez przypadkowego nachodzenia etykiet i przycisków w nagłówkach. */
+  body.compactUI :is(.voivBenchmarkHead,.regionalPulseHeader,.gusCardHead,.pupHeading,.mapHeadTitle,.titleRow){min-width:0;flex-wrap:wrap;row-gap:10px;}
+  body.compactUI :is(.voivBenchmarkHead,.regionalPulseHeader,.gusCardHead,.pupHeading,.mapHeadTitle,.titleRow)>*{min-width:0;max-width:100%}
+  body.compactUI :is(.mapSignal .sValue,.mapSignal .sHint,.mapSignal .sLabel,.voivRef .vValue,.voivRef .vHint,.pupHeading h2){overflow-wrap:anywhere}
+  body.compactUI[data-compact-view="map"] .studioContent #atlasMap{align-items:start!important}
+  body.compactUI .studioContent #atlasMap .profileStudioCard{min-width:0!important;}
+  body.compactUI .studioContent #atlasMap .mapSignals{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important;}
+  body.compactUI .studioContent #atlasMap .mapSignal{min-width:0!important;padding:12px!important;display:flex!important;flex-direction:column!important;gap:5px!important;align-items:flex-start!important;}
+  body.compactUI .studioContent #atlasMap .mapSignal .sValue{font-size:clamp(18px,1.6vw,26px)!important;line-height:1.2!important;margin:0!important;text-align:left!important;}
+  body.compactUI .studioContent #atlasMap .mapSignal .sHint{font-size:11px!important;line-height:1.45!important;}
+  body.compactUI .studioContent #atlasMap .mapSignal .sLabel{font-size:12px!important;line-height:1.3!important;}
+  body.compactUI .voivBenchmarkGrid{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:12px!important;}
+  body.compactUI .voivRef{min-width:0!important;padding:14px!important;}
+  body.compactUI .voivRef .vValue{font-size:clamp(22px,2.2vw,32px)!important}
+  body.compactUI .v114ActionRow{z-index:0!important;position:static!important;}
+}
+@media screen and (max-width:1200px){
+ body.compactUI[data-compact-view="map"] .studioContent #atlasMap{grid-template-columns:minmax(0,1fr)!important;gap:16px!important;}
+ body.compactUI[data-compact-view="map"] .studioContent #atlasMap>.mapStudioCard{grid-column:1!important;grid-row:auto!important;}
+ body.compactUI[data-compact-view="map"] .studioContent #atlasMap>.profileStudioCard{grid-column:1!important;grid-row:auto!important;}
+ body.compactUI .studioContent #atlasMap .mapSignals{grid-template-columns:repeat(3,minmax(0,1fr))!important;}
+ body.compactUI .voivBenchmarkGrid{grid-template-columns:repeat(3,minmax(0,1fr))!important;}
+}
+@media screen and (max-width:700px){
+ body.compactUI .v111Toolbar{padding:10px 12px}
+ body.compactUI .v111Subnav{gap:5px;padding:9px 12px}
+ body.compactUI .v111Subnav button{font-size:12px;padding:9px 10px;min-height:40px}
+ body.compactUI .studioContent #atlasMap .mapSignals{grid-template-columns:minmax(0,1fr)!important;}
+ body.compactUI .studioContent #atlasMap .mapSignal{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:center!important;column-gap:14px!important;}
+ body.compactUI .studioContent #atlasMap .mapSignal .sLabel{grid-column:1;grid-row:1;}
+ body.compactUI .studioContent #atlasMap .mapSignal .sValue{grid-column:2;grid-row:1;text-align:right!important;}
+ body.compactUI .studioContent #atlasMap .mapSignal .sHint{grid-column:1/-1;grid-row:auto;}
+ body.compactUI .voivBenchmarkGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body.compactUI .voivBenchmarkGrid>:last-child:nth-child(odd){grid-column:1/-1}
+}
+@media screen and (min-width:701px) and (max-width:1000px){body.compactUI .voivBenchmarkGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media print{body.compactUI .v111Heading{display:none!important}}
+
+body.compactUI .v111Subnav[hidden]{display:none!important;}
+
+@media screen and (max-width:767px){
+ body.compactUI .v111Toolbar{display:none!important}
+ body.compactUI .v111Subnav:not([hidden]){display:flex!important;flex-wrap:nowrap!important;overflow-x:auto!important;white-space:nowrap;scrollbar-width:none}
+ body.compactUI .v111Subnav::-webkit-scrollbar{display:none}
+ body.compactUI .headerActions .v111Presentation{margin:0!important;display:flex;align-items:center}
+ body.compactUI .headerActions .v111Presentation button{font-size:11px!important;padding:8px 12px!important;min-height:38px!important;border:1px solid #cad9e8;background:#1a416e;color:white;border-radius:14px}
+}
+@media screen and (min-width:768px) and (max-width:1050px){
+ body.compactUI .v111Toolbar{flex-wrap:nowrap!important;column-gap:12px!important}
+ body.compactUI .v111MainTabs{flex:1 1 auto!important;width:auto!important;flex-wrap:nowrap!important;min-width:0}
+ body.compactUI .v111MainTabs button{flex:1 1 auto!important;min-width:0;padding:10px 9px!important;font-size:12px!important}
+ body.compactUI .v111Presentation{flex:0 0 auto!important;margin-left:0!important}
+ body.compactUI .v111Presentation button{padding:11px 12px!important;font-size:12px!important}
+}
+
+
+/* v115 — jeden, spójny język kart i nagłówków.
+   Zastępuje v106 i v107; dotyka tylko prezentacji, nie danych ani wykresów.
+   Kolor należy do nagłówka, a nie do całego panelu i każdego potomka. */
+@media screen {
+ body.compactUI {
+  --ui-card:#fff;
+  --ui-stroke:#dde6f0;
+  --ui-text:#193757;
+  --ui-secondary:#5b718a;
+  --ui-radius:22px;
+  --ui-small-radius:15px;
+  --ui-elev:0 6px 22px rgba(22,49,80,.045);
+  --ui-pad:clamp(16px,2vw,24px);
+  --ui-gap:clamp(14px,1.8vw,22px);
+ }
+ body.compactUI[data-main-area="barometr"] {--ui-theme:#b4455e;--ui-theme-soft:#fff3f5;--ui-theme-edge:#e9cbd3;--ui-theme-text:#81354a}
+ body.compactUI[data-main-area="bezrobocie"] {--ui-theme:#b16c31;--ui-theme-soft:#fff5ea;--ui-theme-edge:#ecd4bc;--ui-theme-text:#7f4b24}
+ body.compactUI[data-main-area="gospodarka"] {--ui-theme:#715bbb;--ui-theme-soft:#f6f3ff;--ui-theme-edge:#dfd6f4;--ui-theme-text:#52418c}
+
+ /* Każdy panel zyskuje JEDNĄ białą powierzchnię; żadnych wewnętrznych pastelowych plansz. */
+ body.compactUI[data-main-area] .compactPane:not([hidden]) :is(
+    .card,.gusCard,.pupModule,.trendCard,.rank,.historyArchive,
+    .regionalPulse,.regionalNationalPanel,.demogCountyCard,
+    .compactJobsCard,.occupationProfileCard,.analyticSignal,.compareCard,.insightCard,
+    .sourceRegistry,.mapStructureBox,.mapSignalsBox
+ ) {
+  background:var(--ui-card)!important;
+  border:1px solid var(--ui-stroke)!important;
+  border-radius:var(--ui-radius)!important;
+  box-shadow:var(--ui-elev)!important;
+  min-width:0;
+  max-width:100%;
+ }
+
+ /* Tylko pas nagłówkowy ma kolor działu, bez ujemnych marginesów i nakładających się pseudoelementów. */
+ body.compactUI[data-main-area] .compactPane:not([hidden]) :is(
+  .pupHeading,.gusCardHead,.regionalPulseHeader,.trendHead,
+  .moduleHead,.studioMapHead,.cardhead,.sourceRegistry>summary,
+  .historyArchive>summary
+ ) {
+  background:var(--ui-theme-soft)!important;
+  border:1px solid var(--ui-theme-edge)!important;
+  border-radius:var(--ui-small-radius)!important;
+  padding:clamp(14px,1.65vw,20px)!important;
+  margin:0 0 var(--ui-gap)!important;
+  box-shadow:none!important;
+  min-width:0;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px 18px!important;
+  flex-wrap:wrap;
+ }
+ /* Respektujemy odrębny układ tytułów na mapie, bez wymuszania przesunięcia elementów. */
+ body.compactUI .compactPane .studioMapHead .mapHeadTitle{min-width:0;flex:1 1 260px;}
+ body.compactUI .compactPane .pupHeading>div:first-child{min-width:0;flex:1 1 240px;}
+ body.compactUI .compactPane .gusCardHead>div:first-child{min-width:0;flex:1 1 200px;}
+ body.compactUI .compactPane .regionalPulseHeader>div:first-child{min-width:0;flex:1 1 250px;}
+ body.compactUI .compactPane :is(.pupHeading,.gusCardHead,.regionalPulseHeader,.trendHead,.moduleHead,.studioMapHead)
+ :is(h2,h3,p,.sub){max-width:100%;overflow-wrap:break-word;}
+ body.compactUI .compactPane .pupHeading h2{margin:0 0 7px!important;line-height:1.22!important;font-size:clamp(20px,2vw,26px)!important;color:var(--ui-text)!important;}
+ body.compactUI .compactPane .pupHeading p{margin:0!important;line-height:1.5!important;font-size:clamp(12px,1vw,14px)!important;color:var(--ui-secondary)!important;}
+ body.compactUI .compactPane .pupHeading h2 .titleIcon{vertical-align:middle;flex-shrink:0;}
+ body.compactUI .compactPane .gusCardHead h3{margin:0 0 5px!important;line-height:1.3!important;color:var(--ui-text)!important;}
+ body.compactUI .compactPane .gusCardHead .sub{margin:0!important;color:var(--ui-secondary)!important;line-height:1.5!important;}
+ body.compactUI .compactPane .gusCardHead .gusFresh{
+  margin:0!important;padding:8px 11px!important;align-self:center;white-space:nowrap;
+  border:1px solid var(--ui-theme-edge)!important;background:#fff!important;
+  color:var(--ui-theme-text)!important;border-radius:100px!important;line-height:1.3;
+ }
+ body.compactUI .compactPane .regionalPulseHeader{margin-bottom:var(--ui-gap)!important;}
+ body.compactUI .compactPane .regionalPulseHeader p{margin:5px 0 0!important;}
+
+ /* Karty KPI powinny być równe wysokością, bez zduplikowanych ramek i rozlanych pastelowych warstw. */
+ body.compactUI .compactPane :is(.gusMetricPair,.gusHeroKpis,.pupKpis,.mapSignals,.voivBenchmarkGrid){gap:14px!important;}
+ body.compactUI .compactPane .gusMetricPair{margin:0 0 6px!important;}
+ body.compactUI .compactPane .gusMetricPair>div{
+  min-width:0;background:#f8fafc!important;border:1px solid #e5ebf3!important;
+  border-radius:var(--ui-small-radius)!important;padding:clamp(14px,1.5vw,19px)!important;
+ }
+ body.compactUI .compactPane .gusMetricPair b{color:#244977!important;line-height:1.16!important;overflow-wrap:break-word;}
+ body.compactUI .compactPane .gusMetricPair>div:nth-child(2) b{font-size:clamp(17px,1.75vw,22px)!important;color:#3d5879!important;}
+ body.compactUI .compactPane .gusMetricPair span{margin-top:7px!important;display:block;line-height:1.45!important;}
+ body.compactUI .compactPane :is(.gusHeroKpi,.pupKpis>div,.mapSignal,.voivRef,.metric,.yearCard,.rankitem){
+  min-width:0;border-radius:var(--ui-small-radius)!important;
+  border:1px solid #e5ebf3!important;
+  background:#f9fbfe!important;box-shadow:none!important;
+ }
+
+ /* Layout sekcji bezrobocia: wspólna, elastyczna siatka, żadnego wystającego opisu. */
+ body.compactUI #pupStructureModule{padding:var(--ui-pad)!important;}
+ body.compactUI #pupStructureModule .pupHeading{margin-bottom:18px!important;}
+ body.compactUI #pupStructureModule .pupControls{gap:14px!important;margin:0 0 14px!important;}
+ body.compactUI #pupStructureModule .pupControls>div{min-width:0;}
+ body.compactUI #pupStructureModule .pupControls label{display:block;margin-bottom:7px!important;line-height:1.4!important;}
+ body.compactUI #pupStructureModule .pupControls select{min-height:44px!important;background:#fff!important;border:1px solid #cfdce9!important;border-radius:12px!important;}
+ body.compactUI #pupStructureModule :is(.pupCard,.pupCoverageSummary){border-radius:var(--ui-small-radius)!important;background:#fff!important;border:1px solid #dfe7f1!important;}
+ body.compactUI #pupStructureModule .pupBar{min-width:0!important;}
+
+ /* GUS: bez białych pasów o podwójnej wysokości, zwłaszcza stopka z eksportem. */
+ body.compactUI .compactPane .gusCard{padding:var(--ui-pad)!important;display:flex;flex-direction:column;gap:0;}
+ body.compactUI[data-main-area="gospodarka"] #gusModule .gusCard{background:#fff!important;}
+ body.compactUI .compactPane .gusSource{margin-top:13px!important;padding-top:12px!important;border-top:1px solid #e8edf5!important;line-height:1.5!important;}
+ body.compactUI .compactPane .demogMiniHead{margin:0 0 16px!important;display:flex;flex-wrap:wrap;align-items:center;gap:10px;}
+ body.compactUI .compactPane .demogLabel{margin:0 0 7px!important;display:block;}
+ body.compactUI .compactPane .demogSelect{min-height:48px!important;background:#fff!important;}
+ body.compactUI .compactPane .demogStatGrid{margin-top:16px!important;gap:12px!important;}
+
+ /* Stała, niewielka stopka akcji — nie jest drugim panelem ani pustym obszarem. */
+ body.compactUI .compactPane .v114ActionRow{
+  margin:16px 0 0!important;padding:12px 0 0!important;
+  min-height:0!important;background:transparent!important;
+  border:0!important;border-top:1px solid #e8edf5!important;
+  display:flex!important;justify-content:flex-end!important;align-items:center!important;
+  position:static!important;box-shadow:none!important;
+ }
+ body.compactUI .compactPane .v113Pick{
+  border:1px solid #ccd9e8!important;background:#fff!important;
+  border-radius:11px!important;min-height:38px!important;padding:8px 12px!important;
+  color:#2a486a!important;box-shadow:none!important;
+ }
+ body.compactUI .compactPane .v113Pick:focus-within{outline:2px solid var(--ui-theme)!important;outline-offset:2px;}
+ body.compactUI .compactPane .v113Added{background:#ecf8f1!important;border-color:#b1d9c2!important;}
+ body.compactUI .compactPane .v113Pick input{accent-color:var(--ui-theme)!important;}
+
+ /* Oszczędna hierarchia: na białej karcie brak dodatkowych niepotrzebnych pastelowych warstw. */
+ body.compactUI .compactPane :is(.compactResponsiveDetail,.compactSourceGroup){
+  background:#fff!important;border-color:var(--ui-stroke)!important;box-shadow:none!important;
+ }
+ body.compactUI .compactPane :is(.gusCardHead,.pupHeading,.trendHead) :is(.titleIcon,.uiIcon){background:#fff!important;color:var(--ui-theme)!important;}
+ body.compactUI .compactPane .regionalPulse :is(.regionalPulseInfo,.regionalPulseTools){min-width:0;}
+ body.compactUI .compactPane :is(.gusCard,.rank,.pupModule,.trendCard,.regionalPulse) :is(.sub,.pupCaption,.vHint){line-height:1.55;}
+
+ /* Bez narzucania jednej wysokości wszystkim panelom; brak sztucznie rozciąganych pustych miejsc. */
+ body.compactUI .compactPane :is(.gusCard,.pupCard,.rank,.trendCard){height:auto!important;min-height:0;}
+ body.compactUI .compactPane .gusColumn{align-self:start!important;}
+}
+@media screen and (max-width:767px){
+ body.compactUI .compactPane :is(.pupHeading,.gusCardHead,.regionalPulseHeader,.trendHead,.moduleHead,.studioMapHead,.cardhead){padding:14px 15px!important;gap:8px!important;}
+ body.compactUI #pupStructureModule{padding:14px!important;}
+ body.compactUI #pupStructureModule .pupControls{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;}
+ body.compactUI .compactPane .gusMetricPair{grid-template-columns:1fr!important;}
+ body.compactUI .compactPane .gusCardHead>div:first-child{flex:0 1 auto!important;flex-basis:auto!important;min-height:0!important;}
+ body.compactUI .compactPane .gusFresh{align-self:flex-start!important;}
+ body.compactUI .compactPane .gusCardHead{min-height:0!important;align-items:flex-start!important;}
+ body.compactUI .compactPane .pupHeading h2{display:block!important;font-size:19px!important;line-height:1.27!important;}
+ body.compactUI .compactPane .pupHeading h2>.titleIcon{display:inline-flex!important;vertical-align:middle!important;margin:0 9px 3px 0!important;}
+ body.compactUI .compactPane .pupHeading>div:first-child{flex-basis:auto!important;}
+ body.compactUI .compactPane .v114ActionRow{margin-top:12px!important;padding-top:10px!important;}
+}
+@media print{body.compactUI .compactPane .v114ActionRow{display:none!important}}
+
+/* v116: wybór do prezentacji jest trwałym stanem, nie chwilową animacją */
+body.compactUI .compactPane .v113Pick.v113Added,
+body.compactUI .compactPane .v113Pick.v113Added:hover{
+  background:#e3f5e9!important;
+  border:1px solid #65ae80!important;
+  color:#175d3b!important;
+  box-shadow:inset 0 0 0 1px rgba(30,110,67,.09)!important;
+}
+body.compactUI .compactPane .v113Pick.v113Added span{color:#175d3b!important;font-weight:800!important;}
+body.compactUI .compactPane .v113Pick.v113Added input{accent-color:#198455!important;}
+body.compactUI #pupStructureModule.v113Selectable>.v114ActionRow{
+  margin-top:18px!important;
+  padding:14px 0 0!important;
+  border-top:1px solid #dce7ee!important;
+  background:transparent!important;
+}

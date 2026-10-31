@@ -1,7 +1,9 @@
-# Demografia powiatowa – 36 jednostek województwa śląskiego
+# Demografia powiatowa — dane wbudowane w aplikacji
 
-Wersja v94 udostępnia pełną listę 36 powiatów i miast na prawach powiatu. Dla 13 miast pozostają osadzone serie InfoGZM 2014–2025. Dla 23 pozostałych jednostek wartości nie są wbudowane i wymagają importu CSV z GUS. Brak wartości nie oznacza zera.
+Użytkownik **nie importuje żadnych plików**. Po wybraniu powiatu lub miasta aplikacja wyświetla serię z lokalnej paczki, o ile jest dostępna.
 
-Format CSV: `jednostka;rok;ludnosc` (lata 2014–2025, jedna liczba dla jednego roku). Pobierz szablon bezpośrednio z panelu aplikacji. Import zapisuje się lokalnie w przeglądarce; nie jest synchronizowany między urządzeniami. Dane dla powiatów ziemskich dotyczą całych powiatów, a nie tylko miast o podobnej nazwie.
+Stan wersji 104: 36 jednostek do wyboru; 16 jednostek z rocznymi szeregami ludności. Dane 2014–2025 dla 13 miast pochodzą z poprzedniego zestawu InfoGZM, a dane 2016–2025 dla Częstochowy, Bielska-Białej i powiatu częstochowskiego pochodzą z opracowania GeoTaktyka na podstawie GUS BDL.
 
-Źródła do uzupełnienia: Bank Danych Lokalnych GUS, ludność według miejsca zamieszkania, stan na 31 grudnia; należy zweryfikować spójność definicji i rewizje serii.
+Uwaga: powiat częstochowski jest odrębny od miasta Częstochowy. Dane są osadzone w `data/gus_bdl_demografia.json` oraz w zabezpieczającym bloku HTML. Seria od 2020 roku uwzględnia zmiany bilansowania ludności po NSP 2021.
+
+Dalsze 20 jednostek wymagają **aktualizacji zestawu aplikacji przez administratora**, a nie importu użytkownika. Nie pokazujemy szacowanych wartości zastępczych.

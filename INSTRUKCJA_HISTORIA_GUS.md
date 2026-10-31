@@ -1,13 +1,9 @@
-# Historia wskaźników GUS – import danych
+# Historia gospodarki — dane wbudowane w aplikacji
 
-W sekcji GUS / Kondycja gospodarki kliknij Zatrudnienie, Wynagrodzenia lub Produkcja sprzedana przemysłu. Rozwiń „Wczytaj oficjalne dane historyczne (CSV)” i wskaż plik z danymi źródłowymi.
+Użytkownik **nie importuje plików**. W panelu GUS dane gospodarcze województwa i Polski mają zachowane wartości za lipiec 2026 oraz opisy metodologiczne. Kliknięcie w zestawienie otwiera szczegóły, a tam gdzie istnieje porównanie 2025–2026, wartości za 2025 są oznaczone jako wyliczone wstecz, a nie niezależny odczyt GUS.
 
-Kolumny: `metric;period;mode;slaskie;polska;unit`.
+W wersji v105 usunięto niekompletną kartę „Wynagrodzenia powiatowe” (wcześniej dostępna była jedna obserwacja Częstochowy). Regionalne porównanie Śląskie–Polska pozostaje dostępne.
 
-`metric`: `zatrudnienie_sektor_przedsiebiorstw`, `wynagrodzenie_brutto`, `produkcja_sprzedana_przemyslu`. `period`: `YYYY-MM`. `mode`: `value` (poziom) lub `yoy` (zmiana r/r w procentach). Obie lokalizacje muszą być policzone według tej samej definicji i jednostki. Przykładowy szablon zawiera tylko nagłówki — bez wymyślonych obserwacji.
+Pełne miesięczne historie gospodarcze 2015–2026 i wynagrodzenia dla wszystkich 36 powiatów **nie są jeszcze wbudowane**. Na stronie nie występują pola importowania CSV.
 
-Wykresy obsługują okresy 12 miesięcy / 3 lata / 5 lat / cały dostępny szereg, prezentują dwie linie, a dane są zapisywane lokalnie w przeglądarce. Import zastępuje poprzedni zestaw. Nie jest to automatyczny import XLSX z GUS.
-
-Źródło arkuszy GUS: https://katowice.stat.gov.pl/opracowania-biezace/komunikaty-i-biuletyny/inne-opracowania/sytuacja-spoleczno-gospodarcza-wojewodztwa-slaskiego-we-wrzesniu-2026-r-%2C2%2C180.html
-
-Uwaga: dane 2015–2026 nie zostały automatycznie pobrane, ponieważ dostęp do plików źródłowych nie powiódł się. Widok nie sugeruje, że taki szereg już istnieje w aplikacji.
+W v105 usunięto moduł „Wynagrodzenia powiatowe”, ponieważ dostępna była tylko jedna obserwacja jednego miasta.
