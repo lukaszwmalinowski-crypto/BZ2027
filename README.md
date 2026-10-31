@@ -1,3 +1,5 @@
+> **Aktualizacja v123 (31.10.2026):** wybory do prezentacji przeniesione do jednolitych stopek kart i map. Szczegóły: `ZMIANY_V123.md`.
+
 # Obserwatorium Śląskie 2027 - wydanie publikacyjne v84
 
 To jest odchudzona paczka do publikacji jako statyczna strona (np. GitHub Pages).
@@ -61,3 +63,19 @@ W GUS usunięto pola do wczytywania CSV i przyciski szablonów. Demografia: 16/3
 ## Prezentacja na firmówce WUP – v118
 
 Wybierz panele przez „Dodaj” → „Moja prezentacja” → „Generuj PPTX”. Każdy slajd korzysta z oryginalnej firmówki WUP Katowice jako tła 16:9. Generator zapewnia kartom, wykresom i mapom bezpieczny obszar między logotypami i stopką. Tytułowy slajd powstaje automatycznie. Zmiana nie dotyczy plików z danymi ani innych eksportów.
+
+
+## v120 – mapy i przełączane wykresy w „Mojej prezentacji”
+
+Mapę konkretnego zawodu wybierzesz w sekcji **Barometr Zawodów → Mapa i profil → Wybierz zawód, aby pokazać jego mapę → Dodaj tę mapę**. Dodatkowo przy wykresach trendów, bezrobocia i GUS dostępny jest przełącznik **Dodaj ten wykres**, który zapamiętuje aktualnie wyświetlany wariant. Możesz wrócić do innych ustawień i zapisać kolejne widoki. Identyczne konfiguracje nie dublują slajdów. Szczegóły: `ZMIANY_V120.md`.
+
+
+## v122 – generator bez pustych wykresów
+
+- Wykresy demografii, historii PUP, trendu Barometru i porównywarki są zapisywane z wartościami liczbowymi, a generator odtwarza je w PowerPoint jako edytowalne elementy.
+- Zestawienia kategorii (wiek, wykształcenie, płeć, staż pracy, czas pozostawania bez pracy) zachowują opisy i wartości.
+- Brak danych lub wykres niezapisany przed wyrenderowaniem powoduje pominięcie slajdu i czytelny komunikat z nazwami brakujących analiz zamiast pustej planszy.
+- Uwaga: wykresy wybrane w starszych wersjach mogą mieć zapisany pusty obraz; odznacz i zaznacz je ponownie w v122, aby zapisać nowe dane liczbowe.
+
+
+**Aktualizacja v124:** naprawia uruchamianie aplikacji w trybie pliku lokalnego i na serwerze po dodaniu zakładki Płeć; szczegóły: `ZMIANY_V124.md`.

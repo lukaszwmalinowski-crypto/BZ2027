@@ -1,9 +1,9 @@
-/* Obserwatorium Slaskie 2027 — v118, zasoby offline */
-const CACHE_NAME='obserwatorium-slaskie-v119';
+/* Obserwatorium Slaskie 2027 — v122, zasoby offline */
+const CACHE_NAME='obserwatorium-slaskie-v124';
 const CORE=[
   './','./index.html','./manifest.webmanifest','./favicon.png','./apple-touch-icon.png',
   './assets/layout.css','./assets/pup.css','./assets/obserwatorium-v111.css',
-  './assets/obserwatorium-v111.js','./assets/obserwatorium-v119.css','./assets/obserwatorium-presentations-v118.js','./assets/obserwatorium-v113.css','./assets/obserwatorium-v115.css',
+  './assets/obserwatorium-v111.js','./assets/obserwatorium-v124.css','./assets/obserwatorium-v119.css','./assets/obserwatorium-v120.css','./assets/obserwatorium-presentations-v118.js','./assets/obserwatorium-v113.css','./assets/obserwatorium-v115.css',
   './assets/logo-obserwatorium.png','./assets/firmowka-blue.jpg','./assets/pptxgen.bundle.js',
   './icons/icon-192.png','./icons/icon-512.png','./icons/icon-maskable-512.png',
   './data/dane.json','./data/demografia_gzm_miasta_2014_2025.json','./data/gus_bdl_demografia.json',

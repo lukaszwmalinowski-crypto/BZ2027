@@ -1,4 +1,4 @@
-/* Obserwatorium v118: generator z danych, nie z tekstu interfejsu.
+/* Obserwatorium v122: generator odporny na puste wykresy, z danymi liczbowymi.
    Nie wpływa na pozostałe eksporty (PDF / klasyczna prezentacja powiatowa). */
 (() => {
   'use strict';
@@ -62,19 +62,19 @@
     txt(slide,short(value,42),x+.22,y+.47,w-.42,.62,String(value).length>19?21:27,{bold:true,color:NAVY});
     if(desc)txt(slide,short(desc,95),x+.22,y+h-.57,w-.43,.42,10.7,{color:MUTED,valign:'top',breakLine:false});
   }
-  function addRank(slide,pptx,rows,accent){
+  function addRank(slide,pptx,rows,accent,heading='LICZBA WSKAZAŃ'){
     const r=rows.filter(z=>z.label&&Number.isFinite(Number(z.value))).slice(0,10),max=Math.max(1,...r.map(z=>z.value));
     if(!r.length)return false;
     contentPanel(slide,pptx);
     const long=r.some(v=>v.label.length>36),left=long?5.19:4.52;
-    txt(slide,'LICZBA WSKAZAŃ',left,2.98,3,.21,9.3,{color:MUTED,bold:true});
+    txt(slide,heading,left,2.98,3,.21,9.3,{color:MUTED,bold:true});
     const barX=left,barW=12.23-left;
     r.forEach((z,i)=>{
       const y=3.31+i*.293;
       txt(slide,short(z.label,long?58:48),.97,y+.006,left-1.13,.25,10.1,{color:TEXT});
       fill(slide,pptx,barX,y+.06,barW-.62,.12,'E9EFF5',.045);
       if(z.value>0)fill(slide,pptx,barX,y+.06,(barW-.62)*z.value/max,.12,accent,.045);
-      txt(slide,String(z.value),11.90,y+.003,.38,.24,10.7,{color:NAVY,bold:true,align:'right'});
+      txt(slide,Number(z.value).toLocaleString('pl-PL',{maximumFractionDigits:2}),11.84,y+.003,.45,.24,10.7,{color:NAVY,bold:true,align:'right'});
     });
     return true;
   }
@@ -104,6 +104,69 @@
       txt(slide,short(m.detail,170),x+.23,y+.62,w-.45,Math.max(.33,h-.73),11.6,{color:MUTED,valign:'top',breakLine:false});
     });
     return true;
+  }
+  // v122: editable PowerPoint charts generated from stored numeric values,
+  // rather than relying on screenshot conversion of browser-only SVG content.
+  function drawSeries(slide,pptx,chart,accent){
+    const labels=chart?.labels||[],series=(chart?.series||[]).filter(s=>s.values?.some(v=>Number.isFinite(v)));
+    if(labels.length<2||!series.length)return false;
+    contentPanel(slide,pptx);
+    const plot={x:1.68,y:3.26,w:9.76,h:2.32};
+    const all=series.flatMap(s=>s.values).filter(v=>Number.isFinite(v));
+    if(!all.length)return false;
+    let min=Math.min(...all),max=Math.max(...all);const pad=Math.max((max-min)*.13,Math.max(Math.abs(max),1)*.012);
+    min=min-pad;max=max+pad;
+    if(min>0&&min/max<.33)min=0;
+    const vy=n=>plot.y+plot.h*(max-n)/(max-min||1);
+    const vx=i=>plot.x+i*plot.w/(labels.length-1);
+    const fmt=n=>Number(n).toLocaleString('pl-PL',{maximumFractionDigits:Number.isInteger(n)?0:2});
+    for(let i=0;i<=4;i++){
+      const v=min+(max-min)*i/4,y=vy(v);
+      slide.addShape(pptx.ShapeType.line,{x:plot.x,y,w:plot.w,h:0,line:{color:'E4EBF2',width:.85}});
+      txt(slide,fmt(v),.95,y-.11,.62,.24,8.5,{align:'right',color:MUTED});
+    }
+    const tick=Math.max(1,Math.ceil(labels.length/8));
+    labels.forEach((label,i)=>{if(i%tick!==0&&i!==labels.length-1)return;
+      txt(slide,short(label,16),Math.max(.91,vx(i)-.34),5.72,.76,.22,8.7,{align:'center',color:MUTED});
+    });
+    const colors=[accent,'869EBF','2A9075','CA904B'];
+    series.slice(0,4).forEach((ser,idx)=>{
+      const c=colors[idx];let previous=null;
+      ser.values.forEach((value,i)=>{
+        if(!Number.isFinite(value)){previous=null;return}
+        const x=vx(i),y=vy(value);
+        if(previous)slide.addShape(pptx.ShapeType.line,{x:previous.x,y:previous.y,w:x-previous.x,h:y-previous.y,line:{color:c,width:2.2}});
+        if(labels.length<=16||i===labels.length-1||i===0)slide.addShape(pptx.ShapeType.ellipse,{x:x-.039,y:y-.039,w:.078,h:.078,line:{color:c,width:0},fill:{color:c}});
+        previous={x,y};
+      });
+      const legendX=1.23+idx*2.76;
+      fill(slide,pptx,legendX,6.15,.13,.12,c,.01);
+      txt(slide,short(ser.name||'Seria',34),legendX+.19,6.095,2.52,.23,10,{color:TEXT});
+    });
+    return true;
+  }
+  function legacyCategoryRows(item){
+    const title=clean(item.title).toLowerCase(),t=clean(item.text||'');
+    let names=[];
+    if(title.includes('wykształcenie'))names=['Wyższe','Policealne i średnie zawodowe / branżowe','Średnie ogólnokształcące','Zasadnicze zawodowe / branżowe','Gimnazjalne / podstawowe i poniżej'];
+    else if(title.includes('staż pracy'))names=['Do 1 roku','1-5 lat','5-10 lat','10-20 lat','20-30 lat','30 lat i więcej','Bez stażu'];
+    else if(title.includes('płeć'))names=['Kobiety','Mężczyźni'];
+    else if(title.includes('czas pozostawania'))names=['Do 1 miesiąca','1-3 miesiące','3-6 miesięcy','6-12 miesięcy','12-24 miesiące','Powyżej 24 miesięcy'];
+    if(!names.length)return [];
+    const out=[];
+    for(let i=0;i<names.length;i++){
+      const start=t.indexOf(names[i]);if(start<0)continue;
+      const segment=t.slice(start+names[i].length, i<names.length-1&&t.indexOf(names[i+1],start+names[i].length)>=0?t.indexOf(names[i+1],start+names[i].length):undefined);
+      const m=segment.match(/^\s*([\d\s.,]+)(?=\s|$)/),v=m?number(m[1]):NaN;
+      if(Number.isFinite(v))out.push({label:names[i],value:v});
+    }
+    return out;
+  }
+  function usefulNarrative(item){
+    const t=parseNarrative(item);
+    if(t.length<26)return '';
+    if(/^(?:Zestawienie od dwóch|Wybierz|Brak danych|Dane pojawią się|Porównanie na żywo|Najważniejsze|Demografia powiatowa)/i.test(t))return '';
+    return t;
   }
   function parseRank(item){
     if(item.structured?.rankings?.length)return item.structured.rankings;
@@ -198,7 +261,12 @@
       const w=Math.min(1500,Math.max(340,parseFloat(svg.getAttribute('width'))||vb[2]||1100)),h=Math.min(1000,Math.max(250,parseFloat(svg.getAttribute('height'))||vb[3]||700));
       svg.setAttribute('width',String(w));svg.setAttribute('height',String(h));
       const url=URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(svg)],{type:'image/svg+xml'}));
-      const img=new Image();img.onload=()=>{try{const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');ctx.fillStyle='#ffffff';ctx.fillRect(0,0,w,h);ctx.drawImage(img,0,0,w,h);resolve({data:c.toDataURL('image/png'),ratio:w/h})}catch{resolve(null)}finally{URL.revokeObjectURL(url)}};img.onerror=()=>{URL.revokeObjectURL(url);resolve(null)};img.src=url;
+      const img=new Image();img.onload=()=>{try{const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');ctx.fillStyle='#ffffff';ctx.fillRect(0,0,w,h);ctx.drawImage(img,0,0,w,h);
+      const px=ctx.getImageData(0,0,w,h).data;let visual=0;const step=Math.max(1,Math.floor(Math.max(w,h)/300));
+      for(let yy=0;yy<h;yy+=step)for(let xx=0;xx<w;xx+=step){const j=(yy*w+xx)*4;
+        if(px[j+3]>90 && (px[j]<220||px[j+1]<220||px[j+2]<220))visual++;
+      }
+      resolve(visual>=12?{data:c.toDataURL('image/png'),ratio:w/h}:null)}catch{resolve(null)}finally{URL.revokeObjectURL(url)}};img.onerror=()=>{URL.revokeObjectURL(url);resolve(null)};img.src=url;
     }catch{resolve(null)}
   })}
   async function imageFor(item){let data=item.png;if(data){const ratio=await new Promise(resolve=>{const img=new Image();img.onload=()=>resolve(img.width/img.height);img.onerror=()=>resolve(1.8);img.src=data});return {data,ratio}}return svgConvert(item.svg)}
@@ -263,15 +331,23 @@
     try{
       await loadBrandImage();
       const pptx=new Constructor();pptx.layout='LAYOUT_WIDE';pptx.author='Obserwatorium Rynku Pracy';pptx.subject='Analizy rynku pracy województwa śląskiego';pptx.title='Obserwatorium - wybrane analizy';pptx.lang='pl-PL';
-      drawCover(pptx,selected);let index=1;
+      drawCover(pptx,selected);let index=1;const skipped=[],rendered=[];
       for(const item of selected){
-        if(item.structured?.occupationList){index+=addOccupationListSlides(pptx,item,index+1);continue;}
+        if(item.structured?.occupationList){index+=addOccupationListSlides(pptx,item,index+1);rendered.push(item);continue;}
         index++;const slide=pptx.addSlide(),name=normalizeTitle(item),accent=drawHeader(slide,pptx,name,scope(item),item.view,index, /Zobacz źródła/i.test(item.source||'')?(item.view==='gus'?'GUS / BDL':item.view==='unemployment'?'Zestawienia PUP':'Barometr Zawodów 2027'):(item.source||'Obserwatorium'));
         let drawn=false;const struct=item.structured||{};
-        if(struct.map){const im=await imageFor(item);if(im){contentPanel(slide,pptx);imageFit(slide,im,.97,2.93,11.35,3.16);
+        const columnTitle=item.view==='unemployment'?(item.settings?.params?.pupUnit==='share'?'UDZIAŁ PROCENTOWY':'LICZBA OSÓB'):
+          /porównaj powiaty/i.test(name)?(item.settings?.params?.compareChartMetric==='unemp'?'STOPA BEZROBOCIA (%)':'WARTOŚĆ WSKAŹNIKA'):'LICZBA WSKAZAŃ';
+        if(struct.chartData?.kind==='series')drawn=drawSeries(slide,pptx,struct.chartData,accent);
+        if(!drawn&&struct.chartData?.kind==='bars'&&struct.chartData.rankings?.length)drawn=addRank(slide,pptx,struct.chartData.rankings,accent,columnTitle);
+        if(!drawn&&struct.map){const im=await imageFor(item);if(im){contentPanel(slide,pptx);imageFit(slide,im,.97,2.93,11.35,3.16);
              txt(slide,short(struct.map.legend||name,110),1.13,6.21,10.9,.22,10.7,{bold:true,color:accent});drawn=true;}}
-        const ranking=drawn?[]:(struct.rankings&&struct.rankings.length?struct.rankings:((item.view==='rankings')?parseRank(item):parseAge(item)));
-        if(ranking.length>=3)drawn=addRank(slide,pptx,ranking,accent);
+        if(!drawn&&struct.chart?.kind==='svg'){
+          const im=await imageFor(item);
+          if(im){contentPanel(slide,pptx);imageFit(slide,im,1.05,2.94,11.17,3.38);drawn=true;}
+        }
+        const ranking=drawn?[]:(struct.rankings&&struct.rankings.length?struct.rankings:(legacyCategoryRows(item).length?legacyCategoryRows(item):((item.view==='rankings')?parseRank(item):parseAge(item))));
+        if(!drawn&&ranking.length>=3)drawn=addRank(slide,pptx,ranking,accent,columnTitle);
         if(!drawn){
           const metrics=struct.metrics?.length?struct.metrics:(/Gospodarka województwa/i.test(name)?parseSector(item):(/punkt odniesienia/i.test(name)?parseBenchmark(item):parseOccupationStructure(item)));
           if(metrics?.length>=2)drawn=addMetrics(slide,pptx,metrics,accent);
@@ -281,10 +357,24 @@
           if(image){contentPanel(slide,pptx);imageFit(slide,image,.97,2.91,11.35,item.structured?.map?3.18:3.34);
             if(item.structured?.map)txt(slide,short(item.structured.map.legend||item.title,115),1.12,6.18,10.9,.25,10.8,{bold:true,color:accent});drawn=true}
         }
-        if(!drawn)drawn=drawText(slide,pptx,parseNarrative(item),accent);
-        if(!drawn){contentPanel(slide,pptx);txt(slide,'Brak danych pozwalających zbudować ten slajd.',1.35,4.00,10.7,.72,18,{color:MUTED})}
+        if(!drawn&&item.view==='jobs'&&/Analiza zawodów/i.test(item.title||'')){
+           const narrative=usefulNarrative(item);if(narrative)drawn=drawText(slide,pptx,narrative,accent);
+        }
+        if(!drawn){
+          // Never output empty slides: remove the just-created slide and disclose the missing source.
+          pptx._slides.pop();index--;skipped.push(name);
+        }else rendered.push(item);
+      }
+      if(!rendered.length){alert('Nie utworzono prezentacji: wybrane analizy nie mają zapisanych danych wykresów. Odznacz je i wybierz ponownie aktualne wykresy.');return;}
+      const cover=pptx._slides[0];
+      const summary=cover?._slideObjects?.find(o=>o._type==='text'&&o.text?.some(t=>/wybranych analiz/i.test(t.text||'')));
+      if(summary?.text?.length){
+        const gen=rendered.length===1?'wygenerowana analiza':rendered.length<5?'wygenerowane analizy':'wygenerowanych analiz';
+        const skip=skipped.length===1?'pominięta':skipped.length<5?'pominięte':'pominiętych';
+        summary.text[0].text=`${rendered.length} ${gen}`+(skipped.length?` · ${skipped.length} ${skip}`:``);
       }
       await pptx.writeFile({fileName:'Obserwatorium_wybrane_analizy_WUP_firmowka.pptx'});
+      if(skipped.length)alert('Pominięto '+skipped.length+' '+(skipped.length===1?'element':skipped.length<5?'elementy':'elementów')+' bez danych niezbędnych do wygenerowania slajdu:\n• '+skipped.slice(0,16).join('\n• ')+ (skipped.length>16?'\n…':'')+'\nZaznacz je ponownie przy widocznym wykresie.');
     }catch(e){console.error('PPTX v118',e);alert('Generowanie prezentacji nie powiodło się: '+(e?.message||e))}
     finally{if(btn){btn.disabled=false;btn.textContent='Generuj PPTX'}}
   }
