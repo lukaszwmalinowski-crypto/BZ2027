@@ -1,3 +1,11 @@
+# Wersja 126 - czytelne połączenia linii wykresów PPTX (01.11.2026)
+
+**Wykresy liniowe w prezentacjach WUP** są teraz natywnymi, edytowalnymi wykresami PowerPoint. Każda seria jest rysowana jako jeden ciągły przebieg, bez nakładania niezależnych odcinków i nieestetycznych styków. Zachowano punkty pomiaru i rzeczywiste wartości (bez sztucznego wygładzania). Luki w danych pozostają przerwami.
+
+Poprawiono podziałkę osi na regularne, zaokrąglone wartości (bez sztucznych cyfr po przecinku przy liczbie osób), delikatne linie pomocnicze, znaczniki oraz legendę dla wielu serii. Zachowano firmówkę WUP, inne typy wykresów i mechanizm „Moja prezentacja”. Cache offline ma identyfikator v126, aby starsze skrypty nie były używane po aktualizacji.
+
+> **Aktualizacja v125 (31.10.2026):** poprawki generatora PowerPoint i szablonu slajdów; szczegóły w `ZMIANY_V125.md`.
+
 > **Aktualizacja v123 (31.10.2026):** wybory do prezentacji przeniesione do jednolitych stopek kart i map. Szczegóły: `ZMIANY_V123.md`.
 
 # Obserwatorium Śląskie 2027 - wydanie publikacyjne v84

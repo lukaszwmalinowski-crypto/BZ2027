@@ -1,4 +1,4 @@
-/* Obserwatorium v122: generator odporny na puste wykresy, z danymi liczbowymi.
+/* Obserwatorium v126: płynne łączenie serii wykresów w natywnym PowerPoint.
    Nie wpływa na pozostałe eksporty (PDF / klasyczna prezentacja powiatowa). */
 (() => {
   'use strict';
@@ -45,10 +45,15 @@
     const headerTitle=section==='gus'?'SYTUACJA GOSPODARCZA':section==='unemployment'?'BEZROBOCIE':'BAROMETR ZAWODÓW 2027';
     fill(slide,pptx,LAYOUT.left,LAYOUT.overline,.07,.27,accent,.01);
     txt(slide,headerTitle,LAYOUT.left+.17,LAYOUT.overline-.01,10.8,.30,10.4,{bold:true,color:accent,charSpacing:1.5});
-    const t=short(title,115);
-    txt(slide,t,LAYOUT.left,LAYOUT.title,11.8,.49,t.length>74?21.5:t.length>55?24:27.5,
+    // v125: Keep the heading on ONE line. Move detailed chart-switch labels
+    // into the subtitle instead of letting the title cover the scope or plot.
+    const parts=clean(title).split(' · ');
+    const heading=short(parts[0],64);
+    const detail=parts.slice(1).filter(Boolean).join(' · ');
+    txt(slide,heading,LAYOUT.left,LAYOUT.title,11.8,.49,heading.length>56?20.5:heading.length>42?23:27.5,
       {bold:true,color:NAVY,breakLine:false});
-    txt(slide,short(unit,135),LAYOUT.left+.01,LAYOUT.subtitle,11.7,.26,12.5,{color:MUTED});
+    const secondary=short((unit||'')+(detail?' · '+detail:''),143);
+    txt(slide,secondary,LAYOUT.left+.01,LAYOUT.subtitle,11.7,.30,secondary.length>115?10.6:12.1,{color:MUTED});
     slide.addShape(pptx.ShapeType.line,{x:LAYOUT.left,y:LAYOUT.divider,w:11.84,h:0,line:{color:'DCE7F2',width:1}});
     // Source/page label placed ABOVE the source letterhead's printed bottom border.
     txt(slide,short('Źródło danych: '+(source||'Obserwatorium Rynku Pracy'),114),LAYOUT.left+.04,LAYOUT.sourceY,10.8,.23,8.5,{color:MUTED});
@@ -68,21 +73,23 @@
     contentPanel(slide,pptx);
     const long=r.some(v=>v.label.length>36),left=long?5.19:4.52;
     txt(slide,heading,left,2.98,3,.21,9.3,{color:MUTED,bold:true});
-    const barX=left,barW=12.23-left;
+    // Reserve a full value column. Previously labels of 5+ digits wrapped
+    // into stacked characters because the numeric box was only 0.45 in.
+    const barX=left,barW=11.14-left;
     r.forEach((z,i)=>{
       const y=3.31+i*.293;
       txt(slide,short(z.label,long?58:48),.97,y+.006,left-1.13,.25,10.1,{color:TEXT});
-      fill(slide,pptx,barX,y+.06,barW-.62,.12,'E9EFF5',.045);
-      if(z.value>0)fill(slide,pptx,barX,y+.06,(barW-.62)*z.value/max,.12,accent,.045);
-      txt(slide,Number(z.value).toLocaleString('pl-PL',{maximumFractionDigits:2}),11.84,y+.003,.45,.24,10.7,{color:NAVY,bold:true,align:'right'});
+      fill(slide,pptx,barX,y+.06,barW,.12,'E9EFF5',.045);
+      if(z.value>0)fill(slide,pptx,barX,y+.06,barW*z.value/max,.12,accent,.045);
+      txt(slide,Number(z.value).toLocaleString('pl-PL',{maximumFractionDigits:2}),11.29,y+.003,.86,.24,10.4,{color:NAVY,bold:true,align:'right',breakLine:false});
     });
     return true;
   }
   function addMetrics(slide,pptx,metrics,accent){
-    const list=metrics.filter(m=>m.label&&m.value).slice(0,8);
+    const list=metrics.filter(m=>m.label && m.value!==null && m.value!==undefined && String(m.value).trim()!=='').slice(0,8);
     if(!list.length)return false;
     contentPanel(slide,pptx);
-    const cols=list.length<=2?2:(list.length===4?2:(list.length<=6?3:4));
+    const cols=list.length===1?1:list.length<=2?2:(list.length===4?2:(list.length<=6?3:4));
     const rows=Math.ceil(list.length/cols),width=(11.22-(cols-1)*.19)/cols;
     const usable=3.29,height=Math.min(1.73,(usable-(rows-1)*.17)/rows);
     const total=rows*height+(rows-1)*.17,sy=3.01+(usable-total)/2;
@@ -105,45 +112,78 @@
     });
     return true;
   }
-  // v122: editable PowerPoint charts generated from stored numeric values,
-  // rather than relying on screenshot conversion of browser-only SVG content.
+  // v126: Use ONE native editable PowerPoint line chart per time series.
+  // Previously every interval was an independent ShapeType.line; their corners
+  // and endpoints produced visibly broken/rough joins (especially in Keynote).
+  // A native chart joins each series as a single path without overlapping ends.
+  // Do NOT interpolate missing observations or smooth discrete observations.
   function drawSeries(slide,pptx,chart,accent){
-    const labels=chart?.labels||[],series=(chart?.series||[]).filter(s=>s.values?.some(v=>Number.isFinite(v)));
-    if(labels.length<2||!series.length)return false;
-    contentPanel(slide,pptx);
-    const plot={x:1.68,y:3.26,w:9.76,h:2.32};
-    const all=series.flatMap(s=>s.values).filter(v=>Number.isFinite(v));
-    if(!all.length)return false;
-    let min=Math.min(...all),max=Math.max(...all);const pad=Math.max((max-min)*.13,Math.max(Math.abs(max),1)*.012);
-    min=min-pad;max=max+pad;
-    if(min>0&&min/max<.33)min=0;
-    const vy=n=>plot.y+plot.h*(max-n)/(max-min||1);
-    const vx=i=>plot.x+i*plot.w/(labels.length-1);
-    const fmt=n=>Number(n).toLocaleString('pl-PL',{maximumFractionDigits:Number.isInteger(n)?0:2});
-    for(let i=0;i<=4;i++){
-      const v=min+(max-min)*i/4,y=vy(v);
-      slide.addShape(pptx.ShapeType.line,{x:plot.x,y,w:plot.w,h:0,line:{color:'E4EBF2',width:.85}});
-      txt(slide,fmt(v),.95,y-.11,.62,.24,8.5,{align:'right',color:MUTED});
+    const labels=Array.isArray(chart?.labels)?chart.labels.map(x=>String(x??'')):[];
+    const source=Array.isArray(chart?.series)?chart.series:[];
+    const series=source.map(s=>({
+      name:clean(s.name||'Wartość'),
+      values:labels.map((_,i)=>{
+        const v=s.values?.[i];
+        if(v===null||v===undefined||v==='')return null;
+        const n=typeof v==='number'?v:Number(String(v).replace(/\s/g,'').replace(',','.'));
+        return Number.isFinite(n)?n:null;
+      })
+    })).filter(s=>s.values.some(Number.isFinite));
+    if(!labels.length||!series.length)return false;
+    if(labels.length===1){
+      const metrics=series.map(s=>({label:s.name,value:Number(s.values[0]).toLocaleString('pl-PL'),detail:labels[0]}));
+      return addMetrics(slide,pptx,metrics,accent);
     }
-    const tick=Math.max(1,Math.ceil(labels.length/8));
-    labels.forEach((label,i)=>{if(i%tick!==0&&i!==labels.length-1)return;
-      txt(slide,short(label,16),Math.max(.91,vx(i)-.34),5.72,.76,.22,8.7,{align:'center',color:MUTED});
-    });
-    const colors=[accent,'869EBF','2A9075','CA904B'];
-    series.slice(0,4).forEach((ser,idx)=>{
-      const c=colors[idx];let previous=null;
-      ser.values.forEach((value,i)=>{
-        if(!Number.isFinite(value)){previous=null;return}
-        const x=vx(i),y=vy(value);
-        if(previous)slide.addShape(pptx.ShapeType.line,{x:previous.x,y:previous.y,w:x-previous.x,h:y-previous.y,line:{color:c,width:2.2}});
-        if(labels.length<=16||i===labels.length-1||i===0)slide.addShape(pptx.ShapeType.ellipse,{x:x-.039,y:y-.039,w:.078,h:.078,line:{color:c,width:0},fill:{color:c}});
-        previous={x,y};
-      });
-      const legendX=1.23+idx*2.76;
-      fill(slide,pptx,legendX,6.15,.13,.12,c,.01);
-      txt(slide,short(ser.name||'Seria',34),legendX+.19,6.095,2.52,.23,10,{color:TEXT});
-    });
-    return true;
+    const observed=series.flatMap(s=>s.values).filter(Number.isFinite);
+    if(!observed.length)return false;
+    contentPanel(slide,pptx);
+    const chartColors=[accent,'7296BD','2A9075','CA904B'];
+    const entries=series.slice(0,4).map(s=>({name:short(s.name,56),labels,values:s.values}));
+    // For sparse time series keep the actual spacing of observations; gaps stay gaps.
+    // Reducing marker size on long series also avoids overlapping circles.
+    const marker=labels.length<=20;
+    const min=Math.min(...observed),max=Math.max(...observed);
+    // Rounded axis limits matter: fractional tick labels for *integer people*
+    // (e.g. "9 278,984") look unprofessional and imply false precision.
+    const span=Math.max(max-min,Math.abs(max)*.025,0.0001);
+    const roughStep=span/4.4,base=Math.pow(10,Math.floor(Math.log10(roughStep)));
+    const fraction=roughStep/base;
+    const step=base*(fraction<=1?1:fraction<=2?2:fraction<=2.5?2.5:fraction<=5?5:10);
+    let lower=Math.floor((min-step*.30)/step)*step;
+    let upper=Math.ceil((max+step*.30)/step)*step;
+    if(min>=0 && lower<0)lower=0;
+    if(upper<=lower)upper=lower+step;
+    // Floating point noise can leak into the axis XML; limit it here.
+    const precision=Math.max(0,-Math.floor(Math.log10(step))+1);
+    const fixed=n=>Number(n.toFixed(precision));
+    lower=fixed(lower);upper=fixed(upper);
+    const chartOpts={
+      x:1.24,y:3.01,w:10.95,h:3.19,
+      chartColors,showTitle:false,showValue:false,showSerName:false,
+      showLegend:entries.length>1,legendPos:'b',legendFontFace:'Aptos',
+      legendFontSize:9.5,showMarker:marker,markerSize:labels.length<=10?4.5:3,
+      lineSize:2.3,smoothLine:false,displayBlanksAs:'gap',
+      showCatAxisTitle:false,showValAxisTitle:false,
+      catAxisLabelFontFace:'Aptos',catAxisLabelFontSize:9,
+      catAxisColor:'B9CADA',catAxisLabelColor:'536B83',
+      valAxisLabelFontFace:'Aptos',valAxisLabelFontSize:8.8,
+      valAxisLabelColor:'536B83',valAxisColor:'FFFFFF',
+      valGridLine:{color:'E4EBF2',width:0.75},
+      showBorder:false,showShadow:false,
+      showCatName:false,showDataLabelLegendKey:false,
+      valAxisMinVal:lower,valAxisMaxVal:upper,valAxisMajorUnit:fixed(step),
+            showChartTitle:false,
+    };
+    // With many observations, reduce label frequency rather than crowding labels.
+    if(labels.length>12)chartOpts.catAxisLabelFreq=Math.ceil(labels.length/9);
+    try{
+      slide.addChart(pptx.ChartType.line,entries,chartOpts);
+      return true;
+    }catch(error){
+      // Prevent an apparently valid empty slide on engines lacking chart support.
+      console.error('PowerPoint line chart:',error);
+      return false;
+    }
   }
   function legacyCategoryRows(item){
     const title=clean(item.title).toLowerCase(),t=clean(item.text||'');
@@ -347,12 +387,12 @@
           if(im){contentPanel(slide,pptx);imageFit(slide,im,1.05,2.94,11.17,3.38);drawn=true;}
         }
         const ranking=drawn?[]:(struct.rankings&&struct.rankings.length?struct.rankings:(legacyCategoryRows(item).length?legacyCategoryRows(item):((item.view==='rankings')?parseRank(item):parseAge(item))));
-        if(!drawn&&ranking.length>=3)drawn=addRank(slide,pptx,ranking,accent,columnTitle);
+        if(!drawn&&ranking.length>=1)drawn=addRank(slide,pptx,ranking,accent,columnTitle);
         if(!drawn){
           const metrics=struct.metrics?.length?struct.metrics:(/Gospodarka województwa/i.test(name)?parseSector(item):(/punkt odniesienia/i.test(name)?parseBenchmark(item):parseOccupationStructure(item)));
-          if(metrics?.length>=2)drawn=addMetrics(slide,pptx,metrics,accent);
+          if(metrics?.length>=1)drawn=addMetrics(slide,pptx,metrics,accent);
         }
-        if(!drawn&&struct.signals?.length>=2)drawn=addStatements(slide,pptx,struct.signals,accent);
+        if(!drawn&&struct.signals?.length>=1)drawn=addStatements(slide,pptx,struct.signals,accent);
         if(!drawn){const image=await imageFor(item);
           if(image){contentPanel(slide,pptx);imageFit(slide,image,.97,2.91,11.35,item.structured?.map?3.18:3.34);
             if(item.structured?.map)txt(slide,short(item.structured.map.legend||item.title,115),1.12,6.18,10.9,.25,10.8,{bold:true,color:accent});drawn=true}

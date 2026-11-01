@@ -359,6 +359,40 @@ function v122Series(node){
      if(m){const v=v122Numeric(m[3]);if(Number.isFinite(v))points.push({series:m[1].trim(),label:m[2],value:v})}
    }
  }
+ // v125: GUS figures hold verified values in SVG aria-labels (not in the
+ // browser-only visual path). Save them as editable data for PPTX.
+ if(points.length<2 && svg.id==='gusRegonChart'){
+   for(const mark of svg.querySelectorAll('rect[aria-label]')){
+     const m=(mark.getAttribute('aria-label')||'').match(/^(.+?):\s*([\d\s.,]+)/);
+     if(!m)continue;
+     const value=v122Numeric(m[2]);
+     if(Number.isFinite(value))points.push({label:m[1].trim(),series:'REGON',value});
+   }
+ }
+ if(points.length<2 && svg.id==='gusBaelChart'){
+   for(const circle of svg.querySelectorAll('circle[aria-label]')){
+     const m=(circle.getAttribute('aria-label')||'').match(/^(.+?):\s*([+-]?[\d\s.,]+)%?/);
+     if(!m)continue;
+     const value=v122Numeric(m[2]),stroke=(circle.getAttribute('stroke')||'').toLowerCase();
+     const series=stroke==='#c58a2b'?'Polska':'Śląskie';
+     if(Number.isFinite(value))points.push({label:m[1].trim(),series,value});
+   }
+ }
+ if(points.length<2 && svg.id==='gusUnempChart'){
+   for(const circle of svg.querySelectorAll('circle[aria-label], rect[aria-label]')){
+     const m=(circle.getAttribute('aria-label')||'').match(/^(.+?):\s*([+-]?[\d\s.,]+)/);
+     if(!m)continue;
+     const value=v122Numeric(m[2]);
+     if(Number.isFinite(value))points.push({label:m[1].trim(),series:'Wskaźnik',value});
+   }
+ }
+ if(points.length<2 && svg.id==='pupTrendChart'){
+   // Historical circles are the source of the chart; text table may be collapsed.
+   for(const circle of svg.querySelectorAll('circle title')){
+     const m=(circle.textContent||'').match(/^(.+?):\s*([\d\s.,]+)\s*osób/);
+     if(m){const value=v122Numeric(m[2]);if(Number.isFinite(value))points.push({label:m[1].trim(),series:'Bezrobotni',value});}
+   }
+ }
  if(points.length<2)return null;
  const labels=[...new Set(points.map(p=>p.label))];
  const all=[...new Set(points.map(p=>p.series))];
@@ -411,6 +445,7 @@ function v120Toggle(node,view,base){
   if(node.id==='demogLineChart' && node.querySelectorAll('polyline').length===0 && node.querySelectorAll('circle').length===0){alert('Brak zweryfikowanego szeregu ludności dla wybranego powiatu.');return;}
   if(node.id==='pupBars' && !node.querySelector('.pupBar')){alert('Brak danych struktury bezrobocia dla wybranego okresu.');return;}
   if(node.id==='pupTrendChart' && (!snap.structured?.chartData?.series?.length)){alert('Brak danych historii dla wybranego okresu.');return;}
+  if(['gusRegonChart','gusBaelChart'].includes(node.id) && !snap.structured?.chartData?.series?.length){alert('Nie można odczytać wartości tego wykresu. Zmień widok lub wybierz go ponownie.');return;}
   if(!hasData){alert('W tym wariancie brakuje danych do wykresu.');return}
   basket.push(snap);
  }
