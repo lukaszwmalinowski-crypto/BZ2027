@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "tytul": "Sytuacja demograficzna województwa śląskiego w 2025 r.",
+    "wydawca": "Urząd Statystyczny w Katowicach",
+    "publikacja": "2026-07-08",
+    "zakres_lat": "2020-2025",
+    "stan_na": "31 grudnia każdego roku",
+    "zrodlo_url": "https://katowice.stat.gov.pl/publikacje-i-foldery/ludnosc/sytuacja-demograficzna-wojewodztwa-slaskiego-w-2025-r-%2C8%2C3.html",
+    "uwaga": "Dane roczne za 2025 nie zastępują bieżącego stanu ludności z 30.06.2026. Bilans ludności według krajowej definicji zamieszkania."
+  },
+  "years": [
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "population": {
+    "total": [
+      4412097,
+      4375947,
+      4346702,
+      4320130,
+      4291441,
+      4261792
+    ],
+    "men": [
+      2125078,
+      2106002,
+      2090906,
+      2077359,
+      2062849,
+      2047510
+    ],
+    "women": [
+      2287019,
+      2269945,
+      2255796,
+      2242771,
+      2228592,
+      2214282
+    ],
+    "urban": [
+      3360926,
+      3325986,
+      3298780,
+      3274119,
+      3248196,
+      3220636
+    ],
+    "rural": [
+      1051171,
+      1049961,
+      1047922,
+      1046011,
+      1043245,
+      1041156
+    ]
+  },
+  "live_births": [
+    38151,
+    34736,
+    31597,
+    27641,
+    25399,
+    23802
+  ],
+  "deaths": [
+    60054,
+    66152,
+    56694,
+    51723,
+    51441,
+    51208
+  ],
+  "net_natural": [
+    -21903,
+    -31416,
+    -25097,
+    -24082,
+    -26042,
+    -27406
+  ],
+  "migration_net": [
+    -3531,
+    -4483,
+    -4244,
+    -2709,
+    -2934,
+    -2202
+  ],
+  "fertility_2025": 1.009,
+  "urban_population_share_2025_pct": 75.6,
+  "source_pages": {
+    "population": 17,
+    "births": 52,
+    "deaths": 61,
+    "migration": 74,
+    "summary": 11
+  },
+  "notes": [
+    "Przyrost naturalny = urodzenia żywe minus zgony.",
+    "Saldo migracji obejmuje zameldowania i wymeldowania na pobyt stały.",
+    "Wskaźniki lokalne pokazujemy tylko dla jednostek z dostępnymi zweryfikowanymi szeregami.",
+    "Liczebność ludności 2026 to odrębne półroczne dane GUS; nie ma pełnych rocznych wartości urodzeń, zgonów i migracji za 2026."
+  ]
+}

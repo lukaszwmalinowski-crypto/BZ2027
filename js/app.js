@@ -1424,7 +1424,7 @@ document.getElementById('fullscreenBtn').addEventListener('click',async()=>{
  const entering=!document.body.classList.contains('presentationMode');
  setFullPresentation(entering);
  try{
-  if(entering&&!document.fullscreenElement&&window.innerWidth>=768)await document.documentElement.requestFullscreen();
+  if(entering&&!document.fullscreenElement)await document.documentElement.requestFullscreen();
   else if(!entering&&document.fullscreenElement)await document.exitFullscreen();
  }catch(e){/* The continuous view still works if browser fullscreen is unavailable. */}
 });

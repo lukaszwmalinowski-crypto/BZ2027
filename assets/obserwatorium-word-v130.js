@@ -4,7 +4,7 @@
 (()=>{'use strict';
 const JSZIP=window.JSZip;
 const FONT='Georgia',NAVY='20242B',BLUE='305F8B',SOFT='F6F8FB',GRAY='4F5965',WHITE='FFFFFF';
-const ACCENTS={map:'B44860',jobs:'B44860',trends:'B44860',rankings:'B44860',unemployment:'B77530',gus:'745FB1'};
+const ACCENTS={map:'B44860',jobs:'B44860',trends:'B44860',rankings:'B44860',unemployment:'B77530',gus:'745FB1',demography:'26849B'};
 const BRAND_IMG='';
 const W=9480;let imgs=[],mediaId=0,skipped=[];
 const esc=s=>String(s??'').replace(/[\u2013\u2014]/g,'-').replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -16,7 +16,7 @@ const exportText=s=>String(s??'').replace(/[\u2013\u2014]/g,'-')
 const safe=s=>exportText(s);
 const publicSource=(source,view)=>{const value=safe(source||'').replace(/^Źródło(?:\s+danych)?\s*:\s*/i,'');
  if(!value||/^(?:zobacz|źródła i metodologia|obserwatorium rynku pracy|obserwatorium)$/i.test(value))
-   return view==='gus'?'GUS / Bank Danych Lokalnych':view==='unemployment'?'WUP w Katowicach / GUS':'Barometr Zawodów';
+   return view==='demography'?'Urząd Statystyczny w Katowicach - demografia':view==='gus'?'GUS / Bank Danych Lokalnych':view==='unemployment'?'WUP w Katowicach / GUS':'Barometr Zawodów';
  return value;
 };
 // v143: Word uses the same captured indicator/period/scope/source as PowerPoint v142.

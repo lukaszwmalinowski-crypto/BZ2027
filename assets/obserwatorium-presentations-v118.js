@@ -4,7 +4,7 @@
   'use strict';
   const PALETTE={
     map:'3469AF',jobs:'C14C64',trends:'2A9075',rankings:'C14C64',
-    unemployment:'B96B2B',gus:'7964BD'
+    unemployment:'B96B2B',gus:'7964BD',demography:'26849B'
   };
   const NAVY='183758',TEXT='213D5C',MUTED='63768C',LIGHT='F4F7FB',BORDER='DCE5EF',WHITE='FFFFFF';
   const WIDTH=13.333,HEIGHT=7.5;
@@ -97,6 +97,16 @@
       base.period=stamp.period||((id==='gusUnempChart')?'miesiące I-IX 2026 lub lata 2016-2025 (zgodnie z wykresem)':base.period);
       if(id==='gusUnempChart'||id==='wupUnemploymentChart'){base.scope='Województwo śląskie';}
     }
+    if(item.view==='demography'){
+      const isCounty=id==='demogCountyCard'||/demografia powiatowa/i.test(title);
+      const isRegionalChart=/^demography(?:Population|Natural|Migration)ChartCard$/.test(id);
+      base.scope=isCounty?clean(item.settings?.params?.demogCounty||item.exportMeta?.county||item.unit||'Wybrany powiat'):'Województwo śląskie';
+      base.source=isCounty?'GUS / BDL, InfoGZM - szereg ludności':
+        'Urząd Statystyczny w Katowicach - Sytuacja demograficzna województwa śląskiego w 2025 r.';
+      base.period=stamp.period||(isCounty?'lata 2014-2025 (zgodnie z dostępnym szeregiem)':isRegionalChart?'2020-2025':'stan na 30.06.2026 r.');
+      base.unit=stamp.unit||(isCounty||isRegionalChart?'osób':'osób');
+      base.measure=stamp.measure||(isCounty||isRegionalChart?'Wskaźnik demograficzny':'Stan ludności');
+    }
     if(item.view==='gus'){
       if(/demog/i.test(id+' '+title)){base.source='GUS / BDL oraz InfoGZM - dane o ludności';base.unit='osób';base.measure='Liczba mieszkańców';base.period=stamp.period||'szereg historyczny do 2025 r.';}
       else if(/Bael/i.test(id+' '+title)){base.source='GUS / Urząd Statystyczny w Katowicach - BAEL';base.unit='%';base.measure='Wskaźnik (%)';base.period=stamp.period||'historyczne do 2025 lub I-II kw. 2026 zgodnie z wykresem';base.scope='Województwo śląskie na tle Polski';}
@@ -114,7 +124,7 @@
   function scopeFallback(item){
     const id=chartId(item),name=clean(item.unit||'');
     if(id==='demogCountyCard')return clean(item.settings?.params?.demogCounty||item.exportMeta?.county||'Powiat - dane demograficzne');
-    if(item.view==='gus'&&id!=='demogLineChart'&&id!=='demogCountyCard')return 'Województwo śląskie';
+    if((item.view==='gus'||item.view==='demography')&&id!=='demogLineChart'&&id!=='demogCountyCard')return 'Województwo śląskie';
     if(item.view==='unemployment'&&/gusUnempChart|wupUnemploymentChart/.test(id))return 'Województwo śląskie';
     if(item.view==='rankings')return 'Województwo śląskie';
     return name==='Województwo śląskie - średnie'?'Województwo śląskie':name;
@@ -127,7 +137,7 @@
   function drawHeader(slide,pptx,title,unit,section,i,source){
     background(slide,pptx);
     const accent=PALETTE[section]||'3469AF';
-    const headerTitle=section==='gus'?'DANE GUS / BDL':section==='unemployment'?'BEZROBOCIE REJESTROWANE':(/bezroboc/i.test(title)?'BEZROBOCIE REJESTROWANE':'BAROMETR ZAWODÓW 2027');
+    const headerTitle=section==='demography'?'DEMOGRAFIA / GUS':section==='gus'?'DANE GUS / BDL':section==='unemployment'?'BEZROBOCIE REJESTROWANE':(/bezroboc/i.test(title)?'BEZROBOCIE REJESTROWANE':'BAROMETR ZAWODÓW 2027');
     fill(slide,pptx,LAYOUT.left,LAYOUT.overline,.07,.27,accent,.01);
     txt(slide,headerTitle,LAYOUT.left+.17,LAYOUT.overline-.01,10.8,.30,10.4,{bold:true,color:accent,charSpacing:1.5});
     // v125: Keep the heading on ONE line. Move detailed chart-switch labels

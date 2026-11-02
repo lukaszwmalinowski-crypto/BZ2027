@@ -1,3 +1,7 @@
+## Audyt powtórzeń danych (v157)
+
+Wersja v157 usuwa niepotrzebnie powielane KPI w Sytuacji gospodarczej, upraszcza opis demografii i poprawia podpis liczby dostępnych jednostek. Dane źródłowe pozostają bez zmian. Szczegóły: `AUDYT_POWTORZEN_V157.md`.
+
 # Obserwatorium · Rynek Pracy · 2027
 
 **Wersja v144.** Zmieniono nazwę prezentowaną w dokumentach Word i PowerPoint, metadanych eksportów oraz w tytule i manifeście aplikacji. Zachowano logo graficzne, dotychczasowe dane i funkcje. Szczegóły: `ZMIANY_V144.md`.
@@ -152,3 +156,7 @@ Sekcje „Bezrobocie rejestrowane” (Śląskie i Polska, 2016–2025 i 2026) or
 ## Aktualizacja v136 - miękki fiolet
 
 Wersja 136 zachowuje wszystkie funkcje v135 i wprowadza nową, lżejszą warstwę wyglądu na podstawie dostarczonej wersji "miękki fiolet". Szczegóły: `ZMIANY_V136.md`. Po publikacji nadpisz **wszystkie pliki** z ZIP (nie sam `index.html`), aby zadziałał nowy arkusz stylów i uaktualniona pamięć offline.
+
+## v153 - osobna Demografia
+
+Zakładka Demografia zawiera oryginalne karty ludności 2026 i profilu powiatowego oraz trzy nowe wykresy rocznych danych GUS 2020-2025. Wszystkie dane działają offline. Pełny zakres i ograniczenia opisano w `ZMIANY_V153.md`.

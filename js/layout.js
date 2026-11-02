@@ -3,7 +3,7 @@
 'use strict';
 const $=id=>document.getElementById(id);if(!$('pupStructureModule'))return;
 document.body.classList.add('compactUI');
-const definitions=[['map','Mapa'],['jobs','Zawody'],['trends','Trendy'],['unemployment','Bezrobocie'],['gus','Dane GUS'],['rankings','Rankingi'],['sources','Źródła']];
+const definitions=[['map','Mapa'],['jobs','Zawody'],['trends','Trendy'],['unemployment','Bezrobocie'],['gus','Sytuacja gosp.'],['demography','Demografia'],['rankings','Rankingi'],['sources','Źródła']];
 const main=document.querySelector('.studioContent'),panes={};
 let presentationActive=false;
 let presentationOpenStates=[];
@@ -41,7 +41,7 @@ function phoneAccordions(elements,kind,defaultIndex){
  elements.forEach((card,i)=>{const d=document.createElement('details');d.className='compactResponsiveDetail '+kind;const sum=document.createElement('summary');sum.textContent=card.querySelector('h2,h3')?.textContent||'Analiza';card.before(d);d.append(sum,card);d.open=window.innerWidth>=768||i===defaultIndex;wrappers.push(d);d.addEventListener('toggle',()=>{if(d.open&&!presentationActive&&window.innerWidth<768)wrappers.forEach(other=>{if(other!==d)other.open=false});if(d.open)window.dispatchEvent(new Event('resize'))})});
  window.matchMedia('(min-width:768px)').addEventListener('change',e=>{if(!presentationActive)wrappers.forEach((d,i)=>d.open=e.matches||i===defaultIndex)});
 }
-phoneAccordions(Array.from($('gusModule').querySelectorAll('section.gusCard')),'compactGusDetail',1);
+phoneAccordions(Array.from($('gusModule').querySelectorAll('section.gusCard')).filter(card=>!card.classList.contains('demo')&&card.id!=='demogCountyCard'),'compactGusDetail',1);
 function fmt1(v){return Number(v).toFixed(1).replace('.',',')}
 function fmtInt(v){return Number(v).toLocaleString('pl-PL',{maximumFractionDigits:0})}
 function monthEndLabel(isoMonth){
@@ -120,6 +120,26 @@ if(registeredUnempCards.length===2){
  panes.unemployment.insertBefore(region,$('countyUnempModule'));
 }
 
+// v153: Existing demographic cards are moved, not duplicated, so charts and handlers survive.
+const demographyModule=document.createElement('section');
+demographyModule.id='demographyModule';demographyModule.className='demographyModule';
+panes.demography.appendChild(demographyModule);
+const populationCard=$('gusModule').querySelector('section.gusCard.demo');
+const countyDemographyCard=$('demogCountyCard');
+const demographicCardGrid=document.createElement('div');demographicCardGrid.className='demographyExistingGrid';
+[countyDemographyCard,populationCard].filter(Boolean).forEach(card=>{
+ const wrapper=card.closest('.compactResponsiveDetail')||card;
+ wrapper.open=true;
+ demographicCardGrid.appendChild(wrapper);
+});
+// v154: Primarily local/district charts, then new regional charts lower on the page.
+const existingIntro=document.createElement('div');existingIntro.className='demographyExistingIntro';
+existingIntro.innerHTML='<span class="demographyEyebrow">DEMOGRAFIA / DANE LOKALNE</span><h2>Demografia powiatowa i stan ludności</h2><p>Najpierw dane dla wybranej jednostki, następnie najnowszy stan ludności. Niżej znajduje się wieloletnie porównanie dla całego województwa.</p>';
+const newReport=document.createElement('div');newReport.id='demographyReportRoot';
+demographyModule.append(existingIntro,demographicCardGrid,newReport);
+// v157: wskaźniki ludności, bezrobocia i REGON mają już dedykowane
+// karty w odpowiednich działach. Usuwamy wtórny rząd KPI z gospodarki.
+$('gusModule').querySelector('.gusHeroKpis')?.remove();
 phoneAccordions(Array.from($('atlasRankings').querySelectorAll('.rank')),'compactRankDetail',0);
 
 // Keep the selected occupation next to its picker and reveal it after selection.
@@ -139,7 +159,7 @@ for(const node of Array.from(fields.children))if(!node.classList.contains('count
 fields.appendChild(filters);
 main.insertBefore($('filterStudio'),panes.map);
 // v148: Full-screen presentation is a single continuous narrative, not one tab at a time.
-const presentationLabels={map:'Mapa i profil',jobs:'Zawody i analiza',trends:'Trendy i historia',unemployment:'Bezrobocie',gus:'Dane GUS, BAEL i REGON',rankings:'Rankingi',sources:'Źródła danych'};
+const presentationLabels={map:'Mapa i profil',jobs:'Zawody i analiza',trends:'Trendy i historia',unemployment:'Bezrobocie',gus:'Sytuacja gospodarcza, BAEL i REGON',demography:'Demografia, ludność i migracje',rankings:'Rankingi',sources:'Źródła danych'};
 const presentationToolbar=document.createElement('nav');
 presentationToolbar.id='continuousPresentationNav';
 presentationToolbar.className='continuousPresentationNav';
@@ -155,7 +175,7 @@ for(const [id,label] of definitions){
  button.addEventListener('click',()=>{panes[id].scrollIntoView({behavior:'smooth',block:'start'});});
  presentationLinks.appendChild(button);
  const title=document.createElement('div');title.className='continuousSectionHeading';
- title.innerHTML=`<span class="continuousSectionIndex">${String(definitions.findIndex(([key])=>key===id)+1).padStart(2,'0')} / 07</span><h2>${presentationLabels[id]}</h2>`;
+ title.innerHTML=`<span class="continuousSectionIndex">${String(definitions.findIndex(([key])=>key===id)+1).padStart(2,'0')} / 08</span><h2>${presentationLabels[id]}</h2>`;
  panes[id].prepend(title);
 }
 const presentationExit=document.createElement('button');presentationExit.type='button';presentationExit.className='continuousPresentationExit';
@@ -185,7 +205,7 @@ function setPresentationMode(enabled){
 const nav=document.querySelector('.chapterRailInner');nav.replaceChildren();
 const mobile=document.createElement('div');mobile.className='compactMobileNav';mobile.innerHTML='<label for="compactViewSelect">Widok</label><select id="compactViewSelect">'+definitions.map(([id,l])=>`<option value="${id}">${l}</option>`).join('')+'</select>';nav.appendChild(mobile);
 for(const [id,label] of definitions){const b=document.createElement('button');b.type='button';b.className='compactNavButton';b.dataset.view=id;b.textContent=label;b.setAttribute('aria-controls','compact-'+id);b.addEventListener('click',()=>show(id));nav.appendChild(b)}
-const aliases={chapterMap:'map',atlasMap:'map',studioStart:'map',chapterJobs:'jobs',atlasAnalysis:'jobs',occupationProfileSection:'jobs',chapterTrends:'trends',trendSection:'trends',historyArchive:'trends',chapterStatistics:'gus',gusModule:'gus',countyUnempModule:'unemployment',pupStructureModule:'unemployment',chapterRankings:'rankings',atlasRankings:'rankings',atlasSources:'sources',pupSourcesSection:'sources'};
+const aliases={demographyModule:'demography',demogCountyCard:'demography',chapterDemography:'demography',chapterMap:'map',atlasMap:'map',studioStart:'map',chapterJobs:'jobs',atlasAnalysis:'jobs',occupationProfileSection:'jobs',chapterTrends:'trends',trendSection:'trends',historyArchive:'trends',chapterStatistics:'gus',gusModule:'gus',countyUnempModule:'unemployment',pupStructureModule:'unemployment',chapterRankings:'rankings',atlasRankings:'rankings',atlasSources:'sources',pupSourcesSection:'sources'};
 let active='map';
 function show(id,scroll=true){
  if(!panes[id])id='map';
@@ -194,12 +214,13 @@ function show(id,scroll=true){
  for(const [key,pane] of Object.entries(panes))pane.hidden=key!==id;
  document.body.dataset.compactView=id;$('compactViewSelect').value=id;
  nav.querySelectorAll('.compactNavButton').forEach(b=>{const on=b.dataset.view===id;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on))});
- $('filterStudio').hidden=['sources','gus','rankings'].includes(id);
+ $('filterStudio').hidden=['sources','gus','demography','rankings'].includes(id);
  if(id==='unemployment'){
   $('countyUnempModule').open=true;
   /* Zachowaj wybór województwa w tej zakładce. */
  }
  if(id==='gus')$('gusModule').open=true;
+ if(id==='demography')demographicCardGrid.querySelectorAll('details').forEach(x=>x.open=true);
  if(id==='sources')$('sourceRegistry').open=true;
  filters.open=id==='jobs';
  try{history.replaceState(null,'',location.pathname+location.search+'#widok-'+id)}catch(e){}

@@ -1,12 +1,12 @@
 /* Obserwatorium Slaskie 2027 — v129, zasoby offline */
-const CACHE_NAME='obserwatorium-slaskie-v152';
+const CACHE_NAME='obserwatorium-slaskie-v157';
 const CORE=[
   './','./index.html','./manifest.webmanifest','./favicon.png','./apple-touch-icon.png',
-  './assets/presentation-continuous-v152.css','./assets/modern-charts-v151.css','./assets/obserwatorium-v138-spacing.css','./assets/obserwatorium-v137-layout.css','./assets/obserwatorium-v136-soft-ui.css','./assets/obserwatorium-v134.css','./assets/obserwatorium-v133.css','./assets/bael-2026.css','./assets/obserwatorium-v133.js','./assets/bezrobocie-wup-v131.css','./assets/bezrobocie-wup-v131.js','./assets/layout.css','./assets/pup.css','./assets/obserwatorium-v111.css',
+  './assets/presentation-continuous-v152.css','./assets/demography-v153.css','./assets/demography-v153.js','./assets/modern-charts-v151.css','./assets/obserwatorium-v138-spacing.css','./assets/obserwatorium-v137-layout.css','./assets/obserwatorium-v136-soft-ui.css','./assets/obserwatorium-v134.css','./assets/obserwatorium-v133.css','./assets/bael-2026.css','./assets/obserwatorium-v133.js','./assets/bezrobocie-wup-v131.css','./assets/bezrobocie-wup-v131.js','./assets/layout.css','./assets/pup.css','./assets/obserwatorium-v111.css',
   './assets/obserwatorium-v127.css','./assets/obserwatorium-v128.css','./assets/obserwatorium-v129.css','./assets/obserwatorium-word-v130.js','./assets/jszip.min.js','./assets/obserwatorium-v111.js','./assets/obserwatorium-v123.css','./assets/obserwatorium-v119.css','./assets/obserwatorium-v120.css','./assets/obserwatorium-presentations-v118.js','./assets/obserwatorium-v113.css','./assets/obserwatorium-v115.css',
   './assets/logo-obserwatorium.png','./assets/firmowka-blue.jpg','./assets/pptxgen.bundle.js',
   './icons/icon-192.png','./icons/icon-512.png','./icons/icon-maskable-512.png',
-  './data/bezrobocie_wup_2020_2026.json','./data/dane.json','./data/demografia_gzm_miasta_2014_2025.json','./data/gus_bdl_demografia.json',
+  './data/bezrobocie_wup_2020_2026.json','./data/dane.json','./data/demografia_gzm_miasta_2014_2025.json','./data/gus_bdl_demografia.json','./data/demografia_slaskie_2020_2025_gus.json',
   './js/bootstrap.js','./js/app.js','./js/layout.js','./js/pup.js','./js/gus.js','./js/county.js'
 ];
 self.addEventListener('install',event=>{

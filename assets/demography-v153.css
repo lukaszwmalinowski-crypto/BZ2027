@@ -1,0 +1,262 @@
+/* v153: Demografia jako samodzielny obszar obok gospodarki i bezrobocia. */
+html body.compactUI .compactPane[data-view="demography"]{min-width:0}
+.demographyModule{display:block;min-width:0;color:#213a56}
+.demographyReportIntro{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:24px 28px;border-radius:20px;border:1px solid #c9d9e9;background:linear-gradient(115deg,#f9fcff,#edf5fa);box-shadow:0 12px 26px rgba(30,52,79,.06)}
+.demographyEyebrow{display:block;margin-bottom:6px;font-size:11px;font-weight:900;letter-spacing:.1em;color:#20718e}
+.demographyReportIntro h2{font-size:clamp(23px,2.4vw,33px)!important;margin:2px 0 8px!important;color:#1b3a5c!important;line-height:1.18}
+.demographyReportIntro p{font-size:13px;color:#5f7187;margin:0;line-height:1.55;max-width:680px}
+.demographyReportDate{background:#e7eef7;border:1px solid #c5d5e6;color:#365b78;border-radius:10px;padding:9px 12px;font-size:11px;font-weight:800;white-space:nowrap}
+.demographyKpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:16px 0}
+.demographyKpi{border:1px solid #c6d8e9;border-radius:18px;background:#fff;padding:18px 20px;box-shadow:0 10px 25px rgba(30,52,79,.06);min-width:0;display:flex;flex-direction:column;gap:7px}
+.demographyKpi span{font-size:12px;color:#576b80;font-weight:800}
+.demographyKpi strong{font-size:clamp(21px,2.8vw,32px);color:#1f5d91;font-weight:900;white-space:nowrap}
+.demographyKpi strong.negative{color:#bc4d66}
+.demographyKpi small{font-size:11px;color:#64778a;line-height:1.4}
+.demographyNote{padding:12px 17px;border-left:4px solid #4887ad;background:#eaf1f7;color:#355575;line-height:1.55;border-radius:12px;font-size:12.5px;margin:0 0 18px}
+.demographyCharts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.demographyReportCard{min-width:0;border-radius:20px;background:linear-gradient(180deg,#fff,#f9fcfe);border:1px solid #cbdbe9;padding:19px 20px;box-shadow:0 12px 25px rgba(23,52,80,.055)}
+.demographyReportCard:first-child{grid-column:1/-1}
+.demographyReportCardHead{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;min-height:70px}
+.demographyReportCardHead h3{font-size:19px!important;color:#183e60!important;line-height:1.22;margin:0 0 5px!important}
+.demographyReportCardHead p{font-size:12px;color:#6a7d90;line-height:1.45;margin:0}
+.demographySeriesLabel{font-size:11px;color:#3c5570;font-weight:800;display:flex;gap:8px;align-items:center;white-space:nowrap}
+.demographySeriesLabel select{font-size:12px!important;border:1px solid #bed0e3!important;border-radius:10px;background:#fff!important;color:#214467!important;padding:9px 30px 9px 10px!important;min-width:160px}
+.demographyReportSvg{display:block;width:100%;height:auto;min-height:220px;max-height:330px;background:#f8fbfe;border:1px solid #e0eaf2;border-radius:14px;margin:12px 0 6px}
+.demographyChartFoot{font-size:11.5px;color:#5a7087;line-height:1.5;min-height:26px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.demographyKey{display:inline-flex;align-items:center;gap:7px}.demographyKey i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.demographyInterpretation{background:#e9f0f8;border:1px solid #c7d9ea;border-radius:18px;padding:17px 21px;margin:18px 0 12px;color:#2c4e70;line-height:1.6;font-size:13px}
+.demographyInterpretation strong{font-size:15px;color:#173b5a}.demographyInterpretation p{margin:7px 0}.demographyInterpretation small{color:#607b91}
+.demographySource{font-size:11.5px;color:#556d84;padding:0 6px;line-height:1.55;margin:0 0 24px}.demographySource a{color:#155f94;text-decoration:underline}
+.demographyMoreHeading{font-size:20px!important;color:#1c4567!important;margin:25px 0 12px!important}
+.demographyExistingGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;align-items:start}
+.demographyExistingGrid > *, .demographyExistingGrid section{min-width:0!important;max-width:100%!important;width:100%!important;box-sizing:border-box}
+.demographyExistingGrid .gusCard{height:auto!important;min-height:0!important;background:#fff!important;border:1px solid #c8d7e6!important;border-radius:18px!important;padding:17px!important}
+/* Gospodarka nie zachowuje pustej lewej kolumny po wyniesieniu demografii i bezrobocia. */
+body.compactUI #gusModule .gusGrid{display:block!important}
+body.compactUI #gusModule .gusColumnLeft:empty{display:none!important}
+body.compactUI #gusModule .gusColumnRight{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important}
+body.compactUI #gusModule .gusColumnRight>.compactResponsiveDetail{min-width:0!important;width:100%!important}
+/* 4 osobne obszary w dolnej nawigacji mobilnej */
+@media(max-width:767px){
+ body.compactUI .v111MobileNav{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:4px!important;padding-left:5px!important;padding-right:5px!important}
+ body.compactUI .v111MobileNav button{font-size:10px!important;letter-spacing:-.1px;min-width:0!important;min-height:48px!important;padding:5px 2px!important}
+ .demographyReportIntro{padding:15px;flex-direction:column;gap:9px}
+ .demographyReportDate{white-space:normal;font-size:10px}
+ .demographyKpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .demographyKpi{padding:13px 12px;gap:5px}.demographyKpi strong{font-size:20px}
+ .demographyCharts,.demographyExistingGrid{grid-template-columns:1fr!important;gap:12px}
+ .demographyReportCard{padding:13px 11px}.demographyReportCardHead{flex-direction:column;min-height:0}
+ .demographySeriesLabel select{min-width:0!important;max-width:240px}
+ .demographyReportSvg{min-height:175px;max-height:280px}
+ body.compactUI #gusModule .gusColumnRight{grid-template-columns:1fr!important}
+}
+@media(min-width:768px) and (max-width:1100px){.demographyKpis{grid-template-columns:repeat(2,minmax(0,1fr))}.demographyCharts,.demographyExistingGrid{grid-template-columns:1fr}.demographyReportCard:first-child{grid-column:auto}body.compactUI #gusModule .gusColumnRight{grid-template-columns:1fr!important}}
+@media print{.demographyReportIntro,.demographyKpi,.demographyReportCard{break-inside:avoid;box-shadow:none}.demographySeriesLabel{display:none}}
+
+body.compactUI #gusModule .gusHeroKpis{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+@media(max-width:767px){body.compactUI #gusModule .gusHeroKpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+
+/* v154 - lokalne wykresy pierwsze; nowe serie regionalne niżej, bez kolizji ze skalą */
+.demographyExistingIntro{margin:0 0 13px;padding:22px 26px;border-radius:20px;background:linear-gradient(115deg,#f9fcff,#edf5fc);border:1px solid #c7d7ea}
+.demographyExistingIntro h2{margin:0 0 7px!important;font-size:clamp(22px,2.1vw,29px)!important;line-height:1.2;color:#1a3e60!important}
+.demographyExistingIntro p{margin:0;font-size:12.5px;line-height:1.5;color:#546c86}
+.demographyExistingGrid{grid-template-columns:minmax(0,1fr)!important;gap:17px;margin-bottom:27px}
+.demographyExistingGrid>.compactResponsiveDetail{width:100%!important;max-width:none!important;min-width:0!important}
+.demographyExistingGrid .gusCard{width:100%!important;max-width:none!important}
+#demographyReportRoot{margin-top:4px;min-width:0}
+.demographyCharts{grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+.demographyReportCard{padding:23px 23px 18px;min-width:0;overflow:hidden}
+.demographyReportSvg{height:auto!important;min-height:0!important;max-height:none!important;aspect-ratio:760/300;box-sizing:border-box;background:linear-gradient(180deg,#fdfefe,#f5f9fd)!important}
+.demographyReportSvg text{font-family:Inter,Segoe UI,Arial,sans-serif}
+.demographyReportSvg [tabindex]:focus{outline:none;filter:drop-shadow(0 0 5px #3d7799)}
+.demographyReportIntro{margin-top:0}
+@media(max-width:1100px){.demographyCharts{grid-template-columns:1fr!important}.demographyReportCard:first-child{grid-column:auto!important}.demographyReportSvg{aspect-ratio:760/300}}
+@media(max-width:650px){.demographyExistingIntro{padding:16px}.demographyReportSvg{aspect-ratio:410/290;min-height:0!important;max-height:none!important}.demographyReportCard{padding:15px 12px 12px!important}}
+
+/* Wysoka czytelność danych rocznych: pełna szerokość na każdym ekranie. */
+.demographyCharts{grid-template-columns:minmax(0,1fr)!important}
+.demographyReportCard:first-child{grid-column:auto!important}
+.demographyReportSvg{max-width:960px!important;margin-left:auto!important;margin-right:auto!important}
+@media(max-width:650px){.demographyReportSvg{max-width:100%!important}}
+
+/* v154: nowoczesne wykresy regionalne w stylistyce Porównaj powiaty */
+.demographyReportCard{border-radius:25px!important;border:1px solid #bdcfe3!important;background:linear-gradient(180deg,#fff 0%,#f8fbfe 100%)!important;box-shadow:0 16px 38px rgba(29,55,87,.08)!important}
+.demographyReportCardHead h3{color:#173e62!important;font-size:20px!important;letter-spacing:-.025em}
+.demographyReportCardHead p{color:#526982!important;font-size:12.5px}
+.demographyReportSvg{border:1px solid #dbe6f2!important;border-radius:21px!important;background:linear-gradient(180deg,#fcfeff 0%,#f4f9ff 100%)!important}
+.demographyChartFoot{margin-top:13px!important;font-weight:600!important;color:#536e89!important}
+.demographyKpi{border-color:#b7cde0!important;border-top:3px solid #7fa4c7!important}
+@media(max-width:650px){.demographyReportCardHead h3{font-size:18px!important}.demographyReportSvg{border-radius:16px!important}.demographyChartFoot{font-size:11.5px!important}}
+
+
+/* v155 - wykorzystanie szerokości: powiaty i stan województwa obok siebie,
+   a niżej 3 wykresy regionalne: pierwszy szeroki, pozostałe w dwóch kolumnach. */
+@media (min-width:768px){
+  html body.compactUI .demographyExistingGrid{
+    display:grid!important;
+    grid-template-columns:minmax(0,1.65fr) minmax(225px,.8fr)!important;
+    align-items:start!important;
+    gap:14px!important;
+  }
+  html body.compactUI .demographyExistingGrid > *,
+  html body.compactUI .demographyExistingGrid .gusCard{min-width:0!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important}
+  html body.compactUI .demographyExistingGrid #demogCountyCard{margin-top:0!important}
+  html body.compactUI .demographyExistingGrid .gusCard.demo{margin:0!important}
+  html body.compactUI .demographyExistingGrid #demogCountyCard .gusCardHead{padding:10px!important}
+  html body.compactUI .demographyExistingGrid #demogCountyCard .demogStatGrid{gap:7px!important}
+  html body.compactUI .demographyExistingGrid #demogCountyCard .demogStat{padding:10px 9px!important}
+}
+@media (min-width:1080px){
+  html body.compactUI .demographyCharts{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:15px!important}
+  html body.compactUI .demographyCharts .demographyReportCard:first-child{grid-column:1/-1!important}
+  html body.compactUI .demographyCharts .demographyReportCard:not(:first-child){grid-column:auto!important}
+}
+@media (min-width:768px) and (max-width:1079px){
+  html body.compactUI .demographyCharts{grid-template-columns:minmax(0,1fr)!important}
+}
+@media (max-width:767px){
+  html body.compactUI .demographyExistingGrid,
+  html body.compactUI .demographyCharts{grid-template-columns:minmax(0,1fr)!important}
+  html body.compactUI .demographyExistingGrid #demogCountyCard{margin-top:0!important}
+}
+
+/* v156 - zwięzła interpretacja danych GUS w karcie najnowszego stanu ludności. */
+html body.compactUI .demographyExistingGrid > .compactResponsiveDetail,
+html body.compactUI .demographyExistingGrid > .gusCard{height:max-content!important;align-self:start!important;min-height:0!important;}
+html body.compactUI .demographyExistingGrid .gusVisualCard.demo{height:auto!important;min-height:0!important;align-self:start!important;}
+.demographyRegionalSummary{margin-top:18px;padding:17px 18px 15px;background:linear-gradient(140deg,#f0f6fc,#f8fafc);border:1px solid #d1dfed;border-left:4px solid #277ba6;border-radius:16px;color:#2f4b66;line-height:1.55}
+.demographyRegionalSummaryEyebrow{font-size:10.5px;letter-spacing:.07em;font-weight:850;color:#2a769d}
+.demographyRegionalSummaryHead h4{color:#173b5d;font-size:16px;line-height:1.3;margin:5px 0 11px;font-weight:850}
+.demographyRegionalSummary p{font-size:12.5px;line-height:1.62;margin:0 0 12px}
+.demographyRegionalSummary strong{font-weight:850;color:#204c73}
+.demographyRegionalSummaryFacts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:13px 0}
+.demographyRegionalSummaryFacts>div{background:#fff;border:1px solid #d9e5f0;border-radius:12px;padding:11px 12px;min-width:0;display:flex;flex-direction:column;gap:3px}
+.demographyRegionalSummaryFacts strong{font-size:21px;line-height:1.2;color:#b34961;font-weight:900;letter-spacing:-.035em}
+.demographyRegionalSummaryFacts span{color:#304e6b;font-size:12px;font-weight:800}
+.demographyRegionalSummaryFacts small{font-size:10.5px;color:#617892;line-height:1.4}
+.demographyRegionalSummary p.demographyRegionalSummarySource{font-size:10.5px;line-height:1.5;color:#617791;margin:10px 0 0;border-top:1px solid #dae5ef;padding-top:11px}
+.demographyRegionalSummarySource a{color:#216da2;font-weight:750;text-decoration:underline;text-underline-offset:2px}
+@media(max-width:1120px){.demographyRegionalSummary{padding:14px 13px}.demographyRegionalSummaryFacts strong{font-size:18px}}
+@media(max-width:420px){.demographyRegionalSummaryFacts{grid-template-columns:minmax(0,1fr)}.demographyRegionalSummaryFacts>div{padding:10px 12px}}
+
+
+/* v156: spójny rytm pól i prawdziwie kompaktowe karty w Demografii. */
+html body.compactUI .demographyExistingGrid {
+  align-items:start!important;
+  align-content:start!important;
+  grid-auto-rows:max-content!important;
+  row-gap:16px!important;
+  column-gap:16px!important;
+}
+html body.compactUI .demographyExistingGrid > *,
+html body.compactUI .demographyExistingGrid > .compactResponsiveDetail,
+html body.compactUI .demographyExistingGrid .gusCard.demo {
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  align-self:start!important;
+  justify-self:stretch!important;
+}
+html body.compactUI .demographyExistingGrid .gusCard.demo {
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:flex-start!important;
+  gap:0!important;
+  padding:14px!important;
+}
+html body.compactUI .demographyExistingGrid .gusCard.demo .gusCardHead {
+  margin:0 0 13px!important;
+  padding:12px 14px!important;
+  gap:10px!important;
+}
+html body.compactUI .demographyExistingGrid .gusCard.demo .gusMetricPair {
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:10px!important;
+  margin:0 0 13px!important;
+}
+html body.compactUI .demographyExistingGrid .gusCard.demo .gusMetricPair > div {
+  min-width:0!important;
+  min-height:0!important;
+  padding:12px 13px!important;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:4px;
+}
+html body.compactUI .demographyExistingGrid .gusCard.demo .gusMetricPair b{
+  font-size:clamp(17px,1.8vw,24px)!important;
+  line-height:1.2!important;
+  margin:0!important;
+}
+html body.compactUI .demographyExistingGrid .gusCard.demo .gusMetricPair span{
+  margin:0!important;
+  line-height:1.35!important;
+}
+html body.compactUI .demographyExistingGrid .gusCard.demo .demographyRegionalSummary{
+  margin:0!important;
+  padding:15px!important;
+}
+html body.compactUI .demographyExistingGrid .gusCard.demo .demographyRegionalSummary p{
+  margin:0 0 10px!important;
+  line-height:1.53!important;
+}
+html body.compactUI .demographyExistingGrid .gusCard.demo .demographyRegionalSummaryFacts{
+  gap:9px!important;
+  margin:12px 0!important;
+}
+html body.compactUI .demographyExistingGrid .gusCard.demo .demographyRegionalSummaryFacts > div{
+  padding:10px!important;
+  gap:3px!important;
+}
+html body.compactUI .demographyExistingGrid .gusCard.demo .gusSource{
+  margin:12px 0 0!important;
+  padding:10px 0 0!important;
+  line-height:1.45!important;
+  border-top:1px solid #dce7f1!important;
+}
+/* Na iPadzie dwie kolumny całych kart, ale metryki w wąskiej karcie jedna pod drugą. */
+@media(min-width:768px) and (max-width:1179px){
+ html body.compactUI .demographyExistingGrid{
+  grid-template-columns:minmax(0,1.45fr) minmax(0,1fr)!important;
+  gap:13px!important;
+ }
+ html body.compactUI .demographyExistingGrid .gusCard.demo .gusMetricPair{
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:8px!important;
+ }
+ html body.compactUI .demographyExistingGrid .gusCard.demo .gusCardHead{
+  align-items:flex-start!important;
+  gap:9px!important;
+  flex-wrap:wrap!important;
+ }
+ html body.compactUI .demographyExistingGrid .gusCard.demo .gusFresh{
+  white-space:normal!important;
+ }
+ html body.compactUI .demographyExistingGrid .gusCard.demo .demographyRegionalSummaryFacts{
+  grid-template-columns:minmax(0,1fr)!important;
+ }
+}
+@media(max-width:767px){
+ html body.compactUI .demographyExistingGrid{
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:12px!important;
+ }
+ html body.compactUI .demographyExistingGrid .gusCard.demo .gusMetricPair{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ }
+ html body.compactUI .demographyExistingGrid .gusCard.demo .gusMetricPair > div{
+  padding:10px!important;
+ }
+ html body.compactUI .demographyExistingGrid .gusCard.demo .gusCardHead{
+  padding:10px 12px!important;
+ }
+ html body.compactUI .demographyExistingGrid .gusCard.demo .demographyRegionalSummary{
+  padding:12px!important;
+ }
+}
+@media(max-width:420px){
+ html body.compactUI .demographyExistingGrid .gusCard.demo .gusMetricPair{
+  grid-template-columns:minmax(0,1fr)!important;
+ }
+}
