@@ -1,5 +1,5 @@
 /* Obserwatorium Slaskie 2027 — v129, zasoby offline */
-const CACHE_NAME='obserwatorium-slaskie-v146';
+const CACHE_NAME='obserwatorium-slaskie-v147';
 const CORE=[
   './','./index.html','./manifest.webmanifest','./favicon.png','./apple-touch-icon.png',
   './assets/obserwatorium-v138-spacing.css','./assets/obserwatorium-v137-layout.css','./assets/obserwatorium-v136-soft-ui.css','./assets/obserwatorium-v134.css','./assets/obserwatorium-v133.css','./assets/bael-2026.css','./assets/obserwatorium-v133.js','./assets/bezrobocie-wup-v131.css','./assets/bezrobocie-wup-v131.js','./assets/layout.css','./assets/pup.css','./assets/obserwatorium-v111.css',
