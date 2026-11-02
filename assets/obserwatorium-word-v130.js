@@ -78,7 +78,7 @@ function comparisonImage(rows,meta){
  points.forEach((r,i)=>{
   const v=toNum(r.value),x=left+step*i+step/2,h=scale(v),y=top+H-h;
   c.fillStyle=colors[i%colors.length];
-  c.beginPath();const radius=Math.min(19,h/2,barWidth/3);c.roundRect(x-barWidth/2,y,barWidth,h,[radius,radius,0,0]);c.fill();
+  c.beginPath();const radius=Math.min(27,h/2,barWidth/3);c.roundRect(x-barWidth/2,y,barWidth,h,[radius,radius,0,0]);c.fill(); if(h>25){c.fillStyle='#FFFFFF';c.strokeStyle=colors[i%colors.length];c.lineWidth=8;c.beginPath();c.arc(x,y+Math.min(21,h/3),12,0,Math.PI*2);c.fill();c.stroke();}
   c.textAlign='center';c.fillStyle='#1C3B5B';c.font='bold 31px Arial';
   c.fillText(formatMeasure(v,meta),x,Math.max(top+17,y-29));
   const label=safe(r.label).replace(/^powiat\s+/i,'');
@@ -116,7 +116,7 @@ function chartImage(data,meta={}){
  if(series.length===1&&s.values.every(Number.isFinite)&&s.values.length>1){c.save();c.beginPath();s.values.forEach((v,i)=>{if(i===0)c.moveTo(xAt(i),yAt(v));else c.lineTo(xAt(i),yAt(v))});c.lineTo(xAt(s.values.length-1),top+hh);c.lineTo(xAt(0),top+hh);c.closePath();c.fillStyle='rgba(49,96,144,.12)';c.fill();c.restore();}
  c.lineWidth=4;c.strokeStyle=color;c.lineJoin='round';c.lineCap='round';c.beginPath();let prev=false;
  s.values.forEach((v,i)=>{if(!Number.isFinite(v)){prev=false;return}const x=xAt(i),y=yAt(v);if(prev)c.lineTo(x,y);else c.moveTo(x,y);prev=true});c.stroke();
- s.values.forEach((v,i)=>{if(!Number.isFinite(v))return;const x=xAt(i),y=yAt(v);c.fillStyle='#FFFFFF';c.strokeStyle=color;c.lineWidth=3;c.beginPath();c.arc(x,y,5.5,0,2*Math.PI);c.fill();c.stroke()});
+ s.values.forEach((v,i)=>{if(!Number.isFinite(v))return;const x=xAt(i),y=yAt(v);c.fillStyle='#FFFFFF';c.strokeStyle=color;c.lineWidth=3;c.beginPath();c.arc(x,y,8,0,2*Math.PI);c.fill();c.stroke()});
  const valid=s.values.map((v,i)=>({v,i})).filter(x=>Number.isFinite(x.v));const last=valid.at(-1);if(last){const x=xAt(last.i),y=yAt(last.v);c.fillStyle=color;c.font='bold 29px Arial';c.textAlign=last.i===labels.length-1?'left':'center';c.fillText(formatMeasure(last.v,meta),Math.min(CW-78,x+13),Math.max(28,y-18))}
  });
  c.font='26px Arial';c.textAlign='left';series.slice(0,4).forEach((s,i)=>{const x=left+i*(ww/Math.min(4,series.length));c.fillStyle=colors[i];c.fillRect(x,CH-57,24,5);c.fillStyle='#334F6A';c.fillText(safe(s.name||'Wartość').slice(0,25),x+34,CH-54)});
@@ -125,7 +125,7 @@ function chartImage(data,meta={}){
 function barImage(rows,meta={}){const points=rows.filter(r=>safe(r.label)&&Number.isFinite(toNum(r.value))).slice(0,12);if(!points.length)return null;
  const canvas=document.createElement('canvas');canvas.width=1600;canvas.height=Math.max(470,points.length*64+85);const c=canvas.getContext('2d');c.fillStyle='#FFFFFF';c.fillRect(0,0,canvas.width,canvas.height);
  const x=540,w=830,m=Math.max(...points.map(x=>toNum(x.value)),1);c.font='18px Arial';
- points.forEach((r,i)=>{const y=54+i*64,v=toNum(r.value);c.textAlign='right';c.fillStyle='#304B66';const label=safe(r.label);c.fillText(label.length>42?label.slice(0,40)+'…':label,x-24,y+14);c.fillStyle='#EDF2F8';c.fillRect(x,y,Math.max(1,w),21);c.fillStyle='#356FA7';c.fillRect(x,y,Math.max(0,w*Math.max(0,v)/m),21);c.textAlign='left';c.fillStyle='#244C73';c.font='bold 20px Arial';c.fillText(formatMeasure(v,meta),x+w+15,y+13);c.font='18px Arial';});return canvas.toDataURL('image/png');
+ points.forEach((r,i)=>{const y=54+i*64,v=toNum(r.value);c.textAlign='right';c.fillStyle='#304B66';const label=safe(r.label);c.fillText(label.length>42?label.slice(0,40)+'…':label,x-24,y+14);c.fillStyle='#EDF2F8';c.beginPath();c.roundRect(x,y,Math.max(1,w),21,10);c.fill();c.fillStyle='#477CC0';c.beginPath();c.roundRect(x,y,Math.max(0,w*Math.max(0,v)/m),21,10);c.fill();c.textAlign='left';c.fillStyle='#244C73';c.font='bold 20px Arial';c.fillText(formatMeasure(v,meta),x+w+15,y+13);c.font='18px Arial';});return canvas.toDataURL('image/png');
 }
 function imagePng(src){return new Promise(resolve=>{if(!src)return resolve(null);try{const img=new Image();img.onload=()=>{try{const maxWidth=1580,ratio=img.naturalHeight/Math.max(1,img.naturalWidth),w=maxWidth,h=Math.max(100,Math.round(w*ratio));if(h>1800)return resolve(null);const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d');ctx.fillStyle=WHITE;ctx.fillRect(0,0,w,h);ctx.drawImage(img,0,0,w,h);resolve(canvas.toDataURL('image/png'))}catch{resolve(null)}};img.onerror=()=>resolve(null);
  if(src.startsWith('<svg')){const doc=new DOMParser().parseFromString(src,'image/svg+xml');const root=doc.documentElement;root.setAttribute('xmlns','http://www.w3.org/2000/svg');if(!root.getAttribute('viewBox')){root.setAttribute('viewBox','0 0 '+(root.getAttribute('width')||960)+' '+(root.getAttribute('height')||600));}const blob=new Blob([new XMLSerializer().serializeToString(root)],{type:'image/svg+xml'});const url=URL.createObjectURL(blob);img.onload=()=>{try{const canvas=document.createElement('canvas');canvas.width=1580;canvas.height=900;const c=canvas.getContext('2d');c.fillStyle=WHITE;c.fillRect(0,0,1580,900);c.drawImage(img,0,0,1580,900);resolve(canvas.toDataURL('image/png'))}catch{resolve(null)}finally{URL.revokeObjectURL(url)}};img.onerror=()=>{URL.revokeObjectURL(url);resolve(null)};img.src=url;

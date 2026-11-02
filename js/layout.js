@@ -5,6 +5,9 @@ const $=id=>document.getElementById(id);if(!$('pupStructureModule'))return;
 document.body.classList.add('compactUI');
 const definitions=[['map','Mapa'],['jobs','Zawody'],['trends','Trendy'],['unemployment','Bezrobocie'],['gus','Dane GUS'],['rankings','Rankingi'],['sources','Źródła']];
 const main=document.querySelector('.studioContent'),panes={};
+let presentationActive=false;
+let presentationOpenStates=[];
+let presentationFilterHidden=false;
 for(const [id,label] of definitions){const pane=document.createElement('section');pane.id='compact-'+id;pane.className='compactPane';pane.dataset.view=id;pane.setAttribute('aria-label',label);pane.hidden=true;main.appendChild(pane);panes[id]=pane}
 function move(id,pane){const el=$(id);if(el)panes[pane].appendChild(el)}
 move('chapterMap','map');move('atlasMap','map');
@@ -35,8 +38,8 @@ mobileChart('structure');
 // Secondary analyses expand individually on phones, without losing their controls.
 function phoneAccordions(elements,kind,defaultIndex){
  const wrappers=[];
- elements.forEach((card,i)=>{const d=document.createElement('details');d.className='compactResponsiveDetail '+kind;const sum=document.createElement('summary');sum.textContent=card.querySelector('h2,h3')?.textContent||'Analiza';card.before(d);d.append(sum,card);d.open=window.innerWidth>=768||i===defaultIndex;wrappers.push(d);d.addEventListener('toggle',()=>{if(d.open&&window.innerWidth<768)wrappers.forEach(other=>{if(other!==d)other.open=false});if(d.open)window.dispatchEvent(new Event('resize'))})});
- window.matchMedia('(min-width:768px)').addEventListener('change',e=>wrappers.forEach((d,i)=>d.open=e.matches||i===defaultIndex));
+ elements.forEach((card,i)=>{const d=document.createElement('details');d.className='compactResponsiveDetail '+kind;const sum=document.createElement('summary');sum.textContent=card.querySelector('h2,h3')?.textContent||'Analiza';card.before(d);d.append(sum,card);d.open=window.innerWidth>=768||i===defaultIndex;wrappers.push(d);d.addEventListener('toggle',()=>{if(d.open&&!presentationActive&&window.innerWidth<768)wrappers.forEach(other=>{if(other!==d)other.open=false});if(d.open)window.dispatchEvent(new Event('resize'))})});
+ window.matchMedia('(min-width:768px)').addEventListener('change',e=>{if(!presentationActive)wrappers.forEach((d,i)=>d.open=e.matches||i===defaultIndex)});
 }
 phoneAccordions(Array.from($('gusModule').querySelectorAll('section.gusCard')),'compactGusDetail',1);
 function fmt1(v){return Number(v).toFixed(1).replace('.',',')}
@@ -135,13 +138,59 @@ const fields=$('filterFields'),filters=document.createElement('details');filters
 for(const node of Array.from(fields.children))if(!node.classList.contains('countyControl'))filters.appendChild(node);
 fields.appendChild(filters);
 main.insertBefore($('filterStudio'),panes.map);
+// v148: Full-screen presentation is a single continuous narrative, not one tab at a time.
+const presentationLabels={map:'Mapa i profil',jobs:'Zawody i analiza',trends:'Trendy i historia',unemployment:'Bezrobocie',gus:'Dane GUS, BAEL i REGON',rankings:'Rankingi',sources:'Źródła danych'};
+const presentationToolbar=document.createElement('nav');
+presentationToolbar.id='continuousPresentationNav';
+presentationToolbar.className='continuousPresentationNav';
+presentationToolbar.setAttribute('aria-label','Nawigacja po sekcjach prezentacji');
+const presentationHeading=document.createElement('div');
+presentationHeading.className='continuousPresentationBrand';
+presentationHeading.innerHTML='<span>OBSERWATORIUM · RYNEK PRACY · 2027</span><strong>Widok prezentacji</strong>';
+const presentationLinks=document.createElement('div');
+presentationLinks.className='continuousPresentationLinks';
+for(const [id,label] of definitions){
+ const button=document.createElement('button');button.type='button';button.className='continuousPresentationJump';
+ button.dataset.presentationTarget=id;button.textContent=label;
+ button.addEventListener('click',()=>{panes[id].scrollIntoView({behavior:'smooth',block:'start'});});
+ presentationLinks.appendChild(button);
+ const title=document.createElement('div');title.className='continuousSectionHeading';
+ title.innerHTML=`<span class="continuousSectionIndex">${String(definitions.findIndex(([key])=>key===id)+1).padStart(2,'0')} / 07</span><h2>${presentationLabels[id]}</h2>`;
+ panes[id].prepend(title);
+}
+const presentationExit=document.createElement('button');presentationExit.type='button';presentationExit.className='continuousPresentationExit';
+presentationExit.textContent='✕ Zakończ';presentationExit.setAttribute('aria-label','Zakończ tryb prezentacji');
+presentationExit.addEventListener('click',()=>document.getElementById('fullscreenBtn')?.click());
+presentationToolbar.append(presentationHeading,presentationLinks,presentationExit);
+main.insertBefore(presentationToolbar,panes.map);
+function setPresentationMode(enabled){
+ if(presentationActive===enabled)return;
+ presentationActive=enabled;
+ if(enabled){
+  presentationFilterHidden=$('filterStudio').hidden;
+  $('filterStudio').hidden=false;
+  const selectors='#countyUnempModule,#gusModule,#historyArchive,#sourceRegistry,#compactCountyMore,#compactFilters,.compactResponsiveDetail,.compactBenchmark,.compactJobsCard .compactMore';
+  presentationOpenStates=Array.from(document.querySelectorAll(selectors)).filter(e=>e.matches('details')).map(e=>[e,e.open]);
+  for(const p of Object.values(panes))p.hidden=false;
+  for(const [element] of presentationOpenStates)element.open=true;
+  window.scrollTo({top:0,behavior:'instant'});
+ }else{
+  for(const [element,wasOpen] of presentationOpenStates)element.open=wasOpen;
+  presentationOpenStates=[];
+  show(active,false);
+  $('filterStudio').hidden=presentationFilterHidden;
+ }
+ requestAnimationFrame(()=>window.dispatchEvent(new Event('resize')));
+}
 const nav=document.querySelector('.chapterRailInner');nav.replaceChildren();
 const mobile=document.createElement('div');mobile.className='compactMobileNav';mobile.innerHTML='<label for="compactViewSelect">Widok</label><select id="compactViewSelect">'+definitions.map(([id,l])=>`<option value="${id}">${l}</option>`).join('')+'</select>';nav.appendChild(mobile);
 for(const [id,label] of definitions){const b=document.createElement('button');b.type='button';b.className='compactNavButton';b.dataset.view=id;b.textContent=label;b.setAttribute('aria-controls','compact-'+id);b.addEventListener('click',()=>show(id));nav.appendChild(b)}
 const aliases={chapterMap:'map',atlasMap:'map',studioStart:'map',chapterJobs:'jobs',atlasAnalysis:'jobs',occupationProfileSection:'jobs',chapterTrends:'trends',trendSection:'trends',historyArchive:'trends',chapterStatistics:'gus',gusModule:'gus',countyUnempModule:'unemployment',pupStructureModule:'unemployment',chapterRankings:'rankings',atlasRankings:'rankings',atlasSources:'sources',pupSourcesSection:'sources'};
 let active='map';
 function show(id,scroll=true){
- if(!panes[id])id='map';active=id;
+ if(!panes[id])id='map';
+ if(presentationActive){if(scroll)panes[id].scrollIntoView({block:'start',behavior:'smooth'});return;}
+ active=id;
  for(const [key,pane] of Object.entries(panes))pane.hidden=key!==id;
  document.body.dataset.compactView=id;$('compactViewSelect').value=id;
  nav.querySelectorAll('.compactNavButton').forEach(b=>{const on=b.dataset.view===id;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on))});
@@ -168,5 +217,5 @@ window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);show(h.
 window.addEventListener('beforeprint',()=>document.body.classList.add('compactPrinting'));
 window.addEventListener('afterprint',()=>document.body.classList.remove('compactPrinting'));
 const initial=location.hash.slice(1);show(initial.startsWith('widok-')?initial.slice(6):(aliases[initial]||'map'),false);
-window.COMPACT_LAYOUT={show,get active(){return active}};
+window.COMPACT_LAYOUT={show,setPresentationMode,get active(){return active},get presentationActive(){return presentationActive}};
 })();

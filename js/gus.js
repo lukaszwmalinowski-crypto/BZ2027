@@ -18,7 +18,7 @@
    const X=i=>L+i*(W-L-R)/(labels.length-1),Y=v=>T+(max-v)*(H-T-B)/(max-min);
    const ticks=[max,(max+min)/2,min];grid(svg,ticks.map(Y),L,W-R);ticks.forEach(v=>svg.appendChild(el('text',{x:10,y:Y(v)+4,class:'axisText'},pl(v)+'%')));svg.appendChild(el('text',{x:14,y:20,class:'axisUnit'},'%'));
    const series=[{vals:slaskie,color:opts.slaskieColor||'#173d66',dash:'',name:'woj. śląskie',klass:'slaskie'},{vals:polska,color:opts.polskaColor||'#c58a2b',dash:'7 5',name:'Polska',klass:'poland'}];
-   series.forEach(s=>{svg.appendChild(el('polyline',{points:s.vals.map((v,i)=>`${X(i)},${Y(v)}`).join(' '),fill:'none',stroke:s.color,'stroke-width':3,'stroke-dasharray':s.dash,'stroke-linejoin':'round','stroke-linecap':'round'}));});
+   series.forEach(s=>{svg.appendChild(el('polyline',{points:s.vals.map((v,i)=>`${X(i)},${Y(v)}`).join(' '),fill:'none',stroke:s.color,'stroke-width':3.6,'stroke-dasharray':s.dash,'stroke-linejoin':'round','stroke-linecap':'round'}));});
 
    // Stały układ etykiet zapobiega ich zderzaniu: Polska zawsze nad punktem,
    // woj. śląskie zawsze pod punktem. Przy małej różnicy zwiększamy odstęp.
@@ -32,7 +32,7 @@
         {v:slaskie[i],y:yS,color:series[0].color,name:series[0].name,klass:'slaskie',off:slOffset}
       ];
       points.forEach(o=>{
-        const c=el('circle',{cx:x,cy:o.y,r:4.2,fill:'#fff',stroke:o.color,'stroke-width':2.5});svg.appendChild(c);
+        const c=el('circle',{cx:x,cy:o.y,r:5.8,fill:'#fff',stroke:o.color,'stroke-width':3});svg.appendChild(c);
         bind(c,detailLabels[i],`${pl(o.v)}%`,`${opts.metric||'Wskaźnik'} • ${o.name}`);
         const labelY=Math.max(18,Math.min(H-B-5,o.y+o.off));
         const lineEnd=o.off<0?labelY+5:labelY-10;
@@ -42,7 +42,7 @@
       svg.appendChild(el('text',{x,y:H-17,'text-anchor':'middle',class:'axisText'},lab));
    });
  }
- function bars(id,labels,vals,min,max){const svg=clear(id);if(!svg)return;const W=640,H=190,L=46,R=18,T=24,B=38,plotW=W-L-R,plotH=H-T-B,step=plotW/vals.length,bw=Math.max(18,step*.54),Y=v=>T+(max-v)*plotH/(max-min);grid(svg,[Y(min),Y((min+max)/2),Y(max)],L,W-R);[min,Math.round((min+max)/2),max].forEach(v=>svg.appendChild(el('text',{x:7,y:Y(v)+4,class:'axisText'},String(v))));svg.appendChild(el('text',{x:8,y:13,class:'axisUnit'},'na 10 tys.'));vals.forEach((v,i)=>{const x=L+i*step+(step-bw)/2,y=Y(v),h=H-B-y,r=el('rect',{x,y,width:bw,height:h,rx:5,fill:i===vals.length-1?'#4d927d':'#d7e7e1'});svg.appendChild(r);bind(r,labels[i],String(v),'Podmioty REGON na 10 tys. ludności • woj. śląskie');svg.appendChild(el('text',{x:x+bw/2,y:Math.max(18,y-6),'text-anchor':'middle',class:'valueLabel'},String(v)));svg.appendChild(el('text',{x:x+bw/2,y:H-14,'text-anchor':'middle',class:'axisText'},labels[i]))});}
+ function bars(id,labels,vals,min,max){const svg=clear(id);if(!svg)return;const W=640,H=190,L=46,R=18,T=24,B=38,plotW=W-L-R,plotH=H-T-B,step=plotW/vals.length,bw=Math.max(18,step*.54),Y=v=>T+(max-v)*plotH/(max-min);grid(svg,[Y(min),Y((min+max)/2),Y(max)],L,W-R);[min,Math.round((min+max)/2),max].forEach(v=>svg.appendChild(el('text',{x:7,y:Y(v)+4,class:'axisText'},String(v))));svg.appendChild(el('text',{x:8,y:13,class:'axisUnit'},'na 10 tys.'));vals.forEach((v,i)=>{const x=L+i*step+(step-bw)/2,y=Y(v),h=H-B-y,r=el('rect',{x,y,width:bw,height:h,rx:10,fill:i===vals.length-1?'#4d927d':'#d7e7e1'});svg.appendChild(r);bind(r,labels[i],String(v),'Podmioty REGON na 10 tys. ludności • woj. śląskie');svg.appendChild(el('text',{x:x+bw/2,y:Math.max(18,y-6),'text-anchor':'middle',class:'valueLabel'},String(v)));svg.appendChild(el('text',{x:x+bw/2,y:H-14,'text-anchor':'middle',class:'axisText'},labels[i]))});}
  function regonCurrentBars(){
    const svg=clear('gusRegonChart');if(!svg)return;
    const items=[{period:window.PANEL_DATA.gus.regon.prevAsOf,value:window.PANEL_DATA.gus.regon.total2025},{period:window.PANEL_DATA.gus.regon.currentAsOf,value:window.PANEL_DATA.gus.regon.total2026}];
@@ -51,7 +51,7 @@
    [0,300000,600000].forEach(v=>svg.appendChild(el('text',{x:10,y:Y(v)+4,class:'axisText'},fmtInt(v))));
    svg.appendChild(el('text',{x:10,y:15,class:'axisUnit'},'podmioty'));
    items.forEach((o,i)=>{const x=180+i*240,w=84,y=Y(o.value),h=H-B-y,color=i===1?'#4d927d':'#b8cbd7';
-     const mark=el('rect',{x,y,width:w,height:h,rx:8,fill:color});svg.appendChild(mark);bind(mark,o.period,fmtInt(o.value)+' podmiotów','Województwo śląskie • REGON');
+     const mark=el('rect',{x,y,width:w,height:h,rx:14,fill:color});svg.appendChild(mark);bind(mark,o.period,fmtInt(o.value)+' podmiotów','Województwo śląskie • REGON');
      svg.appendChild(el('text',{x:x+w/2,y:Math.max(17,y-8),'text-anchor':'middle',class:'valueLabel'},fmtInt(o.value)));
      svg.appendChild(el('text',{x:x+w/2,y:H-15,'text-anchor':'middle',class:'axisText'},o.period));});
  }
@@ -86,7 +86,7 @@
    const X=i=>L+i*(W-L-R)/(labels.length-1),Y=v=>T+(max-v)*(H-T-B)/(max-min),color=opts.color||'#b35e62';
    const ticks=[max,(max+min)/2,min];grid(svg,ticks.map(Y),L,W-R);ticks.forEach(v=>svg.appendChild(el('text',{x:8,y:Y(v)+4,class:'axisText'},fmtInt(Math.round(v)))));svg.appendChild(el('text',{x:10,y:22,class:'axisUnit'},opts.axisUnit||'osoby'));
    const pts=vals.map((v,i)=>`${X(i)},${Y(v)}`).join(' ');svg.appendChild(el('polyline',{points:pts,fill:'none',stroke:color,'stroke-width':3,'stroke-linejoin':'round','stroke-linecap':'round'}));
-   vals.forEach((v,i)=>{const x=X(i),y=Y(v),c=el('circle',{cx:x,cy:y,r:4.2,fill:'#fff',stroke:color,'stroke-width':2.5});svg.appendChild(c);bind(c,detail[i],fmtInt(v)+' osób',(opts.metric||'Liczba bezrobotnych')+' • woj. śląskie');const off=(i%2===0?-18:26),ly=Math.max(18,Math.min(H-B-4,y+off));svg.appendChild(el('line',{x1:x,y1:y+(off<0?-5:5),x2:x,y2:off<0?ly+5:ly-10,stroke:color,class:'pointConnector'}));svg.appendChild(el('text',{x,y:ly,'text-anchor':'middle',class:'pointValue red'},fmtInt(v)));svg.appendChild(el('text',{x,y:H-17,'text-anchor':'middle',class:'axisText'},labels[i]));});
+   vals.forEach((v,i)=>{const x=X(i),y=Y(v),c=el('circle',{cx:x,cy:y,r:5.8,fill:'#fff',stroke:color,'stroke-width':3});svg.appendChild(c);bind(c,detail[i],fmtInt(v)+' osób',(opts.metric||'Liczba bezrobotnych')+' • woj. śląskie');const off=(i%2===0?-18:26),ly=Math.max(18,Math.min(H-B-4,y+off));svg.appendChild(el('line',{x1:x,y1:y+(off<0?-5:5),x2:x,y2:off<0?ly+5:ly-10,stroke:color,class:'pointConnector'}));svg.appendChild(el('text',{x,y:ly,'text-anchor':'middle',class:'pointValue red'},fmtInt(v)));svg.appendChild(el('text',{x,y:H-17,'text-anchor':'middle',class:'axisText'},labels[i]));});
  }
  const bael=window.PANEL_DATA.gus.bael;
  let baelMode='activity',baelPeriod='historic';

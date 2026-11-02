@@ -1,0 +1,86 @@
+/* V151 — spójny styl nowoczesnych wykresów | wszystkie zakładki.
+   Zachowano definicje miar, dostępność danych, wartości i event handlery. */
+:root{--chart-navy:#284f87;--chart-blue:#4477bf;--chart-violet:#8262b6;--chart-cyan:#188e99;--chart-green:#238975;--chart-rose:#bf5b73;--chart-amber:#c18a39;--chart-ink:#213c58;--chart-muted:#617991;--chart-grid:#dce7f1;--chart-panel:#fbfdff;--chart-shadow:0 15px 35px rgba(24,54,86,.075)}
+/* Karty analityczne i spójne tła dla wykresów. */
+html body.compactUI .studioContent :is(.trendChartWrap,.compareChartPanel,.gusCard,.rank,.pupCard,.historyChartWrap,.countyUSnapshot,.demogChartCard,.baelQuarterItem){border-color:#d1dfed!important;border-radius:19px!important;box-shadow:var(--chart-shadow)!important}
+html body.compactUI .studioContent :is(.trendChart,.gusChart,.demogLineChart,.historyChart,.countyUChart,.countyUChart svg,#countyUChart,#pupTrendChart svg,#regionalNationalChart){background:linear-gradient(180deg,#fff 0%,#f7fbff 100%)!important;border:1px solid #e2ebf5!important;border-radius:18px!important}
+html body.compactUI .studioContent .trendChartWrap{background:linear-gradient(160deg,#fff 0%,#f6faff 100%)!important;padding:17px!important}
+html body.compactUI .studioContent .trendChart{border:1px solid #dce9f3!important;border-radius:17px!important}
+html body.compactUI .studioContent .trendChart [data-trend-point="1"]{cursor:pointer;transition:filter .18s ease,opacity .18s ease}
+html body.compactUI .studioContent .trendChart [data-trend-point="1"]:hover{filter:drop-shadow(0 0 7px rgba(69,113,184,.35))}
+html body.compactUI .studioContent .trendChart path[fill="none"]{stroke-linecap:round!important;stroke-linejoin:round!important;filter:drop-shadow(0 4px 6px rgba(60,100,145,.11))}
+html body.compactUI .studioContent .trendChart circle[data-trend-point="1"]{filter:drop-shadow(0 2px 5px rgba(40,70,105,.16))}
+html body.compactUI .studioContent .trendLegend{gap:13px;flex-wrap:wrap}
+html body.compactUI .studioContent .trendLegend span{background:#f1f6fc;border:1px solid #dce7f1;border-radius:100px;padding:5px 10px;color:#365371!important;font-weight:750}
+html body.compactUI .studioContent .trendDot{box-shadow:0 0 0 3px white,0 2px 6px #bed0e5}
+html body.compactUI .studioContent .yearCard{border-radius:15px!important;border-color:#dbe6f0!important;box-shadow:0 5px 14px rgba(26,56,88,.035)!important}
+/* Porównanie jednostek — pływające etykiety, delikatna siatka, pełne słupki. */
+html body.compactUI #compareOutput .compareChartPanel{border:1px solid #d0e1ef!important;border-radius:22px!important;background:linear-gradient(160deg,#ffffff 0%,#f5f9ff 100%)!important;padding:20px!important;box-shadow:var(--chart-shadow)!important}
+html body.compactUI #compareOutput .compareChartHeader h3{font-size:18px;font-weight:850;color:#193d61}
+html body.compactUI #compareOutput .compareChartCaption{font-size:12.5px!important;font-weight:850!important;color:#284e73!important;margin-top:18px!important}
+html body.compactUI #compareOutput .compareGrid span{border-top:1px dashed var(--chart-grid)}
+html body.compactUI #compareOutput .compareAxis{color:#657d94!important;font-weight:750!important}
+html body.compactUI #compareOutput .compareBarValue{font-size:14px!important;font-weight:850!important;line-height:1.1;white-space:nowrap;padding:7px 10px;margin-bottom:10px;border:1px solid #d8e5f1;border-radius:999px;background:#fff;color:#25445f;box-shadow:0 7px 18px rgba(30,55,85,.08)}
+html body.compactUI #compareOutput .compareBarTrack{position:relative;max-width:85px!important;min-height:0}
+html body.compactUI #compareOutput .compareBarTrack::before{content:"";position:absolute;left:0;bottom:0;right:0;top:0;border-radius:18px 18px 3px 3px;background:linear-gradient(180deg,#f3f7fc,#ecf3f9);box-shadow:inset 0 0 0 1px #e4edf6}
+html body.compactUI #compareOutput .compareBarFill{position:relative;z-index:1;width:75%!important;max-width:75px;min-width:10px;background:linear-gradient(180deg,color-mix(in srgb,var(--bar-color,#4477bf) 78%,white),var(--bar-color,#4477bf))!important;border-radius:15px 15px 3px 3px!important;box-shadow:0 6px 13px color-mix(in srgb,var(--bar-color,#4477bf) 21%,transparent)!important}
+html body.compactUI #compareOutput .compareBarFill:after{content:"";position:absolute;top:6px;left:50%;transform:translateX(-50%);width:12px;height:12px;border-radius:50%;border:3px solid var(--bar-color,#4477bf);background:white;box-shadow:0 2px 6px rgba(27,58,84,.14)}
+html body.compactUI #compareOutput .compareBarName{padding-top:11px!important;font-size:11px!important;line-height:1.3!important;color:#2c4a69!important;font-weight:850!important}
+html body.compactUI #compareOutput .compareBarName i{width:9px;height:9px;border-radius:50%;box-shadow:0 0 0 3px #fff}
+html body.compactUI #compareOutput .compareChartFoot{font-size:11px;color:#5c7189;line-height:1.55}
+/* Rankingi i struktury: poziome paski pozostają wykresami ilościowymi. */
+html body.compactUI #atlasRankings .rank{background:linear-gradient(180deg,#fff,#fafcff)!important}
+html body.compactUI #atlasRankings .rankitem{padding:7px 0!important;gap:10px!important;align-items:center!important}
+html body.compactUI #atlasRankings .rankname{color:#274968!important;font-weight:680}
+html body.compactUI #atlasRankings .rankbar{height:13px!important;border-radius:99px!important;background:#ecf3fa!important;box-shadow:inset 0 0 0 1px #dce7f0;overflow:hidden}
+html body.compactUI #atlasRankings .rankbar i{border-radius:99px!important;background:linear-gradient(90deg,#82b0e5 0%,#3e73be 85%,#335caa 100%)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
+html body.compactUI #atlasRankings .rank:nth-child(2) .rankbar i{background:linear-gradient(90deg,#94cfbe,#2d937f)!important}
+html body.compactUI #atlasRankings .rank:nth-child(3) .rankbar i{background:linear-gradient(90deg,#ddb4cc,#a365a2)!important}
+html body.compactUI #atlasRankings .rank:nth-child(4) .rankbar i{background:linear-gradient(90deg,#efc997,#cb894b)!important}
+html body.compactUI #atlasRankings .rankitem>b{font-variant-numeric:tabular-nums;color:#254b73!important;font-weight:850!important}
+html body.compactUI .barTrack{height:13px;border-radius:99px;background:#eaf1f8;box-shadow:inset 0 0 0 1px #d9e5f1}
+html body.compactUI .barFill{border-radius:99px;box-shadow:inset 0 1px 0 rgba(255,255,255,.28)}
+/* Wykresy GUS / BAEL / REGON / bezrobocie — większe markery, czytelne osie. */
+html body.compactUI .gusChart{box-shadow:0 8px 28px rgba(35,70,105,.045)!important}
+html body.compactUI .gusChart .gridLine{stroke:var(--chart-grid)!important;stroke-dasharray:5 5;stroke-width:1!important}
+html body.compactUI .gusChart .axisText,html body.compactUI .gusChart .axisUnit{fill:#617b94!important;font-weight:700!important}
+html body.compactUI .gusChart polyline,html body.compactUI .gusChart path[fill="none"]{stroke-linecap:round!important;stroke-linejoin:round!important;filter:drop-shadow(0 3px 4px rgba(32,78,120,.11))}
+html body.compactUI .gusChart circle{filter:drop-shadow(0 2px 3px rgba(25,61,94,.16));transition:filter .16s ease}
+html body.compactUI .gusChart circle[data-interactive="1"]:hover,html body.compactUI .gusChart rect[data-interactive="1"]:hover{filter:drop-shadow(0 4px 7px rgba(50,91,135,.30))}
+html body.compactUI .gusChart rect[data-interactive="1"]{rx:9px;transition:filter .16s ease,opacity .16s ease}
+html body.compactUI .gusChart .pointValue{font-size:11px;font-weight:850;paint-order:stroke;stroke:#fff;stroke-width:3.5px}
+html body.compactUI .gusChart .valueLabel{fill:#244e76!important;font-weight:850}
+html body.compactUI .gusChart .chartValuePill rect{fill:white;stroke:#d7e3ef}
+html body.compactUI .gusChartSwitch{background:#ecf3fb!important;border-color:#d2e2f1!important;border-radius:99px}
+html body.compactUI .gusChartSwitch button.active{color:#245a9c!important;background:#fff!important;box-shadow:0 3px 10px rgba(42,91,140,.12)!important}
+html body.compactUI .gusCompareLegend span{font-weight:720}
+/* Historia powiatowa i PUP */
+html body.compactUI #countyUChart,html body.compactUI #countyUnempChart{background:#fbfdff!important;border-radius:17px}
+html body.compactUI #countyUChart polyline,html body.compactUI #countyUChart path[fill="none"],html body.compactUI #pupTrendChart svg polyline,html body.compactUI #pupTrendChart svg path[fill="none"]{stroke-linecap:round!important;stroke-linejoin:round!important;filter:drop-shadow(0 3px 6px rgba(29,77,115,.12))}
+html body.compactUI #countyUChart circle,html body.compactUI #pupTrendChart circle{filter:drop-shadow(0 3px 4px rgba(28,65,97,.19))}
+html body.compactUI .pupCard{background:linear-gradient(175deg,#fff 0%,#fbfdff 100%)!important}
+html body.compactUI .pupBarTrack{height:15px!important;border-radius:99px!important;background:#eaf1f9!important;box-shadow:inset 0 0 0 1px #dce7f1;overflow:hidden!important}
+html body.compactUI .pupBarTrack i{height:100%;border-radius:99px!important;background:linear-gradient(90deg,#8eb8e4 0%,#3e72b7 95%)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
+html body.compactUI .pupBar b{color:#244c77!important;font-variant-numeric:tabular-nums;font-weight:850}
+html body.compactUI .pupGroupTabs button.active{background:#326cae!important;border-color:#326cae!important}
+html body.compactUI .countyUSnapshotBar>div{height:12px;border-radius:99px;background:#eaf1f9;box-shadow:inset 0 0 0 1px #dce7f1}
+html body.compactUI .countyUSnapshotBar i{border-radius:99px;background:linear-gradient(90deg,#95bce3,#3c78b8)}
+/* Demografia oraz serie długookresowe */
+html body.compactUI .demogLineChart,html body.compactUI .historyChart{box-shadow:0 6px 18px rgba(31,70,108,.05)!important}
+html body.compactUI .demogLineChart polyline,html body.compactUI .demogLineChart path[fill="none"],html body.compactUI .historyChart polyline,html body.compactUI .historyChart path[fill="none"]{stroke-linecap:round!important;stroke-linejoin:round!important;filter:drop-shadow(0 3px 4px rgba(32,80,122,.10))}
+html body.compactUI .demogLineChart circle,html body.compactUI .historyChart circle{filter:drop-shadow(0 2px 4px rgba(32,80,122,.18))}
+/* BAEL, wskaźniki szczegółowe */
+html body.compactUI .baelQuarterItem{background:linear-gradient(180deg,#fff 0%,#f6faff 100%)!important}
+html body.compactUI .baelQuarterMiniBars{border-bottom:1px solid #bacde3!important}
+html body.compactUI .baelQuarterMiniBars>div{border-radius:9px 9px 2px 2px;background:linear-gradient(180deg,#b4d1ef,#6f9ed2)!important}
+html body.compactUI .baelQuarterMiniBars>div:last-child{background:linear-gradient(180deg,#63a7d3,#2e67ac)!important}
+/* Bez wymuszania kolumn na iPadzie - szerokości i czytelność priorytetem */
+@media(min-width:768px) and (max-width:1120px){html body.compactUI .studioContent #gusModule .gusGrid{grid-template-columns:minmax(0,1fr)!important}html body.compactUI .studioContent #gusModule .gusColumn{display:contents!important}html body.compactUI .studioContent #atlasRankings .lower{grid-template-columns:minmax(0,1fr)!important}}
+@media(max-width:767px){html body.compactUI #compareOutput .compareChartPanel{padding:12px!important}html body.compactUI #compareOutput .compareBarValue{padding:4px 6px;font-size:11px!important}html body.compactUI #compareOutput .compareBarTrack{max-width:52px!important}html body.compactUI #compareOutput .compareBarName{font-size:10px!important}html body.compactUI .studioContent .trendChartWrap{padding:9px!important}html body.compactUI .studioContent .gusChart{border-radius:12px!important}html body.compactUI .studioContent .gusCard{box-shadow:none!important}}
+@media(prefers-reduced-motion:reduce){html body.compactUI :is(.compareBarFill,.gusChart circle,.trendChart [data-trend-point],.pupBarTrack i){transition:none!important}}
+@media print{html body .compareChartPanel,html body .trendChartWrap,html body .gusCard,html body .rank,html body .pupCard{box-shadow:none!important;background:#fff!important}html body .gusChart{filter:none!important}}
+
+/* Serie rankingowe — niezależny, konsekwentny kolor w każdej karcie. */
+html body.compactUI #atlasRankings .compactRankDetail:nth-of-type(2) .rankbar i{background:linear-gradient(90deg,#d6bbdf,#9b73ba)!important}
+html body.compactUI #atlasRankings .compactRankDetail:nth-of-type(3) .rankbar i{background:linear-gradient(90deg,#a7dcd0,#329d84)!important}
+html body.compactUI #atlasRankings .compactRankDetail:nth-of-type(4) .rankbar i{background:linear-gradient(90deg,#f0d1a4,#cb9251)!important}

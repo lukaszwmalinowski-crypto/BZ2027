@@ -146,14 +146,14 @@ function renderProvinceTrend(){
   const vals=trendMode==='share'?counts.map((v,i)=>pct(v,totals[i])):counts;
   let min=Math.min(...vals), max=Math.max(...vals), range=Math.max(max-min,trendMode==='share'?5:4), pad=range*.2;
   min=Math.max(0,min-pad); max=max+pad;
-  const W=Math.max(300,document.getElementById('trendChart').clientWidth||760),H=window.innerWidth<768?250:290,L=window.innerWidth<768?76:62,R=76,T=28,B=42,x=i=>L+i*(W-L-R)/3,y=v=>H-B-(v-min)/(max-min||1)*(H-T-B),colors=TREND_COLORS[trendMetric]||TREND_COLORS.deficit;
+  const W=Math.max(300,document.getElementById('trendChart').clientWidth||760),H=window.innerWidth<768?250:290,L=window.innerWidth<768?70:64,R=72,T=28,B=42,x=i=>L+34+i*(W-L-R-68)/3,y=v=>H-B-(v-min)/(max-min||1)*(H-T-B),colors=TREND_COLORS[trendMetric]||TREND_COLORS.deficit;
   let svg=`<rect x="0" y="0" width="${W}" height="${H}" rx="15" fill="transparent"/>`;
   for(let i=0;i<=4;i++){const val=min+(max-min)*i/4,yy=y(val),lab=trendMode==='share'?`${Math.round(val)}%`:pl1(val);svg+=`<line x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}" stroke="#e9eef4"/><text x="${L-11}" y="${yy+4}" text-anchor="end" fill="#8291a2" font-size="10.5">${lab}</text>`;}
   years.forEach((yr,i)=>svg+=`<text x="${x(i)}" y="${H-18}" text-anchor="middle" fill="#607286" font-size="12" font-weight="800">${yr}</text>`);
   if(trendChartType==='bar'){
-    vals.forEach((v,i)=>{const top=y(v),bottom=y(min),height=Math.max(2,bottom-top);svg+=`<rect x="${x(i)-23}" y="${top}" width="46" height="${height}" rx="5" fill="${colors.main}" data-trend-point="1" data-year="${years[i]}" data-value="${pl1(v)}" data-area="Średnia wojewódzka"/>`;});
+    vals.forEach((v,i)=>{const top=y(v),bottom=y(min),height=Math.max(2,bottom-top);svg+=`<rect x="${x(i)-23}" y="${top}" width="46" height="${height}" rx="14" fill="${colors.main}" data-trend-point="1" data-year="${years[i]}" data-value="${pl1(v)}" data-area="Średnia wojewódzka"/>`;});
   }else{
-    svg+=`<path d="${vals.map((v,i)=>`${i?'L':'M'}${x(i)},${y(v)}`).join(' ')}" fill="none" stroke="${colors.main}" stroke-width="4.5"/>`;
+    svg+=`<path d="${vals.map((v,i)=>`${i?'L':'M'}${x(i)},${y(v)}`).join(' ')}" fill="none" stroke="${colors.main}" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round"/>`;
     vals.forEach((v,i)=>svg+=`<circle cx="${x(i)}" cy="${y(v)}" r="8" fill="${colors.main}" stroke="#fff" stroke-width="2.5" data-trend-point="1" data-year="${years[i]}" data-value="${pl1(v)}" data-area="Średnia wojewódzka"/>`);
   }
   document.getElementById('trendChart').setAttribute('viewBox',`0 0 ${W} ${H}`);
@@ -335,8 +335,8 @@ function renderTrend(name){
   min=Math.max(0,min-pad); max=max+pad;
   if(trendMode==='share'){min=Math.max(0,Math.floor(min/5)*5);max=Math.min(100,Math.ceil(max/5)*5||5)}
   else {min=Math.max(0,Math.floor(min));max=Math.ceil(max)}
-  const W=Math.max(300,document.getElementById('trendChart').clientWidth||760),H=window.innerWidth<768?250:290,L=window.innerWidth<768?76:62,R=76,T=28,B=42;
-  const x=i=>L+i*(W-L-R)/3;
+  const W=Math.max(300,document.getElementById('trendChart').clientWidth||760),H=window.innerWidth<768?250:290,L=window.innerWidth<768?70:64,R=72,T=28,B=42;
+  const x=i=>L+34+i*(W-L-R-68)/3;
   const y=v=>H-B-(v-min)/(max-min||1)*(H-T-B);
   const colors=TREND_COLORS[trendMetric]||TREND_COLORS.deficit;
   const gridN=4;
@@ -356,12 +356,12 @@ function renderTrend(name){
     years.forEach((yr,i)=>{
       [[avgs[i],TREND_AVG_COLOR,-24,'Średnia wojewódzka'],[vals[i],colors.main,4,name]].forEach(([v,c,dx,area])=>{
         const top=y(v),bottom=y(min),height=Math.max(2,bottom-top);
-        svg+=`<rect x="${x(i)+dx}" y="${top}" width="20" height="${height}" rx="4" fill="${c}" data-trend-point="1" data-year="${yr}" data-value="${pl1(v)}" data-area="${escapeHtml(area)}"/>`;
+        svg+=`<rect x="${x(i)+dx}" y="${top}" width="20" height="${height}" rx="9" fill="${c}" data-trend-point="1" data-year="${yr}" data-value="${pl1(v)}" data-area="${escapeHtml(area)}"/>`;
       });
     });
   }else{
-    svg+=`<path d="${pathAvg}" fill="none" stroke="${TREND_AVG_COLOR}" stroke-width="3" stroke-dasharray="8 7" opacity=".9"/>`;
-    svg+=`<path d="${pathCounty}" fill="none" stroke="${colors.main}" stroke-width="4.5"/>`;
+    svg+=`<path d="${pathAvg}" fill="none" stroke="${TREND_AVG_COLOR}" stroke-width="3.2" stroke-dasharray="8 7" stroke-linecap="round" opacity=".9"/>`;
+    svg+=`<path d="${pathCounty}" fill="none" stroke="${colors.main}" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round"/>`;
     avgs.forEach((v,i)=>svg+=`<circle cx="${x(i)}" cy="${y(v)}" r="7" fill="#fff" stroke="${TREND_AVG_COLOR}" stroke-width="3" data-trend-point="1" data-year="${years[i]}" data-value="${pl1(v)}" data-area="Średnia wojewódzka"/>`);
     vals.forEach((v,i)=>svg+=`<circle cx="${x(i)}" cy="${y(v)}" r="8" fill="${colors.main}" stroke="#fff" stroke-width="2.5" data-trend-point="1" data-year="${years[i]}" data-value="${pl1(v)}" data-area="${escapeHtml(name)}"/>`);
   }
@@ -386,7 +386,7 @@ function renderTrend(name){
   const diff=vals[3]-vals[0];
   document.getElementById('trendHeadline').textContent=`${diff>0?'+':''}${trendMode==='share'?pl1(diff)+' p.p.':pl1(diff)}`;
   document.getElementById('trendHeadline').style.color=colors.main;
-  document.getElementById('trendHeadlineDesc').textContent=trendMode==='share'?`zmiana udziału: 2024 → 2027 (${pl1(vals[0])}% → ${pl1(vals[3])}%)`:`zmiana liczby grup: 2024 → 2027 (${countVals[0]} → ${countVals[3]})`;
+  document.getElementById('trendHeadlineDesc').textContent=trendMode==='share'?`zmiana udziału: 2024 → 2027 (${pl1(vals[0])}% → ${pl1(vals[3])}%)`:`zmiana: 2024 → 2027 (${countVals[0]} → ${countVals[3]})`;
   const insight=document.getElementById('trendInsight');
   insight.textContent=trendInterpretation(name,trendMetric,pts,avgCounts);
   insight.style.borderLeftColor=TREND_AVG_COLOR;
@@ -1030,7 +1030,7 @@ function renderComparison(){
   const bars=names.map((name,i)=>{
     const val=values[i], valid=Number.isFinite(val),percent=valid?Math.max(0,Math.min(100,val/max*100)):0;
     const formatted=valid?(metric==='unemp'?pl1(val)+'%':String(val)):'b.d.';
-    return `<div class="compareBarItem"><div class="compareBarValue">${formatted}</div><div class="compareBarTrack"><div class="compareBarFill" style="height:${percent}%;background:${colors[i]}"></div></div><div class="compareBarName" title="${safe(name)}"><i style="background:${colors[i]}"></i>${safe(name)}</div></div>`;
+    return `<div class="compareBarItem"><div class="compareBarValue">${formatted}</div><div class="compareBarTrack"><div class="compareBarFill" style="height:${percent}%;background:${colors[i]};--bar-color:${colors[i]}"></div></div><div class="compareBarName" title="${safe(name)}"><i style="background:${colors[i]}"></i>${safe(name)}</div></div>`;
   }).join('');
   out.innerHTML=`<div class="compareChartPanel"><div class="compareChartHeader"><div><h3>Porównanie na żywo</h3><p>Wykres aktualizuje się po zmianie wybranych jednostek.</p></div><label class="compareChartSelector">Wskaźnik <select id="compareChartMetric" aria-label="Wskaźnik wykresu">${metrics.map(([label,key])=>`<option value="${key}" ${metric===key?'selected':''}>${label}</option>`).join('')}</select></label></div><div class="compareChartCaption">${labels[metric]} • ${metric==='unemp'?'wartość procentowa':'prognoza Barometru Zawodów 2027'}</div><div class="comparePlotViewport" role="region" tabindex="0" aria-label="Wykres porównawczy. Na małym ekranie przewijaj poziomo."><div class="comparePlot ${names.length>=4?'comparePlotDense':''}"><div class="compareAxis">${ticks.slice().reverse().map(v=>`<span>${metric==='unemp'?pl1(v)+'%':Number(v.toFixed(1)).toLocaleString('pl-PL')}</span>`).join('')}</div><div class="compareChartArea"><div class="compareGrid">${ticks.map(()=>'<span></span>').join('')}</div><div class="compareBars">${bars}</div></div></div></div>${names.length>=4?'<p class="compareScrollHint">Na telefonie przesuń wykres lub tabelę w bok, aby zobaczyć wszystkie wybrane powiaty.</p>':''}<p class="compareChartFoot">Wszystkie słupki przedstawiają ten sam wskaźnik i korzystają ze wspólnej skali od zera. Brak danych nie jest traktowany jako zero.</p></div><div class="compareTableWrap" data-compare-count="${names.length}"><table class="compareTable"><thead><tr><th>Wskaźnik</th>${names.map(n=>`<th>${escapeHtml(n)}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>`;
   out.querySelector('#compareChartMetric').addEventListener('change',e=>{window.__compareChartMetric=e.target.value;renderComparison()});
@@ -1412,15 +1412,28 @@ syncComparePickers();
 ['compare1','compare2','compare3','compare4','compare5'].forEach(id=>document.getElementById(id).addEventListener('change',()=>{syncComparePickers();renderComparison()}));
 document.getElementById('compareClearBtn').addEventListener('click',()=>{['compare1','compare2','compare3','compare4','compare5'].forEach(id=>document.getElementById(id).value='');syncComparePickers();renderComparison();});
 document.getElementById('occProfileClear').addEventListener('click',()=>setOccupation(''));
+// v148: fullscreen exposes every compactPane in a single scrollable presentation.
+function setFullPresentation(entering){
+ document.body.classList.toggle('presentationMode',entering);
+ window.COMPACT_LAYOUT?.setPresentationMode?.(entering);
+ const btn=document.getElementById('fullscreenBtn');
+ btn.textContent=entering?'✕ Zakończ prezentację':'⛶ Tryb prezentacji';
+ btn.setAttribute('aria-pressed',String(entering));
+}
 document.getElementById('fullscreenBtn').addEventListener('click',async()=>{
-  const entering=!document.body.classList.contains('presentationMode');
-  const countyPanel=document.getElementById('countyUnempModule');
-  if(countyPanel){if(entering){countyPanel.dataset.beforePresentation=countyPanel.open?'1':'0';countyPanel.open=true}else{countyPanel.open=countyPanel.dataset.beforePresentation==='1';delete countyPanel.dataset.beforePresentation}}
-  document.body.classList.toggle('presentationMode',entering);
-  document.getElementById('fullscreenBtn').textContent=entering?'✕ Zakończ prezentację':'⛶ Tryb prezentacji';
-  try{if(entering&&!document.fullscreenElement) await document.documentElement.requestFullscreen(); else if(!entering&&document.fullscreenElement) await document.exitFullscreen()}catch(e){}
+ const entering=!document.body.classList.contains('presentationMode');
+ setFullPresentation(entering);
+ try{
+  if(entering&&!document.fullscreenElement&&window.innerWidth>=768)await document.documentElement.requestFullscreen();
+  else if(!entering&&document.fullscreenElement)await document.exitFullscreen();
+ }catch(e){/* The continuous view still works if browser fullscreen is unavailable. */}
 });
-document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement&&document.body.classList.contains('presentationMode')){document.body.classList.remove('presentationMode');document.getElementById('fullscreenBtn').textContent='⛶ Tryb prezentacji';const cp=document.getElementById('countyUnempModule');if(cp){cp.open=cp.dataset.beforePresentation==='1';delete cp.dataset.beforePresentation}}});
+document.addEventListener('fullscreenchange',()=>{
+ if(!document.fullscreenElement&&document.body.classList.contains('presentationMode'))setFullPresentation(false);
+});
+document.addEventListener('keydown',e=>{
+ if(e.key==='Escape'&&document.body.classList.contains('presentationMode')&&!document.fullscreenElement)setFullPresentation(false);
+});
 
 function renderRanks(){
   const allCounties=Object.entries(DATA);

@@ -1,0 +1,127 @@
+/* v148 - Jedna przewijana prezentacja; zwykłe zakładki bez zmian. */
+.continuousPresentationNav,.continuousSectionHeading{display:none}
+body.compactUI.presentationMode .continuousPresentationNav{
+ display:flex!important;align-items:center;gap:14px;flex-wrap:wrap;
+ position:sticky;top:0;z-index:160;width:100%;max-width:1440px;
+ margin:0 auto 18px;padding:10px 15px;
+ background:rgba(23,51,82,.97);color:#fff;
+ border:1px solid rgba(255,255,255,.16);border-radius:0 0 16px 16px;
+ box-shadow:0 9px 26px rgba(17,42,71,.22);
+}
+body.compactUI.presentationMode .continuousPresentationBrand{
+ display:flex;flex-direction:column;gap:3px;min-width:185px;flex:0 0 auto;
+}
+body.compactUI.presentationMode .continuousPresentationBrand span{font-size:9px;font-weight:700;letter-spacing:.09em;color:#bacde3}
+body.compactUI.presentationMode .continuousPresentationBrand strong{font-size:17px;font-weight:800;line-height:1.15}
+body.compactUI.presentationMode .continuousPresentationLinks{
+ display:flex;gap:5px;align-items:center;justify-content:center;flex:1 1 580px;flex-wrap:wrap;min-width:0;
+}
+body.compactUI.presentationMode .continuousPresentationJump,
+body.compactUI.presentationMode .continuousPresentationExit{
+ border:1px solid rgba(255,255,255,.18);border-radius:9px;
+ background:rgba(255,255,255,.10);color:#fff;
+ padding:8px 10px;font:700 12px/1.25 Inter,Segoe UI,Arial,sans-serif;cursor:pointer;
+}
+body.compactUI.presentationMode .continuousPresentationJump:hover,
+body.compactUI.presentationMode .continuousPresentationJump:focus-visible{background:#456b96;outline:2px solid #bdd9ff;outline-offset:1px}
+body.compactUI.presentationMode .continuousPresentationExit{
+ background:#fff;color:#173352;border-color:#fff;white-space:nowrap;flex-shrink:0;padding:10px 13px;
+}
+body.compactUI.presentationMode .continuousPresentationExit:hover{background:#e7f2ff}
+body.compactUI.presentationMode .compactPane{
+ display:block!important;min-width:0!important;max-width:1440px!important;
+ width:100%!important;margin:0 auto 30px!important;scroll-margin-top:115px;
+}
+body.compactUI.presentationMode .continuousSectionHeading{
+ display:flex!important;align-items:center;gap:12px;
+ background:#e6edf6;border:1px solid #bdcfe1;border-left:5px solid #2a5c97;
+ padding:14px 20px;border-radius:14px;margin:0 0 15px!important;
+}
+body.compactUI.presentationMode .continuousSectionIndex{font-size:12px;font-weight:800;letter-spacing:.09em;color:#3f6285;white-space:nowrap}
+body.compactUI.presentationMode .continuousSectionHeading h2{margin:0!important;font-size:clamp(20px,2vw,27px)!important;color:#183b61!important;line-height:1.22}
+/* Older presentation rules must not hide whole analytical sections. */
+body.compactUI.presentationMode #compact-sources .sourceRegistryWrap,
+body.compactUI.presentationMode #compact-rankings #atlasRankings,
+body.compactUI.presentationMode #compact-rankings .lower,
+body.compactUI.presentationMode #compact-jobs .occupationProfileCard,
+body.compactUI.presentationMode #compact-jobs .compareCard,
+body.compactUI.presentationMode #compact-jobs #comments{display:block!important}
+body.compactUI.presentationMode #compact-rankings #atlasRankings{display:grid!important}
+body.compactUI.presentationMode #compact-jobs .jobStatusTabs{display:flex!important}
+body.compactUI.presentationMode .compactJobsCard .jobs{max-height:none!important;overflow:visible!important}
+body.compactUI.presentationMode .compactPane :is(.compactResponsiveDetail, #compactCountyMore) > .gusCard{min-height:0}
+@media(max-width:900px){
+ body.compactUI.presentationMode .continuousPresentationNav{padding:10px;gap:8px}
+ body.compactUI.presentationMode .continuousPresentationBrand{min-width:0;flex:1 1 210px}
+ body.compactUI.presentationMode .continuousPresentationLinks{
+  justify-content:flex-start;flex:1 0 100%;order:3;overflow-x:auto;flex-wrap:nowrap;
+  padding:3px 0 2px;scrollbar-width:thin;
+ }
+ body.compactUI.presentationMode .continuousPresentationJump{flex:0 0 auto}
+ body.compactUI.presentationMode .compactPane{scroll-margin-top:143px;margin-bottom:18px!important}
+ body.compactUI.presentationMode .continuousSectionHeading{padding:12px 14px}
+}
+@media(max-width:500px){
+ body.compactUI.presentationMode .continuousPresentationBrand span{font-size:8px}
+ body.compactUI.presentationMode .continuousPresentationBrand strong{font-size:14px}
+ body.compactUI.presentationMode .continuousPresentationExit{padding:8px 10px;font-size:11px}
+ body.compactUI.presentationMode .continuousSectionHeading h2{font-size:19px!important}
+ body.compactUI.presentationMode .compactPane{scroll-margin-top:148px}
+}
+@media print{.continuousPresentationNav,.continuousSectionHeading{display:none!important}}
+/* Enforce legible nav text over legacy global typography overrides. */
+html body.compactUI.presentationMode .continuousPresentationNav .continuousPresentationBrand,
+html body.compactUI.presentationMode .continuousPresentationNav .continuousPresentationBrand strong{
+ color:#ffffff!important;
+}
+html body.compactUI.presentationMode .continuousPresentationNav .continuousPresentationBrand span{
+ color:#c5d7eb!important;
+}
+
+/* v152: all sections and graphics remain visible in continuous presentation. */
+body.compactUI.presentationMode .compactPane[hidden]{display:block!important}
+body.compactUI.presentationMode .compactPane :is(.compactGusDetail,.compactRankDetail,.compactResponsiveDetail,.compactMore,.compactSourceGroup)>summary{cursor:pointer}
+body.compactUI.presentationMode #filterStudio{display:block!important}
+body.compactUI.presentationMode #compact-jobs .occupationProfileCard{display:block!important}
+body.compactUI.presentationMode #compact-jobs .compareCard{display:block!important}
+body.compactUI.presentationMode #compact-sources .sourceRegistryWrap{display:block!important}
+body.compactUI.presentationMode #compact-rankings #atlasRankings{display:grid!important}
+body.compactUI.presentationMode #pupStructureModule .pupGrid>.pupCard{display:block!important}
+body.compactUI.presentationMode .compactChartTabs{display:none!important}
+body.compactUI.presentationMode .compactPane .v123ChartFooter{display:flex!important}
+body.compactUI.presentationMode .compactPane .v114ActionRow{display:flex!important}
+body.compactUI.presentationMode .compactPane details[open]>.gusCard{display:flex!important}
+body.compactUI.presentationMode .compactPane details[open]>.rank{display:block!important}
+body.compactUI.presentationMode .compactPane .gusGrid{min-width:0!important}
+body.compactUI.presentationMode .compactPane .pupGrid{min-width:0!important}
+body.compactUI.presentationMode .compactPane{box-sizing:border-box;overflow-x:clip}
+/* Phone action is accessible even if fullscreen API is unsupported (iOS Safari). */
+@media(max-width:767px){
+ body.compactUI #fullscreenBtn{display:inline-flex!important;visibility:visible!important;max-width:100%;font-size:12px!important}
+ body.compactUI.presentationMode .continuousPresentationNav{position:sticky!important;top:0!important}
+ body.compactUI.presentationMode .compactPane .pupGrid{grid-template-columns:minmax(0,1fr)!important}
+ body.compactUI.presentationMode .compactPane .pupGrid>.pupCard{width:100%!important;min-width:0!important}
+}
+
+/* Override the phone-only PUP one-chart-at-a-time rule in presentation mode. */
+@media(max-width:767px){
+  body.compactUI.presentationMode #pupStructureModule[data-mobile-chart] .pupGrid>.pupCard:first-child,
+  body.compactUI.presentationMode #pupStructureModule[data-mobile-chart] .pupGrid>.pupCard:nth-child(2){display:block!important}
+}
+/* Mobile: the legacy flex/DOM-order optimization can collapse the parent height
+   when multiple compact panes are visible. Use normal block flow in presentation. */
+@media(max-width:767px){
+ html body.compactUI.presentationMode .studioContent{
+  display:block!important;height:auto!important;min-height:100vh!important;max-height:none!important;
+  overflow:visible!important;align-content:normal!important;
+ }
+ html body.compactUI.presentationMode .studioContent>.compactPane{
+  display:block!important;position:relative!important;float:none!important;clear:both!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;height:auto!important;
+ }
+ html body.compactUI.presentationMode .studioContent>main.shell{display:block!important;height:auto!important;min-height:0!important}
+}
+@media(max-width:767px){
+ html:has(body.compactUI.presentationMode){overflow-x:hidden!important;overflow-y:auto!important;height:auto!important;min-height:100%!important}
+ html body.compactUI.presentationMode{overflow:visible!important;height:auto!important;min-height:100vh!important}
+}
