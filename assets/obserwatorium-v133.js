@@ -30,14 +30,14 @@
     ['Stopa wojewódzka','Wskaźnik wojewódzki: 4,8% · stan na 30.09.2026. Nie należy traktować go jako stopy każdego powiatu.'],
     ['Liczba bezrobotnych w województwie','Dane regionalne WUP: ostatni stan na 30.09.2026, z historią miesięczną 2020-2026.'],
     ['Struktura bezrobocia PUP','Pełne tablice struktury: '+(pup.liczbaPowiatow||36)+' jednostek · lata 2021-2026; ostatni import WUP z dnia '+fit(pup.pobrano||'2026-10-29')+'.'],
-    ['Co aktualizować','Powiatowe stopy są już uzupełnione do 09.2026; przy kolejnych aktualizacjach pobierz komplet 36 stawek z tej samej daty. Uzupełnij także BAEL, REGON i pozostałe serie kontekstowe.'],
+    ['Co aktualizować','Powiatowe stopy są już uzupełnione do 09.2026; przy kolejnych aktualizacjach pobierz komplet 36 stawek z tej samej daty. BAEL jest już do II kw. 2026; uzupełnij REGON i pozostałe serie kontekstowe.'],
     ['Porównywalność','Od czerwca 2025 r. obowiązują zmienione zasady rejestracji bezrobotnych.']]},
    gus:{overview:'Demografia 2014-2025 · BAEL do '+baelPeriod+' · REGON do '+regonPeriod,entries:[
     ['Demografia','Wbudowane szeregi historyczne ludności: 16 z 36 jednostek · zakres zależnie od źródła 2014-2025 lub 2016-2025. Nowszy stan 30.06.2026 jest do importu.'],
-    ['BAEL',`W aplikacji zapisano dane wojewódzkie do ${baelPeriod}. Nowsza znana publikacja: ${baelNewer} - wymaga przepisania wartości.`],
+    ['BAEL',`W aplikacji zapisano dane wojewódzkie do ${baelPeriod}. Najnowsza zaimportowana publikacja: ${baelNewer}. Wskaźniki, liczby pracujących, bezrobotnych i biernych zawodowo za I-II kwartał 2026 są zapisane w aplikacji.`],
     ['REGON',`W aplikacji zapisano szereg regionalny do ${regonPeriod}. Nowsza znana publikacja: ${regonNewer} - wymaga importu.`],
     ['Kontekst gospodarczy','Osobny blok kontekstowy GUS: lipiec 2026 - dane regionalne, nie powiatowe.'],
-    ['Co aktualizować','Najszybciej widać tu braki w BAEL, REGON oraz w pełnym pokryciu demografii dla wszystkich 36 jednostek.']]}
+    ['Co aktualizować','BAEL Śląskie do II kw. 2026 jest uzupełniony; do aktualizacji pozostają m.in. REGON i pełne pokrycie demografii dla 36 jednostek.']]}
   }
  }
  function insertStrips(){

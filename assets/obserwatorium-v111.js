@@ -458,11 +458,15 @@ function v120ChartSnapshot(node,view,base){
      item.title=item.exportMeta.measure+' - Śląskie na tle Polski';item.period=item.exportMeta.period;item.source='GUS / Urząd Statystyczny w Katowicach - BAEL';
    }else if(mode==='current'){
      const b=gus.bael2026?.[kind];
-     if(b){data={kind:'series',labels:['IV kw. 2025','I kw. 2026','II kw. 2026'],series:[
-       {name:'Polska',values:[b.poland2025,...b.poland2026]},
-       {name:'Woj. śląskie - tylko 2025',values:[b.slaskie2025,null,null]}],unit:'%'};
-       item.exportMeta={unit:'%',measure:kind==='activity'?'Współczynnik aktywności zawodowej':'Wskaźnik zatrudnienia',period:'Polska do II kw. 2026; Śląskie do IV kw. 2025',note:'Brak zweryfikowanej wartości Śląskiego za 2026 - nie łączyć okresów jako jednego porównania.'};
-       item.title=item.exportMeta.measure+' - różne okresy Polski i Śląskiego';item.period=item.exportMeta.period;item.source='GUS / Urząd Statystyczny w Katowicach - BAEL';
+     if(b?.slaskie2026?.length===2 && b?.poland2026?.length===2){
+       data={kind:'series',labels:['I kw. 2026','II kw. 2026'],series:[
+         {name:'Woj. śląskie',values:b.slaskie2026},
+         {name:'Polska',values:b.poland2026}],unit:'%'};
+       const measure=kind==='activity'?'Współczynnik aktywności zawodowej':kind==='employment'?'Wskaźnik zatrudnienia':'Stopa bezrobocia według BAEL';
+       item.exportMeta={unit:'%',measure,period:'I i II kwartał 2026',note:'Dane BAEL - badanie ankietowe; nie łączyć ze stopą bezrobocia rejestrowanego.'};
+       item.title=measure+' - Śląskie na tle Polski (I-II kw. 2026)';
+       item.period=item.exportMeta.period;
+       item.source='GUS / Urząd Statystyczny w Katowicach - BAEL, II kw. 2026 (29.09.2026)';
      }
    }
  }

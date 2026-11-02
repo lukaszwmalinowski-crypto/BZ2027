@@ -90,47 +90,81 @@
  }
  const bael=window.PANEL_DATA.gus.bael;
  let baelMode='activity',baelPeriod='historic';
- function baelPoland2026(vals,metric,lastSl,lastPl){
-   // Distinct periods: regional observations are verified only to Q4/2025,
-   // and the Poland-only points for 2026 must not be presented as comparable
-   // with fabricated regional values.
+ function compareBael2026(mode,metric,source){
    const svg=clear('gusBaelChart');if(!svg)return;
-   const W=760,H=280,L=98,R=49,T=37,B=67;
-   const all=[lastSl,lastPl,...vals];const min=Math.floor((Math.min(...all)-1)*2)/2,max=Math.ceil((Math.max(...all)+1)*2)/2;
-   const X=i=>L+i*(W-L-R)/2,Y=v=>T+(max-v)*(H-T-B)/(max-min);
-   const ticks=[min,(min+max)/2,max];grid(svg,ticks.map(Y),L,W-R);
-   ticks.forEach(v=>svg.appendChild(el('text',{x:26,y:Y(v)+4,class:'axisText'},pl(v)+'%')));
-   svg.appendChild(el('text',{x:26,y:20,class:'axisUnit'},'%'));
-   const periods=['IV kw. 2025','I kw. 2026','II kw. 2026'];
-   const plVals=[lastPl,...vals];
-   svg.appendChild(el('polyline',{points:plVals.map((v,i)=>`${X(i)},${Y(v)}`).join(' '),stroke:'#c58a2b','stroke-width':3.2,'stroke-dasharray':'7 5',fill:'none','stroke-linecap':'round','stroke-linejoin':'round'}));
-   plVals.forEach((v,i)=>{const x=X(i),y=Y(v),c=el('circle',{cx:x,cy:y,r:5.5,fill:'#fff',stroke:'#c58a2b','stroke-width':3});svg.appendChild(c);bind(c,periods[i],pl(v)+'%',metric+' • Polska');svg.appendChild(el('text',{x,y:y-15,'text-anchor':'middle',class:'pointValue poland'},pl(v)+'%'));});
-   const sx=X(0),sy=Y(lastSl),c=el('circle',{cx:sx,cy:sy,r:6,fill:'#fff',stroke:'#173d66','stroke-width':3.2});svg.appendChild(c);bind(c,periods[0],pl(lastSl)+'%',metric+' • województwo śląskie');svg.appendChild(el('text',{x:sx,y:sy+25,'text-anchor':'middle',class:'pointValue slaskie'},pl(lastSl)+'%'));
-   periods.forEach((t,i)=>svg.appendChild(el('text',{x:X(i),y:H-44,'text-anchor':'middle',class:'axisText'},t)));
-   svg.appendChild(el('text',{x:(X(1)+X(2))/2,y:H-17,'text-anchor':'middle',class:'axisText'},'Śląskie: wartości 2026 niezweryfikowane w panelu'));
+   if(pinned){resetMark(pinned);pinned=null;tooltip.classList.remove('show')}
+   const sl=source.slaskie2026,plvals=source.poland2026;
+   const W=760,H=280,L=92,R=42,T=38,B=57,Xs=[220,552];
+   const series=[{name:'Woj. śląskie',values:sl,color:'#173d66',klass:'slaskie',offset:27,dash:''},{name:'Polska',values:plvals,color:'#c58a2b',klass:'poland',offset:-24,dash:'7 5'}];
+   const all=[...sl,...plvals],pad=Math.max(.45,(Math.max(...all)-Math.min(...all))*.22);
+   const ymin=Math.floor((Math.min(...all)-pad)*2)/2,ymax=Math.ceil((Math.max(...all)+pad)*2)/2;
+   const Y=v=>T+(ymax-v)*(H-T-B)/(ymax-ymin||1),ticks=[ymin,(ymin+ymax)/2,ymax];
+   grid(svg,ticks.map(Y),L,W-R);
+   ticks.forEach(v=>svg.appendChild(el('text',{x:18,y:Y(v)+5,class:'axisText'},pl(v)+'%')));
+   svg.appendChild(el('text',{x:18,y:19,class:'axisUnit'},'%'));
+   ['I kw. 2026','II kw. 2026'].forEach((label,i)=>{
+     svg.appendChild(el('line',{x1:Xs[i],y1:T,x2:Xs[i],y2:H-B,stroke:'#eef1f6'}));
+     svg.appendChild(el('text',{x:Xs[i],y:H-19,'text-anchor':'middle',class:'axisText'},label));
+   });
+   for(const s of series){
+     svg.appendChild(el('polyline',{points:s.values.map((v,i)=>`${Xs[i]},${Y(v)}`).join(' '),fill:'none',stroke:s.color,'stroke-width':3.6,'stroke-dasharray':s.dash,'stroke-linejoin':'round','stroke-linecap':'round'}));
+     s.values.forEach((v,i)=>{
+       const x=Xs[i],y=Y(v),labelY=Math.max(19,Math.min(H-B+34,y+s.offset));
+       const circle=el('circle',{cx:x,cy:y,r:6.5,fill:'#fff',stroke:s.color,'stroke-width':3});svg.appendChild(circle);
+       bind(circle,['I kwartał 2026','II kwartał 2026'][i],pl(v)+'%',metric+' • '+s.name);
+       svg.appendChild(el('line',{x1:x,y1:y+s.offset/Math.abs(s.offset)*6,x2:x,y2:labelY+(s.offset<0?8:-12),stroke:s.color,'stroke-width':1.1}));
+       svg.appendChild(el('text',{x,y:labelY,'text-anchor':'middle',class:'pointValue '+s.klass},pl(v)+'%'));
+     });
+   }
+   svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+   svg.setAttribute('aria-label',metric+' - woj. śląskie na tle Polski, I i II kwartał 2026');
+ }
+ function baelQuarterCounts(){
+   const panel=document.getElementById('baelQuarterSummary');if(!panel)return;
+   const counts=window.PANEL_DATA?.gus?.bael2026?.counts2026;
+   if(!counts)return;
+   const fmt=v=>Number(v).toLocaleString('pl-PL');
+   const set=[['Pracujący',counts.employed],['Bezrobotni (BAEL)',counts.unemployed],['Bierni zawodowo',counts.inactive]];
+   panel.innerHTML='<div class="baelQuarterSummaryHead">Liczba osób według BAEL · woj. śląskie · I vs II kwartał 2026</div><div class="baelQuarterGrid">'+set.map(([title,values])=>{
+     const m=Math.max(...values);const change=values[1]-values[0];
+     const changeLabel=change===0?'bez zmiany':(change>0?'+':'')+fmt(change)+' tys. osób kw./kw.';
+     return `<div class="baelQuarterItem"><strong>${title}</strong><div class="baelQuarterValues"><span>I kw. <b>${fmt(values[0])}</b> tys.</span><span>II kw. <b>${fmt(values[1])}</b> tys.</span></div><div class="baelQuarterMiniBars" aria-label="I kwartał: ${fmt(values[0])} tysięcy, II kwartał: ${fmt(values[1])} tysięcy"><div style="height:${Math.max(5,100*values[0]/m)}%"></div><div style="height:${Math.max(5,100*values[1]/m)}%"></div></div><p class="baelQuarterFoot">Zmiana: <b>${changeLabel}</b></p></div>`;
+   }).join('')+'</div><p class="baelQuarterMethod">Liczby w tysiącach osób. Wartości pochodzą z reprezentacyjnego badania BAEL i podlegają zaokrągleniom; nie porównuj ich bezpośrednio z liczbą bezrobotnych zarejestrowanych w PUP.</p>';
  }
  function renderBael(mode=baelMode,period=baelPeriod){
+   if(mode==='unemployment')period='current';
    baelMode=mode;baelPeriod=period;
-   const a=mode==='employment',d=a?bael.employment:bael.activity,metric=a?'Wskaźnik zatrudnienia':'Współczynnik aktywności zawodowej',current=period==='current';
+   const quarterly=window.PANEL_DATA.gus.bael2026;
+   const names={activity:'Współczynnik aktywności zawodowej',employment:'Wskaźnik zatrudnienia',unemployment:'Stopa bezrobocia według BAEL'};
+   const metric=names[mode]||names.activity,a=mode==='employment';
    document.querySelectorAll('[data-bael-mode]').forEach(b=>{const on=b.dataset.baelMode===mode;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on))});
-   document.querySelectorAll('[data-bael-period]').forEach(b=>{const on=b.dataset.baelPeriod===period;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on))});
+   document.querySelectorAll('[data-bael-period]').forEach(b=>{const on=b.dataset.baelPeriod===period;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on));b.disabled=(mode==='unemployment'&&b.dataset.baelPeriod==='historic')});
    const source=document.getElementById('gusBaelSource'),note=document.getElementById('gusBaelNote');
-   if(current){
-     const values=(a?window.PANEL_DATA.gus.bael2026.employment:window.PANEL_DATA.gus.bael2026.activity).poland2026;
-     const lastSl=(a?window.PANEL_DATA.gus.bael2026.employment:window.PANEL_DATA.gus.bael2026.activity).slaskie2025,lastPl=(a?window.PANEL_DATA.gus.bael2026.employment:window.PANEL_DATA.gus.bael2026.activity).poland2025;
-     baelPoland2026(values,metric,lastSl,lastPl);
-     document.getElementById('gusBaelFresh').textContent='2025-II kw. 2026';document.getElementById('gusBaelSubtitle').textContent=metric+' • porównanie do 2025 i dane krajowe za 2026';
-     document.getElementById('gusBaelPeriod').textContent='IV kw. 2025 oraz I-II kw. 2026';document.getElementById('gusBaelTerritory').textContent='Śląskie: IV kw. 2025 • Polska: do II kw. 2026';
-     document.getElementById('gusBaelSlaskie').textContent=pl(lastSl)+'%';document.getElementById('gusBaelSlaskie').classList.remove('gusKpiUnavailable');
-     document.getElementById('gusBaelSlaskieLabel').textContent='Śląskie • IV kw. 2025 (ostatni potwierdzony w panelu)';
-     document.getElementById('gusBaelPolska').textContent=pl(values[1])+'%';document.getElementById('gusBaelPolskaLabel').textContent='Polska • II kw. 2026';
-     document.getElementById('gusBaelGap').textContent='brak porównania dla tego samego kwartału 2026';
-     document.getElementById('gusBaelChartNote').innerHTML='<b>Co pokazuje wykres?</b> Po lewej <b>Śląskie i Polska - IV kw. 2025</b>, a następnie <b>tylko Polska - I-II kw. 2026</b>. Śląski punkt z 2025 r. nie stanowi szacunku na 2026 r. Dane dotyczą ludności w wieku 15-89 lat.';
-     document.getElementById('gusBaelInsight').innerHTML=`<strong>Ostatni pełny porównywalny okres (IV kw. 2025):</strong> Śląskie <b>${pl(lastSl)}%</b>, Polska <b>${pl(lastPl)}%</b>. W II kw. 2026 r. Polska <b>${pl(values[1])}%</b>; brak regionalnej wartości w bazie panelu.`;
-     note.innerHTML='<b>Uwaga - brakująca seria Śląskiego:</b> US Katowice opublikował dane BAEL za II kwartał 2026 (29.09.2026), jednak wartości regionalne nie są zweryfikowane w dostarczonej bazie. Dane z IV kw. 2025 są pokazane z własną datą, bez interpolowania ani łączenia nieporównywalnych okresów.';
-     source.innerHTML='Źródła: <a href="https://ssgk.stat.gov.pl/Rynek_pracy_BAEL.html" target="_blank" rel="noopener">GUS - Polska, II kw. 2026</a> · <a href="https://katowice.stat.gov.pl/opracowania-biezace/opracowania-sygnalne/praca-wynagrodzenie/aktywnosc-ekonomiczna-ludnosci-w-wojewodztwie-slaskim-w-4-kwartale-2025-r-%2C2%2C57.html" target="_blank" rel="noopener">US Katowice - Śląskie, IV kw. 2025</a> · <a href="https://publikacje.new.stat.gov.pl/portal-publikacje/aktywnosc-ekonomiczna-ludnosci-w-wojewodztwie-slaskim-w-2-kwartale-2026-r" target="_blank" rel="noopener">Publikacja BAEL Śląskie 2026 - do uzupełnienia</a>';
+   const summary=document.getElementById('baelQuarterSummary');
+   if(period==='current'){
+     const data=quarterly[mode];
+     if(!data?.slaskie2026?.length||!data?.poland2026?.length)return;
+     compareBael2026(mode,metric,data);
+     document.getElementById('gusBaelFresh').textContent='I-II kw. 2026';
+     document.getElementById('gusBaelSubtitle').textContent=metric+' • woj. śląskie na tle Polski • 2026';
+     document.getElementById('gusBaelPeriod').textContent='I i II kwartał 2026';
+     document.getElementById('gusBaelTerritory').textContent='Śląskie vs Polska, wspólne kwartały';
+     document.getElementById('gusBaelSlaskie').textContent=pl(data.slaskie2026[1])+'%';
+     document.getElementById('gusBaelSlaskieLabel').textContent='Śląskie • II kw. 2026';
+     document.getElementById('gusBaelPolska').textContent=pl(data.poland2026[1])+'%';
+     document.getElementById('gusBaelPolskaLabel').textContent='Polska • II kw. 2026';
+     const gap=data.slaskie2026[1]-data.poland2026[1],change=data.slaskie2026[1]-data.slaskie2026[0];
+     document.getElementById('gusBaelGap').textContent=`II kw. 2026 · różnica: ${gap<0?'−':gap>0?'+':''}${pl(Math.abs(gap))} p.p.`;
+     const defs={activity:'Odsetek aktywnych zawodowo (pracujących i bezrobotnych BAEL) wśród ludności w wieku 15-89 lat.',employment:'Odsetek osób pracujących wśród ludności w wieku 15-89 lat.',unemployment:'Odsetek osób bezrobotnych wśród aktywnych zawodowo według BAEL. To nie jest stopa bezrobocia rejestrowanego.'};
+     document.getElementById('gusBaelChartNote').innerHTML=`<b>Co pokazuje wykres?</b> ${defs[mode]} Obydwa obszary porównano w tych samych kwartałach 2026 r.`;
+     document.getElementById('gusBaelInsight').innerHTML=`<strong>II kwartał 2026:</strong> ${metric.toLowerCase()} wyniósł w woj. śląskim <b>${pl(data.slaskie2026[1])}%</b>, w Polsce <b>${pl(data.poland2026[1])}%</b>. W stosunku do I kwartału wartość w województwie ${change>0?'wzrosła':change<0?'spadła':'nie zmieniła się'}${change===0?'':` o <b>${pl(Math.abs(change))} p.p.</b>`}.`;
+     note.innerHTML='<b>Metodologia:</b> BAEL jest badaniem ankietowym gospodarstw domowych, nie rejestrem PUP. Bezrobotni BAEL to osoby w wieku 15-74 lata aktywnie poszukujące pracy i gotowe ją podjąć. Dane regionalne opublikowano 29.09.2026 r. <a href="#atlasSources">Wyjaśnienie BAEL w Źródłach</a>.';
+     source.innerHTML='Źródła: <a href="https://publikacje.new.stat.gov.pl/portal-publikacje/aktywnosc-ekonomiczna-ludnosci-w-wojewodztwie-slaskim-w-2-kwartale-2026-r" target="_blank" rel="noopener">US Katowice - BAEL II kw. 2026 (29.09.2026)</a> · <a href="https://ssgk.stat.gov.pl/Rynek_pracy_BAEL.html" target="_blank" rel="noopener">GUS - Polska, I-II kw. 2026</a>';
+     if(summary){baelQuarterCounts();summary.hidden=false}
      return;
    }
+   if(summary)summary.hidden=true;
+   const d=a?bael.employment:bael.activity;
    document.getElementById('gusBaelSlaskie').classList.remove('gusKpiUnavailable');
    compareLines('gusBaelChart',d.labels,d.detail,d.sl,d.pl,{metric,width:760,height:280});
    const last=d.labels.length-1,gap=d.sl[last]-d.pl[last],p=a?'IV kw. 2024 - IV kw. 2025':'IV kwartał każdego roku';
@@ -142,7 +176,7 @@
    document.getElementById('gusBaelGap').textContent=`różnica: ${gap>0?'+':'−'}${pl(Math.abs(gap))} p.p.`;
    document.getElementById('gusBaelChartNote').innerHTML=a?'<b>Co pokazuje wykres?</b> Wskaźnik zatrudnienia - udział osób pracujących w ludności w wieku <b>15-89 lat</b>. Te same kwartały dla regionu i kraju.':'<b>Co pokazuje wykres?</b> Współczynnik aktywności zawodowej - udział osób aktywnych zawodowo (pracujących i bezrobotnych według BAEL) w ludności w wieku <b>15-89 lat</b>. Porównujemy <b>IV kwartał każdego roku</b>.';
    document.getElementById('gusBaelInsight').innerHTML=`<strong>${d.detail[last]}:</strong> Śląskie <b>${pl(d.sl[last])}%</b>, Polska <b>${pl(d.pl[last])}%</b>; różnica <b>${gap>0?'+':'−'}${pl(Math.abs(gap))} p.p.</b>.`;
-   note.innerHTML='<b>Uwaga metodologiczna:</b> porównania danych sprzed i po NSP 2021 wymagają uwzględnienia zmiany podstawy uogólniania BAEL.';
+   note.innerHTML='<b>Uwaga metodologiczna:</b> porównania danych sprzed i po NSP 2021 wymagają uwzględnienia zmiany podstawy uogólniania BAEL. <a href="#atlasSources">Czym jest BAEL?</a>';
    source.innerHTML='Źródła: GUS / BDL oraz US Katowice. <a href="https://katowice.stat.gov.pl/opracowania-biezace/opracowania-sygnalne/praca-wynagrodzenie/aktywnosc-ekonomiczna-ludnosci-w-wojewodztwie-slaskim-w-4-kwartale-2025-r-%2C2%2C57.html" target="_blank" rel="noopener">Śląskie</a> · <a href="https://ssgk.stat.gov.pl/04.2026/Rynek_pracy_BAEL.html" target="_blank" rel="noopener">Polska</a>';
  }
  const unempMonthly=window.PANEL_DATA.gus.unempMonthly;

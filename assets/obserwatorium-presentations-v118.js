@@ -99,7 +99,7 @@
     }
     if(item.view==='gus'){
       if(/demog/i.test(id+' '+title)){base.source='GUS / BDL oraz InfoGZM - dane o ludności';base.unit='osób';base.measure='Liczba mieszkańców';base.period=stamp.period||'szereg historyczny do 2025 r.';}
-      else if(/Bael/i.test(id+' '+title)){base.source='GUS / Urząd Statystyczny w Katowicach - BAEL';base.unit='%';base.measure='Wskaźnik (%)';base.period=stamp.period||'dane regionalne do IV kw. 2025';base.scope='Województwo śląskie na tle Polski';}
+      else if(/Bael/i.test(id+' '+title)){base.source='GUS / Urząd Statystyczny w Katowicach - BAEL';base.unit='%';base.measure='Wskaźnik (%)';base.period=stamp.period||'historyczne do 2025 lub I-II kw. 2026 zgodnie z wykresem';base.scope='Województwo śląskie na tle Polski';}
       else if(/Regon/i.test(id+' '+title)){base.source='GUS / Urząd Statystyczny w Katowicach - REGON';base.unit=item.structured?.chartData?.unit||stamp.unit||'podmioty';base.measure='Liczba podmiotów lub wskaźnik REGON';base.period=stamp.period||'dane do sierpnia 2026';base.scope='Województwo śląskie';}
       else {base.source='GUS / Urząd Statystyczny w Katowicach';
         if(id==='regionalPulse'||id==='regionalNationalChart'||id==='regionalHistoryPanel')base.period=stamp.period||'głównie lipiec 2026; okres zależny od wskaźnika';}

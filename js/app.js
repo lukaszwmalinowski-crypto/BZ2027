@@ -146,7 +146,7 @@ function renderProvinceTrend(){
   const vals=trendMode==='share'?counts.map((v,i)=>pct(v,totals[i])):counts;
   let min=Math.min(...vals), max=Math.max(...vals), range=Math.max(max-min,trendMode==='share'?5:4), pad=range*.2;
   min=Math.max(0,min-pad); max=max+pad;
-  const W=Math.max(300,document.getElementById('trendChart').clientWidth||760),H=window.innerWidth<768?250:290,L=48,R=76,T=28,B=42,x=i=>L+i*(W-L-R)/3,y=v=>H-B-(v-min)/(max-min||1)*(H-T-B),colors=TREND_COLORS[trendMetric]||TREND_COLORS.deficit;
+  const W=Math.max(300,document.getElementById('trendChart').clientWidth||760),H=window.innerWidth<768?250:290,L=window.innerWidth<768?76:62,R=76,T=28,B=42,x=i=>L+i*(W-L-R)/3,y=v=>H-B-(v-min)/(max-min||1)*(H-T-B),colors=TREND_COLORS[trendMetric]||TREND_COLORS.deficit;
   let svg=`<rect x="0" y="0" width="${W}" height="${H}" rx="15" fill="transparent"/>`;
   for(let i=0;i<=4;i++){const val=min+(max-min)*i/4,yy=y(val),lab=trendMode==='share'?`${Math.round(val)}%`:pl1(val);svg+=`<line x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}" stroke="#e9eef4"/><text x="${L-11}" y="${yy+4}" text-anchor="end" fill="#8291a2" font-size="10.5">${lab}</text>`;}
   years.forEach((yr,i)=>svg+=`<text x="${x(i)}" y="${H-18}" text-anchor="middle" fill="#607286" font-size="12" font-weight="800">${yr}</text>`);
@@ -335,7 +335,7 @@ function renderTrend(name){
   min=Math.max(0,min-pad); max=max+pad;
   if(trendMode==='share'){min=Math.max(0,Math.floor(min/5)*5);max=Math.min(100,Math.ceil(max/5)*5||5)}
   else {min=Math.max(0,Math.floor(min));max=Math.ceil(max)}
-  const W=Math.max(300,document.getElementById('trendChart').clientWidth||760),H=window.innerWidth<768?250:290,L=48,R=76,T=28,B=42;
+  const W=Math.max(300,document.getElementById('trendChart').clientWidth||760),H=window.innerWidth<768?250:290,L=window.innerWidth<768?76:62,R=76,T=28,B=42;
   const x=i=>L+i*(W-L-R)/3;
   const y=v=>H-B-(v-min)/(max-min||1)*(H-T-B);
   const colors=TREND_COLORS[trendMetric]||TREND_COLORS.deficit;
@@ -1171,8 +1171,9 @@ const reportChoices=[
   ['county-count-map','Mapa bezrobocia - liczba osób','Wybrany miesiąc'],
   ['bael-historic','04 · BAEL - aktywność 2016-2025','Śląskie i Polska, IV kwartał każdego roku'],
   ['bael-employment-historic','BAEL - zatrudnienie 2024-2025','Śląskie i Polska, porównanie kwartalne'],
-  ['bael-current','BAEL - aktywność 2026','Polska 2026 i ostatni potwierdzony punkt Śląskiego 2025'],
-  ['bael-employment-current','BAEL - zatrudnienie 2026','Polska 2026 i ostatni potwierdzony punkt Śląskiego 2025'],
+  ['bael-current','BAEL - aktywność 2026','Śląskie i Polska, I-II kwartał 2026'],
+  ['bael-employment-current','BAEL - zatrudnienie 2026','Śląskie i Polska, I-II kwartał 2026'],
+  ['bael-unemployment-current','BAEL - stopa bezrobocia 2026','Śląskie i Polska, I-II kwartał 2026; bezrobocie ankietowe, nie rejestrowane'],
   ['regon-current','05 · REGON - rok 2026','Liczba podmiotów'],
   ['regon-historic','REGON - historia','Podmioty na 10 tys. mieszkańców'],
   ['benchmark','06 · Porównanie z województwem','Benchmark i odchylenia od średniej'],
@@ -1205,21 +1206,16 @@ function confirmReportCounty(){
 const reportItems=document.getElementById('reportItems');
 const reportSelection=new Set(reportChoices.map(x=>x[0]));
 reportItems.innerHTML=reportChoices.map(([id,title,sub])=>`<label class="reportOption"><input type="checkbox" value="${id}" checked><span><b>${title}</b><small>${sub}</small></span></label>`).join('');
-// BAEL 2026 is not a comparable Śląskie-Polska series until the regional values
-// for matching 2026 quarters are both available AND supported by the chart renderer.
+// BAEL 2026: obie serie pochodzą ze zweryfikowanych tablic za te same kwartały.
 function syncBaelReportChoices(){
-  for(const id of ['bael-current','bael-employment-current']){
+  for(const id of ['bael-current','bael-employment-current','bael-unemployment-current']){
     const box=reportItems.querySelector(`input[value="${id}"]`);if(!box)continue;
-    // Current renderer is explicitly a mixed 2025/2026 chart; never export it as a valid comparison.
-    box.disabled=true;box.checked=false;
-    const label=box.closest('label');label.style.opacity='.55';
-    label.title='Brak porównywalnych danych Śląskiego i Polski za te same kwartały 2026.';
-    if(!label.querySelector('.reportAvailability')){
-      const note=document.createElement('small');note.className='reportAvailability';
-      note.textContent='Niedostępne: brak potwierdzonej serii Śląskiego za 2026.';
-      note.style.cssText='display:block;color:#8a4a45;margin-top:4px;line-height:1.4';
-      label.querySelector('span')?.append(note);
-    }
+    const valid=Boolean(window.PANEL_DATA?.gus?.bael2026?.[id==='bael-current'?'activity':id==='bael-employment-current'?'employment':'unemployment']?.slaskie2026?.length===2);
+    box.disabled=!valid;
+    if(!valid)box.checked=false;
+    const label=box.closest('label');label.style.opacity=valid?'1':'.55';
+    label.title=valid?'Dostępne: Śląskie i Polska, I-II kwartał 2026.':'Brak pełnej, porównywalnej serii BAEL.';
+    label.querySelector('.reportAvailability')?.remove();
   }
 }
 function syncOccupationReportChoice(){
@@ -1256,8 +1252,9 @@ const reportChartSpecs={
  'unemp-count-annual':['gusUnempChart','Bezrobocie - liczba osób, lata 2016-2025',[['unemp-metric','count'],['unemp-mode','annual']],'gusUnemp'],
  'bael-historic':['gusBaelChart','BAEL - aktywność: Śląskie vs Polska 2016-2025',[['bael-mode','activity'],['bael-period','historic']],'gusBael'],
  'bael-employment-historic':['gusBaelChart','BAEL - zatrudnienie: Śląskie vs Polska 2024-2025',[['bael-mode','employment'],['bael-period','historic']],'gusBael'],
- 'bael-employment-current':['gusBaelChart','BAEL - zatrudnienie: Śląskie 2025, Polska 2026',[['bael-mode','employment'],['bael-period','current']],'gusBael'],
- 'bael-current':['gusBaelChart','BAEL - aktywność: Śląskie 2025, Polska 2026',[['bael-mode','activity'],['bael-period','current']],'gusBael'],
+ 'bael-employment-current':['gusBaelChart','Wskaźnik zatrudnienia - Śląskie vs Polska, I-II kw. 2026',[['bael-mode','employment'],['bael-period','current']],'gusBael'],
+ 'bael-current':['gusBaelChart','Współczynnik aktywności zawodowej - Śląskie vs Polska, I-II kw. 2026',[['bael-mode','activity'],['bael-period','current']],'gusBael'],
+ 'bael-unemployment-current':['gusBaelChart','Stopa bezrobocia według BAEL - Śląskie vs Polska, I-II kw. 2026',[['bael-mode','unemployment'],['bael-period','current']],'gusBael'],
  'regon-historic':['gusRegonChart','REGON - podmioty na 10 tys. ludności',[['regon-mode','historic']],'gusRegon'],
  'regon-current':['gusRegonChart','REGON - liczba podmiotów w 2026',[['regon-mode','current']],'gusRegon']
 };
@@ -1336,7 +1333,7 @@ function captureSelectedCharts(){
   for(const id of reportChoices.map(x=>x[0]).filter(x=>reportSelection.has(x)&&rankExportSpecs[x])){
    const chart=captureRankChart(id);if(chart)images.push(chart);
  }
- for(const id of reportChoices.map(x=>x[0]).filter(x=>reportSelection.has(x)&&reportChartSpecs[x]&&!['bael-current','bael-employment-current'].includes(x))){
+ for(const id of reportChoices.map(x=>x[0]).filter(x=>reportSelection.has(x)&&reportChartSpecs[x])){
    const [svgId,title,controls,prefix]=reportChartSpecs[id];
    controls.forEach(([a,v])=>change(a,v));
    const original=document.getElementById(svgId);

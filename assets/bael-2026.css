@@ -1,0 +1,19 @@
+/* BAEL 2026: odrębne liczebności, równy rytm kart i responsywna typografia. */
+html body.compactUI .baelQuarterSummary{margin:14px 0 12px;min-width:0}
+html body.compactUI .baelQuarterSummary[hidden]{display:none!important}
+html body.compactUI .baelQuarterSummaryHead{font-size:13px;font-weight:800;color:#25466d;margin:0 0 10px}
+html body.compactUI .baelQuarterGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+html body.compactUI .baelQuarterItem{background:#f6f9fd;border:1px solid #ced8e6;border-radius:14px;padding:13px 14px;min-width:0}
+html body.compactUI .baelQuarterItem>strong{display:block;font-size:12px;color:#334d69;margin:0 0 7px}
+html body.compactUI .baelQuarterValues{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:9px;flex-wrap:wrap}
+html body.compactUI .baelQuarterValues b{font-size:21px;color:#153c65;letter-spacing:-.02em}
+html body.compactUI .baelQuarterValues span{font-size:11px;color:#5b6e88}
+html body.compactUI .baelQuarterMiniBars{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:end;gap:10px;height:66px;border-bottom:1px solid #c4d1e1;padding:0 7px}
+html body.compactUI .baelQuarterMiniBars>div{background:#9bb7d9;border-radius:7px 7px 0 0;min-height:5px}
+html body.compactUI .baelQuarterMiniBars>div:last-child{background:#2e68ad}
+html body.compactUI .baelQuarterFoot{font-size:11px;line-height:1.45;color:#64758c;margin:9px 0 0}
+html body.compactUI .baelQuarterFoot b{color:#1c466f}
+html body.compactUI .baelQuarterMethod{font-size:11px;line-height:1.5;color:#536c88;margin:9px 2px 0}
+@media(max-width:960px){html body.compactUI .baelQuarterGrid{grid-template-columns:1fr}}
+@media(min-width:961px) and (max-width:1220px){html body.compactUI .baelQuarterGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){html body.compactUI .baelQuarterItem{padding:11px 12px}}
