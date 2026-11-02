@@ -1,0 +1,167 @@
+/* v138 | Ostatnia warstwa porzadkujaca uklad na bazie v137.
+   Korekty geometrii i czytelnosci - bez zmian danych, generatorow i kolorow Barometru. */
+@media screen {
+  body.compactUI {
+    --v138-space-xs:8px;
+    --v138-space-sm:12px;
+    --v138-space-md:16px;
+    --v138-space-lg:20px;
+    --v138-field-height:46px;
+  }
+  /* Widok na tablecie ma ten sam obrys co nawigacja i karty.
+     Poprzednio filtr trafial pod mape, mimo ze mapa zajmowala cala szerokosc. */
+  body.compactUI .studioContent > #filterStudio:not([hidden]) {
+    box-sizing:border-box!important;
+    width:100%!important;
+    max-width:100%!important;
+    margin:var(--v138-space-sm) 0 var(--v138-space-md)!important;
+    min-width:0!important;
+  }
+  body.compactUI .studioContent > #filterStudio:not([hidden]) #filterFields {
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+  }
+  /* Pozostaje jedna rama karty, bez dodatkowego rozciagania pustego tla. */
+  body.compactUI #atlasAnalysis #compareSection {
+    min-width:0!important;
+    height:auto!important;
+  }
+  body.compactUI #atlasAnalysis #compareSection .compareControlsV2 {
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    align-items:end!important;
+    column-gap:12px!important;
+    row-gap:15px!important;
+    margin-bottom:16px!important;
+    padding:0!important;
+  }
+  body.compactUI #atlasAnalysis #compareSection .compareField {
+    display:flex!important;
+    flex-direction:column!important;
+    min-width:0!important;
+    gap:7px!important;
+  }
+  body.compactUI #atlasAnalysis #compareSection .compareField > span {
+    display:block!important;
+    line-height:1.35!important;
+    min-height:16px!important;
+  }
+  body.compactUI #atlasAnalysis #compareSection .comparePickerBtn {
+    box-sizing:border-box!important;
+    height:var(--v138-field-height)!important;
+    min-height:var(--v138-field-height)!important;
+    max-width:100%!important;
+    width:100%!important;
+  }
+  body.compactUI #atlasAnalysis #compareSection #compareClearBtn {
+    box-sizing:border-box!important;
+    grid-column:auto!important;
+    align-self:end!important;
+    justify-self:stretch!important;
+    width:100%!important;
+    min-width:0!important;
+    height:var(--v138-field-height)!important;
+    min-height:var(--v138-field-height)!important;
+    margin:0!important;
+    padding:9px 14px!important;
+    border:1px solid #d8e0ee!important;
+    border-radius:12px!important;
+    background:#fff!important;
+  }
+  body.compactUI #atlasAnalysis #compareSection .compareOutput {
+    min-height:0!important;
+    padding:0!important;
+  }
+  /* Wysokie dolne tlo zajmowalo przestrzen bez zawartosci. */
+  body.compactUI .studioContent > .v111Footer {
+    box-sizing:border-box!important;
+    width:100%!important;
+    margin:4px 0 0!important;
+    padding:14px 0 22px!important;
+    background:transparent!important;
+    border-top:1px solid #e4dff0!important;
+    min-height:0!important;
+    height:auto!important;
+  }
+  body.compactUI .studioContent > .v111Footer button {
+    min-height:42px!important;
+    padding:10px 18px!important;
+    border-radius:999px!important;
+  }
+  /* Status danych w naglowku powinien byc czytelny na fiolecie. */
+  body.compactUI #siteHeader :is(.headerMeta,#dataLoadStatus),
+  body.compactUI #siteHeader .headerMeta * {
+    color:rgba(255,255,255,.94)!important;
+    opacity:1!important;
+  }
+  html body.compactUI header#siteHeader #dataLoadStatus {
+    color:rgba(255,255,255,.94)!important;
+    font-size:11px!important;
+    line-height:1.5!important;
+    text-overflow:ellipsis!important;
+  }
+}
+@media screen and (min-width:768px) and (max-width:1200px) {
+  /* Przelaczenie mapy na jeden slupech wymaga filtra nad mapa. */
+  body.compactUI[data-compact-view="map"] .studioContent > #filterStudio:not([hidden]) {
+    margin:12px 0 16px!important;
+  }
+  html body.compactUI[data-compact-view="map"] .studioContent > #filterStudio #filterFields {
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    align-items:center!important;
+    gap:16px!important;
+  }
+  body.compactUI[data-compact-view="map"] .studioContent > #filterStudio #filterFields > .countyControl {
+    grid-column:1!important;
+    grid-row:1!important;
+  }
+  body.compactUI[data-compact-view="map"] .studioContent > #filterStudio #filterFields > .compactFilters {
+    grid-column:2!important;
+    grid-row:1!important;
+    min-width:0!important;
+  }
+  body.compactUI[data-compact-view="map"] .studioContent > #filterStudio .countyControl {
+    max-width:100%!important;
+    width:100%!important;
+  }
+  body.compactUI[data-compact-view="map"] .studioContent > #filterStudio #countySelect {
+    width:100%!important;
+    max-width:100%!important;
+  }
+}
+@media screen and (max-width:767px) {
+  body.compactUI {
+    --v138-field-height:44px;
+  }
+  body.compactUI .studioContent > #filterStudio:not([hidden]) {
+    margin:9px 0 12px!important;
+  }
+  body.compactUI #atlasAnalysis #compareSection .compareControlsV2 {
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:12px!important;
+  }
+  body.compactUI #atlasAnalysis #compareSection .compareField > span {
+    font-size:11px!important;
+    letter-spacing:0!important;
+  }
+  body.compactUI #atlasAnalysis #compareSection .compareField em {
+    font-size:10px!important;
+  }
+  body.compactUI #atlasAnalysis #compareSection #compareClearBtn {
+    font-size:12px!important;
+  }
+  /* Dodatkowe miejsce na nawigacje dolna, ale bez duzej szarej planszy. */
+  body.compactUI .studioContent > .v111Footer {
+    padding:14px 0 calc(94px + env(safe-area-inset-bottom))!important;
+    margin:3px 0 0!important;
+  }
+  html body.compactUI header#siteHeader #dataLoadStatus {
+    font-size:10px!important;
+    color:rgba(255,255,255,.94)!important;
+  }
+}
+@media print {
+  body.compactUI .studioContent > .v111Footer {display:none!important}
+}

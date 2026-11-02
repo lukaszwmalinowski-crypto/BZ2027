@@ -1,0 +1,285 @@
+/* v136 - Miękki fiolet. Adaptacja stylu z wersji referencyjnej v121.
+   Wyłącznie warstwa wizualna: brak zmian danych, JS, map oraz barw kategorii Barometru.
+   Zachowujemy identyfikację trzech działów i zaznaczenia (zielony = wybrane). */
+@media screen {
+  body.compactUI {
+    --v136-ink:#242a46;
+    --v136-text:#35415f;
+    --v136-muted:#626c88;
+    --v136-purple:#6d59c7;
+    --v136-line:#e6e0f2;
+    --v136-shadow:0 9px 28px rgba(63,47,113,.085),0 2px 8px rgba(63,47,113,.035);
+    --v136-pill:999px;
+    background:linear-gradient(180deg,#ede6fa 0,#f7f4fc 350px,#f8f9fd 820px,#fafbfe 100%)!important;
+    background-attachment:fixed!important;
+    color:var(--v136-text);
+  }
+  body.compactUI .studioFrame,
+  body.compactUI .studioContent {background:transparent!important}
+  /* Nagłówek wzorowany na referencji: rozświetlony fiolet i biała powierzchnia logo. */
+  body.compactUI header#siteHeader.header {
+    background:linear-gradient(112deg,#8c7bdf 0%,#6e5bc4 100%)!important;
+    border:0!important;
+    border-radius:0 0 25px 25px!important;
+    box-shadow:0 10px 28px rgba(85,64,164,.17)!important;
+    margin-bottom:12px!important;
+    color:#fff!important;
+  }
+  body.compactUI #siteHeader .headerInner {padding-block:13px!important}
+  body.compactUI #siteHeader .brandIdentity {
+    width:fit-content!important;max-width:100%;flex:0 0 auto!important;
+    border-radius:19px!important;background:#fff!important;
+    padding:7px 13px!important;
+    box-shadow:0 5px 16px rgba(46,35,104,.12)!important;
+  }
+  body.compactUI #siteHeader .brandLink {display:inline-flex!important;align-items:center!important;max-width:100%!important}
+  body.compactUI #siteHeader .observatoryLogo {
+    width:auto!important;height:64px!important;max-width:100%!important;object-fit:contain!important;
+  }
+  body.compactUI #siteHeader .headerMeta,
+  body.compactUI #siteHeader .headerMeta * {color:#f6f3ff!important}
+  body.compactUI #siteHeader .actionBtn,
+  body.compactUI #siteHeader .exportMenu>summary {
+    border:1px solid rgba(255,255,255,.72)!important;
+    border-radius:var(--v136-pill)!important;
+    background:#fff!important;
+    color:#5644a5!important;
+    box-shadow:0 3px 11px rgba(43,31,111,.12)!important;
+  }
+  body.compactUI #siteHeader .actionBtn:hover,
+  body.compactUI #siteHeader .exportMenu>summary:hover {
+    background:#f7f3ff!important;border-color:#fff!important;
+  }
+  body.compactUI #siteHeader #exportAiBtn {
+    background:#302658!important;color:#fff!important;border-color:#302658!important;
+  }
+  body.compactUI #siteHeader #exportAiBtn span {color:inherit!important}
+  body.compactUI #siteHeader .exportMenuList {
+    border:1px solid var(--v136-line)!important;border-radius:18px!important;
+    box-shadow:0 18px 32px rgba(44,37,89,.15)!important;
+  }
+
+  /* Unoszące się menu. Aktywne zakładki zachowują kolory swoich obszarów. */
+  body.compactUI .v111Toolbar {
+    position:relative;z-index:30;
+    width:auto!important;max-width:none!important;
+    margin:10px clamp(12px,2.7vw,35px) 0!important;
+    padding:9px 11px!important;
+    gap:10px!important;
+    border:1px solid #e9e3f5!important;
+    border-radius:23px!important;
+    background:rgba(255,255,255,.97)!important;
+    box-shadow:var(--v136-shadow)!important;
+  }
+  body.compactUI .v111MainTabs {gap:6px!important}
+  body.compactUI .v111MainTabs button {
+    min-height:43px!important;border:1px solid transparent!important;
+    border-radius:var(--v136-pill)!important;
+    background:transparent!important;
+    padding:9px clamp(12px,1.65vw,23px)!important;
+    color:#544d76!important;
+    transition:background-color .15s,color .15s,box-shadow .15s;
+  }
+  body.compactUI .v111MainTabs button:hover:not(.active) {
+    background:#f2edfc!important;color:#5743ad!important;
+  }
+  body.compactUI .v111MainTabs button.active {
+    color:#fff!important;background:var(--v111-accent)!important;
+    box-shadow:0 5px 13px rgba(85,70,128,.15)!important;
+  }
+  body.compactUI .v111MainTabs button.active::after{display:none!important}
+  body.compactUI .v111Presentation button {
+    min-height:43px!important;border:0!important;
+    border-radius:var(--v136-pill)!important;
+    background:linear-gradient(105deg,#7968d5,#6050bb)!important;
+    color:#fff!important;
+    padding:10px 18px!important;
+    box-shadow:0 5px 15px rgba(97,77,186,.18)!important;
+  }
+  body.compactUI .v111Subnav:not([hidden]) {
+    margin:10px clamp(12px,2.7vw,35px) 0!important;
+    padding:0!important;background:transparent!important;border:0!important;
+    gap:7px!important;
+  }
+  body.compactUI .v111Subnav button {
+    min-height:39px!important;border:1px solid #e7dff2!important;
+    border-radius:var(--v136-pill)!important;
+    padding:8px 16px!important;
+    background:rgba(255,255,255,.84)!important;
+    color:#55526e!important;
+  }
+  body.compactUI .v111Subnav button:hover {
+    background:#fff!important;border-color:#d0c4ef!important;color:#604daf!important;
+  }
+  body.compactUI .v111Subnav button.selected {
+    color:var(--v111-accent)!important;background:#fff!important;
+    border-color:var(--v111-edge)!important;
+    box-shadow:0 3px 10px rgba(82,62,124,.09)!important;
+  }
+
+  /* Neutralne karty: miękkie rogi i dyskretny cień bez wielopiętrowych ramek. */
+  body.compactUI #filterStudio,
+  body.compactUI .compactPane :is(.card,.provinceOverview,.pupModule,.trendCard,.gusCard,.rank,.historyArchive,.compactJobsCard,.registeredUnemploymentModule) {
+    border-radius:23px!important;
+    border-color:#e9e4f2!important;
+    box-shadow:var(--v136-shadow)!important;
+  }
+  body.compactUI #filterStudio {background:#fff!important}
+  body.compactUI .compactPane :is(.card,.provinceOverview,.pupModule,.trendCard,.gusCard,.rank,.historyArchive,.compactJobsCard) {background-color:#fff!important}
+  body.compactUI .compactPane h1,
+  body.compactUI .compactPane h2,
+  body.compactUI .compactPane h3 {color:#233858!important}
+  body.compactUI .compactPane :is(.mapStructureBox,.mapSignal,.analyticSignal,.voivRef,.pupCard,.compareField,.srcCard) {
+    border-radius:17px!important;
+    border-color:#e6e4ed!important;
+  }
+  /* KPI na poziomie regionalnym: akcenty według znaczenia, nie przypadkowej kolejności. */
+  body.compactUI #atlasOverview .kpi {
+    border-radius:19px!important;border:1px solid #e7e3f2!important;
+    box-shadow:0 4px 14px rgba(64,55,122,.06)!important;
+  }
+  body.compactUI #atlasOverview .kpi:nth-child(5n+1){background:#f0eafa!important}
+  body.compactUI #atlasOverview .kpi:nth-child(5n+2){background:#eaf1ff!important}
+  body.compactUI #atlasOverview .kpi:nth-child(5n+3){background:#fff0f1!important}
+  body.compactUI #atlasOverview .kpi:nth-child(5n+4){background:#e9f7f1!important}
+  body.compactUI #atlasOverview .kpi:nth-child(5n+5){background:#fff5e7!important}
+  body.compactUI .compactPane :is(.provinceMetric,.gusHeroKpi,.demogStat) {
+    border-radius:18px!important;
+    box-shadow:0 4px 12px rgba(64,55,122,.055)!important;
+  }
+  /* Pola formularzy i przełączniki: duże zaokrąglenia, czytelne focus. */
+  body.compactUI #filterStudio select,
+  body.compactUI .pupControls select,
+  body.compactUI .demogSelect,
+  body.compactUI .compactPane select {
+    border-radius:14px!important;border-color:#d9d4e8!important;
+    background-color:#fff!important;
+  }
+  body.compactUI :is(.jobStatusTab,.trendBtn,.trendModeBtn,.pupGroupTabs button,.gusChartSwitch button,.compactFilters .btn) {
+    border-radius:var(--v136-pill)!important;
+  }
+  body.compactUI :is(.v111MainTabs button,.v111Subnav button,.v111Presentation button,.compactPane button,select,.v111Dialog button):focus-visible {
+    outline:3px solid #8b79e8!important;outline-offset:3px!important;
+  }
+  /* Wybory do materiałów bez naruszenia ich zielonego stanu. */
+  body.compactUI .compactPane :is(.v113Pick,.v120ChartPick,.v119StandaloneMapPick,.v119ListPick),
+  body.compactUI #atlasMap .v123MapFooter .v120MapToggle {
+    border-radius:var(--v136-pill)!important;
+  }
+  body.compactUI .compactPane :is(.v113Pick,.v120ChartPick,.v119StandaloneMapPick):not(.v113Added):hover,
+  body.compactUI #atlasMap .v123MapFooter .v120MapPick:not(.v113Added) .v120MapToggle:hover {
+    background:#f5f0ff!important;border-color:#c9bbed!important;
+  }
+  body.compactUI .v111Dialog,
+  body.compactUI .v111DialogHead button {border-radius:23px!important}
+  body.compactUI .v111Dialog .v129ExportCard {border-radius:21px!important}
+  body.compactUI .v111Footer button {border-radius:var(--v136-pill)!important}
+}
+@media screen and (max-width:900px){
+  body.compactUI .v111Toolbar {border-radius:19px!important}
+}
+@media screen and (max-width:767px){
+  body.compactUI header#siteHeader.header {border-radius:0 0 20px 20px!important;margin-bottom:8px!important}
+  body.compactUI #siteHeader .brandIdentity {max-width:calc(100vw - 28px)!important;border-radius:15px!important}
+  body.compactUI #siteHeader .observatoryLogo{height:47px!important;max-width:100%!important}
+  body.compactUI .v111Subnav:not([hidden]) {
+    margin:8px 12px 0!important;overflow-x:auto!important;flex-wrap:nowrap!important;
+    scrollbar-width:none;white-space:nowrap;
+  }
+  body.compactUI .v111Subnav::-webkit-scrollbar{display:none}
+  body.compactUI .v111Subnav button{flex:0 0 auto;min-height:40px!important;padding:8px 13px!important}
+  body.compactUI .v111MobileNav {
+    left:10px!important;right:10px!important;
+    bottom:calc(10px + env(safe-area-inset-bottom))!important;
+    border-radius:23px!important;border:1px solid #dbd1f4!important;
+    padding:6px!important;gap:5px!important;
+    background:rgba(255,255,255,.97)!important;
+    box-shadow:0 10px 28px rgba(79,60,138,.19)!important;
+  }
+  body.compactUI .v111MobileNav button{
+    color:#625a85!important;border-radius:17px!important;
+    min-height:47px!important;background:#f7f4fd!important;
+  }
+  body.compactUI .v111MobileNav button.active,
+  body.compactUI .v111MobileNav button[aria-current="page"] {
+    color:#fff!important;background:#705dcc!important;
+    box-shadow:0 3px 10px rgba(101,84,189,.18)!important;
+  }
+  /* Skrypt zaznacza grupę na <body>, nie na samym przycisku mobilnym. */
+  body.compactUI[data-main-area="barometr"] .v111MobileNav button[data-v111-mobile="barometr"],
+  body.compactUI[data-main-area="bezrobocie"] .v111MobileNav button[data-v111-mobile="bezrobocie"],
+  body.compactUI[data-main-area="gospodarka"] .v111MobileNav button[data-v111-mobile="gospodarka"]{
+    color:#fff!important;background:#705dcc!important;
+    box-shadow:0 3px 10px rgba(101,84,189,.18)!important;
+  }
+  body.compactUI[data-main-area="barometr"] .v111MobileNav button[data-v111-mobile="barometr"]{background:#ac4158!important}
+  body.compactUI[data-main-area="bezrobocie"] .v111MobileNav button[data-v111-mobile="bezrobocie"]{background:#ad6b2f!important}
+  body.compactUI .v111MobileNav button[data-v111-mobile="barometr"].active {background:#ac4158!important}
+  body.compactUI .v111MobileNav button[data-v111-mobile="bezrobocie"].active {background:#ad6b2f!important}
+  body.compactUI .v111MobileNav button[data-v111-mobile="gospodarka"].active {background:#705dcc!important}
+  body.compactUI .compactPane :is(.card,.provinceOverview,.pupModule,.trendCard,.gusCard,.rank,.historyArchive,.compactJobsCard,.registeredUnemploymentModule){border-radius:16px!important}
+  body.compactUI #filterStudio{border-radius:17px!important}
+}
+@media (prefers-reduced-motion: reduce){
+  body.compactUI .v111MainTabs button{transition:none!important}
+}
+@media print {
+  body.compactUI,body.compactUI .studioFrame,body.compactUI .studioContent {background:#fff!important}
+  body.compactUI :is(.v111Toolbar,.v111Subnav,.v111MobileNav){display:none!important}
+}
+/* Korekta nadmiernie szerokiego pola logo w starszym układzie nagłówka. */
+@media screen {
+ html body.compactUI header#siteHeader.header .headerInner .brandIdentity {
+   width:fit-content!important;min-width:0!important;max-width:100%!important;
+   padding:6px 12px!important;margin:0!important;
+   align-self:center!important;
+ }
+ html body.compactUI header#siteHeader.header .headerInner .brandIdentity .brandLink {
+   width:fit-content!important;min-width:0!important;max-width:100%!important;
+ }
+ html body.compactUI header#siteHeader.header .headerInner .brandIdentity .brandLink .observatoryLogo {
+   width:196px!important;height:auto!important;max-width:100%!important;
+   aspect-ratio:2025 / 685!important;object-fit:contain!important;
+ }
+}
+@media screen and (min-width:820px){
+ html body.compactUI header#siteHeader.header .headerInner {
+   display:grid!important;grid-template-columns:max-content minmax(0,1fr)!important;
+   align-items:center!important;gap:20px!important;
+   padding:13px clamp(18px,2.7vw,37px)!important;
+   min-height:96px!important;
+ }
+ html body.compactUI header#siteHeader.header .headerInner .headerRight {
+   display:flex!important;flex-direction:column!important;align-items:flex-end!important;
+   justify-content:center!important;gap:6px!important;width:auto!important;
+   min-width:0!important;
+ }
+ html body.compactUI header#siteHeader.header .headerInner .headerRight .headerActions {
+   order:1;display:flex;justify-content:flex-end;flex-wrap:wrap;gap:7px;
+ }
+ html body.compactUI header#siteHeader.header .headerInner .headerRight .headerMeta {
+   order:2;width:auto!important;flex:0 0 auto!important;max-width:100%!important;
+   min-width:0!important;text-align:right!important;line-height:1.3!important;
+   font-size:11px!important;opacity:.9!important;
+ }
+}
+@media screen and (max-width:767px){
+ html body.compactUI header#siteHeader.header .headerInner .brandIdentity .brandLink .observatoryLogo {
+   width:174px!important;height:auto!important;max-width:100%!important;
+ }
+}
+@media screen {
+  html body.compactUI header#siteHeader.header .headerInner .headerMeta,
+  html body.compactUI header#siteHeader.header .headerInner .headerMeta *{
+    color:#fff!important;opacity:1!important;
+  }
+}
+@media screen and (min-width:820px) and (max-width:1023px){
+ html body.compactUI header#siteHeader.header .headerInner .headerRight .headerActions{
+   width:100%!important;flex-wrap:nowrap!important;gap:5px!important;
+ }
+ html body.compactUI header#siteHeader.header .headerInner .headerRight .headerActions .actionBtn,
+ html body.compactUI header#siteHeader.header .headerInner .headerRight .headerActions .exportMenu>summary{
+   font-size:12px!important;padding:8px 9px!important;white-space:nowrap!important;
+ }
+}

@@ -39,6 +39,84 @@ function phoneAccordions(elements,kind,defaultIndex){
  window.matchMedia('(min-width:768px)').addEventListener('change',e=>wrappers.forEach((d,i)=>d.open=e.matches||i===defaultIndex));
 }
 phoneAccordions(Array.from($('gusModule').querySelectorAll('section.gusCard')),'compactGusDetail',1);
+function fmt1(v){return Number(v).toFixed(1).replace('.',',')}
+function fmtInt(v){return Number(v).toLocaleString('pl-PL',{maximumFractionDigits:0})}
+function monthEndLabel(isoMonth){
+ if(!isoMonth||!/^\d{4}-\d{2}$/.test(isoMonth))return '';
+ const [year,month]=isoMonth.split('-').map(Number);
+ const lastDay=new Date(year,month,0).getDate();
+ return `${String(lastDay).padStart(2,'0')}.${String(month).padStart(2,'0')}.${year}`;
+}
+function unemploymentRegionalSummary(){
+ let rate=null,date='';
+ const monthly=window.PANEL_DATA?.gus?.unempMonthly;
+ if(monthly?.sl?.length){
+  rate=monthly.sl[monthly.sl.length-1];
+  const detail=Array.isArray(monthly.detail)?monthly.detail[monthly.detail.length-1]:'';
+  const match=String(detail||'').match(/(\d{2}\.\d{2}\.\d{4})/);
+  date=match?match[1]:(window.PANEL_DATA?.gus?.unempCountMonthly?.detail?.at(-1)||detail);
+ }
+ let count=null;
+ try{
+  const source=JSON.parse($('wupMonthlyDetailedData')?.textContent||'null');
+  const values=source?.metrics?.registered?.values?.['2026'];
+  count=Array.isArray(values)?[...values].reverse().find(v=>Number.isFinite(v)):null;
+  if(!date)date=monthEndLabel(source?.meta?.latest_month);
+ }catch(e){}
+ if(rate===null&&count===null)return null;
+ return {rate,count,date:date||'wrzesień 2026'};
+}
+function appendRegionalSummary(heading){
+ const summary=unemploymentRegionalSummary();
+ if(!summary)return;
+ const panel=document.createElement('div');
+ panel.className='registeredUnemploymentSummary';
+ panel.setAttribute('aria-label','Najnowsze dane o bezrobociu dla województwa śląskiego');
+ const intro=document.createElement('p');
+ intro.className='registeredUnemploymentSummaryIntro';
+ intro.textContent='Najnowsze dane dla woj. śląskiego';
+ panel.appendChild(intro);
+ if(summary.rate!==null){
+  const item=document.createElement('div');
+  item.className='registeredUnemploymentStat';
+  item.innerHTML=`<span class="registeredUnemploymentStatLabel">Stopa bezrobocia</span><strong>${fmt1(summary.rate)}%</strong><small>stan na ${summary.date}</small>`;
+  panel.appendChild(item);
+ }
+ if(summary.count!==null){
+  const item=document.createElement('div');
+  item.className='registeredUnemploymentStat';
+  item.innerHTML=`<span class="registeredUnemploymentStatLabel">Bezrobotni zarejestrowani</span><strong>${fmtInt(summary.count)}</strong><small>stan na ${summary.date}</small>`;
+  panel.appendChild(item);
+ }
+ heading.appendChild(panel);
+}
+// v134: historia bezrobocia rejestrowanego i szczegółowe dane WUP należą
+// do działu Bezrobocie, a nie do demografii i gospodarki.
+// Przenosimy istniejące węzły bez klonowania: wykresy, filtry, zdarzenia
+// oraz wybory do Worda/PPTX zachowują te same identyfikatory i dane.
+const registeredUnempCards=[
+ $('gusUnempChart')?.closest('section.gusCard'),
+ $('gusWupDetailsCard')
+].filter(Boolean);
+if(registeredUnempCards.length===2){
+ const region=document.createElement('section');
+ region.id='registeredUnemploymentModule';
+ region.className='registeredUnemploymentModule';
+ region.setAttribute('aria-labelledby','registeredUnemploymentHeading');
+ const heading=document.createElement('header');
+ heading.className='registeredUnemploymentHeading';
+ heading.innerHTML='<div class="registeredUnemploymentHeadingMain"><span class="registeredUnemploymentEyebrow">WOJEWÓDZTWO ŚLĄSKIE · DANE REJESTROWE</span><h2 id="registeredUnemploymentHeading">Dane regionalne</h2><p>Bezrobocie rejestrowane: historia 2016–2025, dane bieżące i miesięczne zestawienia WUP.</p></div>';
+ appendRegionalSummary(heading);
+ const grid=document.createElement('div');grid.className='registeredUnemploymentGrid';
+ region.append(heading,grid);
+ registeredUnempCards.forEach((card,i)=>{
+   const wrap=card.closest('.compactResponsiveDetail')||card;
+   grid.appendChild(wrap);
+   if(wrap.tagName==='DETAILS')wrap.open=window.innerWidth>=768||i===0;
+ });
+ panes.unemployment.insertBefore(region,$('countyUnempModule'));
+}
+
 phoneAccordions(Array.from($('atlasRankings').querySelectorAll('.rank')),'compactRankDetail',0);
 
 // Keep the selected occupation next to its picker and reveal it after selection.

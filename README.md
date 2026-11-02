@@ -1,3 +1,42 @@
+# Obserwatorium · Rynek Pracy · 2027
+
+**Wersja v144.** Zmieniono nazwę prezentowaną w dokumentach Word i PowerPoint, metadanych eksportów oraz w tytule i manifeście aplikacji. Zachowano logo graficzne, dotychczasowe dane i funkcje. Szczegóły: `ZMIANY_V144.md`.
+
+---
+
+## Wersja 135 - redakcja dokumentów Word i PowerPoint
+
+- W dokumentach DOCX i PPTX długie myślniki (–, —) zastępowane są zwykłym znakiem `-`.
+- W dokumentach nie są publikowane teksty techniczne dotyczące obsługi aplikacji, podglądu, mechanizmu wyboru i pominięć generatora.
+- Zachowano istotne komentarze metodologiczne i odwołania do źródeł statystycznych.
+- Nie zmieniono danych źródłowych, układu aplikacji i mechanizmu wyboru analiz.
+
+# Obserwatorium Śląskie 2027 — v133
+
+# v133 — stabilizacja i kontrola jakości (01.11.2026)
+
+1. **Jawne zakresy danych**: rozwijany, krótki panel w trzech głównych obszarach: Barometr (strona mapy), Bezrobocie i GUS z datami, zakresem terytorialnym, ograniczeniami i odsyłaczem do źródeł. Nie zmienia liczb.
+2. **Kontrola materiałów**: po otwarciu „Moich materiałów” system sprawdza zaznaczone analizy i sygnalizuje brak zawartości, wykresy zapisane tylko jako tekst oraz identyczne wybory. Przed eksportem wymagającym uwagi użytkownik jest informowany. Nie generuje dokumentu, gdy wszystkie wybory są puste.
+3. **Spójność wykresów**: wyłącznie nieinwazyjne korekty skalowania SVG, czytelności tytułów/legend i precyzji odstępów. Nie zmieniono kolorów semantycznych map i klasyfikacji zawodów.
+4. **Utrzymanie kodu**: nowa warstwa `assets/obserwatorium-v133.css` i `assets/obserwatorium-v133.js`, z wąsko określonymi selektorami, bez mnożenia globalnych reguł `!important`. Uaktualniono wersję pamięci offline.
+5. **Kontrola integralności**: `scripts/check_v133_integrity.py` audytuje pliki, sumy danych, okresy, pakiet offline i składnię linkowania.
+
+### Świadomie bez ryzykownej przebudowy
+Nie usuwano 80+ odziedziczonych bloków CSS hurtowo. Pełna refaktoryzacja wymagająca testów przeglądarkowych każdego widoku jest osobnym etapem. Nie aktualizowano automatycznie niezaimportowanych danych BAEL/REGON i nie symulowano braków demograficznych.
+
+---
+**Wersja 129:** nowy wygląd okna „Moje materiały” (PowerPoint w kolorze niebieskim, Word w kolorze turkusowym, licznik wyborów, responsywność). Szczegóły: `ZMIANY_V129.md`.
+
+# Obserwatorium Śląskie 2027 — v128
+
+**Moje materiały**: zaznacz wybrane wykresy, mapy, statystyki i listy zawodów. W jednym koszyku możesz zmienić kolejność oraz usunąć zbędne pozycje. Następnie wybierz **Generuj PowerPoint** (slajdy 16:9 na firmówce WUP) albo **Generuj Word DOCX** (edytowalny raport A4 z tabelami i wykresami). Pojedynczy wybór danych obsługuje oba formaty.
+
+**Word offline:** biblioteka do tworzenia plików DOCX jest dołączona lokalnie. Raport zawiera stronę tytułową, sekcje z wybranymi analizami, wykresy i edytowalne dane tabelaryczne, źródła oraz numerację stron. W razie braku danych aplikacja pomija element i wyświetla komunikat, zamiast generować pusty rozdział.
+
+**Uruchamianie:** rozpakuj całą paczkę ZIP, nie tylko `index.html`. Otwórz `index.html` lub opublikuj katalog na GitHub Pages. Nie usuwaj folderu `assets`, bo zawiera biblioteki eksportu.
+
+---
+
 # Wersja 126 - czytelne połączenia linii wykresów PPTX (01.11.2026)
 
 **Wykresy liniowe w prezentacjach WUP** są teraz natywnymi, edytowalnymi wykresami PowerPoint. Każda seria jest rysowana jako jeden ciągły przebieg, bez nakładania niezależnych odcinków i nieestetycznych styków. Zachowano punkty pomiaru i rzeczywiste wartości (bez sztucznego wygładzania). Luki w danych pozostają przerwami.
@@ -87,3 +126,29 @@ Mapę konkretnego zawodu wybierzesz w sekcji **Barometr Zawodów → Mapa i prof
 
 
 **Aktualizacja v124:** naprawia uruchamianie aplikacji w trybie pliku lokalnego i na serwerze po dodaniu zakładki Płeć; szczegóły: `ZMIANY_V124.md`.
+
+
+## Zmiany v127
+
+Zobacz `ZMIANY_V127.md`. Globalne czyszczenie zaznaczeń jest w „Mojej prezentacji”; podgląd PDF ma powrót do narzędzia, wykresy liniowe PPTX mają adaptacyjne etykiety liczbowe.
+
+
+## v130 - Word jak raport analityczny
+Nowy generator DOCX zachowuje wspólny koszyk „Moje materiały”. Układ editorial: tytuł, podsumowanie z faktów, kluczowe wskaźniki, płynne rozdziały z wykresami i tabelami, źródła. Bez osobnej pustej strony tytułowej.
+
+## Wersja 131 - bezrobocie rejestrowane WUP
+Dane źródłowe za wrzesień 2026 i szeregi miesięczne 2020-2026 w `data/bezrobocie_wup_2020_2026.json` (także osadzone offline w `data/dane.json` i `index.html`). W zakładce „Sytuacja gospodarcza” pod kartą „Bezrobocie rejestrowane” jest rozszerzenie „Dane miesięczne WUP” z 16 przełączanymi wskaźnikami i wyborem roku. Wskaźnik stopy bezrobocia Śląskie–Polska pozostaje odrębny.
+
+
+## Wersja 132 – porównanie od 2 do 5 powiatów
+
+Porównywarka w Barometrze Zawodów generuje wykres i tabelę dla wszystkich pięciu wybranych jednostek. Na ekranie telefonu wykres i tabela są przewijane wewnątrz modułu. Przyciskiem „Wyczyść” można usunąć wszystkie pięć wskazań. Dokładny opis: ZMIANY_V132.md.
+
+
+## Aktualizacja v134 (01.11.2026)
+
+Sekcje „Bezrobocie rejestrowane” (Śląskie i Polska, 2016–2025 i 2026) oraz „Dane miesięczne WUP” (2020–2026) zostały przeniesione z „Sytuacji gospodarczej” do głównej zakładki „Bezrobocie”. Ustawienia obu wykresów można nadal zapisywać w „Moich materiałach”. Dane źródłowe i generatory eksportu pozostały bez zmian.
+
+## Aktualizacja v136 - miękki fiolet
+
+Wersja 136 zachowuje wszystkie funkcje v135 i wprowadza nową, lżejszą warstwę wyglądu na podstawie dostarczonej wersji "miękki fiolet". Szczegóły: `ZMIANY_V136.md`. Po publikacji nadpisz **wszystkie pliki** z ZIP (nie sam `index.html`), aby zadziałał nowy arkusz stylów i uaktualniona pamięć offline.

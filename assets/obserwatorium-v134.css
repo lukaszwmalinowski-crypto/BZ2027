@@ -1,0 +1,92 @@
+/* v134 – bezrobocie rejestrowane w obszarze Bezrobocie.
+   Jedna spójna sekcja, bez globalnych nadpisań istniejących zakładek. */
+body.compactUI #compact-unemployment .registeredUnemploymentModule{
+  min-width:0;margin:0 0 24px;padding:20px;box-sizing:border-box;
+  border:1px solid #edd6bf;border-radius:18px;background:#fffdfa;
+}
+body.compactUI #compact-unemployment .registeredUnemploymentHeading{
+  margin:0 0 18px;padding:0 0 16px;border-bottom:1px solid #f0ded0;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:16px 24px;flex-wrap:wrap;
+}
+body.compactUI #compact-unemployment .registeredUnemploymentHeadingMain{
+  flex:1 1 360px;min-width:260px;
+}
+body.compactUI #compact-unemployment .registeredUnemploymentEyebrow{
+  display:block;margin-bottom:7px;color:#98551f;font-size:11px;letter-spacing:1.1px;font-weight:750;
+}
+body.compactUI #compact-unemployment .registeredUnemploymentHeading h2{
+  margin:0;color:#173b60;font-size:clamp(21px,2vw,27px);line-height:1.25;
+}
+body.compactUI #compact-unemployment .registeredUnemploymentHeading p{
+  margin:7px 0 0;color:#52677f;font-size:13px;line-height:1.55;
+}
+body.compactUI #compact-unemployment .registeredUnemploymentSummary{
+  flex:0 1 520px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 12px;min-width:min(100%,360px);margin-left:auto;
+}
+body.compactUI #compact-unemployment .registeredUnemploymentSummaryIntro{
+  grid-column:1/-1;margin:0;color:#98551f;font-size:12px;font-weight:750;letter-spacing:.25px;
+}
+body.compactUI #compact-unemployment .registeredUnemploymentStat{
+  min-width:0;padding:12px 14px;border:1px solid #edd6bf;border-radius:14px;background:#fff8f1;
+  box-shadow:0 8px 20px rgba(183,117,48,.08);
+}
+body.compactUI #compact-unemployment .registeredUnemploymentStatLabel{
+  display:block;margin-bottom:6px;color:#6d513d;font-size:12px;font-weight:700;line-height:1.35;
+}
+body.compactUI #compact-unemployment .registeredUnemploymentStat strong{
+  display:block;color:#173b60;font-size:clamp(22px,2vw,30px);line-height:1.1;font-weight:800;letter-spacing:-.01em;
+}
+body.compactUI #compact-unemployment .registeredUnemploymentStat small{
+  display:block;margin-top:6px;color:#61758c;font-size:12px;line-height:1.4;
+}
+body.compactUI #compact-unemployment .registeredUnemploymentGrid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:start;
+}
+body.compactUI #compact-unemployment .registeredUnemploymentGrid>.compactResponsiveDetail{min-width:0;max-width:100%}
+body.compactUI #compact-unemployment .registeredUnemploymentGrid .gusCard{
+  min-width:0;width:100%;box-sizing:border-box;padding:18px;margin:0!important;
+  background:#fff!important;border:1px solid #e5e9ef!important;border-radius:14px!important;
+}
+body.compactUI #compact-unemployment .registeredUnemploymentGrid .gusCardHead{
+  min-width:0;gap:10px;margin-bottom:15px;
+}
+body.compactUI #compact-unemployment .registeredUnemploymentGrid .gusCardHead>div:first-child{min-width:0}
+body.compactUI #compact-unemployment .registeredUnemploymentGrid .gusCardHead h3{
+  font-size:18px;line-height:1.35;overflow-wrap:anywhere;
+}
+body.compactUI #compact-unemployment .registeredUnemploymentGrid .gusCard .gusChart{
+  display:block;max-width:100%;width:100%;height:auto;overflow:visible;
+}
+body.compactUI #compact-unemployment .registeredUnemploymentGrid .gusCard .gusCompareLegend{
+  flex-wrap:wrap;gap:8px 14px;min-width:0;
+}
+body.compactUI #compact-unemployment .registeredUnemploymentGrid .gusWupCard .gusCardHead{
+  background:#fff8f1!important;border-bottom:1px solid #f1dfd0;padding:12px 14px;
+  border-radius:10px;
+}
+body.compactUI #compact-unemployment .registeredUnemploymentGrid .gusCard :is(.v123ChartFooter,.v120ChartFooter){
+  box-sizing:border-box;max-width:100%;
+}
+@media(max-width:1180px){
+ body.compactUI #compact-unemployment .registeredUnemploymentGrid{grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:767px){
+ body.compactUI #compact-unemployment .registeredUnemploymentModule{padding:12px;margin-bottom:16px;border-radius:14px}
+ body.compactUI #compact-unemployment .registeredUnemploymentHeading{margin-bottom:12px;padding-bottom:12px;gap:12px}
+ body.compactUI #compact-unemployment .registeredUnemploymentHeadingMain{min-width:0;flex-basis:100%}
+ body.compactUI #compact-unemployment .registeredUnemploymentHeading h2{font-size:21px}
+ body.compactUI #compact-unemployment .registeredUnemploymentSummary{grid-template-columns:1fr;min-width:0;width:100%;gap:8px}
+ body.compactUI #compact-unemployment .registeredUnemploymentStat{padding:11px 12px;border-radius:12px}
+ body.compactUI #compact-unemployment .registeredUnemploymentGrid{gap:10px}
+ body.compactUI #compact-unemployment .registeredUnemploymentGrid>.compactResponsiveDetail{
+   border:1px solid #e4e5ea;border-radius:11px;background:#fff;overflow:hidden
+ }
+ body.compactUI #compact-unemployment .registeredUnemploymentGrid>.compactResponsiveDetail>summary{
+   display:list-item;cursor:pointer;font-size:13px;font-weight:700;
+   padding:12px;min-height:44px;line-height:1.5;color:#244766
+ }
+ body.compactUI #compact-unemployment .registeredUnemploymentGrid>.compactResponsiveDetail>.gusCard{
+   border:0!important;border-radius:0!important;padding:12px;margin:0!important
+ }
+ body.compactUI #compact-unemployment .registeredUnemploymentGrid .compactGusDetail .gusCardHead h3{display:none!important}
+}

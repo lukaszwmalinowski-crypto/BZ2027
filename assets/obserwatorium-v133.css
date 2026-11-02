@@ -1,0 +1,53 @@
+/* v133 — stabilizacja. Reguły celowo ograniczone do konkretnych modułów.
+   Bez zmiany geometrii map ani kolorów semantycznych Barometru. */
+.v133DataStrip{box-sizing:border-box;border:1px solid #DFE7EF;border-radius:13px;
+ background:#FCFDFE;color:#263F5B;margin:0 0 17px;max-width:100%;min-width:0;
+ box-shadow:0 2px 5px rgba(22,49,85,.025);}
+.v133DataStrip>summary{display:flex;align-items:center;flex-wrap:wrap;gap:7px 11px;
+ cursor:pointer;list-style:none;padding:10px 14px;font:600 12px/1.5 Inter,system-ui,sans-serif;}
+.v133DataStrip>summary::-webkit-details-marker{display:none}
+.v133DataStrip .v133Dot{width:8px;height:8px;flex:0 0 8px;border-radius:50%;background:#4E83B3}
+.v133DataStrip .v133Overview{color:#536A82;font-weight:450;min-width:0;overflow-wrap:anywhere}
+.v133DataStrip .v133Chevron{margin-left:auto;color:#60748B;font-size:11px}
+.v133DataStrip[open] .v133Chevron{transform:rotate(180deg)}
+.v133DataStrip .v133Details{border-top:1px solid #E7EDF3;padding:12px 15px 14px;display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:10px 17px}
+.v133DataStrip .v133Entry{min-width:0;display:flex;flex-direction:column;gap:3px;font:400 12px/1.55 Inter,system-ui,sans-serif;color:#596B80}
+.v133DataStrip .v133Entry strong{color:#234261;font-size:12px;font-weight:700}
+.v133DataStrip .v133SourceJump{justify-self:start;align-self:center;min-height:36px;
+ background:#F2F7FC;color:#235A92;border:1px solid #D5E2EF;border-radius:9px;
+ padding:8px 11px;font:650 12px Inter,system-ui,sans-serif;cursor:pointer}
+.v133DataStrip .v133SourceJump:focus-visible{outline:3px solid #5186DD;outline-offset:2px}
+body[data-main-area='barometr'] .v133DataStrip .v133Dot{background:#BB4963}
+body[data-main-area='bezrobocie'] .v133DataStrip .v133Dot{background:#BD792E}
+body[data-main-area='gospodarka'] .v133DataStrip .v133Dot{background:#7961B4}
+.v133BasketAudit{margin:14px 20px 4px;padding:11px 14px;border:1px solid #DCE7EF;
+ border-radius:12px;background:#F7FAFE;color:#344D65;font:500 12px/1.55 Inter,system-ui,sans-serif}
+.v133BasketAudit[data-status='warning']{background:#FFFBF4;border-color:#EBD8B1;color:#6D5128}
+.v133BasketAudit strong{font-weight:750}
+.v133BasketAudit p{margin:5px 0 0}
+.v133BasketAudit details{margin-top:6px}
+.v133BasketAudit summary{cursor:pointer;font-weight:650;text-decoration:underline;text-decoration-color:#B9C9D7;text-underline-offset:3px}
+.v133BasketAudit ul{margin:7px 0 0;padding-left:19px;max-height:125px;overflow-y:auto}
+.v133BasketAudit li{margin:3px 0;overflow-wrap:anywhere}
+/* Wykresy zachowują oryginalną skalę i semantyczne kolory serii */
+#pupStructureModule .pupCard svg[viewBox], #gusModule .gusCard svg.gusChart,
+#trendSection svg[viewBox], #demogLineChart, #wupUnemploymentChart{
+ display:block;max-width:100%;height:auto;}
+#pupStructureModule .pupCard, #gusModule .gusCard,
+#trendSection .trendCard{min-width:0;overflow-wrap:break-word}
+#pupStructureModule .pupCard h3,#gusModule .gusCardHead h3{line-height:1.32;overflow-wrap:anywhere}
+#pupStructureModule .pupGroupTabs,#gusModule .gusCompareLegend,
+#pupStructureModule .pupTrendHeading{row-gap:9px;column-gap:12px;}
+#pupStructureModule .pupBar>span:first-child{min-width:0;overflow-wrap:anywhere}
+#pupStructureModule .pupBar b{font-variant-numeric:tabular-nums;white-space:nowrap}
+#gusModule .gusCardHead{min-width:0;gap:12px}
+#gusModule .gusCardHead>div:first-child{min-width:0}
+#compareOutput .comparePlotViewport,#compareOutput .compareTableWrap{scrollbar-width:thin}
+@media(max-width:600px){
+ .v133DataStrip>summary{padding:9px 11px;gap:6px 9px}
+ .v133DataStrip .v133Chevron{margin-left:0}
+ .v133BasketAudit{margin:10px 12px 4px;padding:10px}
+ #pupStructureModule .pupCard h3,#gusModule .gusCardHead h3{font-size:15px}
+}
+@media print{.v133DataStrip,.v133BasketAudit{display:none!important}}

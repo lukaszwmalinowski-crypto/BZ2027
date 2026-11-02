@@ -1,4 +1,4 @@
-/* Obserwatorium v126: płynne łączenie serii wykresów w natywnym PowerPoint.
+/* Obserwatorium v127: etykiety liczbowe w prezentacjach i płynne linie w PowerPoint.
    Nie wpływa na pozostałe eksporty (PDF / klasyczna prezentacja powiatowa). */
 (() => {
   'use strict';
@@ -33,8 +33,93 @@
   function contentPanel(slide,pptx,x=.76,y=LAYOUT.contentTop,w=11.82,h=LAYOUT.contentBottom-LAYOUT.contentTop){
     fill(slide,pptx,x,y,w,h,'F9FBFE',.12,'E4EBF3');
   }
-  function clean(s){return String(s||'').replace(/(?:Do prezentacji|Wybrane ✓|Dodano ✓|Dodaj|Kliknij kategorię, aby zobaczyć jej historię|Wybierz powiat lub miasto na prawach powiatu)/gi,' ').replace(/\s+/g,' ').trim()}
+  // Only document-facing text is normalized. Original labels and data stay unchanged.
+  function exportText(s){return String(s??'')
+    .replace(/[\u2013\u2014]/g,'-')
+    .replace(/(?:według aktualnego widoku|Kliknij kategorię, aby zobaczyć jej historię|Kliknij powiat, by sprawdzić jego profil|Dodaj ten wykres|Dodaj tę mapę|Do prezentacji|Wybrane\s*✓|Dodano\s*✓)/gi,' ')
+    .replace(/(?:Zobacz źródła i metodologię w Obserwatorium|Wybierz powiat lub miasto na prawach powiatu|Wybierz zawód z listy|Dane zapisane w chwili wyboru)/gi,' ')
+    .replace(/\s+/g,' ').trim();}
+  function clean(s){return exportText(s).replace(/\bDodaj\b/gi,' ').replace(/\s+/g,' ').trim()}
+  function publicSource(source,section){const s=clean(source||'');
+    if(!s||/^(?:źródło\s*:?)?\s*(?:zobacz|źródła i metodologia|obserwatorium rynku pracy|obserwatorium)$/i.test(s)){
+      return section==='gus'?'GUS / Bank Danych Lokalnych':section==='unemployment'?'WUP w Katowicach / GUS':'Barometr Zawodów';
+    }
+    return s.replace(/^Źródło(?:\s+danych)?\s*:\s*/i,'');
+  }
   function short(s,n=120){const v=clean(s);return v.length>n?v.slice(0,n-1).replace(/\s+\S*$/,'')+'…':v}
+  // v142: Unified, evidence-based metadata for every exported analysis.
+  // Prefer a snapshot captured with the chart; never use the globally selected
+  // county as the subject of a multi-county chart.
+  const COMPARE_METRICS={
+    unemp:{name:'Stopa bezrobocia rejestrowanego',unit:'%',measure:'Stopa bezrobocia (%)',period:'30.09.2026 r.',source:'GUS / WUP Katowice - stopa bezrobocia rejestrowanego'},
+    deficit:{name:'Grupy zawodów w deficycie',unit:'grup zawodów',measure:'Liczba grup zawodów',period:'prognoza 2027',source:'Barometr Zawodów 2027'},
+    balance:{name:'Grupy zawodów w równowadze',unit:'grup zawodów',measure:'Liczba grup zawodów',period:'prognoza 2027',source:'Barometr Zawodów 2027'},
+    surplus:{name:'Grupy zawodów w nadwyżce',unit:'grup zawodów',measure:'Liczba grup zawodów',period:'prognoza 2027',source:'Barometr Zawodów 2027'},
+    no_eval:{name:'Grupy zawodów bez oceny',unit:'grup zawodów',measure:'Liczba grup zawodów',period:'prognoza 2027',source:'Barometr Zawodów 2027'}
+  };
+  function chartId(item){return item.settings?.chart||item.elementId||String(item.elementRef||'').replace(/^#/,'').split('/')[0]||''}
+  function comparisonMeta(item){
+    const metric=item.exportMeta?.metric||item.settings?.params?.compareChartMetric||'deficit';
+    const m=COMPARE_METRICS[metric]||COMPARE_METRICS.deficit;
+    const names=item.exportMeta?.counties||item.settings?.params?.comparedCounties||item.structured?.chartData?.rankings?.map(r=>r.label)||[];
+    const count=[...new Set(names.filter(Boolean))].length;
+    const unitsLabel=count%10>=2&&count%10<=4&&(count%100<12||count%100>14)?'wybrane jednostki':'wybranych jednostek';
+    const captured=item.exportMeta?.period;
+    // Old baskets might have come from August 2026. Attribute September only
+    // if every saved value still equals the published September data in PANEL_DATA.
+    const current=window.PANEL_DATA?.barometr?.stopaPowiatow||{};
+    const oldRows=item.structured?.chartData?.rankings||[];
+    const allMatch=metric==='unemp' && oldRows.length>=2 && oldRows.every(row=>
+      Number.isFinite(current[row.label]) && Math.abs(Number(row.value)-current[row.label])<0.001);
+    const period=captured||(metric==='unemp'?(allMatch?'stan na 30.09.2026 r.':'okres nieustalony - zaznacz ponownie wykres'):'prognoza 2027');
+    return {comparison:true,metric,unit:m.unit,measure:m.measure,period,scope:(count?count+' '+unitsLabel:'Wybrane powiaty')+' województwa śląskiego',source:m.source,title:m.name+' - porównanie powiatów'};
+  }
+  function presentationMeta(item){
+    const id=chartId(item),title=clean(item.title||'');
+    const compare=id==='compareSection'||Boolean(item.settings?.params?.comparedCounties?.length)||/^(?:porównaj powiaty|porównanie na żywo)$/i.test(title);
+    if(compare)return comparisonMeta(item);
+    const stamp=item.exportMeta||{};
+    const source=publicSource(item.source,item.view);
+    const base={comparison:false,title:normalizeTitle(item),scope:scopeFallback(item),period:clean(stamp.period||item.period||''),unit:clean(stamp.unit||''),source,measure:clean(stamp.measure||''),note:clean(stamp.note||'')};
+    if(item.structured?.occupationList){base.period='prognoza 2027';base.unit='liczba grup zawodów';base.source='Barometr Zawodów 2027';return base;}
+    if(item.structured?.map){const map=item.structured.map;
+      if(map.kind==='unemployment'){base.title='Mapa bezrobocia - '+(map.metric==='count'?'liczba bezrobotnych':'stopa bezrobocia rejestrowanego');base.period=map.period||base.period;base.unit=map.metric==='count'?'osoby':'%';base.source='GUS / WUP / PUP - dane powiatowe';}
+      else if(map.mode==='unemployment'){base.period='stan na 30.09.2026 r.';base.unit='%';base.source='GUS / WUP Katowice - stopa bezrobocia rejestrowanego';}
+      else {base.period='prognoza 2027';base.unit=map.mode==='balance'?'%': 'grupy zawodów';base.source='Barometr Zawodów 2027';}
+      base.scope='Województwo śląskie - 36 powiatów i miast';return base;
+    }
+    if(item.view==='unemployment'||/gusUnempChart|wupUnemploymentChart|countyUnempChart|pupBars|pupTrendChart/i.test(id)){
+      base.source=/^pupBars$|^pupTrendChart$/.test(id)?'Powiatowe urzędy pracy / MRPiPS-01':'WUP Katowice / GUS - bezrobocie rejestrowane';
+      const isRate=/stopa|\brate\b|stopę/i.test(title+' '+(stamp.measure||''))||item.settings?.params?.countyUMetric==='rate';
+      const share=item.settings?.params?.pupUnit==='share';
+      base.unit=isRate||share?'%':'osoby';
+      base.measure=isRate?'Stopa bezrobocia (%)':share?'Udział w grupie (%)':'Liczba osób';
+      base.period=stamp.period||((id==='gusUnempChart')?'miesiące I-IX 2026 lub lata 2016-2025 (zgodnie z wykresem)':base.period);
+      if(id==='gusUnempChart'||id==='wupUnemploymentChart'){base.scope='Województwo śląskie';}
+    }
+    if(item.view==='gus'){
+      if(/demog/i.test(id+' '+title)){base.source='GUS / BDL oraz InfoGZM - dane o ludności';base.unit='osób';base.measure='Liczba mieszkańców';base.period=stamp.period||'szereg historyczny do 2025 r.';}
+      else if(/Bael/i.test(id+' '+title)){base.source='GUS / Urząd Statystyczny w Katowicach - BAEL';base.unit='%';base.measure='Wskaźnik (%)';base.period=stamp.period||'dane regionalne do IV kw. 2025';base.scope='Województwo śląskie na tle Polski';}
+      else if(/Regon/i.test(id+' '+title)){base.source='GUS / Urząd Statystyczny w Katowicach - REGON';base.unit=item.structured?.chartData?.unit||stamp.unit||'podmioty';base.measure='Liczba podmiotów lub wskaźnik REGON';base.period=stamp.period||'dane do sierpnia 2026';base.scope='Województwo śląskie';}
+      else {base.source='GUS / Urząd Statystyczny w Katowicach';
+        if(id==='regionalPulse'||id==='regionalNationalChart'||id==='regionalHistoryPanel')base.period=stamp.period||'głównie lipiec 2026; okres zależny od wskaźnika';}
+    }
+    if(item.view==='jobs'||item.view==='rankings'||item.view==='trends'){
+      if(/stopa bezrobocia/i.test(title)){base.source='GUS / WUP Katowice - stopa bezrobocia rejestrowanego';base.period=stamp.period||'stan na 30.09.2026 r.';base.unit='%';}
+      else {base.period=stamp.period||'prognoza Barometru Zawodów 2027';base.source='Barometr Zawodów 2027';}
+      if(item.structured?.metrics?.some(m=>/stopa bezrobocia/i.test(m.label||''))||item.structured?.signals?.some(m=>/bezroboc/i.test((m.label||'')+' '+(m.detail||'')))){base.period='Barometr Zawodów 2027 · stopa bezrobocia 09.2026';base.source='Barometr Zawodów 2027; GUS / WUP Katowice';}
+    }
+    return base;
+  }
+  function scopeFallback(item){
+    const id=chartId(item),name=clean(item.unit||'');
+    if(id==='demogCountyCard')return clean(item.settings?.params?.demogCounty||item.exportMeta?.county||'Powiat - dane demograficzne');
+    if(item.view==='gus'&&id!=='demogLineChart'&&id!=='demogCountyCard')return 'Województwo śląskie';
+    if(item.view==='unemployment'&&/gusUnempChart|wupUnemploymentChart/.test(id))return 'Województwo śląskie';
+    if(item.view==='rankings')return 'Województwo śląskie';
+    return name==='Województwo śląskie - średnie'?'Województwo śląskie':name;
+  }
+  function countAnalyses(n){return `${n} ${n===1?'analiza':(n%10>=2&&n%10<=4&&(n%100<12||n%100>14))?'analizy':'analiz'}`;}
   function number(s){const n=Number(String(s).replace(/\s/g,'').replace(',','.'));return Number.isFinite(n)?n:null}
   function fill(slide,pptx,x,y,w,h,color,rad=.14,stroke=null){slide.addShape(pptx.ShapeType.roundRect,{x,y,w,h,rectRadius:rad,radius:rad,fill:{color},line:{color:stroke||color,width:stroke?0.7:0},adjustPoint:0.11})}
   function txt(slide,s,x,y,w,h,size=16,opt={}){slide.addText(clean(s),{x,y,w,h,fontFace:'Aptos',fontSize:size,color:TEXT,margin:0,breakLine:false,valign:'mid',...opt})}
@@ -42,21 +127,21 @@
   function drawHeader(slide,pptx,title,unit,section,i,source){
     background(slide,pptx);
     const accent=PALETTE[section]||'3469AF';
-    const headerTitle=section==='gus'?'SYTUACJA GOSPODARCZA':section==='unemployment'?'BEZROBOCIE':'BAROMETR ZAWODÓW 2027';
+    const headerTitle=section==='gus'?'DANE GUS / BDL':section==='unemployment'?'BEZROBOCIE REJESTROWANE':(/bezroboc/i.test(title)?'BEZROBOCIE REJESTROWANE':'BAROMETR ZAWODÓW 2027');
     fill(slide,pptx,LAYOUT.left,LAYOUT.overline,.07,.27,accent,.01);
     txt(slide,headerTitle,LAYOUT.left+.17,LAYOUT.overline-.01,10.8,.30,10.4,{bold:true,color:accent,charSpacing:1.5});
     // v125: Keep the heading on ONE line. Move detailed chart-switch labels
     // into the subtitle instead of letting the title cover the scope or plot.
     const parts=clean(title).split(' · ');
-    const heading=short(parts[0],64);
+    const heading=short(parts[0],88);
     const detail=parts.slice(1).filter(Boolean).join(' · ');
-    txt(slide,heading,LAYOUT.left,LAYOUT.title,11.8,.49,heading.length>56?20.5:heading.length>42?23:27.5,
+    txt(slide,heading,LAYOUT.left,LAYOUT.title,11.8,.49,heading.length>69?17:heading.length>56?19.5:heading.length>42?22:27.5,
       {bold:true,color:NAVY,breakLine:false});
     const secondary=short((unit||'')+(detail?' · '+detail:''),143);
     txt(slide,secondary,LAYOUT.left+.01,LAYOUT.subtitle,11.7,.30,secondary.length>115?10.6:12.1,{color:MUTED});
     slide.addShape(pptx.ShapeType.line,{x:LAYOUT.left,y:LAYOUT.divider,w:11.84,h:0,line:{color:'DCE7F2',width:1}});
     // Source/page label placed ABOVE the source letterhead's printed bottom border.
-    txt(slide,short('Źródło danych: '+(source||'Obserwatorium Rynku Pracy'),114),LAYOUT.left+.04,LAYOUT.sourceY,10.8,.23,8.5,{color:MUTED});
+    txt(slide,short('Źródło: '+publicSource(source,section),114),LAYOUT.left+.04,LAYOUT.sourceY,10.8,.23,8.5,{color:MUTED});
     txt(slide,String(i).padStart(2,'0'),11.96,LAYOUT.sourceY,.56,.23,9,{align:'right',color:accent,bold:true});
     return accent;
   }
@@ -66,6 +151,37 @@
     txt(slide,short(label,70).toUpperCase(),x+.22,y+.16,w-.43,.27,10.1,{bold:true,color:MUTED,charSpacing:.35});
     txt(slide,short(value,42),x+.22,y+.47,w-.42,.62,String(value).length>19?21:27,{bold:true,color:NAVY});
     if(desc)txt(slide,short(desc,95),x+.22,y+h-.57,w-.43,.42,10.7,{color:MUTED,valign:'top',breakLine:false});
+  }
+  // v142: Same vertical, five-color layout as the comparison chart in the app.
+  function drawComparison(slide,pptx,rows,meta){
+    const valid=rows.filter(x=>x?.label&&Number.isFinite(Number(x.value))).slice(0,5);
+    if(valid.length<2)return false;
+    contentPanel(slide,pptx);
+    const colors=['3469AF','209687','B65C86','BF873C','7964C6'];
+    const top=3.45,bottom=5.68,left=1.48,right=12.16,w=right-left;
+    const max=Math.max(1,...valid.map(x=>Number(x.value)));
+    const axisMax=meta.unit==='%'?Math.ceil(max*1.07*2)/2:Math.ceil(max*1.07/4)*4;
+    txt(slide,meta.measure,1.00,2.96,10.6,.28,12.4,{bold:true,color:'48617B'});
+    for(let i=0;i<5;i++){
+      const value=axisMax*i/4,y=bottom-(bottom-top)*i/4;
+      slide.addShape(pptx.ShapeType.line,{x:left,y,w:right-left,h:0,line:{color:'D8E5F2',width:.75,dash:'dash'}});
+      const numberValue=meta.unit==='%'?value.toFixed(1).replace('.',',')+'%':Number(value.toFixed(1)).toLocaleString('pl-PL');
+      txt(slide,numberValue,.94,y-.105,.47,.19,8.2,{align:'right',color:MUTED});
+    }
+    const step=w/valid.length,barW=Math.min(1.44,step*.66);
+    valid.forEach((r,i)=>{
+      const value=Number(r.value),x=left+i*step+step/2;
+      const height=(bottom-top)*value/axisMax;
+      const num=value.toLocaleString('pl-PL',{minimumFractionDigits:meta.unit==='%'?1:0,maximumFractionDigits:meta.unit==='%'?1:0})+(meta.unit==='%'?'%':'');
+      if(height>0)fill(slide,pptx,x-barW/2,bottom-height,barW,height,colors[i],.08);
+      txt(slide,num,x-step*.48,Math.max(3.27,bottom-height-.36),step*.96,.29,14.7,{bold:true,color:NAVY,align:'center'});
+      const name=String(r.label).replace(/^powiat\s+/i,'');
+      const isLong=name.length>21;
+      txt(slide,name,x-step*.49,5.83,step*.98,.55,isLong?10.2:11.4,{bold:true,color:TEXT,align:'center',valign:'top',breakLine:false});
+    });
+    const context=meta.metric==='unemp'?(meta.period.toLowerCase().startsWith('stan na')?meta.period:'Stan na '+meta.period)+' · woj. śląskie · wartości w %':'Barometr Zawodów - '+meta.period+' · liczba ocenianych grup zawodów';
+    txt(slide,short(context,170),1.07,6.31,10.9,.17,9,{color:MUTED});
+    return true;
   }
   function addRank(slide,pptx,rows,accent,heading='LICZBA WSKAZAŃ'){
     const r=rows.filter(z=>z.label&&Number.isFinite(Number(z.value))).slice(0,10),max=Math.max(1,...r.map(z=>z.value));
@@ -118,7 +234,7 @@
   // A native chart joins each series as a single path without overlapping ends.
   // Do NOT interpolate missing observations or smooth discrete observations.
   function drawSeries(slide,pptx,chart,accent){
-    const labels=Array.isArray(chart?.labels)?chart.labels.map(x=>String(x??'')):[];
+    const labels=Array.isArray(chart?.labels)?chart.labels.map(x=>clean(x)):[];
     const source=Array.isArray(chart?.series)?chart.series:[];
     const series=source.map(s=>({
       name:clean(s.name||'Wartość'),
@@ -138,10 +254,13 @@
     if(!observed.length)return false;
     contentPanel(slide,pptx);
     const chartColors=[accent,'7296BD','2A9075','CA904B'];
+    if(chart.unit)txt(slide,'Jednostka: '+chart.unit,1.27,2.83,7.5,.18,9.1,{color:MUTED});
     const entries=series.slice(0,4).map(s=>({name:short(s.name,56),labels,values:s.values}));
     // For sparse time series keep the actual spacing of observations; gaps stay gaps.
     // Reducing marker size on long series also avoids overlapping circles.
     const marker=labels.length<=20;
+    const isPercentage=chart.unit==='%'||/%/.test(String(chart.unit||''));
+    const decimals=isPercentage||observed.some(x=>!Number.isInteger(x))?1:0;
     const min=Math.min(...observed),max=Math.max(...observed);
     // Rounded axis limits matter: fractional tick labels for *integer people*
     // (e.g. "9 278,984") look unprofessional and imply false precision.
@@ -157,9 +276,17 @@
     const precision=Math.max(0,-Math.floor(Math.log10(step))+1);
     const fixed=n=>Number(n.toFixed(precision));
     lower=fixed(lower);upper=fixed(upper);
+    // v127 — native labels only for sufficiently sparse, non-colliding data.
+    // The chart engine positions these labels next to actual markers. Dense
+    // series use a small row with selected point values instead of overlapping.
+    const closeSeries=entries.length>1 && entries.some((s,si)=>entries.slice(si+1).some(other=>
+      s.values.some((v,i)=>Number.isFinite(v)&&Number.isFinite(other.values[i])&&Math.abs(v-other.values[i])<Math.max(step*.70,(upper-lower)*.11))));
+    const labelAtPoints=entries.length===1 ? labels.length<=9 : entries.length===2&&labels.length<=6&&!closeSeries;
     const chartOpts={
-      x:1.24,y:3.01,w:10.95,h:3.19,
-      chartColors,showTitle:false,showValue:false,showSerName:false,
+      x:1.24,y:3.01,w:10.95,h:labelAtPoints?3.18:2.96,
+      chartColors,showTitle:false,showValue:labelAtPoints,showSerName:false,
+      dataLabelPosition:'t',dataLabelFontFace:'Aptos',dataLabelFontSize:8,
+      dataLabelColor:'3B536D',dataLabelFormatCode:decimals?'0.0':'#,##0',
       showLegend:entries.length>1,legendPos:'b',legendFontFace:'Aptos',
       legendFontSize:9.5,showMarker:marker,markerSize:labels.length<=10?4.5:3,
       lineSize:2.3,smoothLine:false,displayBlanksAs:'gap',
@@ -178,6 +305,25 @@
     if(labels.length>12)chartOpts.catAxisLabelFreq=Math.ceil(labels.length/9);
     try{
       slide.addChart(pptx.ChartType.line,entries,chartOpts);
+      if(!labelAtPoints){
+        // Place the numbers in a collision-free reference strip, below the plot.
+        // Avoid claiming that every measurement fits above its point.
+        const keys=[];
+        entries.slice(0,2).forEach((s,si)=>{
+          const valid=s.values.map((v,i)=>({v,i})).filter(z=>Number.isFinite(z.v));
+          if(!valid.length)return;
+          const chosen=[valid[0],valid[Math.floor(valid.length/2)],valid[valid.length-1]];
+          const uniq=[...new Map(chosen.map(z=>[z.i,z])).values()];
+          uniq.forEach(z=>keys.push({name:s.name,period:labels[z.i],value:z.v,accent:chartColors[si]}));
+        });
+        const visible=keys.slice(0,6), w=10.55/Math.max(1,visible.length);
+        visible.forEach((z,i)=>{
+          const fmt=z.value.toLocaleString('pl-PL',{minimumFractionDigits:decimals,maximumFractionDigits:decimals})+(isPercentage?'%':'');
+          const x=1.29+i*w;
+          txt(slide,short((entries.length>1?z.name+' · ':'')+z.period,24),x,6.08,w-.10,.15,7.6,{color:MUTED,align:'center'});
+          txt(slide,fmt,x,6.24,w-.10,.21,9.6,{color:z.accent,bold:true,align:'center'});
+        });
+      }
       return true;
     }catch(error){
       // Prevent an apparently valid empty slide on engines lacking chart support.
@@ -273,7 +419,7 @@
     const t=clean(item.title);if(/Województwo śląskie - punkt odniesienia/i.test(t))return clean(item.unit).toUpperCase()+' · W PORÓWNANIU ZE ŚREDNIĄ WOJEWÓDZKĄ';
     if(item.view==='rankings'||/Gospodarka województwa|Najwięcej grup deficytowych|Najmniej grup deficytowych|Najczęściej wskazywane|Najrzadziej wskazywane/i.test(t))return 'WOJEWÓDZTWO ŚLĄSKIE · ZESTAWIENIE REGIONALNE';
     if(item.view==='gus'&&/demografia powiatowa/i.test(t))return item.settings?.params?.demogCounty?`POWIAT / MIASTO: ${item.settings.params.demogCounty}`:'DEMOGRAFIA POWIATOWA';
-    const u=clean(item.unit);return (u==='Województwo śląskie - średnie'?'WOJEWÓDZTWO ŚLĄSKIE':u.toUpperCase())+' · '+short(item.period||'dane z Obserwatorium',36);
+    const u=clean(item.unit),period=clean(item.period||'');return (u==='Województwo śląskie - średnie'?'WOJEWÓDZTWO ŚLĄSKIE':u.toUpperCase())+(period?' · '+short(period,36):'');
   }
   function normalizeTitle(item){
     if(/^Analiza zawodów$/i.test(item.title)){const t=clean(item.text);return short(t.replace(/^(?:Analiza zawodów\s*)/i,''),85)||item.title;}
@@ -284,14 +430,14 @@
     const slide=pptx.addSlide();background(slide,pptx);
     fill(slide,pptx,.82,1.71,11.64,4.79,'F7FAFE',.19,'D9E5F1');
     fill(slide,pptx,.82,1.71,.095,4.79,'2F6FB0',.01);
-    txt(slide,'OBSERWATORIUM RYNKU PRACY 2027',1.20,2.11,10.48,.39,13,{color:'2F6FB0',bold:true,charSpacing:1.4});
+    txt(slide,'OBSERWATORIUM · RYNEK PRACY · 2027',1.20,2.11,10.48,.39,13,{color:'2F6FB0',bold:true,charSpacing:1.4});
     txt(slide,'Wybrane analizy\nrynku pracy',1.18,2.68,10.7,1.24,36,{color:NAVY,bold:true,breakLine:false,valign:'top'});
-    const scopes=[...new Set(items.map(x=>scope(x)))];
-    const units=[...new Set(items.map(x=>clean(x.unit)).filter(Boolean))];
-    const description=units.length===1?'Zakres: '+short(units[0],95):units.length<=3?'Zakres: '+short(units.join(' · '),105):'Zestawienie obejmuje kilka jednostek terytorialnych';
+    const scopes=items.map(presentationMeta);
+    const units=[...new Set(scopes.map(x=>x.scope).filter(Boolean))];
+    const description=units.length===1?'Zakres: '+short(units[0],95):units.length<=3?'Zakres: '+short(units.join(' · '),105):'Zakres: województwo śląskie - różne analizy i jednostki';
     txt(slide,description,1.2,4.29,10.5,.61,16,{color:TEXT,breakLine:false});
     slide.addShape(pptx.ShapeType.line,{x:1.2,y:5.27,w:10.79,h:0,line:{color:'D7E4F1',width:1}});
-    txt(slide,`${items.length} wybranych analiz`,1.20,5.55,5.3,.40,16,{color:NAVY,bold:true});
+    txt(slide,countAnalyses(items.length),1.20,5.55,5.3,.40,16,{color:NAVY,bold:true});
     txt(slide,new Date().toLocaleDateString('pl-PL'),9.18,5.57,2.73,.35,14,{color:MUTED,align:'right'});
   }
   function svgConvert(input){return new Promise(async(resolve)=>{
@@ -374,11 +520,14 @@
       drawCover(pptx,selected);let index=1;const skipped=[],rendered=[];
       for(const item of selected){
         if(item.structured?.occupationList){index+=addOccupationListSlides(pptx,item,index+1);rendered.push(item);continue;}
-        index++;const slide=pptx.addSlide(),name=normalizeTitle(item),accent=drawHeader(slide,pptx,name,scope(item),item.view,index, /Zobacz źródła/i.test(item.source||'')?(item.view==='gus'?'GUS / BDL':item.view==='unemployment'?'Zestawienia PUP':'Barometr Zawodów 2027'):(item.source||'Obserwatorium'));
+        const meta=presentationMeta(item);
+        index++;const slide=pptx.addSlide();
+        const caption=[meta.scope,meta.period,meta.unit&&meta.unit!==meta.measure?meta.unit:''].filter(Boolean).join(' · ');
+        const accent=drawHeader(slide,pptx,meta.title,caption,item.view,index,meta.source);
         let drawn=false;const struct=item.structured||{};
-        const columnTitle=item.view==='unemployment'?(item.settings?.params?.pupUnit==='share'?'UDZIAŁ PROCENTOWY':'LICZBA OSÓB'):
-          /porównaj powiaty/i.test(name)?(item.settings?.params?.compareChartMetric==='unemp'?'STOPA BEZROBOCIA (%)':'WARTOŚĆ WSKAŹNIKA'):'LICZBA WSKAZAŃ';
-        if(struct.chartData?.kind==='series')drawn=drawSeries(slide,pptx,struct.chartData,accent);
+        const columnTitle=meta.measure?meta.measure.toUpperCase():(item.view==='unemployment'?'LICZBA OSÓB':'LICZBA GRUP ZAWODÓW');
+        if(meta.comparison && struct.chartData?.kind==='bars')drawn=drawComparison(slide,pptx,struct.chartData.rankings||[],meta);
+        if(!drawn&&struct.chartData?.kind==='series')drawn=drawSeries(slide,pptx,struct.chartData,accent);
         if(!drawn&&struct.chartData?.kind==='bars'&&struct.chartData.rankings?.length)drawn=addRank(slide,pptx,struct.chartData.rankings,accent,columnTitle);
         if(!drawn&&struct.map){const im=await imageFor(item);if(im){contentPanel(slide,pptx);imageFit(slide,im,.97,2.93,11.35,3.16);
              txt(slide,short(struct.map.legend||name,110),1.13,6.21,10.9,.22,10.7,{bold:true,color:accent});drawn=true;}}
@@ -387,7 +536,7 @@
           if(im){contentPanel(slide,pptx);imageFit(slide,im,1.05,2.94,11.17,3.38);drawn=true;}
         }
         const ranking=drawn?[]:(struct.rankings&&struct.rankings.length?struct.rankings:(legacyCategoryRows(item).length?legacyCategoryRows(item):((item.view==='rankings')?parseRank(item):parseAge(item))));
-        if(!drawn&&ranking.length>=1)drawn=addRank(slide,pptx,ranking,accent,columnTitle);
+        if(!drawn&&ranking.length>=1)drawn=meta.comparison?drawComparison(slide,pptx,ranking,meta):addRank(slide,pptx,ranking,accent,columnTitle);
         if(!drawn){
           const metrics=struct.metrics?.length?struct.metrics:(/Gospodarka województwa/i.test(name)?parseSector(item):(/punkt odniesienia/i.test(name)?parseBenchmark(item):parseOccupationStructure(item)));
           if(metrics?.length>=1)drawn=addMetrics(slide,pptx,metrics,accent);
@@ -400,24 +549,24 @@
         if(!drawn&&item.view==='jobs'&&/Analiza zawodów/i.test(item.title||'')){
            const narrative=usefulNarrative(item);if(narrative)drawn=drawText(slide,pptx,narrative,accent);
         }
+        if(drawn && meta.note)txt(slide,short(meta.note,170),1.08,6.46,11.05,.16,8.2,{color:'AE4F33'});
         if(!drawn){
           // Never output empty slides: remove the just-created slide and disclose the missing source.
-          pptx._slides.pop();index--;skipped.push(name);
+          pptx._slides.pop();index--;skipped.push(meta.title);
         }else rendered.push(item);
       }
       if(!rendered.length){alert('Nie utworzono prezentacji: wybrane analizy nie mają zapisanych danych wykresów. Odznacz je i wybierz ponownie aktualne wykresy.');return;}
       const cover=pptx._slides[0];
       const summary=cover?._slideObjects?.find(o=>o._type==='text'&&o.text?.some(t=>/wybranych analiz/i.test(t.text||'')));
       if(summary?.text?.length){
-        const gen=rendered.length===1?'wygenerowana analiza':rendered.length<5?'wygenerowane analizy':'wygenerowanych analiz';
-        const skip=skipped.length===1?'pominięta':skipped.length<5?'pominięte':'pominiętych';
-        summary.text[0].text=`${rendered.length} ${gen}`+(skipped.length?` · ${skipped.length} ${skip}`:``);
+        summary.text[0].text=countAnalyses(rendered.length);
       }
       await pptx.writeFile({fileName:'Obserwatorium_wybrane_analizy_WUP_firmowka.pptx'});
       if(skipped.length)alert('Pominięto '+skipped.length+' '+(skipped.length===1?'element':skipped.length<5?'elementy':'elementów')+' bez danych niezbędnych do wygenerowania slajdu:\n• '+skipped.slice(0,16).join('\n• ')+ (skipped.length>16?'\n…':'')+'\nZaznacz je ponownie przy widocznym wykresie.');
     }catch(e){console.error('PPTX v118',e);alert('Generowanie prezentacji nie powiodło się: '+(e?.message||e))}
     finally{if(btn){btn.disabled=false;btn.textContent='Generuj PPTX'}}
   }
+  window.OBS_DECK_V142_METADATA={presentationMeta,comparisonMeta};
   window.OBS_DECK_V118=run;
   window.OBS_DECK_V117=run;
 })();

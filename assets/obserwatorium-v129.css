@@ -1,0 +1,81 @@
+/* v129 · Dwa spójne kafelki wyboru formatu: kobalt = PPTX, turkus = DOCX. */
+:root{
+ --materials-blue:#3159BD;
+ --materials-blue-soft:#F1F5FF;
+ --materials-blue-border:#C9D6F9;
+ --materials-teal:#108675;
+ --materials-teal-soft:#EFFAF7;
+ --materials-teal-border:#BDE5DB;
+}
+.v111Dialog .v111DialogHead .v129SelectedCount{
+ display:inline-flex;min-width:29px;min-height:29px;padding:1px 9px;vertical-align:middle;
+ align-items:center;justify-content:center;border-radius:999px;
+ font:800 14px/1.2 Inter,system-ui,sans-serif;letter-spacing:0;
+ background:#E8EEFF;color:var(--materials-blue);border:1px solid #CCD9FA;
+}
+.v111Dialog .v129DialogFoot{
+ display:flex!important;flex-direction:column!important;align-items:stretch!important;
+ padding:18px 22px 20px!important;gap:12px!important;
+ background:#FAFCFF;border-top:1px solid #E5EBF3;
+}
+.v129ExportHeading{display:flex;align-items:baseline;justify-content:space-between;gap:7px 16px;flex-wrap:wrap;color:#193C64}
+.v129ExportHeading strong{font:750 15px/1.35 Inter,system-ui,sans-serif}
+.v129ExportHeading span{font:400 12px/1.45 Inter,system-ui,sans-serif;color:#64778E}
+.v111DialogFoot .v129ExportGrid{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;min-width:0;
+}
+.v111DialogFoot .v129ExportGrid .v129ExportCard{
+ box-sizing:border-box;display:grid!important;grid-template-columns:50px minmax(0,1fr);
+ grid-template-rows:minmax(22px,auto) minmax(34px,auto);align-content:center;align-items:center;
+ gap:2px 13px;min-width:0;min-height:100px;width:100%;
+ border-radius:16px!important;text-align:left!important;padding:16px!important;
+ font:800 18px/1.25 Inter,system-ui,sans-serif!important;
+ box-shadow:none!important;white-space:normal!important;cursor:pointer;
+ transition:background-color .17s ease,border-color .17s ease,box-shadow .17s ease,transform .17s ease;
+}
+.v111DialogFoot .v129ExportGrid .v129ExportCard::before{
+ content:"";grid-column:1;grid-row:1/3;display:block;width:50px;height:50px;
+ border-radius:13px;background-position:center;background-repeat:no-repeat;background-size:27px;
+}
+.v111DialogFoot .v129ExportGrid .v129ExportCard::after{
+ display:block;grid-column:2;grid-row:2;font:450 12px/1.45 Inter,system-ui,sans-serif;
+ white-space:normal;letter-spacing:0;
+}
+.v111DialogFoot .v129ExportGrid #v111Generate{
+ background:var(--materials-blue-soft)!important;color:var(--materials-blue)!important;
+ border:1px solid var(--materials-blue-border)!important;
+}
+.v111DialogFoot .v129ExportGrid #v111Generate::before{
+ background-color:#E1E9FF;
+ background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%233159bd%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Crect%20x%3D%223.5%22%20y%3D%223.5%22%20width%3D%2217%22%20height%3D%2212%22%20rx%3D%222%22%2F%3E%3Cpath%20d%3D%22M12%2015.5v5m-5.5%200h11M8%208l3%203%205-5%22%2F%3E%3C%2Fsvg%3E");
+}
+.v111DialogFoot .v129ExportGrid #v111Generate::after{content:"Slajdy 16:9 z firmówką WUP";color:#526B97}
+.v111DialogFoot .v129ExportGrid #v128GenerateDocx{
+ background:var(--materials-teal-soft)!important;color:var(--materials-teal)!important;
+ border:1px solid var(--materials-teal-border)!important;
+}
+.v111DialogFoot .v129ExportGrid #v128GenerateDocx::before{
+ background-color:#DDF5EC;
+ background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23108675%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M7%202.8h7l4.8%204.8v12.6a1.9%201.9%200%200%201-1.9%201.9H7a1.9%201.9%200%200%201-1.9-1.9V4.7A1.9%201.9%200%200%201%207%202.8Z%22%2F%3E%3Cpath%20d%3D%22M14%202.8v5h4.8M8.3%2012.2h7.5M8.3%2016h7.5%22%2F%3E%3C%2Fsvg%3E");
+}
+.v111DialogFoot .v129ExportGrid #v128GenerateDocx::after{content:"Edytowalny raport A4";color:#45766A}
+.v111DialogFoot .v129ExportGrid #v111Generate:hover:not(:disabled){background:#E8EEFF!important;border-color:#8AA6F1!important;box-shadow:0 6px 20px #3159BD13!important;transform:translateY(-1px)}
+.v111DialogFoot .v129ExportGrid #v128GenerateDocx:hover:not(:disabled){background:#E3F8F0!important;border-color:#87CDBB!important;box-shadow:0 6px 20px #10867514!important;transform:translateY(-1px)}
+.v111DialogFoot .v129ExportGrid .v129ExportCard:focus-visible{outline:3px solid #7EACFD!important;outline-offset:3px}
+.v111DialogFoot .v129ExportGrid .v129ExportCard:disabled{opacity:.58;cursor:wait;transform:none!important}
+.v111DialogFoot .v129FooterActions{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;padding-top:4px}
+.v111DialogFoot .v129FooterActions button{min-height:37px;padding:9px 13px!important;font:650 12px/1.3 Inter,system-ui,sans-serif!important;
+ border-radius:10px!important;box-shadow:none!important}
+.v111DialogFoot .v129FooterActions .v127ClearBasket{background:#fff!important;color:#B3464E!important;border-color:#EAD0D3!important}
+.v111DialogFoot .v129FooterActions .v127ClearBasket:hover:not(:disabled){background:#FFF4F4!important}
+.v111DialogFoot .v129FooterActions #v111Json{background:#fff!important;color:#52667E!important;border-color:#DDE5EF!important}
+@media(max-width:600px){
+ .v111Dialog .v129DialogFoot{padding:14px!important;gap:10px!important}
+ .v111DialogFoot .v129ExportGrid{grid-template-columns:1fr!important;gap:9px!important}
+ .v111DialogFoot .v129ExportGrid .v129ExportCard{min-height:85px!important;padding:13px!important;font-size:16px!important;grid-template-columns:43px minmax(0,1fr);grid-template-rows:20px minmax(28px,auto)}
+ .v111DialogFoot .v129ExportGrid .v129ExportCard::before{width:43px;height:43px;background-size:25px}
+ .v111DialogFoot .v129FooterActions{display:flex;flex-wrap:wrap;gap:8px}
+ .v111DialogFoot .v129FooterActions button{width:auto!important;flex:1 1 auto;min-width:0;font-size:11px!important}
+}
+@media(prefers-reduced-motion:reduce){.v111DialogFoot .v129ExportGrid .v129ExportCard{transition:none!important;transform:none!important}}
+@media print{.v129DialogFoot{display:none!important}}

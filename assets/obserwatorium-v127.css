@@ -1,0 +1,6 @@
+/* v127: trwałe zaznaczenia — globalne czyszczenie i mobilne rozmieszczenie akcji */
+.v111DialogFoot .v127ClearBasket{margin-right:auto;background:#fff6f5!important;border-color:#e8c5c4!important;color:#a03734!important;}
+.v111DialogFoot .v127ClearBasket:hover:not(:disabled){background:#fdeae8!important;border-color:#cc8887!important;}
+.v111DialogFoot .v127ClearBasket:disabled{opacity:.48;cursor:not-allowed;}
+@media(max-width:650px){.v111DialogFoot .v127ClearBasket{flex:1 1 100%;margin-right:0;}.v111DialogFoot{justify-content:stretch}.v111DialogFoot button{flex:1 1 auto}}
+@media print{.pdfNavigationToolbar,.v127ClearBasket{display:none!important}}

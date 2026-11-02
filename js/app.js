@@ -113,12 +113,12 @@ function selectProvinceOverview(){
     const el=document.getElementById('vc-'+id); el.className='vCompare neutral'; el.innerHTML='<span class="vDelta">wartość wojewódzka</span><span class="vHint">Średnia dla 36 jednostek</span>';
   });
   document.getElementById('v-unemp').textContent=pl1(VOIV_UNEMPLOYMENT)+'%';
-  const ucmp=document.getElementById('vc-unemp'); ucmp.className='vCompare neutral'; ucmp.innerHTML='<span class="vDelta">wskaźnik wojewódzki</span><span class="vHint">stan na 31.08.2026 r.</span>';
+  const ucmp=document.getElementById('vc-unemp'); ucmp.className='vCompare neutral'; ucmp.innerHTML='<span class="vDelta">wskaźnik wojewódzki</span><span class="vHint">stan na 30.09.2026 r.</span>';
   const struct=[['Deficyt',AVG.deficit,'#c74d56'],['Równowaga',AVG.balance,'#3b8f75'],['Nadwyżka',AVG.surplus,'#d59a32'],['Bez oceny',AVG.no_eval,'#98a6b5']];
   document.getElementById('structure').innerHTML=struct.map(([n,v,c])=>`<div class="barRow"><span>${n}</span><div class="barTrack"><div class="barFill" style="width:${v/total*100}%;background:${c}"></div></div><b>${pl1(v)}</b></div>`).join('');
   const dd=avgDelta('delta_deficit');
   const sDef=document.getElementById('sig-def'); sDef.className='mapSignal neutral'; document.getElementById('sig-def-v').textContent=(dd>0?'+':'')+pl1(dd); document.getElementById('sig-def-h').textContent='średnia zmiana liczby grup deficytowych vs 2026';
-  const sU=document.getElementById('sig-unemp'); sU.className='mapSignal neutral'; document.getElementById('sig-unemp-v').textContent=pl1(VOIV_UNEMPLOYMENT)+'%'; document.getElementById('sig-unemp-h').textContent='stan na 31.08.2026 r.';
+  const sU=document.getElementById('sig-unemp'); sU.className='mapSignal neutral'; document.getElementById('sig-unemp-v').textContent=pl1(VOIV_UNEMPLOYMENT)+'%'; document.getElementById('sig-unemp-h').textContent='stan na 30.09.2026 r.';
   document.getElementById('sig-bal-v').textContent=pl1(AVG.balance/total*100)+'%'; document.getElementById('sig-bal-h').textContent=`średnio ${pl1(AVG.balance)} z ${pl1(total)} grup w równowadze`;
   document.getElementById('jobs').innerHTML='<div class="hint">Wybierz konkretny powiat, aby zobaczyć listę zawodów według statusu.</div>';
   document.getElementById('comments').innerHTML='<div class="hint">Komentarze jakościowe są dostępne po wybraniu konkretnego powiatu.</div>';
@@ -134,7 +134,7 @@ function renderProvinceSignals(){
   box.innerHTML=[
     {c:ch<0?'good':ch>0?'bad':'neutral',t:`Średni deficyt ${ch<0?'spadł':ch>0?'wzrósł':'nie zmienił się'} od 2024 r.`,d:`${pl1(p24)} → ${pl1(p27)} grup.`},
     {c:share>=85?'good':'info',t:`${pl1(share)}% grup średnio w równowadze`,d:`Średnio ${pl1(AVG.balance)} z ${pl1(total)} grup w 2027 r.`},
-    {c:'neutral',t:`Stopa bezrobocia ${pl1(VOIV_UNEMPLOYMENT)}%`,d:'Stan na 31.08.2026 r. - oficjalny wskaźnik dla województwa śląskiego.'},
+    {c:'neutral',t:`Stopa bezrobocia ${pl1(VOIV_UNEMPLOYMENT)}%`,d:'Stan na 30.09.2026 r. - oficjalny wskaźnik dla województwa śląskiego.'},
     {c:'info',t:`Średnio ${pl1(AVG.deficit)} grup deficytowych`,d:'Średnia dla 36 powiatów i miast na prawach powiatu.'}
   ].map(s=>`<div class="analyticSignal ${s.c}"><b>${s.t}</b><span>${s.d}</span></div>`).join('');
   const pill=document.getElementById('signalCounty'); if(pill) pill.textContent='Województwo śląskie';
@@ -201,10 +201,10 @@ function selectCounty(name){
   document.getElementById("countyTitle").textContent=name;
   document.getElementById("countyHint").textContent=`Profil powiatu, benchmark wojewódzki, lista zawodów i komentarze jakościowe.`;
   const u=UNEMPLOYMENT[name];
-  document.getElementById("m-unemp").textContent=(u ?? "-")+((u ?? null)!==null?"%":"");
+  document.getElementById("m-unemp").textContent=Number.isFinite(u)?pl1(u)+"%":"-";
   const ud=document.getElementById("d-unemp");
   ud.className="delta neutral";
-  ud.textContent="stan na 31.08.2026 r.";
+  ud.textContent="stan na 30.09.2026 r.";
   [["def","deficit","delta_deficit"],["bal","balance","delta_balance"],["sur","surplus","delta_surplus"],["no","no_eval","delta_no_eval"]].forEach(([id,k,dk])=>{
     document.getElementById("m-"+id).textContent=d[k];
     document.getElementById("d-"+id).innerHTML=deltaHtml(d[dk]);
@@ -497,7 +497,7 @@ function recolor(){
   document.querySelectorAll("#map .county").forEach(el=>{el.setAttribute("fill",colorFor(getValue(el.dataset.name),min,max))});
   document.getElementById("legendMin").textContent=(mode==="balance"||mode==="unemployment")?min+"%":min;
   document.getElementById("legendMax").textContent=(mode==="balance"||mode==="unemployment")?max+"%":max;
-  document.getElementById("legendLabel").textContent=mode==="deficit"?"liczba grup deficytowych":mode==="delta"?"zmiana liczby deficytów vs 2026":mode==="unemployment"?"stopa bezrobocia rejestrowanego - 31.08.2026":"udział równowagi w %";
+  document.getElementById("legendLabel").textContent=mode==="deficit"?"liczba grup deficytowych":mode==="delta"?"zmiana liczby deficytów vs 2026":mode==="unemployment"?"stopa bezrobocia rejestrowanego - 30.09.2026":"udział równowagi w %";
   document.getElementById("legendGradient").classList.toggle("delta",mode==="delta");
   document.getElementById("legendGradient").style.background = mode==="unemployment" ? "linear-gradient(90deg,#ebf4f1,#e0c7b7,#c88376,#b84949)" : "";
 }
@@ -534,7 +534,7 @@ function buildMap(){
         const s=occupationStatus(selectedOccupation,name), meta=OCC_STATUS[s];
         tooltip.innerHTML=`<div style="font-size:14px;font-weight:800;margin-bottom:4px">${name}</div><div style="max-width:250px;margin-bottom:6px">${escapeHtml(selectedOccupation)}</div><div style="font-weight:800;color:${meta.color}">${meta.label}</div>`;
       } else {
-        tooltip.innerHTML=`<div style="font-size:14px;font-weight:800;margin-bottom:4px">${name}</div><div>Stopa bezrobocia <b style="float:right">${UNEMPLOYMENT[name] ?? "-"}%</b></div><div style="font-size:11px;opacity:.72">stan na 31.08.2026 r.</div><div>Deficyt 2027 <b style="float:right">${row.deficit}</b></div><div>Równowaga <b style="float:right">${row.balance}</b></div><div style="margin-top:4px;opacity:.82">Zmiana deficytu vs 2026: <b>${row.delta_deficit>0?"+":""}${row.delta_deficit}</b></div>`;
+        tooltip.innerHTML=`<div style="font-size:14px;font-weight:800;margin-bottom:4px">${name}</div><div>Stopa bezrobocia <b style="float:right">${Number.isFinite(UNEMPLOYMENT[name])?pl1(UNEMPLOYMENT[name]):"-"}%</b></div><div style="font-size:11px;opacity:.72">stan na 30.09.2026 r.</div><div>Deficyt 2027 <b style="float:right">${row.deficit}</b></div><div>Równowaga <b style="float:right">${row.balance}</b></div><div style="margin-top:4px;opacity:.82">Zmiana deficytu vs 2026: <b>${row.delta_deficit>0?"+":""}${row.delta_deficit}</b></div>`;
       }
     });
     p.addEventListener("mouseleave",()=>tooltip.style.display="none");
@@ -655,8 +655,8 @@ function buildPrintReport(){
   const findings=buildPdfFindings(name,d,u).map(x=>`<li>${x}</li>`).join('');
   report.innerHTML=`
     <section class="pdfPage">
-      <div class="pdfHeader"><div><div class="eyeb">Prognoza rynku pracy 2027</div><h1>${escapeHtml(name)}</h1><p>Pełny raport powiatowy • dane 2024-2027</p></div><div class="pdfMeta">Województwo śląskie<br>Stan stopy bezrobocia: 31.08.2026<br>Wygenerowano: ${now.toLocaleDateString('pl-PL')}</div></div>
-      <div class="pdfKpis">${metrics.map(([l,v,delta])=>`<div class="pdfKpi"><div class="l">${l}</div><div class="v">${v}</div><div class="d">${delta==null?(l==='Stopa bezrobocia'?`stan na 31.08.2026 r. • woj. ${pl1(VOIV_UNEMPLOYMENT)}%`:''):`${delta>0?'+':''}${delta} vs 2026`}</div></div>`).join('')}</div>
+      <div class="pdfHeader"><div><div class="eyeb">Prognoza rynku pracy 2027</div><h1>${escapeHtml(name)}</h1><p>Pełny raport powiatowy • dane 2024-2027</p></div><div class="pdfMeta">Województwo śląskie<br>Stan stopy bezrobocia: 30.09.2026<br>Wygenerowano: ${now.toLocaleDateString('pl-PL')}</div></div>
+      <div class="pdfKpis">${metrics.map(([l,v,delta])=>`<div class="pdfKpi"><div class="l">${l}</div><div class="v">${v}</div><div class="d">${delta==null?(l==='Stopa bezrobocia'?`stan na 30.09.2026 r. • woj. ${pl1(VOIV_UNEMPLOYMENT)}%`:''):`${delta>0?'+':''}${delta} vs 2026`}</div></div>`).join('')}</div>
       <div class="pdfGrid2"><div class="pdfBox pdfMap"><h3>Powiat na mapie województwa</h3><div class="mapCanvas">${mapClone.outerHTML}</div></div><div class="pdfBox"><h3>Struktura ocen 2027</h3><div class="pdfBars">${struct.map(([l,v,c])=>`<div class="pdfBarRow"><span>${l}</span><div class="pdfBarTrack"><div class="pdfBarFill" style="width:${v/d.total*100}%;background:${c}"></div></div><b>${v}</b></div>`).join('')}</div><h3 style="margin-top:6mm">Komentarz</h3>${comments}</div></div>
     </section>
     <section class="pdfPage">
@@ -673,7 +673,7 @@ function buildPrintReport(){
     <section class="pdfPage pdfJobsStart">
       <div class="pdfHeader"><div><div class="eyeb">Pełne zestawienie</div><h1>Zawody według sytuacji - ${escapeHtml(name)}</h1><p>Wszystkie grupy zawodów w prognozie 2027</p></div></div>
       ${jobsHtml}
-      <div class="pdfMethod">Uwaga metodologiczna: liczby w kategoriach odnoszą się do liczby grup zawodów ocenionych w danym roku. Średnia wojewódzka jest średnią dla 36 powiatów i miast na prawach powiatu. Stopa bezrobocia: stan na 31.08.2026 r. Wartość wojewódzka jest oficjalnym wskaźnikiem wojewódzkim, a nie średnią arytmetyczną powiatów.</div>
+      <div class="pdfMethod">Uwaga metodologiczna: liczby w kategoriach odnoszą się do liczby grup zawodów ocenionych w danym roku. Średnia wojewódzka jest średnią dla 36 powiatów i miast na prawach powiatu. Stopa bezrobocia: stan na 30.09.2026 r. Wartość wojewódzka jest oficjalnym wskaźnikiem wojewódzkim, a nie średnią arytmetyczną powiatów.</div>
     </section>`;
 }
 
@@ -795,7 +795,7 @@ async function generatePPTX(){
   const coverKpis=[
     ['DEFICYT 2027',d.deficit,'grup',C.red],
     ['RÓWNOWAGA',`${pl1(balShare)}%`,'klasyfikacji',C.green],
-    ['STOPA BEZROBOCIA',unemploymentText,`stan na 31.08.2026 r. • woj. ${pl1(VOIV_UNEMPLOYMENT)}%`,C.navy]
+    ['STOPA BEZROBOCIA',unemploymentText,`stan na 30.09.2026 r. • woj. ${pl1(VOIV_UNEMPLOYMENT)}%`,C.navy]
   ];
   coverKpis.forEach((k,i)=>{
     const x=.72+i*3.02;
@@ -813,7 +813,7 @@ async function generatePPTX(){
     ['Równowaga',d.balance,`${d.delta_balance>0?'+':''}${d.delta_balance} vs 2026`,C.green],
     ['Nadwyżka',d.surplus,`${d.delta_surplus>0?'+':''}${d.delta_surplus} vs 2026`,C.blue],
     ['Bez oceny',d.no_eval,`${d.delta_no_eval>0?'+':''}${d.delta_no_eval} vs 2026`,C.gray],
-    ['Stopa bezrobocia',unemploymentText,`stan na 31.08.2026 r. • woj. ${pl1(VOIV_UNEMPLOYMENT)}%`,C.navy]
+    ['Stopa bezrobocia',unemploymentText,`stan na 30.09.2026 r. • woj. ${pl1(VOIV_UNEMPLOYMENT)}%`,C.navy]
   ];
   metrics.forEach((z,i)=>addKpi(s,.6+i*2.47,1.43,2.25,z[0],z[1],z[2],z[3]));
   const map=document.getElementById('map');
@@ -1009,7 +1009,7 @@ function initComparePickers(){
   document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.comparePicker.open').forEach(p=>{p.classList.remove('open');p.querySelector('.comparePickerBtn')?.setAttribute('aria-expanded','false')})});
 }
 function renderComparison(){
-  const names=[1,2,3].map(i=>document.getElementById(`compare${i}`)?.value).filter((n,i,a)=>n&&a.indexOf(n)===i);
+  const names=[1,2,3,4,5].map(i=>document.getElementById(`compare${i}`)?.value).filter((n,i,a)=>n&&a.indexOf(n)===i);
   const out=document.getElementById('compareOutput'); if(!out) return;
   if(names.length<2){out.innerHTML='<div class="hint">Wybierz co najmniej dwa różne powiaty. Wykres porównawczy pojawi się automatycznie.</div>';return;}
   const metrics=[['Deficyt','deficit','min'],['Równowaga','balance','max'],['Nadwyżka','surplus','min'],['Bez oceny','no_eval','min'],['Stopa bezrobocia','unemp','min']];
@@ -1022,7 +1022,7 @@ function renderComparison(){
   const current=out.querySelector('#compareChartMetric')?.value||window.__compareChartMetric||'deficit';
   const metric=metrics.some(m=>m[1]===current)?current:'deficit';
   const labels={deficit:'Liczba grup w deficycie',balance:'Liczba grup w równowadze',surplus:'Liczba grup w nadwyżce',no_eval:'Liczba grup bez oceny',unemp:'Stopa bezrobocia (%)'};
-  const colors=['#2e66b1','#23a19b','#bd7194'];
+  const colors=['#2e66b1','#1b9585','#b65c86','#bd8539','#7465bd'];
   const values=names.map(n=>metric==='unemp'?UNEMPLOYMENT[n]:DATA[n][metric]);
   const finite=values.filter(Number.isFinite);const max=Math.max(...finite,1);
   const ticks=Array.from({length:5},(_,i)=>max*i/4);
@@ -1032,7 +1032,7 @@ function renderComparison(){
     const formatted=valid?(metric==='unemp'?pl1(val)+'%':String(val)):'b.d.';
     return `<div class="compareBarItem"><div class="compareBarValue">${formatted}</div><div class="compareBarTrack"><div class="compareBarFill" style="height:${percent}%;background:${colors[i]}"></div></div><div class="compareBarName" title="${safe(name)}"><i style="background:${colors[i]}"></i>${safe(name)}</div></div>`;
   }).join('');
-  out.innerHTML=`<div class="compareChartPanel"><div class="compareChartHeader"><div><h3>Porównanie na żywo</h3><p>Wykres aktualizuje się po zmianie wybranych jednostek.</p></div><label class="compareChartSelector">Wskaźnik <select id="compareChartMetric" aria-label="Wskaźnik wykresu">${metrics.map(([label,key])=>`<option value="${key}" ${metric===key?'selected':''}>${label}</option>`).join('')}</select></label></div><div class="compareChartCaption">${labels[metric]} • ${metric==='unemp'?'wartość procentowa':'prognoza Barometru Zawodów 2027'}</div><div class="comparePlot"><div class="compareAxis">${ticks.slice().reverse().map(v=>`<span>${metric==='unemp'?pl1(v)+'%':Number(v.toFixed(1)).toLocaleString('pl-PL')}</span>`).join('')}</div><div class="compareChartArea"><div class="compareGrid">${ticks.map(()=>'<span></span>').join('')}</div><div class="compareBars">${bars}</div></div></div><p class="compareChartFoot">Wszystkie słupki przedstawiają ten sam wskaźnik i korzystają ze wspólnej skali od zera. Brak danych nie jest traktowany jako zero.</p></div><div class="compareTableWrap"><table class="compareTable"><thead><tr><th>Wskaźnik</th>${names.map(n=>`<th>${escapeHtml(n)}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>`;
+  out.innerHTML=`<div class="compareChartPanel"><div class="compareChartHeader"><div><h3>Porównanie na żywo</h3><p>Wykres aktualizuje się po zmianie wybranych jednostek.</p></div><label class="compareChartSelector">Wskaźnik <select id="compareChartMetric" aria-label="Wskaźnik wykresu">${metrics.map(([label,key])=>`<option value="${key}" ${metric===key?'selected':''}>${label}</option>`).join('')}</select></label></div><div class="compareChartCaption">${labels[metric]} • ${metric==='unemp'?'wartość procentowa':'prognoza Barometru Zawodów 2027'}</div><div class="comparePlotViewport" role="region" tabindex="0" aria-label="Wykres porównawczy. Na małym ekranie przewijaj poziomo."><div class="comparePlot ${names.length>=4?'comparePlotDense':''}"><div class="compareAxis">${ticks.slice().reverse().map(v=>`<span>${metric==='unemp'?pl1(v)+'%':Number(v.toFixed(1)).toLocaleString('pl-PL')}</span>`).join('')}</div><div class="compareChartArea"><div class="compareGrid">${ticks.map(()=>'<span></span>').join('')}</div><div class="compareBars">${bars}</div></div></div></div>${names.length>=4?'<p class="compareScrollHint">Na telefonie przesuń wykres lub tabelę w bok, aby zobaczyć wszystkie wybrane powiaty.</p>':''}<p class="compareChartFoot">Wszystkie słupki przedstawiają ten sam wskaźnik i korzystają ze wspólnej skali od zera. Brak danych nie jest traktowany jako zero.</p></div><div class="compareTableWrap" data-compare-count="${names.length}"><table class="compareTable"><thead><tr><th>Wskaźnik</th>${names.map(n=>`<th>${escapeHtml(n)}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>`;
   out.querySelector('#compareChartMetric').addEventListener('change',e=>{window.__compareChartMetric=e.target.value;renderComparison()});
 }
 
@@ -1061,7 +1061,7 @@ function zipStore(files){const enc=new TextEncoder(), chunks=[], central=[];let 
 function sheetXml(rows){let xml='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData>';rows.forEach((row,r)=>{xml+=`<row r="${r+1}">`;row.forEach((v,c)=>{if(v===null||v===undefined)return;const ref=xlsxCol(c)+(r+1),style=r===0?' s="1"':'';if(typeof v==='number'&&Number.isFinite(v))xml+=`<c r="${ref}"${style}><v>${v}</v></c>`;else xml+=`<c r="${ref}" t="inlineStr"${style}><is><t>${xlsxXmlEscape(v)}</t></is></c>`});xml+='</row>'});return xml+'</sheetData></worksheet>'}
 function generateXLSX(){
   const name=active||'Katowice',d=DATA[name],years=[2024,2025,2026,2027];if(!d)return;
-  const profile=[['Wskaźnik','Wartość','Zmiana / benchmark'],['Powiat',name,''],['Deficyt',d.deficit,d.delta_deficit],['Równowaga',d.balance,d.delta_balance],['Nadwyżka',d.surplus,d.delta_surplus],['Bez oceny',d.no_eval,d.delta_no_eval],['Stopa bezrobocia',UNEMPLOYMENT[name]??'',`stan na 31.08.2026 r. • woj. ${VOIV_UNEMPLOYMENT}%`]];
+  const profile=[['Wskaźnik','Wartość','Zmiana / benchmark'],['Powiat',name,''],['Deficyt',d.deficit,d.delta_deficit],['Równowaga',d.balance,d.delta_balance],['Nadwyżka',d.surplus,d.delta_surplus],['Bez oceny',d.no_eval,d.delta_no_eval],['Stopa bezrobocia',UNEMPLOYMENT[name]??'',`stan na 30.09.2026 r. • woj. ${VOIV_UNEMPLOYMENT}%`]];
   const trends=[['Rok','Deficyt','Równowaga','Nadwyżka','Bez oceny','Liczba grup'],...years.map(y=>{const t=trendPoint(name,y);return [y,t.deficit,t.balance,t.surplus,t.no_eval,t.total]})];
   const jobs=[['Zawód','Status','Branża','Kod']];['D','R','N','X'].forEach(s=>countyJobsByStatus(name,s).forEach(j=>jobs.push([j.name,{D:'Deficyt',R:'Równowaga',N:'Nadwyżka',X:'Bez oceny'}[s],j.branch,j.code])));
   const benchmark=[['Wskaźnik','Powiat','Średnia wojewódzka','Różnica'],['Deficyt',d.deficit,AVG.deficit,d.deficit-AVG.deficit],['Równowaga',d.balance,AVG.balance,d.balance-AVG.balance],['Nadwyżka',d.surplus,AVG.surplus,d.surplus-AVG.surplus],['Bez oceny',d.no_eval,AVG.no_eval,d.no_eval-AVG.no_eval],['Stopa bezrobocia',UNEMPLOYMENT[name]??'',VOIV_UNEMPLOYMENT,(UNEMPLOYMENT[name]??VOIV_UNEMPLOYMENT)-VOIV_UNEMPLOYMENT]];
@@ -1143,9 +1143,10 @@ async function generatePDF(){
   document.getElementById('pdfStamp').textContent=`Widok: ${selected} • wygenerowano ${now.toLocaleDateString('pl-PL')} ${now.toLocaleTimeString('pl-PL',{hour:'2-digit',minute:'2-digit'})}`;
   const win=window.open('','_blank');
   if(!win){alert('Zezwól na otwarcie okna raportu PDF dla tej strony.');return;}
-  const css=JSON.parse(document.getElementById('exportPrintCss').textContent)+window.EXPORT_BRAND.css;
-  win.document.write('<!doctype html><html lang="pl"><meta charset="utf-8"><title>Prognoza rynku pracy 2027 - '+escapeHtml(selected)+'</title><style>'+css+'</style><body class="brandPrint">'+window.EXPORT_BRAND.markup()+'<button class="printButton" onclick="window.print()">Drukuj lub zapisz jako PDF</button><div id="printReport">'+document.getElementById('printReport').innerHTML+'</div></body></html>');
+  const css=JSON.parse(document.getElementById('exportPrintCss').textContent)+window.EXPORT_BRAND.css+'@media print{.pdfNavigationToolbar{display:none!important}}';
+  win.document.write('<!doctype html><html lang="pl"><meta charset="utf-8"><title>Prognoza rynku pracy 2027 - '+escapeHtml(selected)+'</title><style>'+css+'</style><body class="brandPrint">'+window.EXPORT_BRAND.markup()+'<nav class="pdfNavigationToolbar" style="display:flex;gap:12px;align-items:center;padding:12px 18px;background:#f1f5fa;border-bottom:1px solid #d4e1ee;position:sticky;top:0;z-index:999"><button class="printButton" onclick="window.print()">Drukuj lub zapisz jako PDF</button><button class="printButton" type="button" id="backToObservatory" style="background:#173d66;color:#fff;border:0;border-radius:8px;cursor:pointer">← Wróć do Obserwatorium</button></nav><div id="printReport">'+document.getElementById('printReport').innerHTML+'</div></body></html>');
   win.document.close();
+  win.document.getElementById('backToObservatory')?.addEventListener('click',()=>{try{window.focus();win.close();if(!win.closed)win.location.href=window.location.href;}catch(_){win.location.href=window.location.href;}});
   window.reportSelectedPdfPages=null;window.reportExtraCharts=null;
   await Promise.all([...win.document.images].map(img=>img.decode?.().catch(()=>{})||Promise.resolve()));
   win.print();
@@ -1411,8 +1412,8 @@ document.getElementById('xlsxBtn').addEventListener('click',generateXLSX);
 initComparePickers();
 bindCompareOptions();
 syncComparePickers();
-['compare1','compare2','compare3'].forEach(id=>document.getElementById(id).addEventListener('change',()=>{syncComparePickers();renderComparison()}));
-document.getElementById('compareClearBtn').addEventListener('click',()=>{['compare1','compare2','compare3'].forEach(id=>document.getElementById(id).value='');syncComparePickers();renderComparison();});
+['compare1','compare2','compare3','compare4','compare5'].forEach(id=>document.getElementById(id).addEventListener('change',()=>{syncComparePickers();renderComparison()}));
+document.getElementById('compareClearBtn').addEventListener('click',()=>{['compare1','compare2','compare3','compare4','compare5'].forEach(id=>document.getElementById(id).value='');syncComparePickers();renderComparison();});
 document.getElementById('occProfileClear').addEventListener('click',()=>setOccupation(''));
 document.getElementById('fullscreenBtn').addEventListener('click',async()=>{
   const entering=!document.body.classList.contains('presentationMode');

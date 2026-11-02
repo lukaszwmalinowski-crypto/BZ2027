@@ -4,7 +4,8 @@
  const $=id=>document.getElementById(id);
  const counties=Object.keys(UNEMPLOYMENT).sort((a,b)=>a.localeCompare(b,'pl'));
  const provinceRate2026=window.PANEL_DATA.powiatBezrobocie.stopaWojewodztwa2026;
- const initial=Object.fromEntries(counties.map(name=>[name,{'2026-08':{rate:UNEMPLOYMENT[name],count:null,source:'Panel v7 / 31.08.2026'}}]));
+ const augustRates=window.PANEL_DATA.powiatBezrobocie.stopaPowiatow2026_08||UNEMPLOYMENT;
+ const initial=Object.fromEntries(counties.map(name=>[name,{'2026-08':{rate:augustRates[name]??null,count:null,source:'GUS/WUP • 31.08.2026'}}]));
  const verifiedSeed=window.PANEL_DATA.powiatBezrobocie.verified.entries;
  for(const row of verifiedSeed){if(!initial[row.powiat])continue;initial[row.powiat][row.okres]={rate:row.stopa_proc,count:row.liczba_osob,source:row.zrodlo}}
  const bdlSeed=window.PANEL_DATA.powiatBezrobocie.bdl;
@@ -13,9 +14,9 @@
  for(const row of pupSeed.entries||[]){
   if(!initial[row.powiat]||!/^20\d{2}-(0[1-9]|1[0-2])$/.test(row.okres))continue;
   const old=initial[row.powiat][row.okres]||{};
-  initial[row.powiat][row.okres]={...old,count:row.liczba_osob,source:row.zrodlo};
+  initial[row.powiat][row.okres]={...old,count:row.liczba_osob,source:old.rate!=null?old.source+' | liczba osób: '+row.zrodlo:row.zrodlo};
  }
- const defaultCountyDate=bdlSeed.entries?.length?[...new Set(bdlSeed.entries.filter(r=>r.stopa_proc!=null).map(r=>r.okres))].sort().reverse().find(d=>bdlSeed.entries.filter(r=>r.okres===d&&r.stopa_proc!=null).length===36)||'2026-08':'2026-08';
+ const defaultCountyDate=[...new Set(counties.flatMap(name=>Object.keys(initial[name]||{})))].sort().reverse().find(date=>counties.every(name=>Number.isFinite(initial[name]?.[date]?.rate)))||'2026-08';
  const state={view:'single',metric:'rate',period:'monthly',year:2026,county:counties.includes('Ruda Śląska')?'Ruda Śląska':counties[0],compare:['Ruda Śląska','Katowice','Bytom'].filter(x=>counties.includes(x)),mapDate:defaultCountyDate,mapMode:'level'};
  let data=JSON.parse(JSON.stringify(initial));
  const key='wup-powiaty-bezrobocie-v8-dane';
@@ -56,7 +57,7 @@
   try{const raw=localStorage.getItem(key);if(!raw)return;const obj=JSON.parse(raw);if(!Array.isArray(obj.entries))return;
    // Stary zapis localStorage zawierał także kopię danych bazowych. Nie wolno dopuścić,
    // by nieaktualny 'Panel v7' nadpisał nowszy, urzędowy zestaw GUS/BDL.
-   const rows=(bdlSeed.entries?.length||pupSeed.entries?.length)?obj.entries.filter(row=>!/^panel v[0-9]|^PUP Ruda Śląska|^https?:/i.test(String(row.zrodlo||''))):obj.entries;
+   const rows=(bdlSeed.entries?.length||pupSeed.entries?.length)?obj.entries.filter(row=>!/^panel v[0-9]|^PUP Ruda Śląska|^https?:|^GUS\/WUP/i.test(String(row.zrodlo||''))):obj.entries;
    incorporate(rows);
   }catch(e){console.warn('Brak dostępu do zapisanej bazy powiatowej',e)}
  }
@@ -68,7 +69,7 @@
   const rows=asEntries(),periods=dates().length;
   $('countyUImportedCount').textContent=`Baza: ${rows.length} obserwacji • ${periods} okresów • historia: ${counties.filter(c=>Object.keys(data[c]||{}).length>1).length}/36 jednostek`;
   const meta=bdlSeed.meta||{}, badge=$('countyUBDLBadge');
-  if(pupSeed.entries?.length){const scope=$('countyUScope');if(scope)scope.textContent=`Baza PUP: ${pupSeed.entries.length.toLocaleString('pl-PL')} obserwacji liczby bezrobotnych dla ${new Set(pupSeed.entries.map(r=>r.powiat)).size} powiatów i miast. Zakres okresów różni się między jednostkami. Wskaźniki stopy bezrobocia GUS pozostają odrębną serią. Szczegółowa struktura i źródła są poniżej.`;}
+  if(pupSeed.entries?.length){const scope=$('countyUScope');if(scope)scope.textContent=`Baza PUP: ${pupSeed.entries.length.toLocaleString('pl-PL')} obserwacji liczby bezrobotnych dla ${new Set(pupSeed.entries.map(r=>r.powiat)).size} powiatów i miast. Główna mapa stopy bezrobocia korzysta z pełnego zestawu 36 powiatów za 30.09.2026. Dane regionalne WUP w sekcji „Dane regionalne” również obejmują wrzesień 2026. Zakres okresów liczby bezrobotnych różni się między jednostkami, dlatego wykresy pokazują tylko dostępne miesiące.`;}
   if(meta.updated_at&&Array.isArray(bdlSeed.entries)&&bdlSeed.entries.length){badge.textContent=`BDL/GUS • ${meta.updated_at.slice(0,10)} • ${meta.powiat_count||'?'} powiatów • ${(meta.observation_count||bdlSeed.entries.length).toLocaleString('pl-PL')} obserwacji`;badge.dataset.status='ready';}
   else {badge.textContent='BDL/GUS: pełne dane niepobrane - tylko dane początkowe';badge.dataset.status='pending';}
   const scope=$('countyUScope');if(scope&&meta.updated_at&&bdlSeed.entries?.length){scope.innerHTML=`Zasilenie GUS/BDL z <b>${safe(meta.updated_at.slice(0,10))}</b>: <b>${meta.powiat_count||'?'} powiatów</b>, <b>${(meta.observation_count||bdlSeed.entries.length).toLocaleString('pl-PL')}</b> obserwacji miesięcznych (stopa bezrobocia${meta.count_observation_count?' / liczba osób':''}). Wyświetlane są wyłącznie okresy faktycznie dostępne w BDL. Źródło: <a href="https://bdl.stat.gov.pl/BDL/dane/podgrup/temat/4/12/3559" target="_blank" rel="noopener">GUS/BDL</a>.`;}
@@ -87,7 +88,7 @@
   const min=valid[0],max=valid[n-1];
   const pills=[['36', 'jednostek ze stopą bezrobocia'],[fmt(mid)+'%', 'mediana stóp bezrobocia'],[fmt(min[1])+'%',min[0]+' · najniższa'],[fmt(max[1])+'%',max[0]+' · najwyższa']];
   const bar=(a,maxV)=>`<div class="countyUSnapshotBar"><span>${safe(a[0])}</span><div><i style="width:${Math.max(3,Math.round(a[1]/maxV*100))}%"></i></div><strong>${fmt(a[1])}%</strong></div>`;
-  $('countyUSnapshot').innerHTML=`<div class="countyUSnapshotHead"><b>Przekrój powiatów · ${safe(latest)}</b><span>Stan w jednym miesiącu, nie trend</span></div><div class="countyUSnapshotMetrics">${pills.map(p=>`<div class="countyUSnapshotMetric"><strong>${safe(p[0])}</strong><span>${safe(p[1])}</span></div>`).join('')}</div><div class="countyUSnapshotPair"><div><b>5 najniższych wartości</b>${valid.slice(0,5).map(x=>bar(x,max[1])).join('')}</div><div><b>5 najwyższych wartości</b>${valid.slice(-5).reverse().map(x=>bar(x,max[1])).join('')}</div></div><div class="countyUSnapshotNote">Źródło przekroju: ${bdlSeed.meta?.updated_at?'GUS / BDL, aktualizacja '+safe(bdlSeed.meta.updated_at.slice(0,10)):'dane początkowe panelu - sierpień 2026'}. Dodatkowe dane: <a href="https://rudaslaska.praca.gov.pl/stopy-bezrobocia" target="_blank" rel="noopener">PUP Ruda Śląska</a>. Różnice regionalne nie są zmianą w czasie.</div>`;
+  $('countyUSnapshot').innerHTML=`<div class="countyUSnapshotHead"><b>Przekrój powiatów · ${safe(latest)}</b><span>Stan w jednym miesiącu, nie trend</span></div><div class="countyUSnapshotMetrics">${pills.map(p=>`<div class="countyUSnapshotMetric"><strong>${safe(p[0])}</strong><span>${safe(p[1])}</span></div>`).join('')}</div><div class="countyUSnapshotPair"><div><b>5 najniższych wartości</b>${valid.slice(0,5).map(x=>bar(x,max[1])).join('')}</div><div><b>5 najwyższych wartości</b>${valid.slice(-5).reverse().map(x=>bar(x,max[1])).join('')}</div></div><div class="countyUSnapshotNote">Źródło przekroju: ${bdlSeed.meta?.updated_at?'GUS / BDL, aktualizacja '+safe(bdlSeed.meta.updated_at.slice(0,10)):'GUS - wrzesień 2026 (początkowy pakiet powiatowy)'}. Dodatkowe dane: <a href="https://rudaslaska.praca.gov.pl/stopy-bezrobocia" target="_blank" rel="noopener">PUP Ruda Śląska</a>. Różnice regionalne nie są zmianą w czasie.</div>`;
  }
  function renderToolbar(){
   $('countyUCountyBox').hidden=state.view!=='single';$('countyUCompareBox').hidden=state.view!=='compare';$('countyUMapPeriodBox').hidden=state.view!=='map';$('countyUMapModeBox').hidden=state.view!=='map';
@@ -164,7 +165,7 @@
    path.addEventListener('click',()=>{state.county=name;state.view='single';render()});svg.append(path);
   }
   const status=$('countyUStatus');const n=values.length;status.classList.toggle('ok',n===36);
-  status.innerHTML=changes?`<b>Mapa zmian:</b> ${prev?`${safe(prev)} → ${safe(state.mapDate)}`:'brak wcześniejszego okresu'}. Dostępne porównania: <b>${n}/36</b>. Szare jednostki nie mają dwóch porównywalnych wartości.`:`<b>Mapa poziomu bezrobocia:</b> ${safe(state.mapDate)}. Dane dostępne dla <b>${n}/36</b> jednostek. Kliknij powiat, aby przejść do wykresu. Przeniesione z panelu v7 wartości mają stan na 31.08.2026.`;
+  status.innerHTML=changes?`<b>Mapa zmian:</b> ${prev?`${safe(prev)} → ${safe(state.mapDate)}`:'brak wcześniejszego okresu'}. Dostępne porównania: <b>${n}/36</b>. Szare jednostki nie mają dwóch porównywalnych wartości.`:`<b>Mapa poziomu bezrobocia:</b> ${safe(state.mapDate)}. Dane dostępne dla <b>${n}/36</b> jednostek. Kliknij powiat, aby przejść do wykresu. Zestaw zawiera wrzesień 2026 dla wszystkich 36 jednostek; sierpień 2026 pozostał dostępny do porównania.`;
   $('countyULegend').innerHTML=changes?'<span><i style="background:#75bbbd"></i>spadek</span><span><i style="background:#d57575"></i>wzrost</span><span><i style="background:#e5e9ed"></i>brak danych</span>':'<span><i style="background:#e8f3f1"></i>niższa stopa</span><span><i style="background:#a75865"></i>wyższa stopa</span><span><i style="background:#e5e9ed"></i>brak danych</span>';
  }
  function useAvailableSeries(name){

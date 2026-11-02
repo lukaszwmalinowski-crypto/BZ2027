@@ -1,0 +1,157 @@
+/* v137 - Wspólna geometria pasów i oddech kontrolek.
+   Korekta wyłącznie prezentacyjna. Nie zmienia danych, wykresów ani koszyka. */
+@media screen {
+  body.compactUI {
+    --v137-page-inset: clamp(14px, 1.9vw, 36px);
+    --v137-small-gap: 12px;
+    --v137-section-gap: 20px;
+    --v137-inner-inset: clamp(16px, 1.65vw, 24px);
+  }
+  /* Header, nawigacja główna, podnawigacja i pasek danych należą do tego
+     samego kontenera. Wyłączamy dodatkowe boczne marginesy podnawigacji. */
+  body.compactUI .studioContent {
+    box-sizing: border-box!important;
+    width: 100%!important;
+    max-width: none!important;
+    margin: 0 auto!important;
+    padding: 0 var(--v137-page-inset) 32px!important;
+    min-width: 0!important;
+  }
+  body.compactUI .studioContent > #siteHeader,
+  body.compactUI .studioContent > .v111Toolbar,
+  body.compactUI .studioContent > .v111Subnav,
+  body.compactUI .studioContent > .shell,
+  body.compactUI .studioContent > #filterStudio {
+    box-sizing: border-box!important;
+    width: 100%!important;
+    max-width: 100%!important;
+  }
+  body.compactUI .studioContent > .v111Toolbar {
+    margin: var(--v137-small-gap) 0 0!important;
+    padding: 9px 12px!important;
+    border-radius: 22px!important;
+  }
+  body.compactUI .studioContent > .v111Subnav:not([hidden]) {
+    margin: var(--v137-small-gap) 0 0!important;
+    padding: 8px 12px!important;
+    min-height: 55px!important;
+    align-items: center!important;
+    gap: 8px!important;
+    border: 1px solid #e8e1f4!important;
+    border-radius: 20px!important;
+    background: rgba(255,255,255,.92)!important;
+    box-shadow: 0 4px 18px rgba(63,47,113,.045)!important;
+  }
+  body.compactUI .compactPane > .v133DataStrip {
+    box-sizing: border-box!important;
+    width:100%!important;
+    max-width: 100%!important;
+    margin: var(--v137-small-gap) 0 var(--v137-section-gap)!important;
+    border-radius: 17px!important;
+  }
+  body.compactUI .compactPane > :is(.provinceOverview, .card, .analyticsHub, .trendCard, .pupModule, .gusModule, .registeredUnemploymentModule) {
+    box-sizing: border-box!important;
+    max-width:100%!important;
+    min-width:0!important;
+  }
+  /* Jeden płynny odstęp pomiędzy panelem a akcjami.
+     Wcześniejsze 0px z prawej strony przyklejało "Dodaj" do obrysu. */
+  body.compactUI .compactPane .v114ActionRow,
+  body.compactUI .compactPane .v123ChartFooter {
+    box-sizing: border-box!important;
+    width:100%!important;
+    max-width:100%!important;
+    margin:14px 0 0!important;
+    padding:13px var(--v137-inner-inset) 16px!important;
+    min-height:0!important;
+    clear:both!important;
+  }
+  /* Mapa jest kartą bez zewnętrznego paddingu; oba przyciski muszą
+     mieć jednakowy margines od lewej i prawej ramki. */
+  body.compactUI #atlasMap .mapStudioCard > .v123MapFooter {
+    box-sizing:border-box!important;
+    width:100%!important;
+    margin:14px 0 0!important;
+    padding:14px var(--v137-inner-inset) 17px!important;
+    column-gap:18px!important;
+    row-gap:12px!important;
+  }
+  body.compactUI #atlasMap .v123MapFooter .v120ChooseOccupation {
+    box-sizing:border-box!important;
+    margin:0!important;
+    min-width:0!important;
+    padding:10px 0!important;
+    line-height:1.4!important;
+  }
+  body.compactUI #atlasMap .v123MapFooter .v120MapPick {
+    margin:0!important;
+    padding:0!important;
+  }
+  body.compactUI #atlasMap .v123MapFooter .v120MapToggle {
+    box-sizing:border-box!important;
+    min-height:42px!important;
+    padding:10px 17px!important;
+  }
+  /* Kontener analiz tylko organizuje siatkę; nie rysuje kolejnej ramy wokół kart. */
+  body.compactUI .studioContent #atlasAnalysis.analyticsHub {
+    border:0!important;
+    box-shadow:none!important;
+    background:transparent!important;
+    padding:0!important;
+  }
+  /* Porównanie: tylko jedna obwódka na CAŁYM module, bez ramki w ramce. */
+  body.compactUI .studioContent #atlasAnalysis #compareSection {
+    box-sizing:border-box!important;
+    padding:clamp(18px,1.9vw,26px)!important;
+    overflow:visible!important;
+  }
+  body.compactUI .studioContent #atlasAnalysis #compareSection > .moduleHead {
+    box-sizing:border-box!important;
+    display:flex!important;
+    border:0!important;
+    border-bottom:1px solid #e9e5f0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    padding:0 0 18px!important;
+    margin:0 0 18px!important;
+    min-height:0!important;
+  }
+  body.compactUI .studioContent #atlasAnalysis #compareSection .compareControlsV2 {
+    box-sizing:border-box!important;
+    gap:12px!important;
+    margin-bottom:18px!important;
+  }
+  body.compactUI .studioContent #atlasAnalysis #compareSection .compareField,
+  body.compactUI .studioContent #atlasAnalysis #compareSection .comparePickerBtn {min-width:0!important;}
+  body.compactUI .studioContent #atlasAnalysis #compareSection .compareOutput {
+    box-sizing:border-box!important;
+    width:100%!important;
+    max-width:100%!important;
+  }
+}
+@media screen and (max-width:767px) {
+  body.compactUI {--v137-page-inset:14px;--v137-inner-inset:14px;--v137-section-gap:15px}
+  body.compactUI .studioContent > .v111Subnav:not([hidden]) {
+    margin:10px 0 0!important;
+    padding:7px 9px!important;
+    min-height:51px!important;
+    border-radius:16px!important;
+    overflow-x:auto!important;
+  }
+  body.compactUI .compactPane > .v133DataStrip {margin:10px 0 15px!important}
+  body.compactUI #atlasMap .mapStudioCard > .v123MapFooter {
+    padding:13px 14px 16px!important;
+    gap:9px!important;
+  }
+  body.compactUI #atlasMap .v123MapFooter .v120ChooseOccupation {flex:1 1 100%;max-width:100%!important;min-height:38px!important}
+  body.compactUI #atlasMap .v123MapFooter .v120MapPick {flex:1 1 100%;width:100%!important}
+  body.compactUI #atlasMap .v123MapFooter .v120MapToggle {width:100%!important}
+  body.compactUI .compactPane .v114ActionRow,
+  body.compactUI .compactPane .v123ChartFooter {padding:12px 14px 15px!important}
+  body.compactUI .studioContent #atlasAnalysis #compareSection {padding:16px!important}
+  body.compactUI .studioContent #atlasAnalysis #compareSection > .moduleHead {padding:0 0 14px!important;margin:0 0 16px!important}
+}
+@media print {
+ body.compactUI .compactPane :is(.v114ActionRow,.v123ChartFooter,.v123MapFooter) {display:none!important}
+}

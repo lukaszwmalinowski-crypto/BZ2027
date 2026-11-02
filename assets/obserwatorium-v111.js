@@ -16,14 +16,14 @@ function selectedUnit(){return $('countySelect')?.selectedOptions[0]?.textConten
 function safeText(node){return (node?.innerText||node?.textContent||'').replace(/\s+/g,' ').trim().slice(0,3800)}
 function snapshot(node,view){const svg=[...(node.matches('svg')?[node]:[]),...node.querySelectorAll('svg')].find(s=>s.getBoundingClientRect().width>140&&s.getBoundingClientRect().height>70);return {id:(crypto.randomUUID?.()||String(Date.now())+'-'+Math.random()),view,kind:svg?'wykres/grafika':'dane',title:node.querySelector('h2,h3,h4')?.textContent?.trim()||viewLabel[view],unit:selectedUnit(),period:node.querySelector('[data-year]')?.getAttribute('data-year')||'według aktualnego widoku',text:safeText(node),svg:svg?.outerHTML||null,created:new Date().toISOString(),source:node.querySelector('.src,.source,.gusSource')?.textContent?.trim()||'Zobacz źródła i metodologię w Obserwatorium',settings:{view,county:$('countySelect')?.value,occupation:$('occupationSelect')?.value}}}
 function eligible(root){const arr=[];const ids={map:['atlasMap','voivBenchmark'],jobs:['occupationProfileSection','atlasAnalysis','compareModule'],trends:['trendSection','historyArchive'],rankings:['atlasRankings'],unemployment:['pupStructureModule','compactCountyMore'],gus:['regionalNationalChart','regionalHistoryPanel','gusModule']};for(const id of ids[root.dataset.view]||[]){const el=$(id);if(el&&root.contains(el))arr.push(el)}if(!arr.length){root.querySelectorAll(':scope > .card,:scope > .rank,:scope > .gusModule,:scope > .pupModule').forEach(x=>arr.push(x))}return arr.filter(x=>x.id!=='regionalHistoryPanel'||!x.hidden)}
-function addButtons(){document.querySelectorAll('.compactPane').forEach(pane=>{const view=pane.dataset.view;if(!route[view]||view==='sources')return;eligible(pane).forEach(node=>{if(node.dataset.presentationSelectable)return;node.dataset.presentationSelectable='1';const wrap=document.createElement('label');wrap.className='v111Pick';wrap.title='Zapisz aktualne dane i ustawienia tego elementu';const checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.setAttribute('aria-label','Dodaj do prezentacji');const label=document.createElement('span');label.textContent='Do prezentacji';wrap.append(checkbox,label);if(node.id==='atlasMap'){const head=node.querySelector('.mapStudioCard .studioMapHead');if(head){wrap.classList.add('v112MapPick');head.append(wrap)}else node.querySelector('.mapStudioCard')?.prepend(wrap)}else{node.prepend(wrap)}checkbox.addEventListener('change',()=>{if(!checkbox.checked)return;const snap=snapshot(node,view);basket.push(snap);save();checkbox.checked=false;label.textContent='Dodano ✓';setTimeout(()=>label.textContent='Do prezentacji',1300)})})})}
+function addButtons(){document.querySelectorAll('.compactPane').forEach(pane=>{const view=pane.dataset.view;if(!route[view]||view==='sources')return;eligible(pane).forEach(node=>{if(node.dataset.presentationSelectable)return;node.dataset.presentationSelectable='1';const wrap=document.createElement('label');wrap.className='v111Pick';wrap.title='Zapisz aktualne dane i ustawienia tego elementu';const checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.setAttribute('aria-label','Dodaj do materiałów');const label=document.createElement('span');label.textContent='Do materiałów';wrap.append(checkbox,label);if(node.id==='atlasMap'){const head=node.querySelector('.mapStudioCard .studioMapHead');if(head){wrap.classList.add('v112MapPick');head.append(wrap)}else node.querySelector('.mapStudioCard')?.prepend(wrap)}else{node.prepend(wrap)}checkbox.addEventListener('change',()=>{if(!checkbox.checked)return;const snap=snapshot(node,view);basket.push(snap);save();checkbox.checked=false;label.textContent='Dodano ✓';setTimeout(()=>label.textContent='Do materiałów',1300)})})})}
 // v113: szczegółowe karty bez ingerowania w istniejące siatki paneli.
 const fineSelectors={
  map:['#atlasMap .profileStudioCard','#voivBenchmark'],
  jobs:['#occupationProfileSection','#atlasAnalysis .analyticSignal','#atlasAnalysis .compareCard','#atlasAnalysis .insightCard','#atlasAnalysis .compareModule','#compareSection'],
  trends:['#trendSection','#historyArchive'],
  rankings:['#atlasRankings .rank'],
- unemployment:['#pupStructureModule','#pupStructureModule .pupGrid > *','#pupStructureModule .pupTrendCard','#pupStructureModule .pupHistoryCard'],
+ unemployment:['#registeredUnemploymentModule section.gusCard','#pupStructureModule','#pupStructureModule .pupGrid > *','#pupStructureModule .pupTrendCard','#pupStructureModule .pupHistoryCard'],
  gus:['#regionalPulse','#regionalNationalChart','#regionalHistoryPanel','#gusModule section.gusCard','#demogCountyCard']
 };
 function fineNodes(pane){
@@ -60,6 +60,23 @@ function refinedSnapshot(node,view){
   })).filter(r=>r.label&&r.value).slice(0,12);
   result.structured={rankings:rankRows,signals:signalRows,metrics:metricRows};
   const captured=v122ChartData(node);if(captured){result.structured.chartData=captured;if(captured.kind==='bars')result.structured.rankings=captured.rankings;}
+  // v142: Snapshot comparison metadata independent of the selected county.
+  if(node.id==='demogCountyCard'){
+    const county=result.settings?.params?.demogCounty||$('demogSelect')?.value||'';
+    result.unit=county||result.unit;result.period='dane historyczne do 2025 r.';result.source='GUS / BDL, InfoGZM - dane ludności';
+    result.exportMeta={county,unit:'osób',measure:'Liczba mieszkańców',period:result.period};
+  }
+  if(node.id==='compareSection'){
+    const metric=result.settings?.params?.compareChartMetric||'deficit';
+    const types={unemp:['Stopa bezrobocia rejestrowanego - porównanie powiatów','%','Stopa bezrobocia (%)','GUS / WUP Katowice - dane powiatowe','stan na 30.09.2026 r.'],
+      deficit:['Grupy zawodów w deficycie - porównanie powiatów','grup zawodów','Liczba grup zawodów','Barometr Zawodów 2027','prognoza 2027'],
+      balance:['Grupy zawodów w równowadze - porównanie powiatów','grup zawodów','Liczba grup zawodów','Barometr Zawodów 2027','prognoza 2027'],
+      surplus:['Grupy zawodów w nadwyżce - porównanie powiatów','grup zawodów','Liczba grup zawodów','Barometr Zawodów 2027','prognoza 2027'],
+      no_eval:['Grupy zawodów bez oceny - porównanie powiatów','grup zawodów','Liczba grup zawodów','Barometr Zawodów 2027','prognoza 2027']};
+    const def=types[metric]||types.deficit;
+    result.title=def[0];result.unit=(result.settings?.params?.comparedCounties||[]).length+' wybranych jednostek województwa śląskiego';result.period=def[4];result.source=def[3];
+    result.exportMeta={metric,unit:def[1],measure:def[2],period:def[4],counties:result.settings?.params?.comparedCounties||[],source:def[3]};
+  }
 
  // Mapa jest zapisywana w momencie wyboru z aktualnym kolorem wszystkich powiatów,
  // trybem oraz wybranym zawodem. Późniejsze zmiany mapy nie modyfikują tego slajdu.
@@ -98,13 +115,14 @@ function panelRef(node){
  return node.dataset.presentationRef=(current?.id?'#'+current.id:'root')+'/'+steps.join('/');
 }
 function pickContext(node,view){
- const county=(view==='unemployment'?(node.closest('#pupStructureModule')?$('pupCounty')?.value:node.closest('#countyUnempModule')?$('countyUCounty')?.value:$('pupCounty')?.value):null)||$('countySelect')?.value||'__WOJ__';
+ const county=(view==='unemployment'?(node.closest('#registeredUnemploymentModule')?'__WOJ__':node.closest('#pupStructureModule')?$('pupCounty')?.value:node.closest('#countyUnempModule')?$('countyUCounty')?.value:$('pupCounty')?.value):null)||$('countySelect')?.value||'__WOJ__';
  const params={};
  if(view==='unemployment'){
   for(const id of ['pupPeriod','pupPopulation','pupUnit','pupTrendMetric']){const control=$(id);if(control)params[id]=control.value;}
   params.group=document.querySelector('#pupStructureModule [data-pup-group].active, #pupStructureModule [data-pup-group][aria-pressed="true"]')?.getAttribute('data-pup-group')||'wiek';
  }
  if(view==='gus'&&node.matches('#demogCountyCard'))params.demogCounty=$('demogSelect')?.value||'';
+ if(node.id==='wupUnemploymentChart')params.wupCompare=$('wupCompare')?.checked===true;
  if(['map','jobs','trends'].includes(view))params.occupation=$('occupationSelect')?.value||'';
  if(view==='map')params.mapMode=document.querySelector('.modeButtons .btn.active[data-mode]')?.dataset.mode||'delta';
  // Interaktywne wykresy mogą zmieniać wariant za pomocą kontrolek poza samym SVG.
@@ -149,8 +167,8 @@ function syncPresentationPicks(){
   wrap.classList.toggle('v113Added',active);
   const nextLabel=active?'Wybrane ✓':'Dodaj';
   if(span.textContent!==nextLabel)span.textContent=nextLabel;
-  cb.setAttribute('aria-label',(active?'Usuń z prezentacji: ':'Dodaj do prezentacji: ')+(node.querySelector('h2,h3,h4')?.textContent?.trim()||'panel danych'));
-  wrap.title=active?'Odznacz, aby usunąć tę pozycję z prezentacji':'Dodaj aktualny widok panelu do prezentacji';
+  cb.setAttribute('aria-label',(active?'Usuń z prezentacji: ':'Dodaj do materiałów: ')+(node.querySelector('h2,h3,h4')?.textContent?.trim()||'panel danych'));
+  wrap.title=active?'Odznacz, aby usunąć tę pozycję z prezentacji':'Dodaj aktualny widok panelu do materiałów';
  }
  syncAdditionalPicks();
 }
@@ -158,7 +176,7 @@ function finePick(node,view){
  if(node.dataset.presentationFine==='1')return;
  node.dataset.presentationFine='1';node.classList.add('v113Selectable');
  panelRef(node);
- const wrap=document.createElement('label');wrap.className='v113Pick';wrap.title='Dodaj aktualny widok panelu do prezentacji';
+ const wrap=document.createElement('label');wrap.className='v113Pick';wrap.title='Dodaj aktualny widok panelu do materiałów';
  const cb=document.createElement('input');cb.type='checkbox';
  const span=document.createElement('span');span.textContent='Dodaj';wrap.append(cb,span);
  const action=document.createElement('div');action.className='v114ActionRow';action.append(wrap);node.append(action);
@@ -230,7 +248,7 @@ function addUnemploymentMap(){
 function installAdditionalPicks(){
  if(!$('v119OccupationLists')&&$('jobStatusTabs')){
   const container=document.createElement('div');container.id='v119OccupationLists';container.className='v119Lists';
-  const heading=document.createElement('div');heading.className='v119ListsIntro';heading.innerHTML='<b>Pełne listy zawodów do prezentacji</b><span>Wybierz kategorię. Wszystkie zawody zostaną podzielone na kolejne slajdy.</span>';
+  const heading=document.createElement('div');heading.className='v119ListsIntro';heading.innerHTML='<b>Pełne listy zawodów do materiałów</b><span>Wybierz kategorię. Wszystkie zawody zostaną podzielone na kolejne slajdy.</span>';
   const options=document.createElement('div');options.className='v119ListOptions';
   OCC_GROUPS.forEach(([status,label])=>{
     const row=document.createElement('label');row.className='v119ListPick';row.dataset.status=status;
@@ -245,7 +263,7 @@ function installAdditionalPicks(){
  if(!$('v119UnemploymentMapPick')&&$('countyUnempMap')){
   const row=document.createElement('label');row.id='v119UnemploymentMapPick';row.className='v113Pick v119StandaloneMapPick';
   const check=document.createElement('input');check.type='checkbox';check.setAttribute('aria-label','Dodaj aktualną mapę bezrobocia');
-  const text=document.createElement('span');text.textContent='Dodaj mapę do prezentacji';row.append(check,text);
+  const text=document.createElement('span');text.textContent='Dodaj mapę do materiałów';row.append(check,text);
   const foot=document.createElement('div');foot.className='v123ChartFooter v123UnempMapFooter';
   $('countyUnempMap').insertAdjacentElement('afterend',foot);foot.append(row);
   check.addEventListener('change',addUnemploymentMap);
@@ -265,7 +283,7 @@ function syncAdditionalPicks(){
  const map=$('v119UnemploymentMapPick');if(map){
   const active=basket.some(x=>x.selectionKey===mapUnemploymentKey());
   map.querySelector('input').checked=active;map.classList.toggle('v113Added',active);
-  map.querySelector('span').textContent=active?'Wybrane ✓':'Dodaj mapę do prezentacji';
+  map.querySelector('span').textContent=active?'Wybrane ✓':'Dodaj mapę do materiałów';
   map.hidden=Boolean($('countyUnempMap')?.hidden);
   if(map.parentElement?.classList.contains('v123ChartFooter'))map.parentElement.hidden=map.hidden;
  }
@@ -279,7 +297,8 @@ const V120_CHARTS=[
  ['pupBars','unemployment','Struktura bezrobotnych'],
  ['pupTrendChart','unemployment','Historia bezrobocia'],
  ['countyUnempChart','unemployment','Bezrobocie w powiatach – wykres'],
- ['gusUnempChart','gus','Bezrobocie – GUS'],
+ ['gusUnempChart','unemployment','Bezrobocie rejestrowane – Śląskie i Polska'],
+ ['wupUnemploymentChart','unemployment','Szczegółowe dane WUP – bezrobocie'],
  ['gusBaelChart','gus','BAEL – Śląskie na tle Polski'],
  ['gusRegonChart','gus','Podmioty gospodarcze REGON'],
  ['demogLineChart','gus','Demografia powiatowa – ludność'],
@@ -301,6 +320,7 @@ function v120ChartTitle(node,base){
  else if(node.id==='pupTrendChart')bits=[$('pupTrendMetric')?.selectedOptions?.[0]?.textContent?.trim(),$('pupPopulation')?.selectedOptions?.[0]?.textContent?.trim(),$('pupPeriod')?.selectedOptions?.[0]?.textContent?.trim()];
  else if(node.id==='countyUnempChart')bits=[$('countyUMetric')?.selectedOptions?.[0]?.textContent?.trim(),$('countyUPeriod')?.selectedOptions?.[0]?.textContent?.trim(),$('countyUYear')?.selectedOptions?.[0]?.textContent?.trim()];
  else if(node.id==='regionalHistoryPanel')bits=[node.dataset.metric||''];
+ else if(node.id==='wupUnemploymentChart')bits=[$('wupMetric')?.selectedOptions?.[0]?.textContent?.trim(),$('wupYear')?.value,$('wupCompare')?.checked?'porównanie r/r':'bez porównania'];
  else bits=[...scope.querySelectorAll('button.active,button[aria-pressed="true"]')].filter(b=>!b.closest('.v113Pick,.v120ChartPick')).map(b=>b.textContent.trim());
  bits=bits.filter(Boolean).slice(0,3);
  return (base+(bits.length?' – '+bits.join(' · '):'')).slice(0,150);
@@ -412,10 +432,54 @@ function v120ChartSnapshot(node,view,base){
  const item=refinedSnapshot(node,view);item.title=v120ChartTitle(node,base);
  item.kind='wykres';item.settings={...item.settings,chart:node.id,params:pickContext(node,view).params};
  const scope=node.closest('.gusCard,#pupStructureModule,#countyUnempModule,#trendSection')||node;
- if(view==='unemployment')item.unit=(node.closest('#pupStructureModule')?$('pupCounty')?.value:$('countyUCounty')?.value||selectedUnit()).replace('__WOJ__','Województwo śląskie');
+ if(view==='unemployment')item.unit=node.closest('#registeredUnemploymentModule')?'Województwo śląskie':(node.closest('#pupStructureModule')?$('pupCounty')?.value:($('countyUCounty')?.value||selectedUnit())).replace('__WOJ__','Województwo śląskie');
  if(view==='gus')item.unit=node.id==='demogLineChart'?($('demogSelect')?.selectedOptions?.[0]?.textContent||'Województwo śląskie'):'Województwo śląskie';
  if(view==='trends'){item.unit=selectedUnit();item.period='2024–2027';}
- const data=v122ChartData(node);
+ let data=node.id==='wupUnemploymentChart' ? window.WUP_UNEMP_EXPORT_DATA : v122ChartData(node);
+ // Build reliable, separately labelled time series from the central data model.
+ // SVG pixel labels alone can merge Śląskie and Polska into one false series.
+ const gus=window.PANEL_DATA?.gus||{};
+ if(node.id==='gusUnempChart'){
+   const annual=!!document.querySelector('[data-unemp-mode="annual"].active');
+   const count=!!document.querySelector('[data-unemp-metric="count"].active');
+   const src=gus[count?(annual?'unempCountAnnual':'unempCountMonthly'):(annual?'unempAnnual':'unempMonthly')];
+   if(src?.labels?.length){data={kind:'series',labels:src.labels,series:count?[{name:'Woj. śląskie',values:src.vals}]:[{name:'Woj. śląskie',values:src.sl},{name:'Polska',values:src.pl}],unit:count?'osób':'%'};
+     item.exportMeta={unit:count?'osób':'%',measure:count?'Liczba bezrobotnych zarejestrowanych':'Stopa bezrobocia rejestrowanego',period:annual?'stan na 31 grudnia lat 2016-2025':'styczeń-wrzesień 2026'};
+     item.title=item.exportMeta.measure+' - '+(annual?'historia 2016-2025':'miesiące 2026');item.period=item.exportMeta.period;item.source='GUS / WUP Katowice - bezrobocie rejestrowane';
+   }
+ }
+ if(node.id==='gusBaelChart'){
+   const kind=document.querySelector('[data-bael-mode].active')?.dataset.baelMode||'activity';
+   const mode=document.querySelector('[data-bael-period].active')?.dataset.baelPeriod||'historic';
+   const src=gus.bael?.[kind];
+   if(src?.labels?.length && mode==='historic'){
+     data={kind:'series',labels:src.labels,series:[{name:'Woj. śląskie',values:src.sl},{name:'Polska',values:src.pl}],unit:'%'};
+     item.exportMeta={unit:'%',measure:kind==='activity'?'Współczynnik aktywności zawodowej':'Wskaźnik zatrudnienia',period:kind==='activity'?'IV kwartał każdego roku 2016-2025':'IV kw. 2024 - IV kw. 2025'};
+     item.title=item.exportMeta.measure+' - Śląskie na tle Polski';item.period=item.exportMeta.period;item.source='GUS / Urząd Statystyczny w Katowicach - BAEL';
+   }else if(mode==='current'){
+     const b=gus.bael2026?.[kind];
+     if(b){data={kind:'series',labels:['IV kw. 2025','I kw. 2026','II kw. 2026'],series:[
+       {name:'Polska',values:[b.poland2025,...b.poland2026]},
+       {name:'Woj. śląskie - tylko 2025',values:[b.slaskie2025,null,null]}],unit:'%'};
+       item.exportMeta={unit:'%',measure:kind==='activity'?'Współczynnik aktywności zawodowej':'Wskaźnik zatrudnienia',period:'Polska do II kw. 2026; Śląskie do IV kw. 2025',note:'Brak zweryfikowanej wartości Śląskiego za 2026 - nie łączyć okresów jako jednego porównania.'};
+       item.title=item.exportMeta.measure+' - różne okresy Polski i Śląskiego';item.period=item.exportMeta.period;item.source='GUS / Urząd Statystyczny w Katowicach - BAEL';
+     }
+   }
+ }
+ if(node.id==='gusRegonChart'){
+   const current=!!document.querySelector('[data-regon-mode="current"].active');
+   const r=gus.regon;
+   if(r){data=current?{kind:'series',labels:[r.prevAsOf,r.currentAsOf],series:[{name:'Woj. śląskie',values:[r.total2025,r.total2026]}],unit:'podmioty'}:
+      {kind:'series',labels:r.historicalYears,series:[{name:'Woj. śląskie',values:r.historyPer10k}],unit:'podmioty na 10 tys. mieszkańców'};
+     item.exportMeta={unit:data.unit,measure:current?'Podmioty zarejestrowane w REGON':'Podmioty REGON na 10 tys. ludności',period:current?'grudzień 2025 - sierpień 2026':'lata 2016-2025'};
+     item.title=item.exportMeta.measure+' - woj. śląskie';item.period=item.exportMeta.period;item.source='GUS / Urząd Statystyczny w Katowicach - REGON';
+   }
+ }
+ if(node.id==='demogLineChart'||node.id==='demogCountyCard'){
+   item.exportMeta=item.exportMeta||{unit:'osób',measure:'Liczba ludności',period:'lata 2014-2025 lub 2016-2025 - według dostępnego szeregu'};
+   item.period=item.exportMeta.period;item.source='GUS / BDL, InfoGZM - statystyka ludności';
+ }
+ if(node.id==='wupUnemploymentChart'){item.source='WUP Katowice – zestawienie miesięczne, wrzesień 2026';item.period='dane miesięczne '+($('wupYear')?.value||'2026');}
  if(data){
    item.structured={...item.structured,chartData:data};
    if(data.kind==='bars')item.structured.rankings=data.rankings;
@@ -492,7 +556,7 @@ function installV120Picks(){
  const mapNode=document.querySelector('#atlasMap .mapStudioCard');
  if(mapNode&&!$('v120MapPick')){
   const row=document.createElement('label');row.id='v120MapPick';row.className='v120MapPick';
-  row.innerHTML='<span class="v120MapText"><strong>Mapa do prezentacji</strong><small class="v120MapName"></small></span><span class="v120MapToggle"><input type="checkbox" aria-label="Dodaj aktualną mapę lub mapę wybranego zawodu"><span class="v120MapAction">Dodaj tę mapę</span></span>';
+  row.innerHTML='<span class="v120MapText"><strong>Mapa do materiałów</strong><small class="v120MapName"></small></span><span class="v120MapToggle"><input type="checkbox" aria-label="Dodaj aktualną mapę lub mapę wybranego zawodu"><span class="v120MapAction">Dodaj tę mapę</span></span>';
   // v123: oba narzędzia mapy mają wspólną stopkę POD mapą, bez zakrywania legendy.
   const footer=document.createElement('div');footer.className='v123MapFooter';
   mapNode.append(footer);
@@ -509,7 +573,7 @@ function installV120Picks(){
   const node=$(id);if(!node||node.dataset.v120Selectable)continue;
   node.dataset.v120Selectable='1';
   const row=document.createElement('label');row.className='v120ChartPick';row.dataset.chartId=id;row.dataset.view=view;row.dataset.base=base;
-  row.innerHTML='<input type="checkbox" aria-label="Dodaj widoczny wariant wykresu do prezentacji"><span>Dodaj ten wykres</span>';
+  row.innerHTML='<input type="checkbox" aria-label="Dodaj widoczny wariant wykresu do materiałów"><span>Dodaj ten wykres</span>';
   // v123: jednolite stopki kart. Przycisk zawsze POD wykresem, po jego podpisie.
   // Nie zmieniamy referencji samego wykresu ani jego klucza w prezentacji.
   const footer=document.createElement('div');footer.className='v123ChartFooter';
@@ -553,14 +617,14 @@ async function svgPng(svgString){
 let activeGroup='barometr';let activeView='map';
 function chooseGroup(group){if(!groups[group])return;const possible=groups[group].map(x=>x[0]);const target=possible.includes(activeView)?activeView:possible[0];chooseView(target)}
 function chooseView(view){const group=route[view];if(!group||group==='sources')return;activeView=view;activeGroup=group;document.body.dataset.mainArea=group;document.querySelectorAll('[data-v111-group]').forEach(b=>{const yes=b.dataset.v111Group===group;b.classList.toggle('active',yes);b.setAttribute('aria-selected',String(yes))});const sub=$('v111Subnav');sub.replaceChildren();sub.hidden=groups[group].length===1;for(const [id,label] of groups[group]){const b=document.createElement('button');b.type='button';b.textContent=label;b.className=id===view?'selected':'';b.addEventListener('click',()=>chooseView(id));sub.append(b)}const original=document.querySelector('.compactNavButton[data-view="'+view+'"]');original?.click();if(group==='gospodarka')$('filterStudio').hidden=true;updateCounter()}
-function updateCounter(){const b=$('v111BasketButton');if(b)b.textContent=(innerWidth<=767?'Wybrane (':'Moja prezentacja (')+basket.length+')'}
-function drawBasket(){compactBasket();const list=$('v111BasketList');if(!list)return;list.replaceChildren();if(!basket.length){const p=document.createElement('p');p.textContent='Nie wybrano jeszcze elementów. Zaznacz „Do prezentacji” przy wybranym wykresie lub panelu.';list.append(p);return}basket.forEach((item,i)=>{const row=document.createElement('div');row.className='v111BasketRow';const cb=document.createElement('input');cb.type='checkbox';cb.checked=item.included!==false;cb.setAttribute('aria-label','Uwzględnij '+item.title);cb.addEventListener('change',()=>{item.included=cb.checked;save()});const info=document.createElement('div');const title=document.createElement('strong');title.textContent=item.title;const meta=document.createElement('small');meta.textContent=item.unit+' • '+item.period+' • '+(viewLabel[item.view]||item.view);info.append(title,meta);const actions=document.createElement('div');actions.className='v111BasketRowActions';for(const [label,offset] of [['↑',-1],['↓',1]]){const b=document.createElement('button');b.type='button';b.textContent=label;b.title='Zmień kolejność';b.disabled=i+offset<0||i+offset>=basket.length;b.onclick=()=>{[basket[i],basket[i+offset]]=[basket[i+offset],basket[i]];save()};actions.append(b)}const remove=document.createElement('button');remove.type='button';remove.textContent='Usuń';remove.onclick=()=>{basket.splice(i,1);save()};actions.append(remove);row.append(cb,info,actions);list.append(row)})}
+function updateCounter(){const b=$('v111BasketButton');if(b)b.textContent=(innerWidth<=767?'Wybrane (':'Moje materiały (')+basket.length+')';const badge=$('v129SelectedCount');if(badge)badge.textContent=basket.length;}
+function drawBasket(){compactBasket();const clearButton=$('v127ClearBasket');if(clearButton)clearButton.disabled=!basket.length;const list=$('v111BasketList');if(!list)return;list.replaceChildren();if(!basket.length){const p=document.createElement('p');p.textContent='Nie wybrano jeszcze elementów. Zaznacz analizy przy wykresach i panelach, a następnie pobierz PowerPoint lub Word.';list.append(p);return}basket.forEach((item,i)=>{const row=document.createElement('div');row.className='v111BasketRow';const cb=document.createElement('input');cb.type='checkbox';cb.checked=item.included!==false;cb.setAttribute('aria-label','Uwzględnij '+item.title);cb.addEventListener('change',()=>{item.included=cb.checked;save()});const info=document.createElement('div');const title=document.createElement('strong');title.textContent=item.title;const meta=document.createElement('small');meta.textContent=item.unit+' • '+item.period+' • '+(viewLabel[item.view]||item.view);info.append(title,meta);const actions=document.createElement('div');actions.className='v111BasketRowActions';for(const [label,offset] of [['↑',-1],['↓',1]]){const b=document.createElement('button');b.type='button';b.textContent=label;b.title='Zmień kolejność';b.disabled=i+offset<0||i+offset>=basket.length;b.onclick=()=>{[basket[i],basket[i+offset]]=[basket[i+offset],basket[i]];save()};actions.append(b)}const remove=document.createElement('button');remove.type='button';remove.textContent='Usuń';remove.onclick=()=>{basket.splice(i,1);save()};actions.append(remove);row.append(cb,info,actions);list.append(row)})}
 async function downloadPptx(){const selected=basket.filter(x=>x.included!==false);if(!selected.length){alert('Zaznacz co najmniej jeden element.');return}const Constructor=window.PptxGenJS||window.pptxgen;if(!Constructor){alert('Biblioteka PowerPoint nie została załadowana. Możesz pobrać listę jako JSON.');return}const pptx=new Constructor();pptx.layout='LAYOUT_WIDE';pptx.author='Obserwatorium Rynku Pracy';pptx.subject='Wybrane analizy rynku pracy';pptx.title='Obserwatorium — prezentacja użytkownika';const addText=(slide,txt,x,y,w,h,size=14,opts={})=>slide.addText(txt,{x,y,w,h,fontFace:'Aptos',fontSize:size,color:'1F334E',margin:0,breakLine:false,...opts});let slide=pptx.addSlide();slide.background={color:'F6F8FC'};addText(slide,'OBSERWATORIUM RYNKU PRACY',.8,1.2,11,.4,18,{bold:true,color:'5F718A'});addText(slide,'Wybrane dane i analizy',.8,2,11,.9,34,{bold:true});addText(slide,selected.length+' elementów • '+new Date().toLocaleDateString('pl-PL'),.8,3.2,11,.5,16);for(const item of selected){slide=pptx.addSlide();slide.background={color:'FFFFFF'};addText(slide,item.title,.65,.44,11.8,.75,25,{bold:true});addText(slide,item.unit+' • '+item.period,.65,1.22,11,.36,13,{color:'64748B'});const png=item.png||(await svgPng(item.svg));
 if(png){
  try{slide.addImage({data:png,x:.8,y:1.75,w:11.65,h:4.55,sizingContain:true});}
  catch{addText(slide,item.text.slice(0,1200),.7,1.9,11.8,4.3,13,{valign:'top'});}
 }else{
- const lines=item.text.replace(/Do prezentacji|Dodano ✓/g,'').slice(0,1300);
+ const lines=item.text.replace(/Do materiałów|Dodano ✓/g,'').slice(0,1300);
  addText(slide,lines,.7,1.9,11.8,4.3,Math.max(11,Math.min(17,lines.length>700?11:15)),{valign:'top'});
 }
 addText(slide,'Źródło: '+item.source,.7,6.77,11.9,.32,9,{color:'62758C'});}await pptx.writeFile({fileName:'Obserwatorium_wybrane_analizy.pptx'})}
@@ -574,7 +638,7 @@ window.matchMedia('(max-width:767px)').addEventListener('change',syncBasketPlace
 syncBasketPlacement();
 const line=document.createElement('div');line.id='v111Subnav';line.className='v111Subnav';toolbar.after(line);
 const footer=document.createElement('footer');footer.className='v111Footer';footer.innerHTML='<button type="button" id="v111Sources">Źródła danych i metodologia ↓</button>';document.querySelector('.studioContent').append(footer);$('v111Sources').addEventListener('click',()=>{document.querySelector('.compactNavButton[data-view="sources"]')?.click();$('compact-sources').hidden=false;$('compact-sources').scrollIntoView({behavior:'smooth'});});
-const dlg=document.createElement('dialog');dlg.id='v111Basket';dlg.className='v111Dialog';dlg.innerHTML='<div class="v111DialogHead"><div><span>KOMPOZYCJA MATERIAŁÓW</span><h2>Moja prezentacja</h2><p>Zaznaczone elementy zachowują powiat i zapisane w chwili wyboru wartości.</p></div><button type="button" id="v111Close" aria-label="Zamknij">×</button></div><div id="v111BasketList"></div><div class="v111DialogFoot"><button type="button" id="v111Json">Zapisz wybór JSON</button><button type="button" id="v111Generate">Generuj PPTX</button></div>';document.body.append(dlg);$('v111BasketButton').onclick=()=>{drawBasket();dlg.showModal()};$('v111Close').onclick=()=>dlg.close();dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});$('v111Json').onclick=downloadJson;$('v111Generate').onclick=()=>window.OBS_DECK_V118?window.OBS_DECK_V118(basket):downloadPptx();
+const dlg=document.createElement('dialog');dlg.id='v111Basket';dlg.className='v111Dialog';dlg.innerHTML='<div class="v111DialogHead"><div><span>KOMPOZYCJA MATERIAŁÓW</span><h2>Moje materiały <span class="v129SelectedCount" id="v129SelectedCount" aria-label="Liczba zapisanych analiz">0</span></h2><p>Wybrane raz analizy wykorzystasz w prezentacji PowerPoint i raporcie Word. Powiat, okres i dane pozostają zapisane.</p></div><button type="button" id="v111Close" aria-label="Zamknij">×</button></div><div id="v111BasketList"></div><div class="v111DialogFoot v129DialogFoot"><div class="v129ExportHeading"><strong>Wybierz format materiału</strong><span>Te same analizy, dwa sposoby prezentacji danych.</span></div><div class="v129ExportGrid" role="group" aria-label="Format pobieranego materiału"><button type="button" id="v111Generate" class="v129ExportCard v129PptCard">PowerPoint</button><button type="button" id="v128GenerateDocx" class="v128WordButton v129ExportCard v129DocxCard">Word DOCX</button></div><div class="v129FooterActions"><button type="button" id="v127ClearBasket" class="v127ClearBasket" title="Usuń wszystkie zaznaczone analizy">Wyczyść wszystkie zaznaczenia</button><button type="button" id="v111Json">Zapisz wybór JSON</button></div></div>';document.body.append(dlg);$('v111BasketButton').onclick=()=>{drawBasket();dlg.showModal()};$('v111Close').onclick=()=>dlg.close();dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});$('v127ClearBasket').onclick=()=>{if(!basket.length)return;if(!window.confirm('Usunąć wszystkie '+basket.length+' zaznaczone analizy z Moich materiałów?'))return;basket.splice(0,basket.length);save();};$('v111Json').onclick=downloadJson;$('v111Generate').onclick=()=>window.OBS_DECK_V118?window.OBS_DECK_V118(basket):downloadPptx();$('v128GenerateDocx').onclick=()=>window.OBS_WORD_V128?window.OBS_WORD_V128(basket):alert('Moduł Word nie został załadowany. Otwórz pełną paczkę aplikacji.');
 const legacy=document.querySelectorAll('.mobileBottomNav,.mobileMoreSheet');legacy.forEach(x=>x.setAttribute('data-v111-legacy','1'));
 const mobileNav=document.createElement('nav');mobileNav.className='v111MobileNav';mobileNav.setAttribute('aria-label','Główne obszary');for(const group of Object.keys(groups)){const b=document.createElement('button');b.type='button';b.textContent=labels[group];b.dataset.v111Mobile=group;b.onclick=()=>chooseGroup(group);mobileNav.append(b)}document.body.append(mobileNav);
 const observed=new MutationObserver(()=>{const sel=document.querySelector('.compactNavButton.active')?.dataset.view;if(sel&&route[sel]&&route[sel]!=='sources'&&sel!==activeView)chooseView(sel);});observed.observe(original,{attributes:true,subtree:true,attributeFilter:['class']});
