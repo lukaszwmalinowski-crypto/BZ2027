@@ -1,0 +1,190 @@
+/* v163: spójne, lekko kolorowe TŁA kart, odrębne dla dziedzin.
+   Kolorystyka nie modyfikuje danych, wykresów SVG, źródeł ani drukowania. */
+@media screen {
+  html body.compactUI .compactPane[data-view="map"],
+  html body.compactUI .compactPane[data-view="jobs"] {
+    --section-frame-start:#f0f6ff;
+    --section-frame-end:#e3edff;
+    --section-frame-stroke:#c4d7f0;
+    --section-accent:#487bb7;
+  }
+  html body.compactUI .compactPane[data-view="trends"] {
+    --section-frame-start:#f0f5ff;
+    --section-frame-end:#e7ecfc;
+    --section-frame-stroke:#cbd5ed;
+    --section-accent:#657bd1;
+  }
+  html body.compactUI .compactPane[data-view="unemployment"] {
+    --section-frame-start:#eefbf6;
+    --section-frame-end:#e1f3ec;
+    --section-frame-stroke:#bbddce;
+    --section-accent:#308b72;
+  }
+  html body.compactUI .compactPane[data-view="gus"] {
+    --section-frame-start:#fffaf0;
+    --section-frame-end:#fdf0dc;
+    --section-frame-stroke:#e9d5b4;
+    --section-accent:#ae7a31;
+  }
+  html body.compactUI .compactPane[data-view="demography"] {
+    --section-frame-start:#f9f4ff;
+    --section-frame-end:#eee6fa;
+    --section-frame-stroke:#d8c6eb;
+    --section-accent:#8062ad;
+  }
+  html body.compactUI .compactPane[data-view="rankings"] {
+    --section-frame-start:#fff9e9;
+    --section-frame-end:#f8edcf;
+    --section-frame-stroke:#e5d6ae;
+    --section-accent:#ad873b;
+  }
+  html body.compactUI .compactPane[data-view="sources"] {
+    --section-frame-start:#f6f8fc;
+    --section-frame-end:#edf1f8;
+    --section-frame-stroke:#cfd9e5;
+    --section-accent:#60788f;
+  }
+
+  /* Najważniejsze powierzchnie: jasny pastel jako tło panelu, bez utraty kontrastu. */
+  html body.compactUI .studioContent .compactPane[data-view] :is(
+    .card,.mapStudioCard,.profileStudioCard,.compactJobsCard,
+    .occupationProfileCard,.compareCard,.insightCard,.trendCard,
+    .historyArchive,.gusModule,.gusCard,.pupModule,.pupCard,
+    .rank,.voivBenchmark,.regionalPulse,.registeredUnemploymentModule,
+    .demographyExistingIntro,.demographyReportIntro,.demographyReportCard,
+    .sourceRegistryWrap
+  ) {
+    background:linear-gradient(150deg,var(--section-frame-start) 0%,var(--section-frame-end) 100%)!important;
+    border-color:var(--section-frame-stroke)!important;
+  }
+
+  /* Karty w Demografii mają indywidualne stare reguły background:#fff!important.
+     Wyższą specyficznością nadpisujemy wyłącznie tło zewnętrznej karty. */
+  html body.compactUI .studioContent .compactPane[data-view="demography"] .demographyExistingGrid .gusCard.demo,
+  html body.compactUI .studioContent .compactPane[data-view="demography"] .demographyExistingGrid #demogCountyCard,
+  html body.compactUI .studioContent .compactPane[data-view="demography"] .demographyReportCard {
+    background:linear-gradient(150deg,#f9f4ff 0%,#eee6fa 100%)!important;
+    border-color:#d8c6eb!important;
+  }
+
+  /* Materiały wewnętrzne i wykresy mają pozostać na czytelnym niemal białym tle. */
+  html body.compactUI .compactPane[data-view] :is(
+    .trendChart,.gusChart,.historyChart,.demographyReportSvg,
+    .compareChartPanel,.compareChartArea,.comparePlotViewport,
+    .mapwrap,.mapCanvas,.pupChart,.pupChartWrap,
+    .chartFrame,.plotFrame
+  ) {
+    background-color:#fbfdff!important;
+  }
+
+  /* Wspólna subtelna kreska kolorystyczna pokazuje przynależność karty do działu. */
+  html body.compactUI .studioContent .compactPane[data-view] :is(
+    .mapStudioCard,.profileStudioCard,.compareCard,.trendCard,.pupModule,
+    .gusCard,.demographyReportCard,.rank
+  ) {
+    border-top:3px solid var(--section-accent)!important;
+  }
+
+  /* Również nagłówki i drobne kafle KPI mają delikatne zabarwienie. */
+  html body.compactUI .studioContent .compactPane[data-view] :is(
+    .trendHead,.gusCardHead,.pupHeading,.studioMapHead,
+    .demographyReportCardHead,.moduleHead
+  ) {
+    background:color-mix(in srgb,var(--section-frame-start) 82%,#fff 18%)!important;
+  }
+
+  /* Wyjątek: krajowe serie porównawcze i tablice danych zostają bez kolorowego wypełnienia. */
+  html body.compactUI .compactPane[data-view] :is(table,table td,table th,select,input,textarea,.comparePickerMenu) {
+    color-scheme:light;
+  }
+
+  /* Wyrównanie dwóch kart Demografii do jednej linii dolnej.
+     Dopasowanie tylko na szerokich ekranach; brak min-height i pustych spacerów na telefonach. */
+  @media (min-width:1180px) {
+    html body.compactUI .compactPane[data-view="demography"] .demographyExistingGrid {
+      align-items:stretch!important;
+      grid-auto-rows:auto!important;
+    }
+    html body.compactUI .compactPane[data-view="demography"] .demographyExistingGrid > .compactResponsiveDetail,
+    html body.compactUI .compactPane[data-view="demography"] .demographyExistingGrid > .gusCard {
+      height:100%!important;
+      align-self:stretch!important;
+    }
+    html body.compactUI .compactPane[data-view="demography"] .demographyExistingGrid .gusCard.demo {
+      height:100%!important;
+      align-self:stretch!important;
+      display:flex!important;
+      flex-direction:column!important;
+    }
+    html body.compactUI .compactPane[data-view="demography"] .demographyExistingGrid .gusCard.demo > .gusSource {
+      margin-top:auto!important;
+    }
+  }
+  @media (max-width:1179px) {
+    html body.compactUI .compactPane[data-view="demography"] .demographyExistingGrid {
+      align-items:start!important;
+    }
+  }
+}
+
+
+/* v164: wyrównanie wysokości pól i stopek akcji na szerokich ekranach.
+   Celem jest spójna dolna linia przycisków i równy układ kart obok siebie. */
+@media screen {
+  @media (min-width:1180px) {
+    /* Bezrobocie - dwie główne karty mają tę samą wysokość i wspólną linię przycisku. */
+    html body.compactUI #compact-unemployment .registeredUnemploymentGrid {
+      align-items:stretch!important;
+    }
+    html body.compactUI #compact-unemployment .registeredUnemploymentGrid > .compactResponsiveDetail,
+    html body.compactUI #compact-unemployment .registeredUnemploymentGrid > .gusCard {
+      height:100%!important;
+      align-self:stretch!important;
+    }
+    html body.compactUI #compact-unemployment .registeredUnemploymentGrid > .compactResponsiveDetail > .gusCard,
+    html body.compactUI #compact-unemployment .registeredUnemploymentGrid .gusCard {
+      height:100%!important;
+      display:flex!important;
+      flex-direction:column!important;
+    }
+    html body.compactUI #compact-unemployment .registeredUnemploymentGrid .gusCard > :is(.v123ChartFooter,.v114ActionRow) {
+      margin-top:auto!important;
+    }
+
+    /* Barometr - mapa i prawa kolumna wyrównane, bez wiszących przycisków. */
+    html body.compactUI .studioContent #atlasMap {
+      align-items:stretch!important;
+    }
+    html body.compactUI .studioContent #atlasMap > .mapStudioCard,
+    html body.compactUI .studioContent #atlasMap > .profileStudioCard {
+      height:100%!important;
+      align-self:stretch!important;
+      display:flex!important;
+      flex-direction:column!important;
+    }
+    html body.compactUI .studioContent #atlasMap > .profileStudioCard > .panel,
+    html body.compactUI .studioContent #atlasMap > .mapStudioCard {
+      display:flex!important;
+      flex-direction:column!important;
+      height:100%!important;
+    }
+    html body.compactUI .studioContent #atlasMap :is(.v123MapFooter,.v114ActionRow) {
+      margin-top:auto!important;
+    }
+
+    /* Kafle sygnałów i benchmarku - jednakowe wysokości oraz równe dosunięcie opisów do dołu. */
+    html body.compactUI .studioContent #atlasMap :is(.mapSignals,.voivBenchmarkGrid,.metrics) {
+      align-items:stretch!important;
+    }
+    html body.compactUI .studioContent #atlasMap :is(.mapSignal,.voivRef,.metric) {
+      height:100%!important;
+      display:flex!important;
+      flex-direction:column!important;
+    }
+    html body.compactUI .studioContent #atlasMap .mapSignal .sHint,
+    html body.compactUI .studioContent #atlasMap .voivRef .vCompare,
+    html body.compactUI .studioContent #atlasMap .metric .delta {
+      margin-top:auto!important;
+    }
+  }
+}

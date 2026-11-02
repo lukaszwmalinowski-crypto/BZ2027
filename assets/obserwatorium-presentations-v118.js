@@ -393,7 +393,7 @@
       const label=defs[i][1],start=t.indexOf(label);if(start<0)continue;
       let end=t.length;
       for(let j=i+1;j<defs.length;j++){const pos=t.indexOf(defs[j][1],start+label.length);if(pos>=0){end=pos;break}}
-      const part=t.slice(start+label.length,end),match=part.match(/(?:-?\d[\d\s]*(?:[,.]\d+)?\s*(?:tys\.|mld\s*zł|zł|etatów|osób|%))/i);
+      const part=t.slice(start+label.length,end),match=part.match(/(?:-?\d[\d\s ]*(?:[,.]\d+)?\s*(?:tys\.\s*(?:etatów|osób)?|mld\s*zł|zł|etatów|osób|%))/i);
       if(match){const detailText=part.slice(match.index+match[0].length),period=detailText.match(/[+-]\d+(?:[,.]\d+)?%\s*r\/r\s*(?:VII|VI|I-VI|\d{1,2})?\s*2026/i);arr.push({label:defs[i][0],value:match[0].trim(),detail:period?period[0]:short(detailText,55)});}
     }
     return arr;
@@ -536,11 +536,18 @@
         const accent=drawHeader(slide,pptx,meta.title,caption,item.view,index,meta.source);
         let drawn=false;const struct=item.structured||{};
         const columnTitle=meta.measure?meta.measure.toUpperCase():(item.view==='unemployment'?'LICZBA OSÓB':'LICZBA GRUP ZAWODÓW');
-        if(meta.comparison && struct.chartData?.kind==='bars')drawn=drawComparison(slide,pptx,struct.chartData.rankings||[],meta);
+        const isEconomicPulse=chartId(item)==='regionalPulse'||/Gospodarka województwa śląskiego/i.test(item.title||'');
+        if(isEconomicPulse){
+          // Some earlier selections predate the structured-metrics fix.
+          // Fall back to parsing the saved source snapshot so re-selection is not required.
+          const metrics=struct.metrics?.filter(m=>m.label&&m.value).length?struct.metrics:parseSector(item);
+          drawn=addMetrics(slide,pptx,metrics,accent);
+        }
+        if(!drawn&&meta.comparison && struct.chartData?.kind==='bars')drawn=drawComparison(slide,pptx,struct.chartData.rankings||[],meta);
         if(!drawn&&struct.chartData?.kind==='series')drawn=drawSeries(slide,pptx,struct.chartData,accent);
         if(!drawn&&struct.chartData?.kind==='bars'&&struct.chartData.rankings?.length)drawn=addRank(slide,pptx,struct.chartData.rankings,accent,columnTitle);
         if(!drawn&&struct.map){const im=await imageFor(item);if(im){contentPanel(slide,pptx);imageFit(slide,im,.97,2.93,11.35,3.16);
-             txt(slide,short(struct.map.legend||name,110),1.13,6.21,10.9,.22,10.7,{bold:true,color:accent});drawn=true;}}
+             txt(slide,short(struct.map.legend||meta.title,110),1.13,6.21,10.9,.22,10.7,{bold:true,color:accent});drawn=true;}}
         if(!drawn&&struct.chart?.kind==='svg'){
           const im=await imageFor(item);
           if(im){contentPanel(slide,pptx);imageFit(slide,im,1.05,2.94,11.17,3.38);drawn=true;}
@@ -548,7 +555,7 @@
         const ranking=drawn?[]:(struct.rankings&&struct.rankings.length?struct.rankings:(legacyCategoryRows(item).length?legacyCategoryRows(item):((item.view==='rankings')?parseRank(item):parseAge(item))));
         if(!drawn&&ranking.length>=1)drawn=meta.comparison?drawComparison(slide,pptx,ranking,meta):addRank(slide,pptx,ranking,accent,columnTitle);
         if(!drawn){
-          const metrics=struct.metrics?.length?struct.metrics:(/Gospodarka województwa/i.test(name)?parseSector(item):(/punkt odniesienia/i.test(name)?parseBenchmark(item):parseOccupationStructure(item)));
+          const metrics=struct.metrics?.length?struct.metrics:(/Gospodarka województwa/i.test(item.title||'')?parseSector(item):(/punkt odniesienia/i.test(name)?parseBenchmark(item):parseOccupationStructure(item)));
           if(metrics?.length>=1)drawn=addMetrics(slide,pptx,metrics,accent);
         }
         if(!drawn&&struct.signals?.length>=1)drawn=addStatements(slide,pptx,struct.signals,accent);

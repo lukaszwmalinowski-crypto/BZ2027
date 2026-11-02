@@ -53,12 +53,31 @@ function refinedSnapshot(node,view){
     label:r.querySelector('b,.sLabel')?.textContent?.trim()||'',
     detail:r.querySelector('span,.sHint')?.textContent?.trim()||''
   })).filter(r=>r.label&&r.detail);
-  const metricRows=[...node.querySelectorAll('.voivRef,.gusHeroKpi,.regionalPulseCard,.mapSignal,.occKpi,.pupStat,.kpi')].map(r=>({
-    label:r.querySelector('.vLabel,.kLabel,.sLabel,.label,.l')?.textContent?.trim()||'',
-    value:r.querySelector('.vValue,.kValue,.sValue,.value,.n')?.textContent?.trim()||'',
-    detail:r.querySelector('.vCompare,.sub,.sHint,.kSub')?.textContent?.trim()||''
+  // v160: Economic pulse uses .regionalPulseStat (not .regionalPulseCard).
+  // Capture all four source indicators as editable metrics for Word and PowerPoint.
+  const metricRows=[...node.querySelectorAll('.voivRef,.gusHeroKpi,.regionalPulseCard,.regionalPulseStat,.mapSignal,.occKpi,.pupStat,.kpi')].map(r=>({
+    label:r.querySelector('.vLabel,.kLabel,.sLabel,.label,.l,.regionalPulseLabel')?.textContent?.trim()||'',
+    value:r.querySelector('.vValue,.kValue,.sValue,.value,.n,.regionalPulseValue')?.textContent?.trim()||'',
+    detail:[r.querySelector('.vCompare,.sub,.sHint,.kSub,.regionalPulseDelta')?.textContent?.trim(),r.querySelector('.regionalPulsePeriod')?.textContent?.trim()].filter(Boolean).join(' · ')
   })).filter(r=>r.label&&r.value).slice(0,12);
   result.structured={rankings:rankRows,signals:signalRows,metrics:metricRows};
+  if(node.id==='regionalPulse'){
+    // These four figures have different reference periods: monthly vs cumulative investments.
+    // Record that distinction on the exported slide, never label all as July.
+    result.unit='Województwo śląskie';
+    result.period='lipiec 2026; inwestycje I-VI 2026';
+    result.source='Urząd Statystyczny w Katowicach / GUS - koniunktura regionalna';
+    result.exportMeta={period:result.period,measure:'Podstawowe wskaźniki gospodarcze',
+      note:'Zatrudnienie, wynagrodzenia i produkcja: VII 2026. Inwestycje: I-VI 2026.'};
+    if(result.structured.metrics.length===0){
+      // Prevent an empty card from being selected before its async figures render.
+      result.structured.metrics=[...node.querySelectorAll('.regionalPulseStat')].map(card=>({
+        label:card.querySelector('.regionalPulseLabel')?.textContent?.trim()||'',
+        value:card.querySelector('.regionalPulseValue')?.textContent?.trim()||'',
+        detail:[card.querySelector('.regionalPulseDelta')?.textContent?.trim(),card.querySelector('.regionalPulsePeriod')?.textContent?.trim()].filter(Boolean).join(' · ')
+      })).filter(m=>m.label&&m.value);
+    }
+  }
   const captured=v122ChartData(node);if(captured){result.structured.chartData=captured;if(captured.kind==='bars')result.structured.rankings=captured.rankings;}
   // v142: Snapshot comparison metadata independent of the selected county.
   if(node.id==='demogCountyCard'){
@@ -207,6 +226,7 @@ function finePick(node,view){
    if(existing<0){const entry=refinedSnapshot(node,view);
     if(node.id==='compareSection'&&!entry.structured?.chartData){alert('Wybierz co najmniej dwa powiaty, zanim dodasz porównanie.');cb.checked=false;return;}
     if(node.id==='demogCountyCard'&&!entry.structured?.chartData){alert('Wybierz powiat z dostępnymi danymi ludności.');cb.checked=false;return;}
+    if(node.id==='regionalPulse'&&!entry.structured?.metrics?.length){alert('Dane gospodarcze jeszcze się ładują. Poczekaj na cztery wskaźniki i zaznacz kartę ponownie.');cb.checked=false;return;}
     entry.selectionKey=key;entry.elementRef=panelRef(node);basket.push(entry);}
   }else if(existing>=0){basket.splice(existing,1);}
   save();

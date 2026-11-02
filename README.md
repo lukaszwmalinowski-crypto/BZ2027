@@ -160,3 +160,9 @@ Wersja 136 zachowuje wszystkie funkcje v135 i wprowadza nową, lżejszą warstw�
 ## v153 - osobna Demografia
 
 Zakładka Demografia zawiera oryginalne karty ludności 2026 i profilu powiatowego oraz trzy nowe wykresy rocznych danych GUS 2020-2025. Wszystkie dane działają offline. Pełny zakres i ograniczenia opisano w `ZMIANY_V153.md`.
+
+
+## v164
+- wyrównanie wysokości kart w Bezrobociu i Barometrze na szerokich ekranach
+- wspólna dolna linia stopek akcji i przycisków Dodaj
+- równiejsze wysokości kafli sygnałów i benchmarku
