@@ -1,0 +1,368 @@
+/* v165 — styl Apple: systemowa czcionka, jasnoszare tło, białe karty z cieniem „hairline”,
+   półprzezroczysty pasek z rozmyciem, segmentowane zakładki, niebieski akcent systemowy.
+   Warstwa ostatnia; nie zmienia danych ani kolorów statusów na mapach i wykresach. */
+@media screen{
+html body.compactUI{--a-bg:#f5f5f7;--a-card:#fff;--a-ink:#1d1d1f;--a-text:#3a3a3c;--a-muted:#6e6e73;--a-line:rgba(0,0,0,.08);--a-fill:#f2f2f5;--a-fill2:#e8e8ed;--a-blue:#0071e3;--a-blue-pale:#e8f1fd;
+ --a-r:20px;--a-r-s:12px;--a-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 28px rgba(0,0,0,.05);--a-ease:cubic-bezier(.2,.8,.2,1);
+ --a-font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Segoe UI Variable Text","Segoe UI",Inter,Roboto,Arial,sans-serif;
+ --c-ink:var(--a-ink);--c-text:var(--a-text);--c-muted:var(--a-muted);--c-line:var(--a-line);--c-canvas:var(--a-bg);--c-accent:var(--a-blue);--c-pale:var(--a-blue-pale);--c-edge:#bcd6f7;--c-r:var(--a-r);--c-shadow:var(--a-shadow);--c-grad:var(--a-blue);
+ --section-frame-start:#fff;--section-frame-end:#fff;--section-frame-stroke:transparent;--section-accent:var(--a-blue)}
+html,html body.compactUI{background:var(--a-bg)!important;background-image:none!important;color:var(--a-text);font-family:var(--a-font)!important;-webkit-font-smoothing:antialiased;letter-spacing:-.011em}
+html body.compactUI :is(button,select,input,textarea,summary){font-family:var(--a-font)!important}
+html body.compactUI .studioFrame,html body.compactUI .studioContent,html body.compactUI .shell,html body.compactUI .compactPane{background:transparent!important}
+html body.compactUI .compactPane[data-view]{background:transparent!important;border:0!important;box-shadow:none!important}
+html body.compactUI :focus-visible{outline:3px solid rgba(0,113,227,.45)!important;outline-offset:2px!important;border-radius:8px}
+
+/* ── Nagłówek: biały, spokojny, logo bez pastylki ── */
+html body.compactUI header#siteHeader.header{background:#fff!important;border:0!important;border-bottom:1px solid var(--a-line)!important;border-radius:0!important;box-shadow:none!important;margin:0!important;color:var(--a-ink)!important}
+html body.compactUI header#siteHeader .headerInner{padding:12px clamp(16px,3vw,40px)!important}
+html body.compactUI header#siteHeader .headerInner .brandIdentity{background:transparent!important;box-shadow:none!important;border:0!important;padding:0!important;border-radius:0!important}
+html body.compactUI header#siteHeader .observatoryLogo{height:64px!important}
+html body.compactUI header#siteHeader .headerMeta,html body.compactUI header#siteHeader .headerInner .headerMeta *{color:var(--a-muted)!important;font-size:12px!important}
+html body.compactUI header#siteHeader .actionBtn,html body.compactUI header#siteHeader .exportMenu>summary{background:var(--a-fill)!important;color:var(--a-ink)!important;border:0!important;border-radius:999px!important;box-shadow:none!important;min-height:38px!important;padding:8px 16px!important;font-size:13px!important;font-weight:500!important;transition:background .2s var(--a-ease),transform .2s var(--a-ease)}
+html body.compactUI header#siteHeader .actionBtn span,html body.compactUI header#siteHeader .exportMenu>summary span{color:inherit!important}
+html body.compactUI header#siteHeader .actionBtn:hover,html body.compactUI header#siteHeader .exportMenu>summary:hover{background:var(--a-fill2)!important;transform:none}
+html body.compactUI header#siteHeader #exportAiBtn{background:var(--a-blue)!important;color:#fff!important}
+html body.compactUI header#siteHeader #exportAiBtn span{color:#fff!important}
+html body.compactUI header#siteHeader #exportAiBtn:hover{background:#0077ed!important}
+html body.compactUI header#siteHeader .exportMenuList{background:rgba(255,255,255,.96)!important;border:1px solid var(--a-line)!important;border-radius:16px!important;box-shadow:0 18px 50px rgba(0,0,0,.18)!important}
+html body.compactUI header#siteHeader .exportMenuList .actionBtn{background:transparent!important;border-radius:10px!important}
+html body.compactUI header#siteHeader .exportMenuList .actionBtn:hover{background:var(--a-fill)!important}
+
+/* ── Pasek menu: półprzezroczysty z rozmyciem, zakładki jak segmentowany przełącznik ── */
+html body.compactUI .v111Toolbar{position:sticky!important;top:0!important;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0!important;max-width:none!important;padding:10px clamp(16px,3vw,40px)!important;border:0!important;border-bottom:1px solid var(--a-line)!important;border-radius:0!important;background:rgba(251,251,253,.78)!important;box-shadow:none!important;backdrop-filter:saturate(180%) blur(20px)!important;-webkit-backdrop-filter:saturate(180%) blur(20px)!important}
+html body.compactUI .v111MainTabs{display:inline-flex!important;gap:2px!important;padding:3px;background:var(--a-fill2);border-radius:12px;overflow-x:auto;scrollbar-width:none;max-width:100%}
+html body.compactUI .v111MainTabs button{min-height:34px!important;padding:0 16px!important;border:0!important;border-radius:9px!important;background:transparent!important;color:var(--a-text)!important;font-size:14px!important;font-weight:500!important;box-shadow:none!important;white-space:nowrap;transition:background .2s var(--a-ease),box-shadow .2s var(--a-ease)}
+html body.compactUI .v111MainTabs button:hover{background:rgba(255,255,255,.55)!important;color:var(--a-ink)!important}
+html body.compactUI .v111MainTabs button.active{background:#fff!important;color:var(--a-ink)!important;font-weight:600!important;box-shadow:0 1px 2px rgba(0,0,0,.12),0 3px 8px rgba(0,0,0,.06)!important}
+html body.compactUI .v111MainTabs button.active::after{display:none!important}
+html body.compactUI .v111Presentation button,html body.compactUI .v111Presentation .btn{min-height:36px!important;padding:0 18px!important;border:0!important;border-radius:999px!important;background:var(--a-blue)!important;color:#fff!important;font-size:14px!important;font-weight:500!important;box-shadow:none!important}
+html body.compactUI .v111Presentation button:hover{background:#0077ed!important}
+html body.compactUI .v111Subnav{margin:0!important;padding:14px clamp(16px,3vw,40px) 0!important;background:transparent!important;border:0!important;box-shadow:none!important;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+html body.compactUI .v111Subnav button{flex:0 0 auto;min-height:34px!important;padding:0 16px!important;border:0!important;border-radius:999px!important;background:transparent!important;color:var(--a-muted)!important;font-size:14px!important;font-weight:500!important;box-shadow:none!important}
+html body.compactUI .v111Subnav button:hover{background:var(--a-fill2)!important;color:var(--a-ink)!important}
+html body.compactUI .v111Subnav button.selected{background:var(--a-ink)!important;color:#fff!important;font-weight:600!important}
+
+/* ── Pasek zakresu danych ── */
+html body.compactUI .v133DataStrip,html body.compactUI .v133Details{background:#fff!important;border:0!important;border-radius:14px!important;box-shadow:var(--a-shadow)!important;color:var(--a-text)!important}
+html body.compactUI .v133Dot{background:var(--a-blue)!important;box-shadow:none!important}
+
+/* ── Karty ── */
+html body.compactUI .compactPane :is(.card,.provinceOverview,.pupModule,.trendCard,.gusCard,.rank,.historyArchive,.compactJobsCard,.v119Lists,.demogCard,.demographyCard,.v133Overview),
+html body.compactUI #filterStudio{background:var(--a-card)!important;background-image:none!important;border:0!important;border-radius:var(--a-r)!important;box-shadow:var(--a-shadow)!important;color:var(--a-text)!important}
+html body.compactUI .compactPane :is(.cardhead,.pupHeading,.trendHead,.gusCardHead,.unifiedSectionHead){background:transparent!important;background-image:none!important;border-bottom:1px solid var(--a-line)!important}
+html body.compactUI .compactPane :is(h1,h2,h3,h4){color:var(--a-ink)!important;letter-spacing:-.022em;font-weight:650}
+html body.compactUI .compactPane :is(.card,.gusCard,.rank){overflow:hidden}
+html body.compactUI .compactPane :is(.mapCategory,.unifiedEyebrow,.moduleEyebrow,.provinceEyebrow){color:var(--a-muted)!important;font-weight:600;letter-spacing:.06em}
+html body.compactUI .compactPane :is(.mapVisualBadge,.unifiedHeadBadge,.modulePill){background:var(--a-fill)!important;border:0!important;color:var(--a-muted)!important;font-weight:600}
+html body.compactUI .compactPane .dotGlow{background:var(--a-blue)!important;box-shadow:none!important}
+html body.compactUI .compactPane :is(.hint,.sub,.cardhead span,.cardhead p){color:var(--a-muted)!important}
+
+/* ── Wskaźniki: czyste, jednolite, duże liczby ── */
+html body.compactUI .compactPane :is(.provinceMetric,.kpi,.pupKpis>*,.gusHeroKpi,.demogStat,.metric),
+html body.compactUI .compactPane #atlasOverview .kpi{background:var(--a-fill)!important;background-image:none!important;border:0!important;border-radius:16px!important;box-shadow:none!important;color:var(--a-ink)!important}
+html body.compactUI .compactPane :is(.provinceMetric strong,.kpi .value,.metric strong,.metric .v){color:var(--a-ink)!important;font-weight:650;letter-spacing:-.03em}
+html body.compactUI .compactPane :is(.provinceMetric span,.kpi .label,.kpi .sub){color:var(--a-muted)!important}
+html body.compactUI .compactPane :is(.mapStructureBox,.mapSignal,.analyticSignal,.voivRef,.pupCard,.srcCard,.compareField,.v133Entry){background:var(--a-fill)!important;background-image:none!important;border:0!important;border-radius:16px!important;box-shadow:none!important}
+html body.compactUI .voivBenchmark,html body.compactUI .compactBenchmark{background:transparent!important}
+html body.compactUI .analyticSignal{border-left:4px solid var(--a-muted)!important}
+html body.compactUI .analyticSignal.good{border-left-color:#34c759!important}
+html body.compactUI .analyticSignal.bad{border-left-color:#ff3b30!important}
+html body.compactUI .analyticSignal.info{border-left-color:var(--a-blue)!important}
+
+/* ── Formularze i przyciski ── */
+html body.compactUI #filterStudio select,html body.compactUI .pupControls select,html body.compactUI .demogSelect,html body.compactUI .compactFilters>summary{background-color:#fff!important;border:1px solid #d2d2d7!important;border-radius:12px!important;color:var(--a-ink)!important;box-shadow:none!important;font-weight:500!important;min-height:44px}
+html body.compactUI #filterStudio select:focus,html body.compactUI .pupControls select:focus{border-color:var(--a-blue)!important;box-shadow:0 0 0 4px rgba(0,113,227,.18)!important}
+html body.compactUI #filterStudio label,html body.compactUI .pupControls label{color:var(--a-muted)!important;font-weight:600!important}
+html body.compactUI .jobStatusTab,html body.compactUI .trendBtn,html body.compactUI .trendModeBtn,html body.compactUI .compactFilters .btn{border:0!important;background:var(--a-fill)!important;color:var(--a-text)!important;border-radius:999px!important;box-shadow:none!important;font-weight:500!important}
+html body.compactUI :is(.jobStatusTab,.trendBtn,.trendModeBtn,.compactFilters .btn).active{background:var(--a-blue)!important;color:#fff!important}
+html body.compactUI [class*="Pick"]:is(.v111Pick,.v113Pick,.v119StandaloneMapPick){background:transparent!important;border-top:1px solid var(--a-line)!important;color:var(--a-blue)!important;font-weight:500!important}
+html body.compactUI [class*="Pick"]:is(.v111Pick,.v113Pick,.v119StandaloneMapPick):hover{background:var(--a-fill)!important}
+html body.compactUI [class*="Pick"]:is(.v111Pick,.v113Pick,.v119StandaloneMapPick).v113Added{background:#e9f8ee!important;color:#1f8a3d!important}
+html body.compactUI .pupJump{background:var(--a-blue-pale)!important;border:0!important;color:var(--a-blue)!important;border-radius:999px!important;font-weight:500!important}
+html body.compactUI .mapwrap{background:var(--a-fill)!important;border-radius:16px!important}
+html body.compactUI .v111Footer{background:transparent!important;color:var(--a-muted)!important}
+html body.compactUI .v111Footer button{background:#fff!important;border:0!important;border-radius:999px!important;box-shadow:var(--a-shadow)!important;color:var(--a-blue)!important;font-weight:500!important}
+html body.compactUI a{color:var(--a-blue)}
+}
+
+/* ── Telefon: dolny pasek jak w iOS (matowe szkło, niebieski aktywny) ── */
+@media screen and (max-width:767px){
+ html body.compactUI header#siteHeader .headerInner{padding:10px 16px!important}
+ html body.compactUI header#siteHeader .observatoryLogo{height:48px!important}
+ html body.compactUI header#siteHeader .headerActions .actionBtn,html body.compactUI header#siteHeader .headerActions .exportMenu>summary{padding:6px 2px!important;font-size:12px!important;min-height:38px!important}
+ html body.compactUI .v111Subnav{padding:12px 16px 0!important}
+ html body.compactUI .v111MobileNav,html body.compactUI .compactMobileNav{left:0!important;right:0!important;bottom:0!important;border:0!important;border-top:1px solid var(--a-line)!important;border-radius:0!important;background:rgba(251,251,253,.82)!important;backdrop-filter:saturate(180%) blur(20px)!important;-webkit-backdrop-filter:saturate(180%) blur(20px)!important;box-shadow:none!important;padding:6px 8px calc(6px + env(safe-area-inset-bottom))!important}
+ html body.compactUI .v111MobileNav button,html body.compactUI .compactMobileNav button{background:transparent!important;color:var(--a-muted)!important;border:0!important;border-radius:10px!important;box-shadow:none!important;font-size:10.5px!important;font-weight:500!important}
+ html body.compactUI .v111MobileNav button.active,html body.compactUI .compactMobileNav button.active{background:transparent!important;color:var(--a-blue)!important;font-weight:650!important}
+}
+@media screen{
+html body.compactUI .studioContent>#v111Subnav.v111Subnav{background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:14px 0 0!important;margin:0!important}
+html body.compactUI .studioContent>.v111Toolbar{margin:0 -34.56px!important;max-width:none!important}
+html body.compactUI #atlasMap>.card,html body.compactUI #atlasMap .card,html body.compactUI .compactPane .card{background:#fff!important;border:0!important;border-radius:var(--a-r)!important;box-shadow:var(--a-shadow)!important}
+html body.compactUI #atlasMap .cardhead,html body.compactUI #atlasMap .mapCardHead{border-radius:0!important;border:0!important;border-bottom:1px solid var(--a-line)!important;box-shadow:none!important;background:transparent!important}
+html body.compactUI #atlasMap #filterStudio,html body.compactUI #atlasMap .profileStudioCard>#filterStudio{background:transparent!important;border:0!important;border-bottom:1px solid var(--a-line)!important;border-radius:0!important;box-shadow:none!important}
+html body.compactUI .compactFilters>summary,html body.compactUI .compactFilters[open]>summary{background:#fff!important;border:1px solid #d2d2d7!important;border-radius:12px!important;color:var(--a-ink)!important}
+html body.compactUI .compactPane :is(.voivBenchmark,.voivBenchmarkGrid,.compactBenchmark){background:transparent!important;border:0!important}
+html body.compactUI .voivRef{border-left:0!important}
+html body.compactUI .voivRef::before{display:none!important}
+html body.compactUI .v133DataStrip{border-radius:14px!important}
+}
+@media screen{
+html body.compactUI .studioContent>.v111Toolbar{padding:10px 34.56px!important}
+}
+@media screen and (max-width:767px){
+ html body.compactUI .studioContent>.v111Toolbar{display:none!important}
+ html body.compactUI header#siteHeader .headerInner{display:block!important}
+ html body.compactUI header#siteHeader .headerInner .brandIdentity{display:flex!important;justify-content:center!important;width:100%!important;margin:0 0 10px!important;padding:0!important}
+ html body.compactUI header#siteHeader .observatoryLogo{height:44px!important;background:transparent!important;mix-blend-mode:multiply}
+ html body.compactUI header#siteHeader #installAppBtn{display:none!important}
+ html body.compactUI header#siteHeader .headerInner .headerRight .headerActions{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important;width:100%!important}
+ html body.compactUI header#siteHeader .headerActions .actionBtn,html body.compactUI header#siteHeader .headerActions .exportMenu>summary{width:100%!important;min-width:0!important;justify-content:center!important;font-size:12px!important;padding:6px 4px!important}
+ html body.compactUI header#siteHeader .headerActions .actionBtn [aria-hidden="true"]:not(.exportChevron){display:none!important}
+ html body.compactUI nav.v111MobileNav button.active,html body.compactUI nav.compactMobileNav button.active,html body.compactUI nav.v111MobileNav button[aria-current="page"]{background:transparent!important;color:var(--a-blue)!important;box-shadow:none!important}
+ html body.compactUI nav.v111MobileNav button:not(.active){background:transparent!important;color:var(--a-muted)!important}
+}
+@media screen{
+html body.compactUI .compactPane[data-view]{--section-frame-start:#fff!important;--section-frame-end:#fff!important;--section-frame-stroke:transparent!important;--section-accent:#0071e3!important}
+html body.compactUI .compactPane[data-view] :is(.regionFrame,.sectionFrame,.dataFrame,[class*="Frame"],[class*="Hero"]):not(svg):not(.studioFrame){background-image:none!important}
+}
+@media screen and (max-width:767px){
+ html body.compactUI header#siteHeader .observatoryLogo{mix-blend-mode:normal!important;background:#fff!important}
+ html body.compactUI header#siteHeader .headerInner .headerRight .headerActions{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+ html body.compactUI header#siteHeader .headerActions .actionBtn,html body.compactUI header#siteHeader .headerActions .exportMenu>summary{font-size:11px!important;padding:6px 2px!important;min-height:36px!important;white-space:nowrap;overflow:hidden}
+}
+
+/* v170 - nowa sekcja GUS o cudzoziemcach, izolowana od dotychczasowego interfejsu Apple */
+.foreign25Root .foreign25Content{padding:12px 14px 18px;display:grid;gap:15px}
+.foreign25Root .foreign25Panel{background:rgba(255,255,255,.86);border:1px solid #d4e1ee;border-radius:17px;padding:17px;min-width:0;color:#193c60}
+.foreign25Root h3{color:#15395f;font-weight:800;font-size:16px;margin:0 0 7px}
+.foreign25Root .foreign25Panel>p{color:#526b85;font-size:12px;margin:0 0 13px;line-height:1.55}
+.foreign25Root .foreign25Kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.foreign25Root .foreign25Kpis>div{display:flex;flex-direction:column;gap:8px;padding:16px 13px;border-radius:13px;background:#eef5fc;border:1px solid #d7e6f3;min-width:0}
+.foreign25Root .foreign25Kpis strong{font-weight:800;font-size:24px;line-height:1.12;color:#184872}
+.foreign25Root .foreign25Kpis span{font-size:11px;line-height:1.4;color:#496884}
+.foreign25Root .foreign25Grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.foreign25Root #foreign2025Monthly svg{display:block;max-width:100%;width:100%;height:auto}
+.foreign25Root .foreign25Bar{display:grid;grid-template-columns:minmax(85px,1.7fr) minmax(65px,2.7fr) 68px;align-items:center;gap:12px;margin:7px 0;font-size:11px;color:#335779}
+.foreign25Root .foreign25Bar span{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.foreign25Root .foreign25Bar>div{height:10px;border-radius:12px;background:#e4edf7;overflow:hidden}
+.foreign25Root .foreign25Bar i{height:100%;display:block;background:linear-gradient(90deg,#83b3dc,#3478b5);border-radius:12px}
+.foreign25Root .foreign25Bar strong{font-size:12px;color:#174978;text-align:right}
+.foreign25Root .foreign25Gender{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.foreign25Root .foreign25Gender>div{min-width:0;border-radius:12px;padding:18px;background:#eff6fb;display:flex;flex-direction:column;gap:9px}
+.foreign25Root .foreign25Gender strong{font-size:25px;color:#164872}
+.foreign25Root .foreign25Gender span{font-size:12px;color:#41627f}
+.foreign25Root .foreign25Note{font-size:11px!important;color:#55718b!important;line-height:1.5!important;margin:12px 0 0!important}
+.foreign25Root .foreign25Label{font-size:12px;color:#33597d;display:block;margin:9px 0 5px;font-weight:700}
+.foreign25Root .foreign25Select{width:100%;min-height:39px;border:1px solid #bdd0e4;background:#fff;border-radius:11px;color:#173c64;padding:6px 9px;margin-bottom:12px;font:inherit;font-size:12px}
+.foreign25Root .foreign25Meta a{color:#246da8;text-decoration:underline}
+@media(max-width:900px){.foreign25Root .foreign25Grid{grid-template-columns:1fr}.foreign25Root .foreign25Kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.foreign25Root .foreign25Kpis,.foreign25Root .foreign25Gender{grid-template-columns:1fr}.foreign25Root .foreign25Content{padding:8px}}
+
+/* v174 - navigation and ordered section headings, keeping Apple look */
+@media(max-width:767px){
+ html body.compactUI .v111MobileNav{grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:2px!important}
+ html body.compactUI .v111MobileNav button{font-size:9.2px!important;min-width:0!important;padding:5px 1px!important;letter-spacing:-.035em;overflow-wrap:anywhere}
+}
+html body.compactUI .v174ChapterTitle{margin:17px 4px 12px;color:#1d1d1f;font-size:17px;line-height:1.35;font-weight:650;letter-spacing:-.02em}
+html body.compactUI .v174ChapterTitle small{display:block;color:#6e6e73;font-size:12px;font-weight:450;letter-spacing:0;line-height:1.5;margin-top:3px}
+html body.compactUI .v174ForeignIntro{margin:0 0 17px;color:#6e6e73;line-height:1.5;font-size:13px;max-width:880px}
+html body.compactUI .v174ForeignNav{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 18px;}
+html body.compactUI .v174ForeignNav button{background:#f0f0f3!important;border:1px solid #e5e5e9!important;color:#3a3a3c!important;border-radius:12px!important;padding:11px 18px!important;font-size:13px!important;font-weight:600!important;cursor:pointer;}
+html body.compactUI .v174ForeignNav button[aria-selected="true"]{background:#fff!important;border-color:#b9d8ff!important;color:#0066cb!important;box-shadow:0 1px 5px rgba(0,0,0,.08)!important}
+html body.compactUI #compact-foreigners .foreign25Content{gap:16px}
+html body.compactUI #compact-foreigners .foreign25Grid{align-items:start}
+html body.compactUI #compact-foreigners .v174SectionHeading{font-size:14px;line-height:1.4;font-weight:650;letter-spacing:-.01em;color:#1d1d1f;margin:8px 4px 2px}
+html body.compactUI #compact-foreigners>.historyArchive{margin-bottom:16px}
+html body.compactUI #compact-foreigners .foreign25Panel{background:#fff;border-color:#e5e5e9;color:#1d1d1f}
+@media(max-width:767px){html body.compactUI .v174ForeignNav{display:grid;grid-template-columns:1fr 1fr}html body.compactUI .v174ForeignNav button{padding:10px 6px!important;font-size:11.5px!important}}
+
+html body.compactUI #compact-foreigners > .historyArchive[hidden]{display:none!important}
+
+
+/* v175 - Zakładka Cudzoziemcy: pełna szerokość wykresu obywatelstw.
+   Zakres ograniczony do tej sekcji; pozostałe widoki bez zmian. */
+html body.compactUI #compact-foreigners #foreign2025StructureGroup {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+html body.compactUI #compact-foreigners #foreign2025StructureGroup > .foreign25Panel {
+  width:100%;max-width:none;box-sizing:border-box;
+}
+
+
+/* v177 - Cudzoziemcy: wspólna typografia Apple, modułowa siatka bez dublowania kart.
+   Dotyczy wyłącznie zakładki Cudzoziemcy. */
+@media screen {
+html body.compactUI #compact-foreigners {
+ --f-ink:var(--a-ink,#1d1d1f);--f-muted:var(--a-muted,#6e6e73);
+ --f-line:rgba(34,62,95,.10);--f-gap:14px;
+ font-family:var(--a-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif)!important;
+}
+html body.compactUI #compact-foreigners .v174ForeignIntro{
+ max-width:100%;margin:0 0 12px;padding:11px 15px;border-radius:12px;
+ font-size:13px;line-height:1.55;background:#edf4ff;color:#3b5873;
+ border:1px solid #d9e8fa;
+}
+html body.compactUI #compact-foreigners .v174ForeignNav{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0 0 16px;
+ padding:5px;border-radius:15px;background:#ececf1;
+}
+html body.compactUI #compact-foreigners .v174ForeignNav button{
+ font:600 14px/1.35 var(--a-font,-apple-system,sans-serif)!important;min-width:0;
+ text-align:center;padding:12px!important;border:0!important;border-radius:11px!important;
+ color:#474c56!important;background:transparent!important;
+}
+html body.compactUI #compact-foreigners .v174ForeignNav button[aria-selected="true"]{
+ color:#11579c!important;background:#fff!important;
+ box-shadow:0 2px 7px rgba(30,47,76,.12)!important;
+}
+html body.compactUI #compact-foreigners>.historyArchive{margin:0!important;min-width:0}
+html body.compactUI #compact-foreigners>.historyArchive>summary{margin-bottom:12px}
+html body.compactUI #compact-foreigners .foreign25Content,
+html body.compactUI #compact-foreigners .countyUWrap{
+ padding:0!important;margin:0!important;display:grid!important;gap:var(--f-gap)!important;
+ align-items:stretch;min-width:0;
+}
+html body.compactUI #compact-foreigners .foreign25Content{grid-template-columns:minmax(0,1fr)!important}
+html body.compactUI #compact-foreigners .foreign25Grid{gap:var(--f-gap)!important;align-items:stretch!important;min-width:0}
+html body.compactUI #compact-foreigners #foreign2025TrendGroup{
+ display:grid!important;grid-template-columns:minmax(0,1.5fr) minmax(0,.9fr)!important;
+}
+html body.compactUI #compact-foreigners #foreign2025StructureGroup{
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+}
+html body.compactUI #compact-foreigners #foreign2025CountyGroup{
+ display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+}
+html body.compactUI #compact-foreigners .foreign25Panel,
+html body.compactUI #compact-foreigners #uk2026Section :is(.countyUSnapshot,.countyUPanel){
+ background:#fff!important;color:var(--f-ink)!important;
+ border:1px solid var(--f-line)!important;border-radius:18px!important;
+ box-shadow:0 2px 16px rgba(28,54,90,.055)!important;
+ margin:0!important;padding:18px!important;min-width:0;min-height:0;
+ box-sizing:border-box;
+}
+html body.compactUI #compact-foreigners .foreign25Panel,
+html body.compactUI #compact-foreigners #uk2026Section .countyUPanel{
+ display:flex;flex-direction:column;gap:0;justify-content:flex-start;
+}
+html body.compactUI #compact-foreigners .foreign25Panel h3,
+html body.compactUI #compact-foreigners #uk2026Section .countyUPanel>b,
+html body.compactUI #compact-foreigners #uk2026Section .countyUSnapshotHead>b{
+ margin:0 0 8px!important;font-size:17px!important;font-weight:650!important;
+ letter-spacing:-.02em!important;line-height:1.32!important;color:#1d1d1f!important;
+}
+html body.compactUI #compact-foreigners .foreign25Panel>p,
+html body.compactUI #compact-foreigners .countyUFoot,
+html body.compactUI #compact-foreigners .countyUSnapshotNote,
+html body.compactUI #compact-foreigners .countyUIntro{
+ font-size:12.5px!important;line-height:1.55!important;color:#617184!important;
+}
+html body.compactUI #compact-foreigners .foreign25Kpis,
+html body.compactUI #compact-foreigners #uk2026Section .countyUSnapshotMetrics{
+ gap:10px!important;
+}
+html body.compactUI #compact-foreigners #foreign2025Overview .foreign25Kpis{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+html body.compactUI #compact-foreigners .foreign25Kpis>div,
+html body.compactUI #compact-foreigners .foreign25Gender>div,
+html body.compactUI #compact-foreigners .countyUSnapshotMetric{
+ background:#f0f5fd!important;border:1px solid #e0e8f5!important;
+ border-radius:14px!important;padding:14px!important;box-shadow:none!important;
+}
+html body.compactUI #compact-foreigners #foreign2025Overview .foreign25Kpis>div:nth-child(1){background:#e9f3ff!important;border-color:#cbdffd!important}
+html body.compactUI #compact-foreigners #foreign2025Overview .foreign25Kpis>div:nth-child(2){background:#e8f8f2!important;border-color:#ccebdc!important}
+html body.compactUI #compact-foreigners #foreign2025Overview .foreign25Kpis>div:nth-child(3){background:#f2edff!important;border-color:#dfd4fa!important}
+html body.compactUI #compact-foreigners .foreign25Kpis strong,
+html body.compactUI #compact-foreigners .foreign25Gender strong,
+html body.compactUI #compact-foreigners .countyUSnapshotMetric strong{
+ font-size:clamp(20px,2.2vw,28px)!important;color:#214b75!important;font-weight:700!important;letter-spacing:-.03em;
+}
+html body.compactUI #compact-foreigners .foreign25Kpis span,
+html body.compactUI #compact-foreigners .foreign25Gender span,
+html body.compactUI #compact-foreigners .countyUSnapshotMetric span{
+ font-size:12px!important;line-height:1.4!important;color:#526983!important;
+}
+html body.compactUI #compact-foreigners #foreign2025Gender{
+ grid-template-columns:repeat(2,minmax(0,1fr))!important;align-content:start;gap:10px;
+}
+html body.compactUI #compact-foreigners #foreign2025Gender>div:first-child{background:#ecf6ff!important;border-color:#cfdfef!important}
+html body.compactUI #compact-foreigners #foreign2025Gender>div:last-child{background:#f9f0ff!important;border-color:#e9d8f6!important}
+html body.compactUI #compact-foreigners :is(.foreign25Label,.countyUField label){
+ font-size:13px!important;line-height:1.35!important;font-weight:600!important;color:#505d71!important;
+}
+html body.compactUI #compact-foreigners :is(.foreign25Select,.countyUField select){
+ width:100%;min-height:44px!important;padding:10px 12px!important;
+ font:500 14px/1.3 var(--a-font,-apple-system,sans-serif)!important;
+ border:1px solid #cbd7e6!important;border-radius:12px!important;
+ background:#fff!important;color:#23496f!important;box-shadow:none!important;
+}
+html body.compactUI #compact-foreigners .foreign25Bar,
+html body.compactUI #compact-foreigners .countyUSnapshotBar{margin:6px 0!important;gap:9px!important;font-size:12px!important;min-width:0}
+html body.compactUI #compact-foreigners .foreign25Bar strong,
+html body.compactUI #compact-foreigners .countyUSnapshotBar strong{font-size:12px!important;color:#204d7a!important}
+html body.compactUI #compact-foreigners .foreign25Bar>div,
+html body.compactUI #compact-foreigners .countyUSnapshotBar>div{height:11px!important;background:#e9eff8!important;border-radius:99px!important}
+html body.compactUI #compact-foreigners .foreign25Bar i{background:linear-gradient(90deg,#40b9b4,#177cb6)!important}
+html body.compactUI #compact-foreigners #foreign2025County .foreign25Bar i{background:linear-gradient(90deg,#8d86e4,#405db9)!important}
+html body.compactUI #compact-foreigners #uk2026CountyRank i{background:linear-gradient(90deg,#49b5a7,#19847b)!important}
+html body.compactUI #compact-foreigners #uk2026Jobs i{background:linear-gradient(90deg,#74a9f9,#3975cd)!important}
+html body.compactUI #compact-foreigners #uk2026Sectors i{background:linear-gradient(90deg,#b49ae9,#8161c7)!important}
+html body.compactUI #compact-foreigners #uk2026Contracts i{background:linear-gradient(90deg,#eec287,#ce8b45)!important}
+html body.compactUI #compact-foreigners #uk2026Reasons i{background:linear-gradient(90deg,#edb0b6,#cf6686)!important}
+html body.compactUI #compact-foreigners #foreign2025County{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px 22px;
+}
+html body.compactUI #compact-foreigners #uk2026Section .countyUWrap{
+ grid-template-columns:repeat(12,minmax(0,1fr))!important;
+}
+html body.compactUI #compact-foreigners #uk2026Section .countyUIntro{grid-column:1/-1;margin:0!important;padding:12px 15px!important;border-radius:12px!important;background:#edf4ff!important;border:1px solid #dce7f6!important}
+html body.compactUI #compact-foreigners #uk2026Overview{grid-column:1/-1}
+html body.compactUI #compact-foreigners #uk2026ChartPanel{grid-column:span 7}
+html body.compactUI #compact-foreigners #uk2026CountyPanel{grid-column:span 5}
+html body.compactUI #compact-foreigners :is(#uk2026CountyRankPanel,#uk2026JobsPanel,#uk2026SectorsPanel,#uk2026ContractsPanel){grid-column:span 6}
+html body.compactUI #compact-foreigners #uk2026ReasonsPanel{grid-column:1/-1}
+html body.compactUI #compact-foreigners #uk2026Section .countyUSnapshotMetrics{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+html body.compactUI #compact-foreigners #uk2026CountyCards{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+html body.compactUI #compact-foreigners #uk2026Overview .countyUSnapshotMetric:nth-child(1){background:#e9f3ff!important;border-color:#cedef6!important}
+html body.compactUI #compact-foreigners #uk2026Overview .countyUSnapshotMetric:nth-child(2){background:#f3ecff!important;border-color:#e0d7f6!important}
+html body.compactUI #compact-foreigners #uk2026Overview .countyUSnapshotMetric:nth-child(3){background:#e8f8f2!important;border-color:#cfebdc!important}
+html body.compactUI #compact-foreigners #uk2026Overview .countyUSnapshotMetric:nth-child(4){background:#fff1e6!important;border-color:#f2dfcf!important}
+html body.compactUI #compact-foreigners #uk2026Section .countyUChart{
+ width:100%;height:auto!important;max-width:100%!important;min-height:0!important;
+ border:0!important;border-radius:12px!important;
+}
+html body.compactUI #compact-foreigners #uk2026Reasons{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px 22px;
+}
+html body.compactUI #compact-foreigners .v177SourceDetails{
+ grid-column:1/-1;margin:0;background:#f6f8fb;border:1px solid #e4eaf2;
+ border-radius:14px;padding:0 14px;color:#50647b;font-size:12px;
+}
+html body.compactUI #compact-foreigners .v177SourceDetails>summary{
+ cursor:pointer;padding:13px 3px;font-size:13px;font-weight:600;color:#42566f;list-style:revert;
+}
+html body.compactUI #compact-foreigners .v177SourceDetails>p{padding:0 3px 13px!important;margin:0!important;font-size:12px!important;line-height:1.65!important;}
+html body.compactUI #compact-foreigners .v177SourceDetails:not([open]){min-height:0}
+html body.compactUI #compact-foreigners .v123ChartFooter{margin-top:auto!important;padding-top:11px}
+html body.compactUI #compact-foreigners .v174SectionHeading{display:none!important}
+}
+@media(max-width:980px){
+ html body.compactUI #compact-foreigners #foreign2025TrendGroup,
+ html body.compactUI #compact-foreigners #foreign2025StructureGroup{grid-template-columns:1fr!important}
+ html body.compactUI #compact-foreigners #uk2026Section .countyUWrap{grid-template-columns:1fr!important}
+ html body.compactUI #compact-foreigners #uk2026Section .countyUWrap > *{grid-column:1/-1!important}
+}
+@media(max-width:650px){
+ html body.compactUI #compact-foreigners .v174ForeignNav button{font-size:12px!important;padding:11px 6px!important}
+ html body.compactUI #compact-foreigners #foreign2025Overview .foreign25Kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ html body.compactUI #compact-foreigners #foreign2025Overview .foreign25Kpis>div:first-child{grid-column:1/-1}
+ html body.compactUI #compact-foreigners #foreign2025County,
+ html body.compactUI #compact-foreigners #uk2026Reasons{grid-template-columns:1fr!important}
+ html body.compactUI #compact-foreigners #uk2026Section .countyUSnapshotMetrics{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ html body.compactUI #compact-foreigners .foreign25Panel,
+ html body.compactUI #compact-foreigners #uk2026Section :is(.countyUPanel,.countyUSnapshot){padding:13px!important}
+ html body.compactUI #compact-foreigners #foreign2025Gender{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ html body.compactUI #compact-foreigners #foreign2025CountyInfo .foreign25Kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ html body.compactUI #compact-foreigners #foreign2025CountyInfo .foreign25Kpis>div:last-child{grid-column:1/-1}
+}

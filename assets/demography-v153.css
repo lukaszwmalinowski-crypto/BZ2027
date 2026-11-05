@@ -260,3 +260,268 @@ html body.compactUI .demographyExistingGrid .gusCard.demo .gusSource{
   grid-template-columns:minmax(0,1fr)!important;
  }
 }
+
+
+/* v178 - spójna siatka Apple dla demografii; wyłącznie widok Demografia. */
+@media screen {
+ html body.compactUI #demographyModule{
+  --demog-gap:14px;
+  font-family:var(--a-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif)!important;
+  color:var(--a-text,#3a3a3c);
+ }
+ html body.compactUI #demographyModule .demographyReportIntro{
+  padding:19px 22px!important;gap:14px!important;margin:0 0 13px!important;
+  border:0!important;border-radius:var(--a-r,20px)!important;
+  background:#fff!important;box-shadow:var(--a-shadow,0 4px 20px rgba(0,0,0,.05))!important;
+ }
+ html body.compactUI #demographyModule .demographyReportIntro h2{font-size:clamp(20px,2vw,27px)!important;color:var(--a-ink,#1d1d1f)!important}
+ html body.compactUI #demographyModule .demographyReportIntro p{font-size:12.5px!important}
+ html body.compactUI #demographyModule .demographyKpis{
+  display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:var(--demog-gap)!important;margin:0 0 14px!important;
+ }
+ html body.compactUI #demographyModule .demographyKpi{
+  min-width:0!important;min-height:98px!important;padding:14px 16px!important;gap:4px!important;
+  border:0!important;border-top:3px solid var(--demog-accent,#0071e3)!important;
+  border-radius:var(--a-r,20px)!important;background:#fff!important;
+  box-shadow:var(--a-shadow,0 4px 20px rgba(0,0,0,.05))!important;
+ }
+ html body.compactUI #demographyModule .demographyKpi:nth-child(2){--demog-accent:#e05e7b}
+ html body.compactUI #demographyModule .demographyKpi:nth-child(3){--demog-accent:#dd8746}
+ html body.compactUI #demographyModule .demographyKpi:nth-child(4){--demog-accent:#8c71bd}
+ html body.compactUI #demographyModule .demographyKpi strong{font-size:clamp(19px,2.1vw,29px)!important;white-space:normal!important;line-height:1.15!important}
+ html body.compactUI #demographyModule .demographyCharts{
+  display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:var(--demog-gap)!important;align-items:stretch!important;margin-bottom:14px!important;
+ }
+ html body.compactUI #demographyModule .demographyCharts > .demographyReportCard,
+ html body.compactUI #demographyModule .demographyCharts > .gusCard.demo{
+  grid-column:auto!important;min-width:0!important;width:100%!important;max-width:100%!important;
+  min-height:0!important;height:100%!important;box-sizing:border-box!important;
+  border:0!important;border-radius:var(--a-r,20px)!important;
+  background:#fff!important;box-shadow:var(--a-shadow,0 4px 20px rgba(0,0,0,.05))!important;
+  padding:15px 16px!important;margin:0!important;overflow:hidden!important;
+ }
+ html body.compactUI #demographyModule .demographyReportCardHead{
+  min-height:0!important;margin:0 0 9px!important;align-items:center!important;
+ }
+ html body.compactUI #demographyModule .demographyReportCardHead h3{font-size:17px!important;color:var(--a-ink,#1d1d1f)!important}
+ html body.compactUI #demographyModule .demographyReportSvg{
+  display:block!important;width:100%!important;max-width:none!important;
+  margin:7px 0 4px!important;border:1px solid #e4eaf1!important;
+  border-radius:15px!important;background:#f7faff!important;
+  aspect-ratio:760/314!important;
+ }
+ html body.compactUI #demographyModule .demographyChartFoot{margin:7px 0 0!important;min-height:0!important;font-size:11.5px!important}
+ html body.compactUI #demographyModule .v178LatestState{display:flex!important;flex-direction:column!important;gap:11px!important;}
+ html body.compactUI #demographyModule .v178LatestState .gusCardHead{padding:0 0 10px!important;margin:0!important;border-bottom:1px solid var(--a-line,rgba(0,0,0,.08))!important;}
+ html body.compactUI #demographyModule .v178LatestState .gusCardHead h3{font-size:17px!important}
+ html body.compactUI #demographyModule .v178LatestState .gusMetricPair{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,.78fr)!important;gap:9px!important;margin:0!important;}
+ html body.compactUI #demographyModule .v178LatestState .gusMetricPair >div{
+  min-width:0!important;border:0!important;border-radius:13px!important;background:var(--a-fill,#f2f2f5)!important;
+  padding:15px 13px!important;box-sizing:border-box!important;
+ }
+ html body.compactUI #demographyModule .v178LatestState .gusMetricPair b{font-size:clamp(17px,1.9vw,25px)!important;white-space:normal!important;color:#176b9c!important;}
+ html body.compactUI #demographyModule .v178LatestState .gusMetricPair >div:nth-child(2) b{font-size:16px!important;color:var(--a-text,#3a3a3c)!important}
+ html body.compactUI #demographyModule .v178LatestState .gusSource{margin-top:auto!important;padding:0!important;font-size:11px!important}
+ html body.compactUI #demographyModule .v178DemographyMethods,
+ html body.compactUI #demographyModule .v178DemographyDetails{
+  border:1px solid var(--a-line,rgba(0,0,0,.08))!important;
+  border-radius:13px!important;background:#f8f9fc!important;padding:0!important;
+  overflow:hidden!important;font-size:12px!important;margin:0!important;
+ }
+ html body.compactUI #demographyModule .v178DemographyMethods{margin-bottom:14px!important;background:#fff!important}
+ html body.compactUI #demographyModule .v178DemographyMethods > summary,
+ html body.compactUI #demographyModule .v178DemographyDetails > summary{
+  cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;
+  padding:11px 14px!important;color:#24577e!important;font-size:12px!important;
+  font-weight:650!important;min-height:39px;box-sizing:border-box;
+ }
+ html body.compactUI #demographyModule .v178DemographyMethods > summary::after,
+ html body.compactUI #demographyModule .v178DemographyDetails > summary::after{content:'⌄';font-size:15px;line-height:1}
+ html body.compactUI #demographyModule .v178DemographyMethods[open] > summary::after,
+ html body.compactUI #demographyModule .v178DemographyDetails[open] > summary::after{transform:rotate(180deg)}
+ html body.compactUI #demographyModule .v178DemographyMethods > :not(summary),
+ html body.compactUI #demographyModule .v178DemographyDetails > :not(summary){margin:9px!important;}
+ html body.compactUI #demographyModule .v178DemographyDetails .demographyRegionalSummary{
+  background:#fff!important;border:0!important;box-shadow:none!important;padding:11px!important;
+ }
+ html body.compactUI #demographyModule .demographyExistingGrid{display:block!important;margin:0!important;width:100%!important;}
+ html body.compactUI #demographyModule #demogCountyCard{
+  width:100%!important;max-width:none!important;height:auto!important;min-height:0!important;
+  border:0!important;border-radius:var(--a-r,20px)!important;background:#fff!important;
+  box-shadow:var(--a-shadow,0 4px 20px rgba(0,0,0,.05))!important;
+  padding:15px 17px!important;margin:0!important;overflow:visible!important;
+ }
+ html body.compactUI #demographyModule #demogCountyCard .gusCardHead{
+  margin:0 0 10px!important;padding:0 0 11px!important;
+  border-bottom:1px solid var(--a-line,rgba(0,0,0,.08))!important;
+ }
+ html body.compactUI #demographyModule #demogCountyCard .demogSelect{
+  min-width:0!important;width:100%!important;max-width:100%!important;
+  border-radius:13px!important;box-sizing:border-box!important;
+  font-family:var(--a-font,inherit)!important;
+ }
+ html body.compactUI #demographyModule #demogCountyCard .demogStatGrid{gap:8px!important;margin-top:9px!important;}
+ html body.compactUI #demographyModule #demogCountyCard .demogStat{padding:11px!important;}
+ html body.compactUI #demographyModule #demogCountyCard .demogLineChart{
+  width:100%!important;max-width:100%!important;min-width:0!important;height:auto!important;
+  border-radius:13px!important;box-sizing:border-box!important;
+ }
+ html body.compactUI #demographyModule #demogCountyCard .demogMiniHead{margin-bottom:8px!important;}
+ html body.compactUI #demographyModule #demogCountyCard .v178CountySources{margin-top:11px!important;}
+}
+@media screen and (min-width:1100px){
+ html body.compactUI #demographyModule #demogCountyCard{
+  display:grid!important;grid-template-columns:minmax(0,.84fr) minmax(0,1.16fr)!important;
+  grid-template-areas:'head head' 'hint hint' 'label legend' 'selector graph' 'stats graph' 'coverage graph' 'source source'!important;
+  align-items:start!important;column-gap:18px!important;row-gap:7px!important;
+ }
+ html body.compactUI #demographyModule #demogCountyCard > .gusCardHead{grid-area:head!important;}
+ html body.compactUI #demographyModule #demogCountyCard > .demogMiniHead{grid-area:hint!important;}
+ html body.compactUI #demographyModule #demogCountyCard > .demogLabel{grid-area:label!important;margin:0!important;}
+ html body.compactUI #demographyModule #demogCountyCard > .demogSelect{grid-area:selector!important;}
+ html body.compactUI #demographyModule #demogCountyCard > .demogStatGrid{grid-area:stats!important;}
+ html body.compactUI #demographyModule #demogCountyCard > .demogChartLegend{grid-area:legend!important;margin:0!important;}
+ html body.compactUI #demographyModule #demogCountyCard > .demogLineChart{grid-area:graph!important;}
+ html body.compactUI #demographyModule #demogCountyCard > .demogCoverage{grid-area:coverage!important;}
+ html body.compactUI #demographyModule #demogCountyCard > .v178CountySources{grid-area:source!important;}
+}
+@media screen and (max-width:1099px){
+ html body.compactUI #demographyModule .demographyCharts{grid-template-columns:minmax(0,1fr)!important;}
+ html body.compactUI #demographyModule .demographyKpis{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+ html body.compactUI #demographyModule .demographyReportSvg{aspect-ratio:760/314!important;}
+}
+@media screen and (max-width:650px){
+ html body.compactUI #demographyModule{--demog-gap:10px;}
+ html body.compactUI #demographyModule .demographyReportIntro{padding:14px!important;}
+ html body.compactUI #demographyModule .demographyReportCardHead{align-items:flex-start!important;flex-direction:column!important;}
+ html body.compactUI #demographyModule .demographyCharts > .demographyReportCard,
+ html body.compactUI #demographyModule .demographyCharts > .gusCard.demo{padding:12px!important;}
+ html body.compactUI #demographyModule .demographyKpi{padding:12px 10px!important;min-height:102px!important;}
+ html body.compactUI #demographyModule .demographyKpi strong{font-size:20px!important;}
+ html body.compactUI #demographyModule .v178LatestState .gusMetricPair{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+ html body.compactUI #demographyModule .v178LatestState .gusMetricPair b{font-size:16px!important;}
+ html body.compactUI #demographyModule #demogCountyCard{padding:12px!important;}
+ html body.compactUI #demographyModule .demographyReportSvg{aspect-ratio:410/310!important;}
+}
+
+/* v178.1 - ostateczny układ: 3 wykresy + profil powiatu (2 x 2),
+   ostatni stan 2026 jako osobny, płytki pasek, bez pustej ćwiartki. */
+@media screen and (min-width:1100px){
+ html body.compactUI #demographyModule .demographyCharts{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  align-items:stretch!important;
+ }
+}
+@media screen{
+ html body.compactUI #demographyModule .demographyExistingGrid:empty{display:none!important;}
+ html body.compactUI #demographyModule .demographyCharts > #demogCountyCard{
+  min-width:0!important;max-width:100%!important;width:100%!important;box-sizing:border-box!important;
+  border:0!important;border-radius:var(--a-r,20px)!important;
+  box-shadow:var(--a-shadow,0 4px 20px rgba(0,0,0,.05))!important;
+  background:#fff!important;padding:15px 16px!important;margin:0!important;
+  display:flex!important;flex-direction:column!important;align-items:stretch!important;
+  height:100%!important;min-height:0!important;
+  grid-template-columns:none!important;grid-template-areas:none!important;
+ }
+ html body.compactUI #demographyModule .demographyCharts > #demogCountyCard .gusCardHead{margin:0 0 9px!important;}
+ html body.compactUI #demographyModule .demographyCharts > #demogCountyCard .demogMiniHead{margin:0 0 9px!important;}
+ html body.compactUI #demographyModule .demographyCharts > #demogCountyCard .demogSelect{margin:5px 0!important;}
+ html body.compactUI #demographyModule .demographyCharts > #demogCountyCard .demogStatGrid{
+  display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  margin:8px 0!important;
+ }
+ html body.compactUI #demographyModule .demographyCharts > #demogCountyCard .demogStat{
+  min-width:0!important;padding:9px 7px!important;
+ }
+ html body.compactUI #demographyModule .demographyCharts > #demogCountyCard .demogStat strong{
+  font-size:clamp(15px,1.55vw,22px)!important;overflow-wrap:anywhere;
+ }
+ html body.compactUI #demographyModule .demographyCharts > #demogCountyCard .demogChartLegend{margin:4px 0!important;}
+ html body.compactUI #demographyModule .demographyCharts > #demogCountyCard .demogLineChart{
+  flex:0 0 auto!important;max-height:205px!important;min-height:0!important;
+ }
+ html body.compactUI #demographyModule .demographyCharts > #demogCountyCard .v178CountySources{
+  margin:7px 0!important;
+ }
+ html body.compactUI #demographyModule .v178LatestState{
+  display:grid!important;grid-template-columns:minmax(0,1.05fr) minmax(0,1.3fr) auto!important;
+  grid-template-areas:'head metrics link' 'details details action'!important;
+  gap:9px 17px!important;align-items:center!important;
+  height:auto!important;min-height:0!important;padding:13px 16px!important;margin:0 0 14px!important;
+  border-radius:var(--a-r,20px)!important;border:0!important;background:#fff!important;
+  box-shadow:var(--a-shadow,0 4px 20px rgba(0,0,0,.05))!important;
+ }
+ html body.compactUI #demographyModule .v178LatestState > .gusCardHead{grid-area:head!important;margin:0!important;padding:0!important;border:0!important;}
+ html body.compactUI #demographyModule .v178LatestState > .gusMetricPair{grid-area:metrics!important;margin:0!important;}
+ html body.compactUI #demographyModule .v178LatestState > .gusSource{grid-area:link!important;margin:0!important;border:0!important;padding:0!important;}
+ html body.compactUI #demographyModule .v178LatestState > .v114ActionRow{grid-area:action!important;margin:0!important;justify-self:end!important;}
+ html body.compactUI #demographyModule .v178LatestState > .v178DemographyDetails{grid-area:details!important;margin:0!important;}
+}
+@media screen and (max-width:1099px){
+ html body.compactUI #demographyModule .v178LatestState{
+  grid-template-columns:minmax(0,1fr) minmax(0,1.3fr)!important;
+  grid-template-areas:'head metrics' 'link action' 'details details'!important;
+ }
+}
+@media screen and (max-width:650px){
+ html body.compactUI #demographyModule .v178LatestState{
+  display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:7px!important;
+  padding:12px!important;margin-bottom:10px!important;
+ }
+ html body.compactUI #demographyModule .demographyCharts > #demogCountyCard{padding:12px!important;}
+ html body.compactUI #demographyModule .demographyCharts > #demogCountyCard .demogStatGrid{gap:5px!important;}
+ html body.compactUI #demographyModule .demographyCharts > #demogCountyCard .demogStat strong{font-size:15px!important;}
+}
+
+/* v178.2 - ostatni rząd domykają istniejące wnioski, bez pustej karty. */
+@media screen {
+ html body.compactUI #demographyModule .demographyCharts > .v178DemographyBottomLeft{
+  display:flex!important;flex-direction:column!important;gap:14px!important;
+  min-width:0!important;align-self:stretch!important;width:100%!important;
+ }
+ html body.compactUI #demographyModule .v178DemographyBottomLeft > .demographyReportCard{
+  flex:0 0 auto!important;width:100%!important;max-width:100%!important;
+  min-height:0!important;height:auto!important;box-sizing:border-box!important;
+  padding:15px 16px!important;margin:0!important;
+  border:0!important;border-radius:var(--a-r,20px)!important;
+  background:#fff!important;box-shadow:var(--a-shadow,0 4px 20px rgba(0,0,0,.05))!important;
+  overflow:hidden!important;
+ }
+ html body.compactUI #demographyModule .v178DemographyBottomLeft > .demographyInterpretation{
+  min-height:0!important;flex:0 0 auto!important;
+  margin:0!important;padding:14px 16px!important;
+  background:#edf5fd!important;border:0!important;
+  border-left:3px solid #4a8bc2!important;
+  border-radius:var(--a-r,20px)!important;box-shadow:var(--a-shadow,0 4px 20px rgba(0,0,0,.05))!important;
+  font-size:12.5px!important;line-height:1.48!important;
+ }
+ html body.compactUI #demographyModule .v178DemographyBottomLeft > .demographyInterpretation p{margin:5px 0!important;}
+ html body.compactUI #demographyModule .v178DemographyBottomLeft > .demographyInterpretation small{display:block;margin-top:5px;font-size:11px;}
+}
+@media screen and (max-width:650px){
+ html body.compactUI #demographyModule .v178DemographyBottomLeft{gap:10px!important;}
+ html body.compactUI #demographyModule .v178DemographyBottomLeft > .demographyReportCard,
+ html body.compactUI #demographyModule .v178DemographyBottomLeft > .demographyInterpretation{padding:12px!important;}
+}
+
+/* v178.3 - wnioski czytelne na desktopie, zwinięte na małym ekranie. */
+@media screen{
+ html body.compactUI #demographyModule .v178DemographyInsight{
+  background:#edf5fd!important;border:0!important;border-left:3px solid #4a8bc2!important;
+  border-radius:var(--a-r,20px)!important;box-shadow:var(--a-shadow,0 4px 20px rgba(0,0,0,.05))!important;
+  min-width:0!important;overflow:hidden!important;margin:0!important;
+ }
+ html body.compactUI #demographyModule .v178DemographyInsight>summary{
+  cursor:pointer;display:flex;align-items:center;justify-content:space-between;
+  padding:12px 15px!important;color:#194c77!important;font-size:13px!important;
+  font-weight:700!important;list-style:none;
+ }
+ html body.compactUI #demographyModule .v178DemographyInsight>summary::after{content:'⌄';font-size:17px;}
+ html body.compactUI #demographyModule .v178DemographyInsight[open]>summary::after{transform:rotate(180deg)}
+ html body.compactUI #demographyModule .v178DemographyInsight>.demographyInterpretation{
+  background:transparent!important;border:0!important;border-radius:0!important;
+  box-shadow:none!important;padding:0 15px 12px!important;margin:0!important;
+ }
+}
