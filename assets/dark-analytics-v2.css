@@ -1,0 +1,132 @@
+/* OBSERWATORIUM BZ2027 | DARK ANALYTICS v2.0
+   Motyw inspirowany układem dashboardu z nagrania.
+   Końcowa warstwa CSS, bez zmian w logice i danych. */
+:root{
+ color-scheme:dark;
+ --bg:#0d0f12;--panel:#191d22;--ink:#f1f3f4;--muted:#9ba5b1;
+ --violet-bg:#0d0f12;--violet-soft:#22262c;
+ --line:#30353c;--navy:#e2b64f;--blue:#e5b954;--accent:#e5b954;
+ --red:#f07883;--green:#5fce9c;--amber:#f4c461;--soft:#242930;
+ --shadow:0 10px 32px rgba(0,0,0,.19);--ring:0 0 0 4px rgba(229,185,84,.18);
+ --dark-base:#0d0f12;--dark-surface:#191d22;--dark-raised:#22272d;
+ --dark-border:#30353c;--dark-text:#f1f3f4;--dark-sub:#9ba5b1;
+}
+html{background:#0d0f12;color-scheme:dark}
+html body,body.compactUI,body{background:#0d0f12!important;color:#f1f3f4!important;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;}
+body::before,body::after{pointer-events:none}
+:where(.studioFrame,.studioContent,.shell,.main,.lower,.topgrid,.atlasOverview){background:transparent!important}
+:where(h1,h2,h3,h4,h5,h6,.panel h2,.cardhead h2,.trendHead h2,.historyHead h2,.mapHeadTitle h2,.chapterHeading h2,.filterIntro strong){color:#f1f3f4!important}
+:where(p,small,.hint,.sub,.chapterSide,.filterDesc,.mapHeadTitle>span,.voivRef .vHint){color:#aeb7c0}
+a:not(.btn):not(.actionBtn){color:#e7bf6b}
+a:hover{color:#ffe0a0}
+/* Ramy i nagłówek */
+html body .header,html body #siteHeader{background:#131619!important;border-bottom:1px solid #30353c!important;color:#f0f1f3!important;box-shadow:none!important}
+.header::after{display:none!important}
+.headerInner{background:transparent!important}
+.header .eyebrow,.mapCategory,.mapCommentaryEyebrow,.filterTiny,.chapterHeading>div>p{color:#e7ba55!important}
+.headerMeta,.header p{color:#b9c0c8!important}
+.actionBtn,.exportMenu>summary,.exportMenuList,.reportClose{background:#22272d!important;border:1px solid #3a4149!important;color:#e7ebee!important;border-radius:10px!important;box-shadow:none!important}
+.actionBtn:hover,.exportMenu>summary:hover{background:#313841!important;border-color:#d1a951!important}
+.exportMenuList{background:#1b2025!important;box-shadow:0 12px 26px #0008!important}
+/* Panele główne */
+html body :is(.card,.historyCard,.historyArchive,.trendCard,.gusCard,.srcCard,.voivBenchmark,.voivRef,.kpi,.panelCard,.profileStudioCard,.mapStudioCard,.rank,.reportInner,.mapInsights,.occupationSummary,.historyYearCard,.historyYear,.historyYearMini,.yearCard,.historySide,.mapStructureBox,.mapSignalsBox,.mapSignal,.trendChart,.historyChart,.gusChart){background:#191d22!important;border:1px solid #30353c!important;box-shadow:0 8px 28px rgba(0,0,0,.16)!important;color:#edf0f3!important}
+html body :is(.cardhead,.trendHead,.historyHead,.mapCardHead,.historyArchive>summary,.gusCardHead,.reportTop){background:#1c2025!important;color:#f1f3f4!important;border-color:#30353c!important}
+html body :is(.panel,.trendBody,.historyBody,.historyArchiveTitle,.historyYearRow,.historyStats,.historyJobsPanel,.historyJobsToolbar,.historyJobsList,.srcGroup){color:#e4e9ee}
+html body .kpi{border-radius:14px!important;min-width:0;position:relative;overflow:hidden;padding:19px 20px!important;transition:transform .2s ease,border-color .2s ease,background .2s ease}
+html body .kpi:hover{transform:translateY(-2px);border-color:#685b3a!important;background:#20252b!important}
+html body .kpi::before{content:"";position:absolute;top:0;left:16px;right:16px;height:2px;background:linear-gradient(90deg,#e2b64f,transparent);opacity:.9}
+html body .kpi .label{color:#9da8b2!important;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase}
+html body .kpi .value,html body .voivRef .vValue{color:#f4c869!important;font-weight:760;font-variant-numeric:tabular-nums;letter-spacing:-.045em}
+html body .kpi .sub{color:#a3adb7!important}
+html body :is(.card,.historyCard,.historyArchive,.trendCard){border-radius:15px!important;overflow:clip}
+html body .chapterHeading{background:transparent!important;border-color:#2d3239!important}
+html body .chapterNumber{color:#e9bd62!important}
+/* Filtry i przyciski */
+html body :is(.filterStudio,.countyControl,.modeControl,.occupationTools,.controlBlock,.mapInsights,.trendSummaryBox,.trendInsight,.gusHeroKpi,.mapCommentary,.mapCommentaryHeader,.mapCommentarySubhead,.historyJobsToolbar,.reportCountyPicker){background:#20252b!important;border-color:#343b43!important;color:#e9edf0!important}
+html body :is(.controlBlock>label,.filterStudio label,.kEyeb,.vLabel,.sLabel,.srcWhen,.srcPeriod){color:#aab4bf!important}
+html body :is(select,input,textarea,.btn,.trendBtn,.trendModeBtn,.jobStatusTab,.historyTab,.historyJobsTab,.gusChartSwitch,.mapCommentaryTab,.comparePickerBtn,.compareNative,.historyYearToggle,.jobsToggle){background:#242a30!important;border:1px solid #424952!important;color:#e9edf2!important;box-shadow:none!important}
+html body :is(select,input,textarea):focus{border-color:#e6bb5b!important;outline-color:#e6bb5b!important;box-shadow:var(--ring)!important}
+html body :is(.btn,.trendBtn,.trendModeBtn,.jobStatusTab,.historyTab,.historyJobsTab,.gusChartSwitch,.mapCommentaryTab,.comparePickerBtn,.historyYearToggle,.jobsToggle):hover{background:#343b43!important;border-color:#c6a15c!important;color:#fff!important}
+html body :is(.btn,.trendBtn,.trendModeBtn,.jobStatusTab,.historyTab,.historyJobsTab,.gusChartSwitch,.mapCommentaryTab).active,
+html body :is(.btn,.trendBtn,.trendModeBtn,.jobStatusTab,.historyTab,.historyJobsTab,.gusChartSwitch,.mapCommentaryTab)[aria-selected="true"]{background:#e4b958!important;border-color:#e4b958!important;color:#17191c!important;box-shadow:0 4px 14px #e4b95824!important}
+html body :is(.btn,.actionBtn,.trendBtn,.trendModeBtn,.jobStatusTab,.historyTab,.historyJobsTab,.mapCommentaryTab){transition:background .18s ease,border-color .18s ease,transform .18s ease,color .18s ease!important}
+html body button:focus-visible,html body a:focus-visible,html body select:focus-visible,html body input:focus-visible,html body [tabindex]:focus-visible{outline:2px solid #f2c76b!important;outline-offset:3px}
+html body option{background:#242a30;color:#f3f3f3}
+/* Mapa i legenda: pozostawiamy kolory danych na powiatach */
+html body .mapwrap{background:#12171c!important;border-color:#2d363d!important;min-height:580px}
+html body .mapwrap::before{background:#171d23!important;border:1px solid #303943!important}
+html body #map{filter:none!important}
+html body .county{transition:filter .16s ease,stroke-width .16s ease,opacity .16s ease}
+html body .county:hover{stroke:#f1ce7e!important;stroke-width:2.5;filter:brightness(1.23)}
+html body .county.selected{stroke:#ffdf87!important;stroke-width:3}
+html body .tooltip{background:#242930!important;border:1px solid #5f6770!important;color:#f6f6f6!important;box-shadow:0 16px 28px #0007!important}
+html body :is(.legend,.occLegend,.mapVisualBadge){background:#1a1f25!important;color:#aeb7c1!important;border-color:#343a42!important}
+html body .gradient{background:linear-gradient(90deg,#293849,#436987,#7296af,#e6bd67)!important}
+/* Map commentary / analiza zawodów / historia / tabele */
+html body :is(.mapCommentary,.mapStructureBox,.mapSignalsBox,.mapSignal,.occupationSummary,.job,.historyJob,.historyStat,.historyYearCard,.historyJobsPanel,.comparePickerMenu,.comparePickerOption,.srcCard,.srcFiles,.gusNote){background:#20252b!important;color:#e2e6eb!important;border-color:#343c44!important}
+html body :is(.job,.historyJob,.comparePickerOption):hover{background:#2b3239!important}
+html body .job .branchBadge{background:#363d46!important;color:#e9c980!important}
+html body .historyArchive>summary{background:#1c2025!important}
+html body .historyArchiveTitle h2{color:#f0f0f0!important}
+html body .historyArchiveTitle .eyeb{color:#a9b3bd!important}
+html body .rankbar,html body .barTrack{background:#343b43!important}
+html body .rankbar i,html body .barFill{background:#e3b857!important}
+html body .trendSummaryBox{border-left:4px solid #dbb05a!important}
+html body .trendInsight{border-left:3px solid #e3b95b!important}
+html body :is(.historyYearMini,.yearCard,.historySide,.voivRef,.trendChart,.historyChart,.gusChart){background:#20252b!important}
+html body :is(.trendChart,.historyChart,.gusChart) svg text{fill:#b8c1cc}
+html body :is(.trendChart,.historyChart,.gusChart) svg line{stroke:#4b535e}
+html body :is(.reportDialog,.exportMenuList,.comparePickerMenu){color:#edf0f3}
+html body .reportDialog{background:#171b20!important;border:1px solid #454b53!important;color:#edf0f3!important}
+html body .reportItems{color:#e7e9ec!important}
+html body .reportFoot{background:#20252b!important;border-color:#363c43!important}
+/* Źródła, wewnętrzne informacje, inne komponenty */
+html body :is(.srcCardTitle,.mapCommentaryThesis,.mapCommentaryDiagnosis,.srcCardDesc,.srcLinks,.historyYearIdentity,.historyYearNote,.historyJobsSource,.historyArchiveTitle,.metric,.gusChartHelp,.gusChartNote){color:#dce1e5!important}
+html body :is(.srcCard,.srcGroup,.gusSource,.gusFresh,.srcFiles){border-color:#343b43!important}
+html body .techFooter{background:#161a1e!important;color:#a6b0ba!important;border-color:#333a42!important}
+/* Nawigacja, karty, ruch: subtelny efekt dashboardu */
+@media (prefers-reduced-motion:no-preference){
+ html body .kpi,html body .card,html body .gusCard,html body .srcCard{animation:darkCardReveal .33s ease both}
+ @keyframes darkCardReveal{from{opacity:.82;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+}
+@media (max-width:1050px){html body .mapwrap{min-height:460px}}
+@media (max-width:650px){
+ html body .header{padding:14px!important}
+ html body .shell{padding:12px!important}
+ html body .topgrid{gap:10px}
+ html body .kpi{padding:14px!important}
+ html body .kpi .value{font-size:24px}
+ html body .mapwrap{min-height:355px;padding:9px}
+ html body .cardhead{padding:15px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+/* Eksport i druk: zachowujemy istniejącą białą makietę wydruku. */
+@media print{
+ :root{color-scheme:light;--bg:#fff;--panel:#fff;--ink:#172b42;--muted:#626b78;--line:#dde3e9;--navy:#173d66;--blue:#2869a5;--accent:#2869a5;--soft:#f7f8fa}
+ html,html body,body{background:#fff!important;color:#172b42!important;color-scheme:light!important}
+ html body #printReport,html body #printReport *{color:initial;box-shadow:none}
+ html body :is(.header,.shell,.techFooter,.studioFrame){display:none!important}
+ html body #printReport{display:block!important}
+}
+
+
+/* Animacje Dark Analytics v2.1 (scalone, bez zmiany logiki) */
+/* Dark Analytics v2.1: dekoracyjne animacje, bez modyfikacji wartości danych */
+@keyframes bzReveal { from {opacity:.25;transform:translateY(10px)} to {opacity:1;transform:translateY(0)} }
+@keyframes bzBarGrow { from {transform:scaleX(.3)} to {transform:scaleX(1)} }
+@media screen and (prefers-reduced-motion:no-preference) {
+  .kpi,.topgrid>.kpi {animation:bzReveal .42s cubic-bezier(.2,.8,.2,1) both}
+  .topgrid>.kpi:nth-child(2) {animation-delay:.05s}
+  .topgrid>.kpi:nth-child(3) {animation-delay:.10s}
+  .topgrid>.kpi:nth-child(4) {animation-delay:.15s}
+  .topgrid>.kpi:nth-child(5) {animation-delay:.20s}
+  .topgrid>.kpi:nth-child(6) {animation-delay:.25s}
+  .card,.historyCard,.trendCard,.voivBenchmark,.mapInsights {transition:background-color .22s ease,border-color .22s ease,box-shadow .22s ease}
+  .btn,.actionBtn,.trendBtn,.trendModeBtn,.jobStatusTab,.historyTab,.historyJobsTab {transition:background-color .18s ease,color .18s ease,border-color .18s ease,transform .18s ease}
+  .btn:hover,.actionBtn:hover,.trendBtn:hover {transform:translateY(-1px)}
+  .btn:active,.actionBtn:active,.trendBtn:active {transform:translateY(0)}
+  .rankbar i,.barFill {transform-origin:left center;animation:bzBarGrow .65s ease-out both}
+}
+@media (prefers-reduced-motion:reduce){.kpi,.topgrid>.kpi,.rankbar i,.barFill{animation:none!important}.btn,.actionBtn,.trendBtn,.card{transition:none!important}}
+/* Zaimportowany motyw nie może ingerować w osobne okno wydruku */
+@media print {html,body{background:#fff!important;color:#1d1d1f!important}#printReport{display:block!important}}

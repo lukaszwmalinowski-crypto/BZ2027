@@ -199,3 +199,65 @@ pełnej macierzy Barometru Zawodów 2027 (168 grup x 36 jednostek).
 Nie są one lokalnym pomiarem umiejętności cyfrowych ani prognozą liczby etatów.
 Wykresy i komentarze można dodać do Moich materiałów, a regionalne wykresy
 są eksportowane do PPTX jako edytowalne obiekty.
+
+
+---
+
+## Instrukcja GitHub Pages
+
+# Obserwatorium Śląskie 2027 - Studio v21
+
+Panel analityczny przeznaczony do publikacji na GitHub Pages. Wersja bez logo WUP i bez wbudowanego edytora danych.
+
+1. Prześlij zawartość paczki do głównego folderu repozytorium.
+2. W Settings → Pages włącz publikację z gałęzi main i katalogu /(root).
+3. Otwórz adres GitHub Pages. Panel automatycznie pobiera `data/dane.json`.
+
+## Aktualizacja
+
+Zmiany danych liczbowych: podmień tylko plik `data/dane.json`. Sprawdź poprawność i okresy danych oraz opisy metodologiczne zapisane w HTML. Edytor danych jest osobnym narzędziem i nie znajduje się w tej paczce.
+
+## Interfejs v21
+
+Ekran główny zawiera wybór powiatu, przełącznik mapy i analizę zawodu. Eksport PDF/PPTX/XLSX znajduje się w menu „Eksportuj” w nagłówku. Wszystkie wcześniejsze sekcje analityczne zostały zachowane.
+
+Od v24 nie ma wyboru pliku w aplikacji. Dane na GitHub Pages ładują się automatycznie; szczegóły w `WAZNE_JAK_URUCHOMIC.md`.
+
+
+
+---
+
+## Ważne: uruchamianie
+
+# Studio v24 - automatyczne dane, bez wyboru pliku
+
+## GitHub Pages
+1. Wyślij całą zawartość archiwum na GitHub (nie sam `index.html`).
+2. W repozytorium muszą być `index.html`, `js/` oraz `data/dane.json`.
+3. Po otwarciu strony automatycznie jest pobierany `data/dane.json` bez używania pamięci cache.
+4. **Kolejna aktualizacja: edytuj tylko `data/dane.json` na GitHubie i zatwierdź Commit changes.** Po wdrożeniu GitHub Pages odśwież stronę.
+
+## Podgląd z komputera
+Możesz bezpośrednio otworzyć `index.html`; wykresy korzystają wtedy z wbudowanej, tylko do odczytu **migawki startowej**. Nie trzeba wskazywać pliku. Uwaga: lokalna migawka nie odświeża się po zmianie `data/dane.json` na GitHubie. Aktualne dane zobaczysz pod adresem GitHub Pages.
+
+## Gdy GitHub nie udostępni JSON
+Zamiast pustego panelu zostanie pokazana migawka startowa z widocznym ostrzeżeniem, że może być nieaktualna. Należy sprawdzić adres `.../data/dane.json` na opublikowanej stronie. Panel nigdy nie prosi o przesłanie pliku danych.
+
+## Edytor
+Edytor danych pozostaje osobnym narzędziem. Z panelu usunięto możliwość lokalnego importu danych powiatowych i pominięto zapisy localStorage, aby stare wartości nie przesłaniały aktualizacji z GitHuba.
+
+
+
+---
+
+## Historia zmian Dark Analytics v2.1
+
+Obserwatorium BZ2027 - Dark Analytics v2.1 (naprawa)
+
+Wersja przygotowana od oryginalnej paczki main(2), a nie od uszkodzonej v2.
+Poprawiono: ciemny CSS jest dołączony poza kodem JavaScript; w v2 trafił do napisu HTML w skrypcie.
+Dodano: lekkie animacje kart, słupków, przycisków oraz obsługę preferencji ograniczenia ruchu.
+Zachowano: wszystkie oryginalne pliki danych, skrypty i funkcje eksportu.
+Zmieniono identyfikator pamięci podręcznej PWA.
+Uwaga: jeżeli stary service worker wyświetla starą wersję, odśwież stronę z pominięciem cache lub usuń dane witryny.
+
